@@ -48,7 +48,7 @@ class Administrador {
 	
 	
 	
-	// Agregado de Nico y abel, testear porque no me convence.
+	
 	def int calificacionesRegistradas() {
 		return this.calificacionesDeServicios + (this.calificacionesDeLugares)
 	}
