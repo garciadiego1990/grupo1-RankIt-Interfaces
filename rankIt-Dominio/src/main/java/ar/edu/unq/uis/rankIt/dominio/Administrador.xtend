@@ -51,39 +51,5 @@ class Administrador {
 		lugares = lugares.filter[it|it.nombre != nombreLugar].toList
 	}
 
-	def int calificacionesRegistradas() {
-		return this.calificacionesDeServicios + (this.calificacionesDeLugares)
-	}
-
-	def int calificacionesDeServicios() {
-		var ret = 0
-		for (Publicacion p : this.servicios) {
-			ret += p.calificaciones.size
-		}
-		return ret
-	}
-
-	def int calificacionesDeLugares() {
-		var ret = 0
-		for (Publicacion p : this.lugares) {
-			ret += p.calificaciones.size
-		}
-		return ret
-	}
-
-	def int lugaresHabilitados() {
-		return lugares.filter[it|it.estaHabilitado].size
-	}
-
-	def int lugaresDeshabilitados() {
-		return lugares.filter[it|!it.estaHabilitado].size
-	}
-
-	def int serviciosHabilitados() {
-		return servicios.filter[it|it.estaHabilitado].size
-	}
-
-	def int serviciosDeshabilitados() {
-		return servicios.filter[it|!it.estaHabilitado].size
-	}
+	
 }
