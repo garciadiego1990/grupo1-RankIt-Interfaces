@@ -20,12 +20,19 @@ class AdministradorTest {
 		admin.agregarLugar("Parque Pereyra")
 		Assert.assertTrue(admin.getLugares.length == 1)
 	}
+	
+	@Test
+	def void testAgregarUsuario(){
+		Assert.assertTrue(admin.usuarios.length == 0)
+		admin.agregarUsuario("robertito")
+		Assert.assertTrue(admin.getUsuarios.length == 1)
+	}
  
 	@Test 
 	def void testEliminarServicio(){
 		admin.agregarServicio("Servicio Tecnico de PC")
 		admin.eliminarServicio("Servicio Tecnico de PC")
-		Assert.assertEquals(admin.servicios.length, 0)
+		Assert.assertEquals(admin.getServicios.length, 0)
 	}
 	
 	@Test 
@@ -33,7 +40,15 @@ class AdministradorTest {
 		admin.agregarLugar("Parque Pereyra")
 		Assert.assertTrue(admin.getLugares.length == 1)
 		admin.eliminarLugar("Parque Pereyra")
-		Assert.assertEquals(admin.lugares.length, 0)
+		Assert.assertEquals(admin.getLugares.length, 0)
+	}
+	
+	@Test 
+	def void testEliminarUsuario(){
+		admin.agregarUsuario("Robertito")
+		Assert.assertTrue(admin.getUsuarios.length == 1)
+		admin.eliminarUsuario("Robertito")
+		Assert.assertEquals(admin.getUsuarios.length, 0)
 	}
 	
 }

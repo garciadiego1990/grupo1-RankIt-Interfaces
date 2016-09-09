@@ -10,6 +10,7 @@ class Usuario {
 	Calendar fechaDeRegistro = Calendar.getInstance()
 	boolean estaActivo = false
 	boolean estaBaneado = false
+	Integer publicacionesOfensivas = 0
 	
 	
 	new() {
