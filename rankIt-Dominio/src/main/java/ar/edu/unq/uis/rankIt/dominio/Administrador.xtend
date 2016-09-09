@@ -17,14 +17,12 @@ class Administrador {
 	}
 
 	def void agregarServicio(String nombre) {
-		var servicio = new Publicacion
-		servicio.nombre = nombre
+		var servicio = new Publicacion(nombre)
 		servicios.add(servicio)
 	}
 
 	def void agregarLugar(String nombre) {
-		var lugar = new Publicacion
-		lugar.setNombre(nombre)
+		var lugar = new Publicacion(nombre)
 		lugares.add(lugar)
 	}
 

@@ -9,13 +9,14 @@ import java.util.ArrayList
 @Accessors
 class Publicacion {
 	String nombre 
-	boolean estaHabilitado = true // No se para que sirve este campo
+	boolean estaHabilitado = true
 	Calendar fechaDeRegistro = Calendar.getInstance()
 	List<Calificacion> calificaciones = new ArrayList<Calificacion>
  	
-	new() {
-	
+	new(String unNombre) {
+		nombre = unNombre
 	}
+	
 	
 	def getCalificaciones(){
 		calificaciones

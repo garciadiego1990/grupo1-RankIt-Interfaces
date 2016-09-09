@@ -11,6 +11,9 @@ class Calificacion {
 	String detalle
 	Usuario evaluador
 	
+	new() {
+	}
+	
 	def void calificar(Integer unaCalificacion){
 		puntaje = unaCalificacion
 	}

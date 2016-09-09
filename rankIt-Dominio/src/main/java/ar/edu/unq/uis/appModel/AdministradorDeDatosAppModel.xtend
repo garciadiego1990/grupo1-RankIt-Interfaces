@@ -4,8 +4,8 @@ import ar.edu.unq.uis.rankIt.dominio.Administrador
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 
 
-class AdministradorDeDatos {
-	Administrador admin 
+class AdministradorDeDatosAppModel {
+	Administrador admin = new Administrador
 	
 	def int calificacionesRegistradas() {
 		this.calificacionesDeServicios + (this.calificacionesDeLugares)

@@ -20,13 +20,14 @@ class AdministradorTest {
 		admin.agregarLugar("Parque Pereyra")
 		Assert.assertTrue(admin.getLugares.length == 1)
 	}
-	
+	/*
 	@Test
 	def void testAgregarUsuario(){
 		Assert.assertTrue(admin.usuarios.length == 0)
 		admin.agregarUsuario("robertito")
 		Assert.assertTrue(admin.getUsuarios.length == 1)
 	}
+	*/
  
 	@Test 
 	def void testEliminarServicio(){
