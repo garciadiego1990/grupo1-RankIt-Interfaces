@@ -35,11 +35,5 @@ class AdministradorDeDatosAppModel {
 		admin.lugares.filter[it|!it.estaHabilitado].size
 	}
 
-	def int serviciosHabilitados() {
-		admin.servicios.filter[it|it.estaHabilitado].size
-	}
 
-	def int serviciosDeshabilitados() {
-		return admin.servicios.filter[it|!it.estaHabilitado].size
-	}
 }

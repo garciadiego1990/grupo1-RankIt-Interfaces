@@ -15,39 +15,49 @@ class Administrador {
 		lugares = new ArrayList<Publicacion>
 		usuarios = new ArrayList<Usuario>
 	}
-
+	
+	// Métodos de servicios
 	def void agregarServicio(String nombre) {
-		var servicio = new Publicacion(nombre)
-		servicios.add(servicio)
+		lugares.add(new Publicacion(nombre))
+	}
+	
+	def int serviciosHabilitados() {
+		servicios.filter[it|it.estaHabilitado].size
 	}
 
+	def int serviciosDeshabilitados() {
+		servicios.filter[it|!it.estaHabilitado].size
+	}
+	
+	def void eliminarServicio(String nombreServicio) {
+		servicios = servicios.filter[it|it.nombre != nombreServicio].toList
+	}
+	
+	// Métodos de lugares
 	def void agregarLugar(String nombre) {
-		var lugar = new Publicacion(nombre)
-		lugares.add(lugar)
+		lugares.add(new Publicacion(nombre))
 	}
-
-	// Incompleto
+	
+	def void eliminarLugar(String nombreLugar) {
+		lugares = lugares.filter[it|it.nombre != nombreLugar].toList
+	}
+	
+	def int lugaresHabilitados() {
+		lugares.filter[it.estaHabilitado].size
+	}
+	
+	def int lugaresDeshabilitados() {
+		lugares.filter[!it.estaHabilitado].size
+	}
+	
+	
+	
+	// Métodos de usuario
 	def void agregarUsuario(String nombre) {
-		if (!usuarios.exists[it|it.nombre == nombre]) {
-			var usuario = new Usuario
-			usuario.nombre = nombre
-			usuarios.add(usuario)
-		} else {
-			// Tendria que tirar una excepcion o algo
-		}
+		usuarios.add(new Usuario(nombre))
 	}
 
 	def void eliminarUsuario(String usuario) {
 		usuarios = usuarios.filter[it|it.nombre != nombre].toList
 	}
-
-	def void eliminarServicio(String nombreServicio) {
-		servicios = servicios.filter[it|it.nombre != nombreServicio].toList
-	}
-
-	def void eliminarLugar(String nombreLugar) {
-		lugares = lugares.filter[it|it.nombre != nombreLugar].toList
-	}
-
-	
 }

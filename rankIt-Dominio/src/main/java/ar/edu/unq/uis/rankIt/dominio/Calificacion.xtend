@@ -14,7 +14,8 @@ class Calificacion {
 	new() {
 	}
 	
-	def void calificar(Integer unaCalificacion){
+	def void calificar(Integer unaCalificacion, Usuario unEvaluador){
 		puntaje = unaCalificacion
+		evaluador = unEvaluador
 	}
 }

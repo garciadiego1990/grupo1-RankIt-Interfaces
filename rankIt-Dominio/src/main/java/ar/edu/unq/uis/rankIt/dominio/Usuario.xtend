@@ -13,11 +13,15 @@ class Usuario {
 	Integer publicacionesOfensivas = 0
 	
 	
-	new() {
-		
+	new(String unNombre) {
+		nombre = unNombre		
 	} 
 	
 	def void banear(){
 		estaBaneado = true
+	}
+	
+	def void blanquearContrasenia(){
+		contrasenia = "123"
 	}
 }
