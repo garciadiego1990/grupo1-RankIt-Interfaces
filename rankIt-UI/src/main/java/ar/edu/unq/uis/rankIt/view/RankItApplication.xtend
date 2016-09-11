@@ -7,6 +7,7 @@ import ar.edu.unq.uis.rankIt.dominio.Administrador
 class RankItApplication extends Application {
 	
 	override protected createMainWindow() {
+		//MenuRankItAppModel
 		val model = new MenuRankItAppModel => [
 			admin = new Administrador()
 		]
