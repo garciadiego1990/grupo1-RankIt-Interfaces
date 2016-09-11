@@ -1,6 +1,6 @@
 package ar.edu.unq.uis.rankIt.view
 
-import ar.edu.unq.uis.appModel.RankItAppModel
+import ar.edu.unq.uis.appModel.MenuRankItAppModel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
@@ -10,9 +10,12 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 
-class RankItComponentizadoWindow extends SimpleWindow<RankItAppModel> {
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
+
+class RankItComponentizadoWindow extends SimpleWindow<MenuRankItAppModel> {
 	
-	new(WindowOwner parent, RankItAppModel model) {
+	new(WindowOwner parent, MenuRankItAppModel model) {
 		super(parent, model)
 	}
 	
@@ -27,51 +30,57 @@ class RankItComponentizadoWindow extends SimpleWindow<RankItAppModel> {
 	override createMainTemplate(Panel mainPanel) {
 		this.title = "Rank-It"
 		
-		new Titulo(mainPanel, "Rank/It! Modulo de administracion", 20)
+		new Titulo(mainPanel, "Rank-It! Modulo de administracion", 20)
 		mainPanel.layout = new VerticalLayout
 
 		
 		new Label(mainPanel) => [
-			text = "Desde este módulo vas a poder gestionar los datos y opciones de la aplicacion"
-			setHeight(50)
-		]
-		new Label(mainPanel)=> [
-			text = "Como sos una persona de confianza vas a tener acceso a todo!"
-			setHeight(50)
-		]
-		new Label(mainPanel)=> [
-			text = "Siempre acordate: 'con un gran poder viene una gran responsabilidad'"
-			setHeight(50)
+			text = 	"\nDesde este módulo vas a poder gestionar los datos y opciones de la aplicación \n\n"
+				   +"Como sos una persona de confianza vas a tener acceso a todo! \n\n"
+				   +"Siempre acordate: \"con un gran poder viene una gran responsabilidad\"\n"
+			setHeight(120)
 		]
 
-		//Agregamos el contenido
+		//Se crea un nuevo panel que contenera los botones y se establece con un layout horizontal
 		val Panel contentPanel = new Panel(mainPanel)
 		contentPanel.layout = new HorizontalLayout()
-		this.crearListadoDeAdmins(contentPanel)
+		
+		//Muestra en pantalla los botones de administracion
+		this.crearBotonesDeAdmins(contentPanel)
 	}
 	
-	def crearListadoDeAdmins(Panel owner) {
-		//val Panel panelDeListadoDeMaterias = new Panel(owner)
-			
-		new Button(owner) =>[
+	
+	def void crearBotonesDeAdmins(Panel owner) {
+		
+		var panelBotonUsuarios = new Panel(owner)
+		var panelBotonCalificaciones = new Panel(owner)
+		var panelBotonServicios = new Panel(owner)		
+		var panelBotonLugares = new Panel(owner)
+
+		new Button(panelBotonUsuarios) =>[
 			caption = "Adm. Usuarios"
-			//onClick [ | new NuevaMateriaWindow(this, this.modelObject.carrera).open ]
+			//onClick [ |  ]
 		]
+		new Label(panelBotonUsuarios).value <=> "estadisticasUsuarios"
 		
-		new Button(owner) =>[
+		
+		new Button(panelBotonCalificaciones) =>[
 			caption = "Adm. Calificaciones"
-			//onClick [ | new NuevaMateriaWindow(this, this.modelObject.carrera).open ]
+			//onClick [ |  ]
 		] 
+		new Label(panelBotonCalificaciones).value <=> "estadisticasCalificaciones"
 		
-		new Button(owner) =>[
+		new Button(panelBotonServicios) =>[
 			caption = "Adm. Servicios"
-			//onClick [ | new NuevaMateriaWindow(this, this.modelObject.carrera).open ]
+			//onClick [ |  ]
 		] 
+		new Label(panelBotonServicios).value <=> "estadisticasServicios"
 		
-		new Button(owner) =>[
+		new Button(panelBotonLugares) =>[
 			caption = "Adm. Lugares"
-			//onClick [ | new NuevaMateriaWindow(this, this.modelObject.carrera).open ]
-		]  
+			//onClick [ |  ]
+		]
+		new Label(panelBotonLugares).value <=> "estadisticasLugares"
 	}
 	
 }
