@@ -11,7 +11,7 @@ class RankItApplication extends Application {
 			admin = new Administrador()
 		]
 		
-		new RankItComponentizadoWindow(this, model) 
+		new MenuWindow(this, model) 
 	}
 	
 	def static void main(String[] args) {

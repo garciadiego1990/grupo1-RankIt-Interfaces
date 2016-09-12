@@ -86,12 +86,30 @@ class Administrador {
 //-------------------
 
 
-	def void agregarUsuario(String nombre) {
-		usuarios.add(new Usuario(nombre))
+//	def void agregarUsuario(String nombre) {
+//		usuarios.add(new Usuario(nombre))
+//	}
+//
+//	def void eliminarUsuario(String usuario) {
+//		usuarios = usuarios.filter[it|it.nombre != nombre].toList
+//	}
+
+	/**
+	 * Dado un {@link Usuario} se lo agrega a la lista de usuarios de RankIt.
+	 * 
+	 * @param usuario - Un nuevo {@link Usuario} que será agregado a la base de datos de la aplicación.
+	 */
+	def void agregarUsuario(Usuario usuario) {
+		usuarios.add(usuario)
 	}
 
-	def void eliminarUsuario(String usuario) {
-		usuarios = usuarios.filter[it|it.nombre != nombre].toList
+	/**
+	 * Dado un {@link Usuario} se lo elimina de la lista de usuarios de RankIt.
+	 * 
+	 * @param usuario - Un nuevo {@link Usuario} que será eliminado a la base de datos de la aplicación.
+	 */
+	def void eliminarUsuario(Usuario usuario) {
+		usuarios = usuarios.filter[it|it.nombre != usuario.nombre].toList
 	}
 	
 	/**
