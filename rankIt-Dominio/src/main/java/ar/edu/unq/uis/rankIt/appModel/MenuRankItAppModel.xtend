@@ -1,4 +1,4 @@
-package ar.edu.unq.uis.appModel
+package ar.edu.unq.uis.rankIt.appModel
 
 import ar.edu.unq.uis.rankIt.dominio.Administrador
 import org.eclipse.xtend.lib.annotations.Accessors
