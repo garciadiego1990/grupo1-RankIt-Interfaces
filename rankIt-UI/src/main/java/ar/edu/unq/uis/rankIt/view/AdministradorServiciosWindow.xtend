@@ -1,6 +1,5 @@
 package ar.edu.unq.uis.rankIt.view
 
-import ar.edu.unq.uis.appModel.AdministrarServiciosRankItAppModel
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import ar.edu.unq.uis.rankIt.view.components.Titulo
@@ -17,11 +16,11 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import ar.edu.unq.uis.rankIt.appModel.AdministradorServiciosAppModel
 
-class AdministrarServiciosWindow extends SimpleWindow<AdministrarServiciosRankItAppModel> {
-	new(WindowOwner owner, AdministrarServiciosRankItAppModel model) {
+class AdministrarServiciosWindow extends SimpleWindow<AdministradorServiciosAppModel> {
+	new(WindowOwner owner, AdministradorServiciosAppModel model) {
 		super(owner, model)
 		this.title = "Rank-IT -> Adm Servicios"
 	}

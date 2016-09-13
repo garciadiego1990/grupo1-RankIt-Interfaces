@@ -7,28 +7,22 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.tables.Table
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.widgets.GroupPanel
 import org.uqbar.arena.layout.VerticalLayout
-
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
-import ar.edu.unq.uis.appModel.AdministrarUsuariosRankItAppModel
 import java.awt.Color
+import ar.edu.unq.uis.rankIt.appModel.AdministradorUsuariosAppModel
 
-/**
- * Ventana de administración de {@link Usuario}s de la aplicación
- * 
- * @author Abel Espínola
- */
-class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAppModel> {
+
+class AdministrarUsuariosWindow extends SimpleWindow<AdministradorUsuariosAppModel> {
 	
-	new(WindowOwner owner, AdministrarUsuariosRankItAppModel model) {
+	new(WindowOwner owner, AdministradorUsuariosAppModel model) {
 		super(owner, model)
 		this.title = "RankIt -> Admin. Usuarios"
 	}

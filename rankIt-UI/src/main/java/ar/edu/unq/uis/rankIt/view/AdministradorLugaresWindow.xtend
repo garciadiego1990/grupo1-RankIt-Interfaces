@@ -7,21 +7,19 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
-//import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.tables.Table
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.widgets.GroupPanel
 import org.uqbar.arena.layout.VerticalLayout
-
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
-import ar.edu.unq.uis.appModel.AdministrarLugaresRankItAppModel
+import ar.edu.unq.uis.rankIt.appModel.AdministradorLugaresAppModel
 
-class AdministrarLugaresWindow extends SimpleWindow<AdministrarLugaresRankItAppModel> {
-	new(WindowOwner owner, AdministrarLugaresRankItAppModel model) {
+class AdministrarLugaresWindow extends SimpleWindow<AdministradorLugaresAppModel> {
+	new(WindowOwner owner, AdministradorLugaresAppModel model) {
 		super(owner, model)
 		this.title = "Rank-IT -> Adm Lugares"
 	}
