@@ -18,7 +18,7 @@ import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import ar.edu.unq.uis.rankIt.appModel.AdministradorLugaresAppModel
 
-class AdministrarLugaresWindow extends SimpleWindow<AdministradorLugaresAppModel> {
+class AdministradorLugaresWindow extends SimpleWindow<AdministradorLugaresAppModel> {
 	new(WindowOwner owner, AdministradorLugaresAppModel model) {
 		super(owner, model)
 		this.title = "Rank-IT -> Adm Lugares"

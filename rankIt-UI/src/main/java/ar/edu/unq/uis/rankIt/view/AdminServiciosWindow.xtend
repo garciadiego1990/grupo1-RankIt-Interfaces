@@ -1,6 +1,5 @@
 package ar.edu.unq.uis.rankIt.view
 
-import ar.edu.unq.uis.rankIt.appModel.AdminServiciosAppModel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
@@ -19,10 +18,11 @@ import ar.edu.unq.uis.rankIt.view.components.Titulo
 import ar.edu.unq.uis.rankIt.view.components.LabeledTextBox
 import ar.edu.unq.uis.rankIt.view.components.LabeledCheckBox
 import ar.edu.unq.uis.rankIt.view.components.Labeled
+import ar.edu.unq.uis.rankIt.appModel.AdministradorServiciosAppModel
 
-class AdminServiciosWindow extends SimpleWindow<AdminServiciosAppModel> {
+class AdminServiciosWindow extends SimpleWindow<AdministradorServiciosAppModel> {
 	
-	new(WindowOwner parent, AdminServiciosAppModel model) {
+	new(WindowOwner parent, AdministradorServiciosAppModel model) {
 		super(parent, model)
 	}
 	override protected addActions(Panel actionsPanel) {}

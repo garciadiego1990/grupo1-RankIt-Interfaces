@@ -20,7 +20,7 @@ import java.awt.Color
 import ar.edu.unq.uis.rankIt.appModel.AdministradorUsuariosAppModel
 
 
-class AdministrarUsuariosWindow extends SimpleWindow<AdministradorUsuariosAppModel> {
+class AdministradorUsuariosWindow extends SimpleWindow<AdministradorUsuariosAppModel> {
 	
 	new(WindowOwner owner, AdministradorUsuariosAppModel model) {
 		super(owner, model)

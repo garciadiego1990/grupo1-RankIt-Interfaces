@@ -19,7 +19,7 @@ import org.uqbar.arena.windows.WindowOwner
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.appModel.AdministradorServiciosAppModel
 
-class AdministrarServiciosWindow extends SimpleWindow<AdministradorServiciosAppModel> {
+class AdministradorServiciosWindow extends SimpleWindow<AdministradorServiciosAppModel> {
 	new(WindowOwner owner, AdministradorServiciosAppModel model) {
 		super(owner, model)
 		this.title = "Rank-IT -> Adm Servicios"
