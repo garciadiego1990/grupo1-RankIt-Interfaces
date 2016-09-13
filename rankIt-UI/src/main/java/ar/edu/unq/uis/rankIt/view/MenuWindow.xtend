@@ -79,11 +79,131 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		
 		new Button(botonAdminPanel) => [
 			caption = "Adm. Usuarios"
-			width = 100
+			//width = 100
 			setAsDefault
 			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
 		]
-		// seguir con estoBoton
+		
+		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
+		datosDeUsuariosPanel.layout = new ColumnLayout(4)
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		new Label(datosDeUsuariosPanel) => [
+			text = ("/")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+	}
+	
+	def void crearBotonAdminCalificaciones(Panel owner) {
+		val Panel botonAdminPanel = new Panel(owner)
+		
+		new Button(botonAdminPanel) => [
+			caption = "Adm. Usuarios"
+			//width = 100
+			setAsDefault
+			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
+		]
+		
+		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
+		datosDeUsuariosPanel.layout = new ColumnLayout(4)
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		new Label(datosDeUsuariosPanel) => [
+			text = ("/")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+	}
+	
+	def void crearBotonAdminServicios(Panel owner) {
+		val Panel botonAdminPanel = new Panel(owner)
+		
+		new Button(botonAdminPanel) => [
+			caption = "Adm. Usuarios"
+			//width = 100
+			setAsDefault
+			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
+		]
+		
+		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
+		datosDeUsuariosPanel.layout = new ColumnLayout(4)
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		new Label(datosDeUsuariosPanel) => [
+			text = ("/")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+	}
+	
+	def void crearBotonAdminLugares(Panel owner) {
+		val Panel botonAdminPanel = new Panel(owner)
+		
+		new Button(botonAdminPanel) => [
+			caption = "Adm. Usuarios"
+			//width = 100
+			setAsDefault
+			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
+		]
+		
+		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
+		datosDeUsuariosPanel.layout = new ColumnLayout(4)
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		new Label(datosDeUsuariosPanel) => [
+			text = ("/")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
+		
+		new Label(datosDeUsuariosPanel) => [
+			//bindValueToProperty("?")
+			//width = 135	
+		]
 	}
 	
 	
