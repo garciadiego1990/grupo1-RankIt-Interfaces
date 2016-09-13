@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
-class AdminServiciosAppModel {
+class AdministradorServiciosAppModel {
 	AdministradorDePublicaciones admin
 	Publicacion publicacionSeleccionada
 	int serviciosInscriptos
@@ -34,8 +34,34 @@ class AdminServiciosAppModel {
 	def setServiciosHabilitados() {
 		serviciosHabilitados = admin.serviciosHabilitados()
 	}
-	
+	/* 
 	def int getServiciosHabilitados() {
 		return serviciosHabilitados
 	}
+	
+	def eliminarServicioSeleccionado(){
+		admin.eliminarServicio(nombreDeServicioBuscado)
+	}
+	
+	def int getServiciosHabilitados() {
+		admin.serviciosHabilitados
+	}
+	
+	def int getServiciosTotales() {
+		admin.serviciosTotales
+	}
+	
+	def int getServiciosDeshabilitados(){
+		admin.serviciosDeshabilitados
+	}
+	
+	def getRatingPromedio(){
+		servicioSeleccionado.ratingPromedio
+	}
+	
+	def getCantidadDeEvaluaciones(){
+		servicioSeleccionado.cantidadDeEvaluaciones
+	}
+	* 
+	*/
 }

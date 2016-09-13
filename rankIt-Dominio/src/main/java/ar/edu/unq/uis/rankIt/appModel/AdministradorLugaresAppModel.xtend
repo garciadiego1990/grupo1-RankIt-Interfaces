@@ -1,20 +1,20 @@
-package ar.edu.unq.uis.appModel
+package ar.edu.unq.uis.rankIt.appModel
 
-import ar.edu.unq.uis.rankIt.dominio.Administrador
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 
 @Accessors
 @Observable
 class AdministrarLugaresRankItAppModel {
-	var Administrador admin = new Administrador()
-	var Publicacion lugarSeleccionado
-	var String nombreDeLugarBuscado
 	
-	new(){}
+	AdministradorDePublicaciones admin 
+	Publicacion lugarSeleccionado
+	String nombreDeLugarBuscado
 	
-	def eliminarLugarSeleccionado(){
+	/* 
+	def eliminarLugarSeleccionado() {
 		admin.eliminarLugar(nombreDeLugarBuscado)
 	}
 	
@@ -37,4 +37,6 @@ class AdministrarLugaresRankItAppModel {
 	def getCantidadDeEvaluaciones(){
 		lugarSeleccionado.cantidadDeEvaluaciones
 	}
+	* 
+	*/
 }
