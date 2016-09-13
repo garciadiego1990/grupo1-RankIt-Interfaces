@@ -8,7 +8,7 @@ class RankItApplication extends Application {
 	
 	override protected createMainWindow() {
 		val model = new MenuRankItAppModel => [
-			admin = new Administrador()
+			administrador = new Administrador()
 		]
 		
 		new MenuWindow(this, model) 

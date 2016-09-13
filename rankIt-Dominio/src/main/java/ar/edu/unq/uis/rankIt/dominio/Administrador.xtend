@@ -85,19 +85,11 @@ class Administrador {
 // Métodos de usuario
 //-------------------
 
-
-//	def void agregarUsuario(String nombre) {
-//		usuarios.add(new Usuario(nombre))
-//	}
-//
-//	def void eliminarUsuario(String usuario) {
-//		usuarios = usuarios.filter[it|it.nombre != nombre].toList
-//	}
-
 	/**
 	 * Dado un {@link Usuario} se lo agrega a la lista de usuarios de RankIt.
 	 * 
 	 * @param usuario - Un nuevo {@link Usuario} que será agregado a la base de datos de la aplicación.
+	 * @author Abel Espínola
 	 */
 	def void agregarUsuario(Usuario usuario) {
 		usuarios.add(usuario)
@@ -107,6 +99,7 @@ class Administrador {
 	 * Dado un {@link Usuario} se lo elimina de la lista de usuarios de RankIt.
 	 * 
 	 * @param usuario - Un nuevo {@link Usuario} que será eliminado a la base de datos de la aplicación.
+	 * @author Abel Espínola
 	 */
 	def void eliminarUsuario(Usuario usuario) {
 		usuarios = usuarios.filter[it|it.nombre != usuario.nombre].toList
@@ -114,6 +107,8 @@ class Administrador {
 	
 	/**
 	 * Se responde con la cantidad de {@link Usuario}s totales en RankIt
+	 * 
+	 * @author Abel Espínola
 	 */
 	 def Integer usuariosTotales() {
 	 	usuarios.size
@@ -121,6 +116,8 @@ class Administrador {
 	
 	/**
 	 * Se responde con la cantidad de {@link Usuario}s que están activos en RankIt.
+	 * 
+	 * @author Abel Espínola
 	 */
 	def Integer usuariosActivos() {
 		usuarios.filter[it.estaActivo].size
@@ -128,6 +125,8 @@ class Administrador {
 	
 	/**
 	 * Se responde con la cantidad de {@link Usuario}s que están inactivos en RankIt.
+	 * 
+	 * @author Abel Espínola
 	 */
 	def Integer usuariosInactivos() {
 		usuarios.filter[!it.estaActivo].size
@@ -135,6 +134,8 @@ class Administrador {
 	
 	/**
 	 * Se responde con la cantidad de {@link Usuario}s que están baneados en RankIt.
+	 * 
+	 * @author Abel Espínola
 	 */
 	def Integer usuariosBaneados() {
 		usuarios.filter[it.estaBaneado].size

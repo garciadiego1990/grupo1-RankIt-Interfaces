@@ -19,7 +19,13 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import ar.edu.unq.uis.appModel.AdministrarUsuariosRankItAppModel
+import java.awt.Color
 
+/**
+ * Ventana de administración de {@link Usuario}s de la aplicación
+ * 
+ * @author Abel Espínola
+ */
 class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAppModel> {
 	
 	new(WindowOwner owner, AdministrarUsuariosRankItAppModel model) {
@@ -38,6 +44,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 	 * se ejecutará en lugar de este
 	 * 
 	 * @param mainPanel - {@link Panel} principal de la ventana
+	 * @author Abel Espínola
 	 */
 	override protected createMainTemplate(Panel mainPanel) {
 		this.createFormPanel(mainPanel)
@@ -49,11 +56,12 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 	 * en RankIt.
 	 * 
 	 * @param mainPanel - {@link Panel} principal de la ventana
+	 * @author Abel Espínola
 	 */
 	override protected createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
 		
-		panelResumenUsuarios(mainPanel)
+		this.panelResumenUsuarios(mainPanel)
 		
 		new Titulo(mainPanel, "Usuarios")
 		
@@ -68,6 +76,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 	 *  de la aplicación.
 	 * 
 	 * @param mainPanel - {@link Panel} principal de la ventana.
+	 * @author Abel Espínola
 	 */
 	def panelResumenUsuarios(Panel mainPanel) {
 		
@@ -76,24 +85,32 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 			it.layout = new HorizontalLayout
 		]
 
+		new Label(panelResumenEstadisticas).text = "Usuarios Registrados: "
 		new Label(panelResumenEstadisticas) => [
-			it.text = "Usuarios Registrados: 10"
-			it.width = 150
+			it.foreground = Color.BLUE
+			it.value <=> "cantidadUsuariosRegistrados"
+//			it.width = 160
 		]
 		
+		new Label(panelResumenEstadisticas).text = "Activos: "
 		new Label(panelResumenEstadisticas) => [
-			it.text = "Activos: 5"
-			it.width = 120
+			it.foreground = Color.BLUE
+			it.value <=> "cantidadUsuariosActivos"
+//			it.width = 120
 		]
 		
+		new Label(panelResumenEstadisticas).text = "Inactivos: "
 		new Label(panelResumenEstadisticas) => [
-			it.text = "Inactivos: 5"
-			it.width = 120
+			it.foreground = Color.RED
+			it.value <=> "cantidadUsuariosInactivos"
+//			it.width = 120
 		]
 		
+		new Label(panelResumenEstadisticas).text = "Baneados: "
 		new Label(panelResumenEstadisticas) => [
-			it.text = "Baneados: 2"
-			it.width = 120
+			it.foreground = Color.RED
+			it.value <=> "cantidadUsuariosBaneados"
+//			it.width = 120
 		]
 		
 	}
@@ -103,6 +120,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 	 * {@link Panel} que mostrará los elementos de búsqueda de la aplicación.
 	 * 
 	 * @param ownerPanel - {@link Panel} principal de la ventana.
+	 * @author Abel Espínola
 	 */
 	def crearPanelDeBusqueda(Panel ownerPanel) {
 		val panelBusqueda = new Panel(ownerPanel)
@@ -130,6 +148,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 	 * {@link Panel} que contendrá toda la funcionalidad para administrar {@link Usuario}s.
 	 * 
 	 * @param ownerPanel - {@link Panel} principal de la ventana
+	 * @author Abel Espínola
 	 */
 	def crearPanelAdministracionUsuarios(Panel ownerPanel) {
 		val panelAdministracion = new Panel(ownerPanel)
@@ -144,41 +163,49 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 	 * {@link Panel} que mostrará la grilla donde se mostrará los {@link Usuario}s de la aplicación.
 	 * 
 	 * @param ownerPanel - {@link Panel} de administración.
+	 * @author Abel Espínola
 	 */
 	def crearPanelGrilla(Panel ownerPanel) {
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 		
 		val tablaUsuarios = new Table(panelAdministracionGrilla, Usuario) => [
+			it.items <=> "usuariosRegistrados"
+			it.value <=> "usuarioSeleccionado"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Fecha de registro"
+			it.bindContentsToProperty("fechaDeRegistro")
 //			it.weight = 115
 			it.fixedSize = 120
 		]
 
 		new Column(tablaUsuarios) => [
 			it.title = "Nombre"
+			it.bindContentsToProperty("nombre")
 //			it.weight = 90
 			it.fixedSize = 100
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Activo"
+			it.bindContentsToProperty("estaActivo")
 //			it.weight = 60
 			it.fixedSize = 60
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Baneado"
+			it.bindContentsToProperty("estaBaneado")
 //			it.weight = 60
 			it.fixedSize = 60
 		]
 		
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
+			it.onClick [| modelObject.crearNuevoUsuario()]
 		]
 	}
 	
@@ -187,6 +214,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 	 * {@link Panel} que mostrará los elementos para editar {@link Usuario}s de la aplicación.
 	 * 
 	 * @param ownerPanel - {@link Panel} de administración.
+	 * @author Abel Espínola
 	 */
 	def crearPanelEdicion(Panel administracionPanel) {
 		val panelAdministracionEdicion = new Panel(administracionPanel)
@@ -200,7 +228,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 			]
 			
 			new Label(it) => [
-				text = "teffy"
+				value <=> "nombreDeUsuarioSeleccionado"
 				fontSize = 14
 			]
 				
@@ -213,6 +241,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		]
 		
 		new TextBox(panelAdministracionEdicion) => [
+			it.value <=> "fechaDeRegistroUsuarioSeleccionado"
 			it.width = 200
 		]
 		
@@ -246,6 +275,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Revisar calificaciones"
+//			it.onClick [| ]
 			it.width = 50//No me lo está tomando
 		]
 

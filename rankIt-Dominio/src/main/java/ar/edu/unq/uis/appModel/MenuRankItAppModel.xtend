@@ -11,13 +11,13 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class MenuRankItAppModel {
 	
-	var Administrador admin
+	var Administrador administrador
 	
 	new() {
-		this.admin = new Administrador()
+		this.administrador = new Administrador()
 	}
 	
-	
+
 	/**
 	 * Se responde con las estadisticas de {@link Usuario}s de RankIt.
 	 * El valor retornado está compuesto por tres valores numericos:
@@ -28,7 +28,7 @@ class MenuRankItAppModel {
 	 * El valor retonado posee el formato de texto " <activos> / <total> (<baneados>)"
 	 */
 	def String getEstadisticasUsuarios() {
-		this.admin.usuariosActivos+" / "+this.admin.usuariosTotales+" ( "+this.admin.usuariosBaneados+" )"
+		this.administrador.usuariosActivos+" / "+this.administrador.usuariosTotales+" ( "+this.administrador.usuariosBaneados+" )"
 	}
 	
 	
@@ -52,7 +52,7 @@ TODO * TODO TODO TODO TODO
 	 * El valor retonado posee el formato de texto " <habilitados> / <total> "
 	 */
 	def String getEstadisticasServicios() {
-		this.admin.serviciosHabilitados+" / "+this.admin.serviciosTotales
+		this.administrador.serviciosHabilitados+" / "+this.administrador.serviciosTotales
 	}
 	
 	/**
@@ -64,7 +64,7 @@ TODO * TODO TODO TODO TODO
 	 * El valor retonado posee el formato de texto " <habilitados> / <total> "
 	 */
 	def String getEstadisticasLugares() {
-		this.admin.lugaresHabilitados+" / "+this.admin.lugaresTotales
+		this.administrador.lugaresHabilitados+" / "+this.administrador.lugaresTotales
 	}
 	
 }

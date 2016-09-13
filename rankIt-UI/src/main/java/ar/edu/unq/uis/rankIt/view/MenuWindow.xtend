@@ -68,7 +68,11 @@ class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 
 		new Button(panelBotonUsuarios) =>[
 			it.caption = "Adm. Usuarios"
-			it.onClick [ | new AdministrarUsuariosWindow(this, new AdministrarUsuariosRankItAppModel).open ]
+			val model = new AdministrarUsuariosRankItAppModel()
+			
+//			model.getAdministrador() = this.modelObject.administrador
+	
+			it.onClick [ | new AdministrarUsuariosWindow(this, model).open ]
 			it.width = anchoLabelBoton
 		]
 		
