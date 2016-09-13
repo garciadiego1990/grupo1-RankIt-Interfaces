@@ -1,6 +1,6 @@
 package ar.edu.unq.uis.rankIt.dominio
 
-import java.util.Calendar
+//import java.util.Calendar
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import org.joda.time.DateTime

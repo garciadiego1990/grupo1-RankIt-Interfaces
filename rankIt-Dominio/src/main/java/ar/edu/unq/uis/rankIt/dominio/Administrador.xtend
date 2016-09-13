@@ -8,14 +8,11 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class Administrador {
-	List<Publicacion> servicios
-	List<Publicacion> lugares
-	List<Usuario> usuarios
+	List<Publicacion> servicios = new ArrayList<Publicacion>
+	List<Publicacion> lugares = new ArrayList<Publicacion>
+	List<Usuario> usuarios = new ArrayList<Usuario>
 
 	new() {
-		servicios = new ArrayList<Publicacion>
-		lugares = new ArrayList<Publicacion>
-		usuarios = new ArrayList<Usuario>
 	}
 	
 
@@ -54,8 +51,8 @@ class Administrador {
 //------------------- 
 
 
-	def void agregarLugar(String nombre) {
-		lugares.add(new Publicacion(nombre))
+	def void agregarLugar(Publicacion p) {
+		lugares.add(p)
 	}
 	
 	def void eliminarLugar(String nombreLugar) {

@@ -10,12 +10,14 @@ class Calificacion {
 	boolean esOfensiva
 	String detalle
 	Usuario evaluador
+	Publicacion evaluado
 	
 	new() {
 	}
 	
-	def void calificar(Integer unaCalificacion, Usuario unEvaluador){
+	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion){
 		puntaje = unaCalificacion
 		evaluador = unEvaluador
+		evaluado = unaPublicacion
 	}
 }

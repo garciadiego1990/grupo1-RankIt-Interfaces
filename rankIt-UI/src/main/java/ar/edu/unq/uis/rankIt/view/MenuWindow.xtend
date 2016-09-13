@@ -11,6 +11,7 @@ import org.uqbar.arena.widgets.Label
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.unq.uis.appModel.AdministrarUsuariosRankItAppModel
+import ar.edu.unq.uis.appModel.AdministrarLugaresRankItAppModel
 
 class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 	
@@ -101,6 +102,7 @@ class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 		
 		new Button(panelBotonLugares) =>[
 			it.caption = "Adm. Lugares"
+			it.onClick [ | new AdministrarLugaresWindow(this, new AdministrarLugaresRankItAppModel).open ]
 			//onClick [ |  ]
 			it.width = anchoLabelBoton
 		]

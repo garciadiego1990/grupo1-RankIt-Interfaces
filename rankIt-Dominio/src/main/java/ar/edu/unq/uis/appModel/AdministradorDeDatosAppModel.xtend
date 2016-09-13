@@ -3,7 +3,7 @@ package ar.edu.unq.uis.appModel
 import ar.edu.unq.uis.rankIt.dominio.Administrador
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 
-
+// Esta clase se queda o vuela??
 class AdministradorDeDatosAppModel {
 	Administrador admin = new Administrador
 	
