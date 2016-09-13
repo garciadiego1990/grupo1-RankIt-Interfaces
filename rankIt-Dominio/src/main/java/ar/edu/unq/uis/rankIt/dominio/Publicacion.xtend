@@ -1,19 +1,11 @@
 package ar.edu.unq.uis.rankIt.dominio
 
-<<<<<<< HEAD
-import java.util.Calendar
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
-=======
-
->>>>>>> nicolas
 import java.util.List
 import java.util.ArrayList
 import java.util.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
-@Observable
 @Accessors
 @Observable
 class Publicacion {
@@ -22,12 +14,6 @@ class Publicacion {
 	Date fechaDeRegistro
 	List<Calificacion> calificaciones
  	
-	new(String nombre) {
-		estaHabilitado = false
-		fechaDeRegistro = new Date
-		calificaciones = new ArrayList<Calificacion>
-		this.nombre = nombre
-	}
 	
 	new() {
 		estaHabilitado = false
@@ -50,7 +36,7 @@ class Publicacion {
 		this.calificaciones.remove(c)
 	} 
 	
-<<<<<<< HEAD
+
 	def Integer cantidadDeEvaluaciones(){
 		calificaciones.size
 	}
@@ -63,6 +49,4 @@ class Publicacion {
 	return ret/cantidadDeEvaluaciones 
 	}
 	 
-=======
->>>>>>> nicolas
 }
