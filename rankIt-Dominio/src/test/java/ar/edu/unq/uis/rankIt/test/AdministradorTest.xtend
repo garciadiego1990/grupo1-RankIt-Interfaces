@@ -43,7 +43,7 @@ class AdministradorTest {
 		admin.eliminarLugar("Parque Pereyra")
 		Assert.assertEquals(admin.getLugares.length, 0)
 	}
-	
+/* 	
 	@Test 
 	def void testEliminarUsuario(){
 		admin.agregarUsuario("Robertito")
@@ -51,5 +51,5 @@ class AdministradorTest {
 		admin.eliminarUsuario("Robertito")
 		Assert.assertEquals(admin.getUsuarios.length, 0)
 	}
-	
+*/	
 }
