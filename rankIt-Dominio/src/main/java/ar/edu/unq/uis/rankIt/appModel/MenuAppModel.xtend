@@ -4,9 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 
-/** 
- * Clase AppModel para la vista del menú de RankIt, módulo de administador.
- * */
+
 @Accessors
 @Observable
 class MenuAppModel {

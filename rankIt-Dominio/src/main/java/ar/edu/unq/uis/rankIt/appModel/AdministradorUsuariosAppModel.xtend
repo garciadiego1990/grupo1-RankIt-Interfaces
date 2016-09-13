@@ -19,6 +19,9 @@ class AdministradorUsuariosAppModel {
 	Date fechaDeRegistroUsuarioSeleccionado
 	
 	
+	new(AdministradorDeUsuarios admin) {
+		this.admin = admin
+	}
 	
 	/* 
 	

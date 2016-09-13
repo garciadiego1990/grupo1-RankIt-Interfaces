@@ -5,114 +5,86 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.unq.uis.rankIt.view.components.Titulo
-import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.unq.uis.rankIt.appModel.MenuAppModel
+import org.uqbar.arena.widgets.Button
 
 class MenuWindow extends SimpleWindow<MenuAppModel> {
 	
 	new(WindowOwner parent, MenuAppModel model) {
 		super(parent, model)
-		this.title = "Rank-It"
 	}
 	
-	override protected addActions(Panel actionsPanel) {
-		//Sin uso para esta ventana
-	}
+	override protected addActions(Panel actionsPanel) {}
 	
-	override protected createFormPanel(Panel mainPanel) {
-		//Sin uso para esta ventana
-	}
+	override protected createFormPanel(Panel mainPanel) {}
 	
-	/**
-	 * Este método redefine el template para la ventana {@link MenuWindow}.
-	 * En caso de existir la definición del método {@link #createContents(Panel)}
-	 * se ejecutará en lugar de este
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana
-	 */
 	override createMainTemplate(Panel mainPanel) {
 		
-		new Titulo(mainPanel, "Rank-It! Modulo de administracion", 20)
-				
-		new Label(mainPanel) => [
-			it.text = 	"\nDesde este módulo vas a poder gestionar los datos y opciones de la aplicación \n\n"
-				   +"Como sos una persona de confianza vas a tener acceso a todo! \n\n"
-				   +"Siempre acordate: \"con un gran poder viene una gran responsabilidad\"\n"
-			it.height = 120
+		this.title = "Rank-It"
+		
+		//new Titulo(mainPanel, "Rank-It! Modulo de administracion", 20)
+		
+		val tituloPanel = new Panel(mainPanel)
+		tituloPanel.layout = new ColumnLayout(3)
+		
+		// darle independencia al titulo
+		new Titulo(tituloPanel, "Rank-It! Modulo de administración", 20)
+		new Label(tituloPanel) => []
+		new Label(tituloPanel) => []
+		
+		
+		val textoPanel = new Panel(mainPanel)
+		textoPanel.layout = new ColumnLayout(3) 		
+		new Label(textoPanel) => [
+			text = 	"Desde este módulo vas a poder gestionar los datos y opciones de la aplicación"
+			height = 50	   	
 		]
-
+		new Label(textoPanel) => [height = 50]
+		new Label(textoPanel) => [height = 50]
+		
+		new Label(textoPanel) => [
+			text = "Como sos una persona de confianza vas a tener acceso a todo! "
+			height = 50
+		]
+		new Label(textoPanel) => [height = 50]
+		new Label(textoPanel) => [height = 50]
+		
+		new Label(textoPanel) => [
+			text = "Siempre acordate: \"con un gran poder viene una gran responsabilidad\""
+			height = 50
+			
+		]
+		new Label(textoPanel) => [height = 50]
+		new Label(textoPanel) => [height = 50]
+		
 		this.crearBotonesDeAdmins(mainPanel)
 	}
 	
-	
-	/**
-	 * Este método crea los botones de la ventana {@link MenuWindow}, los cuales permiten navegar
-	 * entre las distintas pantallas de administración.
-	 * 
-	 * @param mainPanel - Panel principal de la ventana.
-	 */
+	 
 	def void crearBotonesDeAdmins(Panel mainPanel) {
-		val botonesPanel= new Panel(mainPanel)
+		val botonesPanel = new Panel(mainPanel)
 		botonesPanel.layout = new ColumnLayout(4)
 		
-		val panelBotonUsuarios = 		new Panel(botonesPanel)
-		val panelBotonCalificaciones = 	new Panel(botonesPanel)
-		val panelBotonServicios = 		new Panel(botonesPanel)		
-		val panelBotonLugares = 		new Panel(botonesPanel)
-
-		val anchoLabelBoton = 140
-
-		new Button(panelBotonUsuarios) =>[
-			it.caption = "Adm. Usuarios"
-			val model = new AdministrarUsuariosRankItAppModel()
-			
-//			model.getAdministrador() = this.modelObject.administrador
-	
-			it.onClick [ | new AdministrarUsuariosWindow(this, model).open ]
-			it.width = anchoLabelBoton
-		]
+		crearBotonAdminUsuarios(botonesPanel)
+		crearBotonAdminCalificaciones(botonesPanel)
+		crearBotonAdminServicios(botonesPanel)
+		crearBotonAdminLugares(botonesPanel)
 		
-		new Label(panelBotonUsuarios) => [
-			it.value <=> "estadisticasUsuarios"
-			it.width = anchoLabelBoton
-		]
-		
-		
-		new Button(panelBotonCalificaciones) =>[
-			it.caption = "Adm. Calificaciones"
-			//onClick [ |  ]
-			it.width = anchoLabelBoton
-		] 
-		new Label(panelBotonCalificaciones) => [
-			it.value <=> "estadisticasCalificaciones"
-			it.width = anchoLabelBoton
-		]
-		
-		new Button(panelBotonServicios) =>[
-			it.caption = "Adm. Servicios"
-			it.onClick [ | new AdministrarServiciosWindow(this, new AdministrarServiciosRankItAppModel).open ]
-			it.width = anchoLabelBoton
-			
-		] 
-		
-		new Label(panelBotonServicios) => [
-			it.value <=> "estadisticasServicios"
-			it.width = anchoLabelBoton
-		]
-		
-		new Button(panelBotonLugares) =>[
-			it.caption = "Adm. Lugares"
-			it.onClick [ | new AdministrarLugaresWindow(this, new AdministrarLugaresRankItAppModel).open ]
-			it.width = anchoLabelBoton
-		]
-		
-		new Label(panelBotonLugares) => [
-			it.value <=> "estadisticasLugares"
-			it.width = anchoLabelBoton
-		]
 	}
+	
+	def void crearBotonAdminUsuarios(Panel owner) {
+		val Panel botonAdminPanel = new Panel(owner)
+		
+		new Button(botonAdminPanel) => [
+			caption = "Adm. Usuarios"
+			width = 100
+			setAsDefault
+			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
+		]
+		// seguir con estoBoton
+	}
+	
 	
 }

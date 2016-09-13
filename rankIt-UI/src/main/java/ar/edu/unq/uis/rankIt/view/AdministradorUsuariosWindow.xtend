@@ -1,6 +1,6 @@
 package ar.edu.unq.uis.rankIt.view
 
-import org.uqbar.arena.windows.SimpleWindow
+
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
@@ -18,12 +18,13 @@ import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
 import ar.edu.unq.uis.rankIt.appModel.AdministradorUsuariosAppModel
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
+import org.uqbar.arena.windows.Dialog
 
-
-class AdministradorUsuariosWindow extends SimpleWindow<AdministradorUsuariosAppModel> {
+class AdministradorUsuariosWindow extends Dialog<AdministradorUsuariosAppModel> {
 	
-	new(WindowOwner owner, AdministradorUsuariosAppModel model) {
-		super(owner, model)
+	new(WindowOwner owner, AdministradorDeUsuarios model) {
+		super(owner, new AdministradorUsuariosAppModel(model))
 		this.title = "RankIt -> Admin. Usuarios"
 	}
 	
