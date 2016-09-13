@@ -6,7 +6,7 @@ import org.junit.Assert
 
 class AdministradorTest {
 		Administrador admin = new Administrador()
-	
+	/* 
 	@Test
 	def void testAgregarServicio(){
 		Assert.assertTrue(admin.servicios.length == 0)
@@ -27,7 +27,7 @@ class AdministradorTest {
 		admin.agregarUsuario("robertito")
 		Assert.assertTrue(admin.getUsuarios.length == 1)
 	}
-	*/
+	
  
 	@Test 
 	def void testEliminarServicio(){
@@ -43,7 +43,8 @@ class AdministradorTest {
 		admin.eliminarLugar("Parque Pereyra")
 		Assert.assertEquals(admin.getLugares.length, 0)
 	}
-/* 	
+	
+ 	
 	@Test 
 	def void testEliminarUsuario(){
 		admin.agregarUsuario("Robertito")
