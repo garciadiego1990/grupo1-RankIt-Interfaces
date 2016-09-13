@@ -31,7 +31,7 @@ class AdministrarLugaresRankItAppModel {
 	}
 	
 	def getRatingPromedio(){
-		//lugarSeleccionado.ratingPromedio
+		lugarSeleccionado.ratingPromedio
 	}
 	
 	def getCantidadDeEvaluaciones(){

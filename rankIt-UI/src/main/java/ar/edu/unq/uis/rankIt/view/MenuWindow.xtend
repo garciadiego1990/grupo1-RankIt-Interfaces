@@ -12,6 +12,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.unq.uis.appModel.AdministrarUsuariosRankItAppModel
 import ar.edu.unq.uis.appModel.AdministrarLugaresRankItAppModel
+import ar.edu.unq.uis.appModel.AdministrarServiciosRankItAppModel
 
 class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 	
@@ -91,8 +92,9 @@ class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 		
 		new Button(panelBotonServicios) =>[
 			it.caption = "Adm. Servicios"
-			//onClick [ |  ]
+			it.onClick [ | new AdministrarServiciosWindow(this, new AdministrarServiciosRankItAppModel).open ]
 			it.width = anchoLabelBoton
+			
 		] 
 		
 		new Label(panelBotonServicios) => [
@@ -103,7 +105,6 @@ class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 		new Button(panelBotonLugares) =>[
 			it.caption = "Adm. Lugares"
 			it.onClick [ | new AdministrarLugaresWindow(this, new AdministrarLugaresRankItAppModel).open ]
-			//onClick [ |  ]
 			it.width = anchoLabelBoton
 		]
 		
