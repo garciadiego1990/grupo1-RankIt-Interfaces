@@ -1,11 +1,20 @@
+
 package ar.edu.unq.uis.rankIt.dominio
 
 import java.util.List
+import org.uqbar.commons.utils.Observable
+import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.ArrayList
 
+@Accessors
+@Observable
 class AdministradorDePublicaciones {
 	List<Publicacion> servicios
-	List<Publicacion> lugares 
-	
+	//List<Publicacion> lugares
+	 
+	new() {
+		servicios = new ArrayList<Publicacion>
+	} 
 	
 	def agregarServicio(Publicacion p) {
 		servicios.add(p)

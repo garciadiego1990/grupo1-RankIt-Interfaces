@@ -4,6 +4,7 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 
 class Titulo extends Label {
+	
 	new(Panel container, String text, Integer fontSize) {
 		super(container)
 		this.text = text
