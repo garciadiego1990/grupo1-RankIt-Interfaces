@@ -15,6 +15,10 @@ class AdministradorDeCalificaciones {
 		calificaciones = new ArrayList<Calificacion>
 	}
 	
+	def agregarCalificacion(Calificacion c) {
+		calificaciones.add(c)
+	}
+	
 	/*
 	def List<Calificacion> calificacionesDeLugaresYServicios() {
 		var List<Publicacion> publicaciones = new ArrayList<Publicacion>

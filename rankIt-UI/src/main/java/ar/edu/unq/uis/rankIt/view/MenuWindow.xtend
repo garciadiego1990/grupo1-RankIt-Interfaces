@@ -1,22 +1,19 @@
 package ar.edu.unq.uis.rankIt.view
 
-import ar.edu.unq.uis.appModel.MenuRankItAppModel
+
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
-
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.ColumnLayout
-import ar.edu.unq.uis.appModel.AdministrarUsuariosRankItAppModel
-import ar.edu.unq.uis.appModel.AdministrarLugaresRankItAppModel
-import ar.edu.unq.uis.appModel.AdministrarServiciosRankItAppModel
+import ar.edu.unq.uis.rankIt.appModel.MenuAppModel
 
-class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
+class MenuWindow extends SimpleWindow<MenuAppModel> {
 	
-	new(WindowOwner parent, MenuRankItAppModel model) {
+	new(WindowOwner parent, MenuAppModel model) {
 		super(parent, model)
 		this.title = "Rank-It"
 	}

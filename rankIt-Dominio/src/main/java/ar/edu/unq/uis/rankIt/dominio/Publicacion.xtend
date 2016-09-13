@@ -21,6 +21,13 @@ class Publicacion {
 		calificaciones = new ArrayList<Calificacion>
 	}
 	
+	new(String nombre) {
+		estaHabilitado = false
+		fechaDeRegistro = new Date
+		calificaciones = new ArrayList<Calificacion>
+		this.nombre = nombre
+	}
+	
 	def getCalificaciones(){
 		calificaciones
 	}

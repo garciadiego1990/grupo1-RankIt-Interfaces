@@ -12,5 +12,9 @@ class AdministradorDeUsuarios {
 	
 	new() {
 		usuarios = new ArrayList<Usuario>
+	}
+	
+	def agregarUsuario(Usuario u) {
+		usuarios.add(u)
 	}	
 }

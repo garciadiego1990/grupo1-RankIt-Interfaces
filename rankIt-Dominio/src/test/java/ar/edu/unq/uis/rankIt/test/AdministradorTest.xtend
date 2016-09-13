@@ -1,12 +1,11 @@
 package ar.edu.unq.uis.rankIt.test
 
-import ar.edu.unq.uis.rankIt.dominio.Administrador
 import org.junit.Test
 import org.junit.Assert
 
 class AdministradorTest {
-		Administrador admin = new Administrador()
-	/* 
+	/*	Administrador admin = new Administrador()
+	 
 	@Test
 	def void testAgregarServicio(){
 		Assert.assertTrue(admin.servicios.length == 0)

@@ -2,14 +2,14 @@ package ar.edu.unq.uis.rankIt.dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import org.joda.time.DateTime
+import java.util.Date
 
 @Accessors
 @Observable
 class Usuario {
 	String nombre
 	String contrasenia
-	DateTime fechaDeRegistro
+	Date fechaDeRegistro
 	boolean estaActivo
 	boolean estaBaneado
 	Integer publicacionesOfensivas = 0
@@ -23,7 +23,11 @@ class Usuario {
 		this.estaActivo = false
 		this.estaBaneado = false
 		this.contrasenia = contrasenia
-		this.fechaDeRegistro = new DateTime
+		this.fechaDeRegistro = new Date
+	}
+	
+	new(String nombre) {
+		this.nombre = nombre
 	}
 	
 	

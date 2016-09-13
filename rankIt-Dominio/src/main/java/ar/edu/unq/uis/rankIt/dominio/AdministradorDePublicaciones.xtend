@@ -10,10 +10,11 @@ import java.util.ArrayList
 @Observable
 class AdministradorDePublicaciones {
 	List<Publicacion> servicios
-	//List<Publicacion> lugares
+	List<Publicacion> lugares
 	 
 	new() {
 		servicios = new ArrayList<Publicacion>
+		lugares = new ArrayList<Publicacion>
 	} 
 	
 	def agregarServicio(Publicacion p) {
@@ -38,6 +39,12 @@ class AdministradorDePublicaciones {
 	
 	def buscarServicio(Publicacion p) {
 		return servicios.filter[it.nombre == p.nombre].get(0)
+	}
+	
+	// metodos de lugares
+	
+	def agregarLugar(Publicacion p) {
+		lugares.add(p)
 	}
 		
 }

@@ -1,8 +1,6 @@
 package ar.edu.unq.uis.rankIt.test
 
-import ar.edu.unq.uis.rankIt.dominio.Administrador
 
-import ar.edu.unq.uis.rankIt.dominio.AdministradorCalificaciones
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import org.junit.Before
 import org.junit.Assert
