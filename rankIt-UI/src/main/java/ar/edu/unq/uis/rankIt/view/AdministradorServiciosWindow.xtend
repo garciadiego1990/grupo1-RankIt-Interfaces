@@ -1,250 +1,196 @@
 package ar.edu.unq.uis.rankIt.view
 
-import ar.edu.unq.uis.rankIt.dominio.Publicacion
-import ar.edu.unq.uis.rankIt.dominio.Usuario
-import ar.edu.unq.uis.rankIt.view.components.Titulo
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.CheckBox
-import org.uqbar.arena.widgets.GroupPanel
-import org.uqbar.arena.widgets.Label
+
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.windows.ErrorsPanel
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.tables.Table
+import ar.edu.unq.uis.rankIt.dominio.Publicacion
+import org.uqbar.arena.widgets.tables.Column
+import java.util.Date
+import java.text.SimpleDateFormat
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.TextBox
+import ar.edu.unq.uis.rankIt.view.components.Titulo
+import ar.edu.unq.uis.rankIt.view.components.LabeledTextBox
+import ar.edu.unq.uis.rankIt.view.components.LabeledCheckBox
+import ar.edu.unq.uis.rankIt.view.components.Labeled
 import ar.edu.unq.uis.rankIt.appModel.AdministradorServiciosAppModel
 import org.uqbar.arena.windows.Dialog
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 
 class AdministradorServiciosWindow extends Dialog<AdministradorServiciosAppModel> {
+	
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
 		super(owner, new AdministradorServiciosAppModel(model))
-		this.title = "Rank-IT -> Adm Servicios"
 	}
+	
+	override protected addActions(Panel actionsPanel) {}
 
-	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
-	/**
-	 * Este método redefine el template para la ventana {@link AdministrarUsuariosWindow}.
-	 * En caso de existir la definición del método {@link #createContents(Panel)}
-	 * se ejecutará en lugar de este
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana
-	 */
-	override protected createMainTemplate(Panel mainPanel) {
-		this.createFormPanel(mainPanel)
-	}
-
-	/**
-	 * En este método se define el contenido principal de la ventana para administrar {@link Usuario}s
-	 * en RankIt.
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana
-	 */
-	override protected createFormPanel(Panel mainPanel) {
+	override protected createFormPanel(Panel mainPanel) {} 
+	
+	override createMainTemplate(Panel mainPanel) {
+		this.title = "Adm. Servicios"
 		mainPanel.layout = new VerticalLayout
-
-		panelResumenServicios(mainPanel)
-
-		new Titulo(mainPanel, "Servicios")
-
-		this.crearPanelDeBusqueda(mainPanel)
-		this.crearPanelAdministracionServicios(mainPanel)
+	 
+		//Agregamos el contenido
+		val Panel resumenPanel = new Panel(mainPanel)
+		val Panel buscadorPanel = new Panel(mainPanel)
+		val Panel contentPanel = new Panel(mainPanel)
+		contentPanel.layout = new ColumnLayout(2)
+		this.crearResumenSituacion(resumenPanel)
+		this.crearBuscadorServicios(buscadorPanel)
+		this.crearListadoDeServicios(contentPanel)
+		this.crearEdicionDeServicioSeleccionada(contentPanel)
 	}
-
-	/**
-	 * {@link Panel} horizontal que mostrará datos estadisticos de todos los {@link Usuario}s
-	 *  de la aplicación.
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana.
-	 */
-	def panelResumenServicios(Panel mainPanel) {
-
-		val panelResumenEstadisticas = new GroupPanel(mainPanel) => [
-			it.title = "Resumen de situación:"
-			it.layout = new HorizontalLayout
+	
+	def crearResumenSituacion(Panel owner) {
+		val resumenPanel = new Panel(owner)
+		
+		resumenPanel.layout = new ColumnLayout(3)
+		
+		// darle independencia al titulo
+		new Titulo(resumenPanel, "Resumen de situación:", 12)
+		new Label(resumenPanel) => []
+		new Label(resumenPanel) => []
+		
+		new Label(resumenPanel) => [
+			text = "Servicios inscriptos: "
+			width = 135
+			//bindValueToProperty("?")
 		]
-
-		new Label(panelResumenEstadisticas) => [
-			it.text = "Servicios inscriptos:"
-			it.width = 150
+		
+		new Label(resumenPanel) => [
+			text = "Habilitados: "
+			width = 135
+			//bindValueToProperty("?")
+		]
+		
+		new Label(resumenPanel) => [
+			text = "Deshabilitados: "
+			width = 135
+			//bindValueToProperty("?")
+		]
+		
+	}
+	
+	def crearBuscadorServicios(Panel owner) {
+		val buscarPanel = new Panel(owner)
+		
+		//new TituloAlineado(buscarPanel, "Servicios", 15)
+			
+		buscarPanel.layout = new ColumnLayout(3)
+		
+		new Titulo(buscarPanel, "Servicios", 15)
+		new Label(buscarPanel) => []
+		new Label(buscarPanel) => []
+		
+		new Label(buscarPanel).text = "Buscar por nombre de servicio"
+		
+		new TextBox(buscarPanel) => [
+			width = 200
+			//(value <=> "fecha").transformer = new DateTransformer
+		]
+		
+		new Button(buscarPanel) => [
+			caption = "Buscar"
+			width = 100
+			//setAsDefault
+			//onClick [ | jugar 
+		]
+	}
+	
+	
+	
+	def crearEdicionDeServicioSeleccionada(Panel owner) {
+		
+		val Panel edicionPanel = new Panel(owner)
+		edicionPanel.layout = new VerticalLayout
+		
+		new Labeled(edicionPanel)
+			.setText("Nombre:")
+			.bindValueToProperty("publicacionSeleccionada.nombre")	
+		
+		
+		new Button(edicionPanel)=>[
+			caption = "Edita la informacion"]
+		
+		new LabeledTextBox(edicionPanel)
+			.setText("Nombre:")
+			.bindValueToProperty("publicacionSeleccionada.nombre")
+			
+		
+		new LabeledCheckBox(edicionPanel)
+			.setText("Habilitado:")
+			.bindValueToProperty("publicacionSeleccionada.nombre")
+		
+		new Labeled(edicionPanel)
+			.setText("Rating promedio:")
+			.bindValueToProperty("publicacionSeleccionada.nombre")
+		
+		new Labeled(edicionPanel)
+			.setText("Calificaciones:")
+			.bindValueToProperty("publicacionSeleccionada.nombre")
+			
+			
+		// botonera
+		val botoneraPanel = new Panel(edicionPanel)
+		botoneraPanel.layout = new VerticalLayout
+			
+		new Button(botoneraPanel)=>[
+			caption = "Revisar Publicaciones"
+			onClick [ |
+				//this.modelObject.eliminarServicio
+			]
+		]
+		val eliminarPanel = new Panel(botoneraPanel)
+		new Button(eliminarPanel)=>[
+			caption = "Eliminar"
+			width = 100
+			onClick [ |
+				this.modelObject.eliminarServicio
+			]
+		]
+			
+	}
+		
+	def crearListadoDeServicios(Panel owner) {
+		val panelDeListadoDeServicios = new Panel(owner)
+		
+		val tablaDeServicios = new Table<Publicacion>(panelDeListadoDeServicios, Publicacion) => [
+			bindItemsToProperty("admin.servicios")
+			bindValueToProperty("publicacionSeleccionada")
+		]
+		
+		new Column(tablaDeServicios) =>[
+			title = "Fecha de Registro"
+			bindContentsToProperty("fechaDeRegistro").transformer = [ Date fecha | new SimpleDateFormat("dd/MM/YYYY").format(fecha)] 
+		]
+		
+		new Column(tablaDeServicios)=>[
+			title = "Nombre"
+			bindContentsToProperty("nombre")
 			
 		]
 		
-		new Label(panelResumenEstadisticas) => [
-			it.value<=>"serviciosTotales"
+		new Column(tablaDeServicios) =>[
+			title = "Habilitado"
+			bindContentsToProperty("estaHabilitado").transformer = [ Boolean estaHabilitado | if (estaHabilitado) "SI" else "NO" ]
+		]
+		
+		val botoneraPanel = new Panel(panelDeListadoDeServicios)
+		botoneraPanel.layout = new HorizontalLayout
 			
-		]
-
-		new Label(panelResumenEstadisticas) => [
-			it.text = "Habilitados:"
-			it.width = 120
-		]
-
-		new Label(panelResumenEstadisticas) => [
-			it.value<=>"serviciosHabilitados"
+		new Button(botoneraPanel)=>[
+			caption = "Nuevo"
+			width = 100
+			onClick [ |
+				this.modelObject.nuevoServicio
+			]
 		] 
-		new Label(panelResumenEstadisticas) => [
-			it.text = "Deshabilitados:"
-			it.width = 120
-		]
-		new Label(panelResumenEstadisticas) => [
-			it.value<=>"serviciosDeshabilitados"
-			
-		] 
-	}
-
-	/**
-	 * {@link Panel} que mostrará los elementos de búsqueda de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} principal de la ventana.
-	 */
-	def crearPanelDeBusqueda(Panel ownerPanel) {
-		val panelBusqueda = new Panel(ownerPanel)
-
-		panelBusqueda.layout = new HorizontalLayout
-
-		new Label(panelBusqueda) => [
-			it.text = "Buscar por nombre de servicio: "
-		]
-
-		new TextBox(panelBusqueda) => [
-			it.value <=> "nombreDeServicioBuscado"
-			it.width = 250
-		]
-
-		new Button(panelBusqueda) => [
-			it.caption = "Buscar"
-			it.width = 120
-		]
-	}
-
-	/**
-	 * {@link Panel} que contendrá toda la funcionalidad para administrar {@link Usuario}s.
-	 * 
-	 * @param ownerPanel - {@link Panel} principal de la ventana
-	 */
-	def crearPanelAdministracionServicios(Panel ownerPanel) {
-		val panelAdministracion = new Panel(ownerPanel)
-		panelAdministracion.layout = new HorizontalLayout
-
-		this.crearPanelGrilla(panelAdministracion)
-
-		this.crearPanelEdicion(panelAdministracion)
-	}
-
-	/**
-	 * {@link Panel} que mostrará la grilla donde se mostrará los {@link Usuario}s de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} de administración.
-	 */
-	def crearPanelGrilla(Panel ownerPanel) {
-		val panelAdministracionGrilla = new Panel(ownerPanel)
-
-		val tablaServicios = new Table(panelAdministracionGrilla, Publicacion) => [
-			it.numberVisibleRows = 12
-			it.width = 400
-		]
-
-		new Column(tablaServicios) => [
-			it.title = "Fecha de registro"
-//			it.weight = 115
-			it.fixedSize = 140
-		]
-
-		new Column(tablaServicios) => [
-			it.title = "Nombre"
-//			it.weight = 90
-			it.fixedSize = 150
-		]
-
-		new Column(tablaServicios) => [
-			it.title = "Habilitado"
-//			it.weight = 60
-			it.fixedSize = 90
-//			bindContentsToProperty("estaHabilitado").transformer = [ Boolean estaAprobada |  
-//			if (estaAprobada) "Si" else "No"
-//			]
-		]
-
-		new Button(panelAdministracionGrilla) => [
-			it.caption = "Nuevo"
-		]
-	}
-
-	/**
-	 * {@link Panel} que mostrará los elementos para editar {@link Usuario}s de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} de administración.
-	 */
-	def crearPanelEdicion(Panel administracionPanel) {
-		val panelAdministracionEdicion = new Panel(administracionPanel)
-
-		new Panel(panelAdministracionEdicion) => [
-			it.layout = new HorizontalLayout
-
-			new Label(it) => [
-				text = "Nombre:    "
-				fontSize = 14
-			]
-
-			new Label(it) => [
-				value <=>"servicioSeleccionado.nombre"
-				fontSize = 14
-			]
-
-		]
-
-		new ErrorsPanel(panelAdministracionEdicion, "Edita la informacion")
-
-		new Label(panelAdministracionEdicion) => [
-			it.text = "Nombre:"
-		]
-
-		new TextBox(panelAdministracionEdicion) => [
-			it.width = 200
-		]
-
-		new Panel(panelAdministracionEdicion) => [
-			it.layout = new HorizontalLayout
-
-			new CheckBox(it) => [
-				it.height = 16
-			]
-
-			new Label(it).text = "Habilitado"
-		]
-
-		new Label(panelAdministracionEdicion) => [
-			it.text = "Rating Promedio:"
-		]
-		new Label(panelAdministracionEdicion) => [
-			value<=>"ratingPromedio"
-		]
-
-		new Label(panelAdministracionEdicion) => [
-			it.text = "Calificaciones:"
-		]
-		new Label(panelAdministracionEdicion) => [
-			value<=>"cantidadDeEvaluaciones"
-		]
-
-		new Button(panelAdministracionEdicion) => [
-			it.caption = "Revisar calificaciones"
-			it.width = 50 // No me lo está tomando
-		]
-
-		new Button(panelAdministracionEdicion) => [
-			it.caption = "Eliminar"
-			it.onClick [| modelObject.eliminarServicioSeleccionado ]
-			it.width = 50 // No me lo está tomando
-		]
-	}
+	}	
+	
 }
