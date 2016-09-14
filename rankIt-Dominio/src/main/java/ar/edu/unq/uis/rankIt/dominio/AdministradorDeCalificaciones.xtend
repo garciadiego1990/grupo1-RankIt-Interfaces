@@ -1,25 +1,24 @@
 package ar.edu.unq.uis.rankIt.dominio
 
-import java.util.List
 import java.util.ArrayList
-import org.uqbar.commons.utils.Observable
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
 class AdministradorDeCalificaciones {
-	List<Calificacion> calificaciones
-	
+	AdministradorDePublicaciones admin = new AdministradorDePublicaciones
+	List<Calificacion> calificaciones = new ArrayList<Calificacion>
 	
 	new() {
-		calificaciones = new ArrayList<Calificacion>
-	}
+		
+	}	
 	
 	def agregarCalificacion(Calificacion c) {
 		calificaciones.add(c)
 	}
 	
-	/*
 	def List<Calificacion> calificacionesDeLugaresYServicios() {
 		var List<Publicacion> publicaciones = new ArrayList<Publicacion>
 		var List<Calificacion> todasLasCalificaciones= new ArrayList<Calificacion>
@@ -33,12 +32,12 @@ class AdministradorDeCalificaciones {
 	}
 	
 	def int totalDeEvaluaciones() {
-		todasLasCalificaciones.size
-		println(todasLasCalificaciones.size)
+		calificacionesDeLugaresYServicios.size
 	}
 	
 	def int calificacionesOfensivas() {
 		var calificacionesOfensivas = 0
+		var List<Calificacion> todasLasCalificaciones = calificacionesDeLugaresYServicios()
 		for (Calificacion c : todasLasCalificaciones) {
 			if(c.esOfensiva) {
 				calificacionesOfensivas++
@@ -49,11 +48,14 @@ class AdministradorDeCalificaciones {
 	
 	// Va a haber problemas si no encuentra lo que busca
 	def Calificacion buscarCalificacion(String usuario, String publicacion) {
+		var List<Calificacion> todasLasCalificaciones = calificacionesDeLugaresYServicios()
 		for(Calificacion c: todasLasCalificaciones){
 			if(c.evaluador.equals(usuario) && c.evaluado.equals(publicacion)){
 				return c
 			}	
 		}
 	}
-	 */
+	def void eliminarCalificacion(Calificacion c){
+		//
+	}	 
 }

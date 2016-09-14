@@ -117,7 +117,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 			setAsDefault
 			onClick [ | new AdministradorCalificacionesWindow(this, this.modelObject.admin.adminCalificaciones).open ]
 		]
-		
+ 		
 		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
 		datosDeUsuariosPanel.layout = new ColumnLayout(4)
 		
@@ -139,6 +139,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 			//bindValueToProperty("?")
 			//width = 135	
 		]
+	
 	}
 	
 	def void crearBotonAdminServicios(Panel owner) {
