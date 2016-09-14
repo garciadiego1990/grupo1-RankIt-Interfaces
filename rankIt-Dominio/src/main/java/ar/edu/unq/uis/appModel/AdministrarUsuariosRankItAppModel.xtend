@@ -9,21 +9,41 @@ import static org.uqbar.commons.model.ObservableUtils.*
 import java.util.List
 import org.joda.time.DateTime
 
+
 @Accessors
 @Observable
 class AdministrarUsuariosRankItAppModel {
 	
-	val Administrador administrador
+	var Administrador administrador
 	
 	var Usuario usuarioSeleccionado
-	var List<Usuario> usuariosRegistrados
-	var String nombreDeUsuarioBuscado
+	var String nombreDeUsuarioBuscado = ""
 	var DateTime fechaDeRegistroUsuarioSeleccionado
 	
+	List<Usuario> usuariosBuscados
+	
+
+	/**
+	 * Constructor del application model para la vista {@link AdministrarUsuariosWindow}.
+	 * 
+	 * @param admnistrador - Administrador de la lista de {@link Usuario}s
+	 * @author Abel Espínola
+	 */
 	new() {
 		this.administrador = new Administrador()
-		this.usuariosRegistrados = this.administrador.usuarios
 	}
+	
+//	/**
+//	 * Getter que lanza una excepción en caso de haberse seleccionado ningún {@link Usuario}
+//	 * 
+//	 * @author Abel Espínola
+//	 */
+//	def Usuario getUsuarioSeleccionado() {
+//		if (this.usuarioSeleccionado == null) {
+//			throw new RuntimeException("Seleccione un usario a editar")
+//		}
+//		return this.usuarioSeleccionado
+//	}
 	
 	
 	/**
@@ -34,6 +54,7 @@ class AdministrarUsuariosRankItAppModel {
 	def List<Usuario> getUsuariosRegistrados() {
 		this.usuariosRegistrados
 	}
+	
 //SELECCION NUEVO USUARIO DE LA GRILLA:
 
 	def void setUsuarioSeleccionado(Usuario usuario) {
@@ -50,7 +71,7 @@ class AdministrarUsuariosRankItAppModel {
 	 */
 	 def crearNuevoUsuario() {
 	 	this.administrador.agregarUsuario(new Usuario())
-		this.refrescarListaDeUsuariosEnPantalla()
+	 	this.refrescarPantalla()
 	 }
 	
 	/**
@@ -60,9 +81,9 @@ class AdministrarUsuariosRankItAppModel {
 	 */
 	def eliminarUsuarioSeleccionado() {
 		this.administrador.eliminarUsuario(usuarioSeleccionado)
-		this.refrescarListaDeUsuariosEnPantalla()
-
+		this.refrescarPantalla()
 	}
+	
 	
 	/**
 	 * Se reinicia la clave del {@link Usuario} seleccionado al valor '123'
@@ -72,6 +93,42 @@ class AdministrarUsuariosRankItAppModel {
 	def blanquearContrasenia() {
 		this.usuarioSeleccionado.establecerContraseniaDefault()
 	}
+	
+	
+	/** Se inactiva al {@link Usuario} seleccionado.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def setUsuarioSeleccionadoActivo(boolean estado) {
+		this.usuarioSeleccionado.estaActivo = estado
+		this.refrescarPantalla()	
+	}
+	
+	/** Se banea al {@link Usuario} seleccionado.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def setUsuarioSeleccionadoBaneado(boolean estado) {
+		this.usuarioSeleccionado.estaBaneado = estado
+		this.refrescarPantalla()
+	}
+	
+	/** Se responde si el {@link Usuario} seleccionado está activo.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def getUsuarioSeleccionadoActivo() {
+		this.usuarioSeleccionado.estaActivo
+	}
+	
+	/** Se responde si el {@link Usuario} seleccionado está baneado.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def getUsuarioSeleccionadoBaneado() {
+		this.usuarioSeleccionado.estaBaneado
+	}
+	
 //PANEL DE RESUMEN:
 
 	/**
@@ -109,18 +166,16 @@ class AdministrarUsuariosRankItAppModel {
 	def Integer getCantidadUsuariosBaneados() {
 		this.administrador.usuariosBaneados()
 	}
-	
+//BUSCADOR:
+
+	def setNombreDeUsuarioBuscado(String nombreBuscado) {
+		this.usuariosBuscados = this.administrador.buscarUsuariosPorNombre(nombreBuscado)
+		firePropertyChanged(this, "usuariosBuscados")
+	}
+
+
 //PANEL DE EDICION:
 
-	/**
-	 * Se responde con la fecha de registro del {@link Usuario} seleccionado.
-	 * 
-	 * @author Abel Espínola
-	 */
-	 def String getFechaDeRegistroUsuarioSeleccionado() {
-	 	this.usuarioSeleccionado.fechaDeRegistro.toString()
-	 }
-	 
 	 /**
 	  * Se informa a la ventana de administración de {@link Usuario}s que un nuevo usuario a sido seleccionado en la grilla.
 	  * En este método se definen las notificaciones pertinentes que se deben realizar a los elementos observables.
@@ -135,18 +190,22 @@ class AdministrarUsuariosRankItAppModel {
 	 def String getNombreDeUsuarioSeleccionado() {
 	 	this.usuarioSeleccionado.nombre
 	 }
-	
+	 
+//BINDING GRILLA
+
+	/**
+	 * TODO
+	 */
+
 
 //METODOS AUXILIARES:
 
-	def refrescarListaDeUsuariosEnPantalla() {
+	def refrescarPantalla() {
+//		this.usuarioSeleccionado = null
 		firePropertyChanged(this, "cantidadUsuariosRegistrados")
-		firePropertyChanged(this, "usuariosRegistrados")
-//		firePropertyChanged(this, "cantidadUsariosActivos")
-//		firePropertyChanged(this, "cantidadUsariosInactivos")
-//		firePropertyChanged(this, "cantidadUsariosBaneados")
+		firePropertyChanged(this, "cantidadUsuariosActivos")
+		firePropertyChanged(this, "cantidadUsuariosInactivos")
+		firePropertyChanged(this, "cantidadUsuariosBaneados")
 	}
-
-
 
 }

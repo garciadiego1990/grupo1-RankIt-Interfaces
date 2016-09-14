@@ -7,7 +7,6 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.tables.Table
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import org.uqbar.arena.widgets.tables.Column
@@ -20,6 +19,9 @@ import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import ar.edu.unq.uis.appModel.AdministrarUsuariosRankItAppModel
 import java.awt.Color
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
+import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
 
 /**
  * Ventana de administración de {@link Usuario}s de la aplicación
@@ -92,21 +94,21 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 //			it.width = 160
 		]
 		
-		new Label(panelResumenEstadisticas).text = "Activos: "
+		new Label(panelResumenEstadisticas).text = " Activos: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
 			it.value <=> "cantidadUsuariosActivos"
 //			it.width = 120
 		]
 		
-		new Label(panelResumenEstadisticas).text = "Inactivos: "
+		new Label(panelResumenEstadisticas).text = " Inactivos: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosInactivos"
 //			it.width = 120
 		]
 		
-		new Label(panelResumenEstadisticas).text = "Baneados: "
+		new Label(panelResumenEstadisticas).text = " Baneados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosBaneados"
@@ -159,6 +161,8 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		this.crearPanelEdicion(panelAdministracion)
 	}
 	
+	
+	
 	/**
 	 * {@link Panel} que mostrará la grilla donde se mostrará los {@link Usuario}s de la aplicación.
 	 * 
@@ -169,7 +173,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 		
 		val tablaUsuarios = new Table(panelAdministracionGrilla, Usuario) => [
-			it.items <=> "usuariosRegistrados"
+			it.items <=> "usuariosBuscados"
 			it.value <=> "usuarioSeleccionado"
 			it.numberVisibleRows = 12
 			it.width = 400
@@ -177,30 +181,35 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Fecha de registro"
-			it.bindContentsToProperty("fechaDeRegistro")
-//			it.weight = 115
-			it.fixedSize = 120
+			it.bindContentsToProperty("fechaDeRegistro").transformer = 
+			 [ DateTime fecha | 
+			 	DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(fecha)
+			 ]
+			it.fixedSize = 130
 		]
 
 		new Column(tablaUsuarios) => [
 			it.title = "Nombre"
 			it.bindContentsToProperty("nombre")
-//			it.weight = 90
 			it.fixedSize = 100
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Activo"
-			it.bindContentsToProperty("estaActivo")
-//			it.weight = 60
-			it.fixedSize = 60
+			it.bindContentsToProperty("estaActivo").transformer = 
+			 [ Boolean activo | 
+			 	if (activo) "Sí" else "No"
+			 ]
+			it.fixedSize = 70
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Baneado"
-			it.bindContentsToProperty("estaBaneado")
-//			it.weight = 60
-			it.fixedSize = 60
+			it.bindContentsToProperty("estaBaneado").transformer = 
+			 [ Boolean baneado | 
+			 	if (baneado) "Sí" else "-"
+			 ]
+			it.fixedSize = 70
 		]
 		
 		new Button(panelAdministracionGrilla) => [
@@ -234,14 +243,14 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 				
 		]
 		
-		new ErrorsPanel(panelAdministracionEdicion, "Edita la informacion")
+		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
 		
 		new Label(panelAdministracionEdicion) => [
 			it.text = "Fecha de Registro:"
 		]
 		
 		new TextBox(panelAdministracionEdicion) => [
-			it.value <=> "fechaDeRegistroUsuarioSeleccionado"
+			it.bindValueToProperty("usuarioSeleccionado.fechaDeRegistro").transformer = new DateTimeTransformer
 			it.width = 200
 		]
 		
@@ -249,6 +258,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 			it.layout = new HorizontalLayout
 		
 			new CheckBox(it) => [
+				it.value <=> "usuarioSeleccionadoActivo"
 				it.height = 16
 			]
 			
@@ -258,6 +268,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
 			new CheckBox(it) => [
+				it.value <=> "usuarioSeleccionadoBaneado"
 				it.height = 16
 			]
 			

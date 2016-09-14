@@ -99,7 +99,7 @@ class Administrador {
 	 * @author Abel Espínola
 	 */
 	def void eliminarUsuario(Usuario usuario) {
-		usuarios = usuarios.filter[it|it.nombre != usuario.nombre].toList
+		usuarios.remove(usuario)
 	}
 	
 	/**
@@ -136,5 +136,14 @@ class Administrador {
 	 */
 	def Integer usuariosBaneados() {
 		usuarios.filter[it.estaBaneado].size
+	}
+	
+	/**
+	 * Se responde con la lista de {@link Usuario}s filtrada por nombre.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def List<Usuario> buscarUsuariosPorNombre(String nombre) {
+		usuarios.filter[usuario | usuario.nombre == nombre].toList
 	}
 }

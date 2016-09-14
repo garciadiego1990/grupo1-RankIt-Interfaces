@@ -69,12 +69,8 @@ class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 		val anchoLabelBoton = 140
 
 		new Button(panelBotonUsuarios) =>[
-			it.caption = "Adm. Usuarios"
-			val model = new AdministrarUsuariosRankItAppModel()
-			
-//			model.getAdministrador() = this.modelObject.administrador
-	
-			it.onClick [ | new AdministrarUsuariosWindow(this, model).open ]
+			it.caption = "Adm. Usuarios"	
+			it.onClick [ | new AdministrarUsuariosWindow(this, new AdministrarUsuariosRankItAppModel()).open ]
 			it.width = anchoLabelBoton
 		]
 		
@@ -96,7 +92,7 @@ class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 		
 		new Button(panelBotonServicios) =>[
 			it.caption = "Adm. Servicios"
-			it.onClick [ | new AdministrarServiciosWindow(this, new AdministrarServiciosRankItAppModel).open ]
+//			it.onClick [ | new AdministrarServiciosWindow(this, new AdministrarServiciosRankItAppModel).open ]
 			it.width = anchoLabelBoton
 			
 		] 
@@ -108,7 +104,7 @@ class MenuWindow extends SimpleWindow<MenuRankItAppModel> {
 		
 		new Button(panelBotonLugares) =>[
 			it.caption = "Adm. Lugares"
-			it.onClick [ | new AdministrarLugaresWindow(this, new AdministrarLugaresRankItAppModel).open ]
+//			it.onClick [ | new AdministrarLugaresWindow(this, new AdministrarLugaresRankItAppModel).open ]
 			it.width = anchoLabelBoton
 		]
 		

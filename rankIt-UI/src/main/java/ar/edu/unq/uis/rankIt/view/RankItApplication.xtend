@@ -7,11 +7,7 @@ import org.uqbar.arena.Application
 class RankItApplication extends Application {
 
 	override protected createMainWindow() {
-		val model = new MenuRankItAppModel => [
-			administrador = new Administrador()
-		]
-
-		new MenuWindow(this, model)
+		new MenuWindow(this, new MenuRankItAppModel)
 	}
 
 	def static void main(String[] args) {
