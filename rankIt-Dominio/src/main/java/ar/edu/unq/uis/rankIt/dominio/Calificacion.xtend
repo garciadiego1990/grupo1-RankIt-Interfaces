@@ -2,8 +2,10 @@ package ar.edu.unq.uis.rankIt.dominio
 
 import java.util.Date
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
 class Calificacion {
 	Integer puntaje
 	Date fecha

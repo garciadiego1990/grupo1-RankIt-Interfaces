@@ -1,17 +1,14 @@
 package ar.edu.unq.uis.rankIt.test
 
-import ar.edu.unq.uis.rankIt.dominio.Administrador
 
-import ar.edu.unq.uis.rankIt.dominio.AdministradorCalificaciones
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
-import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.junit.Before
 import org.junit.Assert
 import org.junit.Test
 
 
 class AdministradorCalificacionesTest {
-	
+	/* 
 	var Administrador admin = new Administrador
 	var AdministradorCalificaciones adminC = new AdministradorCalificaciones(admin)
 	
@@ -55,4 +52,5 @@ class AdministradorCalificacionesTest {
 		Assert.assertTrue(adminC.calificacionesOfensivas == 6)
 	}
 */
+
 }

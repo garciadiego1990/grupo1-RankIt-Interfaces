@@ -1,6 +1,6 @@
 package ar.edu.unq.uis.rankIt.view
 
-import org.uqbar.arena.windows.SimpleWindow
+
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
@@ -13,32 +13,27 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.widgets.GroupPanel
 import org.uqbar.arena.layout.VerticalLayout
-
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
-import ar.edu.unq.uis.appModel.AdministrarUsuariosRankItAppModel
 import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
+import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.bindings.NotNullObservable
 
-/**
- * Ventana de administración de {@link Usuario}s de la aplicación
- * 
- * @author Abel Espínola
- */
-class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAppModel> {
+class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
 	
-	new(WindowOwner owner, AdministrarUsuariosRankItAppModel model) {
-		super(owner, model)
+	val hayUsuarioSeleccionado = new NotNullObservable("buscador.selected")
+	
+	new(WindowOwner owner, AdministradorDeUsuarios model) {
+		super(owner, new UsuariosAppModel())
 		this.title = "RankIt -> Admin. Usuarios"
 	}
-	
-	
-	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+
 	
 	/**
 	 * Este método redefine el template para la ventana {@link AdministrarUsuariosWindow}.
@@ -138,10 +133,6 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 			it.width = 250
 		]
 		
-		new Button(panelBusqueda) => [
-			it.caption = "Buscar"
-			it.width = 120
-		]
 	}
 	
 	
@@ -173,8 +164,8 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 		
 		val tablaUsuarios = new Table(panelAdministracionGrilla, Usuario) => [
-			it.items <=> "usuariosBuscados"
-			it.value <=> "usuarioSeleccionado"
+			it.items <=> "buscador.results"
+			it.value <=> "buscador.selected"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
@@ -237,7 +228,8 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 			]
 			
 			new Label(it) => [
-				value <=> "nombreDeUsuarioSeleccionado"
+				value <=> "buscador.selected.nombre"
+				it.bindVisible(hayUsuarioSeleccionado)
 				fontSize = 14
 			]
 				
@@ -249,8 +241,10 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 			it.text = "Fecha de Registro:"
 		]
 		
-		new TextBox(panelAdministracionEdicion) => [
-			it.bindValueToProperty("usuarioSeleccionado.fechaDeRegistro").transformer = new DateTimeTransformer
+		new Label(panelAdministracionEdicion) => [
+			it.bindValueToProperty("buscador.selected.fechaDeRegistro").transformer = new DateTimeTransformer
+			it.bindVisible(hayUsuarioSeleccionado)
+			it.background = Color.GRAY
 			it.width = 200
 		]
 		
@@ -259,6 +253,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		
 			new CheckBox(it) => [
 				it.value <=> "usuarioSeleccionadoActivo"
+				it.bindEnabled(hayUsuarioSeleccionado)
 				it.height = 16
 			]
 			
@@ -269,6 +264,7 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 			it.layout = new HorizontalLayout
 			new CheckBox(it) => [
 				it.value <=> "usuarioSeleccionadoBaneado"
+				it.bindEnabled(hayUsuarioSeleccionado)
 				it.height = 16
 			]
 			
@@ -281,26 +277,34 @@ class AdministrarUsuariosWindow extends SimpleWindow<AdministrarUsuariosRankItAp
 		
 		new Label(panelAdministracionEdicion) => [
 			it.text = "09/07/2016 01:30"
+			it.bindEnabled(hayUsuarioSeleccionado)
 			it.height = 30
 		]
 		
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Revisar calificaciones"
+			it.bindEnabled(hayUsuarioSeleccionado)
 //			it.onClick [| ]
 			it.width = 50//No me lo está tomando
 		]
 
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Blanquear clave"
+			it.bindEnabled(hayUsuarioSeleccionado)
 			it.onClick [| modelObject.blanquearContrasenia ]
 			it.width = 50//No me lo está tomando
 		]
 		
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
+			it.bindEnabled(hayUsuarioSeleccionado)
 			it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
 			it.width = 50//No me lo está tomando
 		]
+	}
+	
+	override protected addActions(Panel actionsPanel) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 }

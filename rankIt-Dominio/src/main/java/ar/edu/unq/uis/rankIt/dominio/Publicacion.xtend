@@ -1,23 +1,32 @@
 package ar.edu.unq.uis.rankIt.dominio
 
-import java.util.Calendar
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
 import java.util.List
 import java.util.ArrayList
+import java.util.Date
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
-@Observable
 @Accessors
+@Observable
 class Publicacion {
 	String nombre 
-	boolean estaHabilitado = true
-	Calendar fechaDeRegistro = Calendar.getInstance()
-	List<Calificacion> calificaciones = new ArrayList<Calificacion>
+	boolean estaHabilitado
+	Date fechaDeRegistro
+	List<Calificacion> calificaciones
  	
-	new(String unNombre) {
-		nombre = unNombre
+	
+	new() {
+		estaHabilitado = false
+		fechaDeRegistro = new Date
+		calificaciones = new ArrayList<Calificacion>
 	}
 	
+	new(String nombre) {
+		estaHabilitado = false
+		fechaDeRegistro = new Date
+		calificaciones = new ArrayList<Calificacion>
+		this.nombre = nombre
+	}
 	
 	def getCalificaciones(){
 		calificaciones
@@ -34,6 +43,7 @@ class Publicacion {
 		this.calificaciones.remove(c)
 	} 
 	
+
 	def Integer cantidadDeEvaluaciones(){
 		calificaciones.size
 	}

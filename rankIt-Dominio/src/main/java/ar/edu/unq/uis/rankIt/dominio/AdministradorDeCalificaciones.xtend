@@ -1,24 +1,25 @@
 package ar.edu.unq.uis.rankIt.dominio
 
-import java.util.ArrayList
 import java.util.List
-import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.ArrayList
 import org.uqbar.commons.utils.Observable
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Observable
 @Accessors
-class AdministradorCalificaciones {
- 	
-	var Administrador admin = new Administrador
-	var List<Calificacion> todasLasCalificaciones = new ArrayList<Calificacion>
+class AdministradorDeCalificaciones {
+	List<Calificacion> calificaciones
 	
-	new(Administrador unAdmin){
-		admin = unAdmin
-		todasLasCalificaciones = calificacionesDeLugaresYServicios
+	
+	new() {
+		calificaciones = new ArrayList<Calificacion>
 	}
-		
-
 	
+	def agregarCalificacion(Calificacion c) {
+		calificaciones.add(c)
+	}
+	
+	/*
 	def List<Calificacion> calificacionesDeLugaresYServicios() {
 		var List<Publicacion> publicaciones = new ArrayList<Publicacion>
 		var List<Calificacion> todasLasCalificaciones= new ArrayList<Calificacion>
@@ -54,4 +55,5 @@ class AdministradorCalificaciones {
 			}	
 		}
 	}
+	 */
 }

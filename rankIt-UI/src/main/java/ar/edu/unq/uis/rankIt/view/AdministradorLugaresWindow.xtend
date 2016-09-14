@@ -1,29 +1,28 @@
 package ar.edu.unq.uis.rankIt.view
 
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
-//import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.tables.Table
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.widgets.GroupPanel
 import org.uqbar.arena.layout.VerticalLayout
-
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
-import ar.edu.unq.uis.appModel.AdministrarLugaresRankItAppModel
+import org.uqbar.arena.windows.Dialog
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
+import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
 
-class AdministrarLugaresWindow extends SimpleWindow<AdministrarLugaresRankItAppModel> {
-	new(WindowOwner owner, AdministrarLugaresRankItAppModel model) {
-		super(owner, model)
-		this.title = "Rank-IT -> Adm Lugares"
+class AdministradorLugaresWindow extends Dialog<LugaresAppModel> {
+	new(WindowOwner owner, AdministradorDePublicaciones model) {
+		super(owner, new LugaresAppModel(model))
+		this.title = "Rank-IT -> Adm Servicios"
 	}
 
 	override protected addActions(Panel actionsPanel) {
@@ -239,11 +238,13 @@ class AdministrarLugaresWindow extends SimpleWindow<AdministrarLugaresRankItAppM
 			it.caption = "Revisar calificaciones"
 			it.width = 50 // No me lo está tomando
 		]
-
+		/* 
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
 			it.onClick [| modelObject.eliminarLugarSeleccionado ]
 			it.width = 50 // No me lo está tomando
 		]
+		* 
+		*/
 	}
 }

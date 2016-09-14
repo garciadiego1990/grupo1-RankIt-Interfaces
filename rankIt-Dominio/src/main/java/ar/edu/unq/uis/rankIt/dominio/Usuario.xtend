@@ -3,7 +3,6 @@ package ar.edu.unq.uis.rankIt.dominio
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 
 @Accessors
 @Observable
@@ -25,6 +24,10 @@ class Usuario {
 		this.estaBaneado = false
 		this.contrasenia = contrasenia
 		this.fechaDeRegistro = new DateTime
+	}
+	
+	new(String nombre) {
+		this.nombre = nombre
 	}
 	
 	
@@ -56,19 +59,6 @@ class Usuario {
 	def void establecerContraseniaDefault() {
 		this.setContrasenia(contraseniaDefault)
 	}
-	
-//	/**
-//	 * Se responde con la fecha y hora de registro del {@link Usuario} en formato "dd/MM/yyyy kk:mm", siendo 'kk' la hora en formato 24 hs.
-//	 * 
-//	 * @author Abel Espínola
-//	 */
-//	def String getFechaYHoraDeRegistro() {
-//		DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(this.fechaDeRegistro)
-//	}
-	 
-	 
-	 
-	
-	
+		
 	
 }
