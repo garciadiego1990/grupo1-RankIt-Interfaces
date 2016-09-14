@@ -10,11 +10,65 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class AdministradorDeUsuarios {
 	List<Usuario> usuarios
 	
+	
 	new() {
-		usuarios = new ArrayList<Usuario>
+		this.usuarios = new ArrayList<Usuario>
 	}
 	
-	def agregarUsuario(Usuario u) {
-		usuarios.add(u)
-	}	
+/**
+	 * Dado un {@link Usuario} se lo agrega a la lista de usuarios de RankIt.
+	 * 
+	 * @param usuario - Un nuevo {@link Usuario} que será agregado a la base de datos de la aplicación.
+	 * @author Abel Espínola
+	 */
+	def void agregarUsuario(Usuario usuario) {
+		usuarios.add(usuario)
+	}
+
+	/**
+	 * Dado un {@link Usuario} se lo elimina de la lista de usuarios de RankIt.
+	 * 
+	 * @param usuario - Un nuevo {@link Usuario} que será eliminado a la base de datos de la aplicación.
+	 * @author Abel Espínola
+	 */
+	def void eliminarUsuario(Usuario usuario) {
+		usuarios.remove(usuario)
+	}
+	
+	/**
+	 * Se responde con la cantidad de {@link Usuario}s totales en RankIt
+	 * 
+	 * @author Abel Espínola
+	 */
+	 def Integer usuariosTotales() {
+	 	usuarios.size
+	 }
+	
+	/**
+	 * Se responde con la cantidad de {@link Usuario}s que están activos en RankIt.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def Integer usuariosActivos() {
+		usuarios.filter[it.estaActivo].size
+	}
+	
+	/**
+	 * Se responde con la cantidad de {@link Usuario}s que están inactivos en RankIt.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def Integer usuariosInactivos() {
+		usuarios.filter[!it.estaActivo].size
+	}
+	
+	/**
+	 * Se responde con la cantidad de {@link Usuario}s que están baneados en RankIt.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def Integer usuariosBaneados() {
+		usuarios.filter[it.estaBaneado].size
+	}
+		
 }

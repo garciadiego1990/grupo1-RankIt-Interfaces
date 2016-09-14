@@ -68,6 +68,19 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		val botonesPanel = new Panel(mainPanel)
 		botonesPanel.layout = new ColumnLayout(4)
 		
+//<<<<<<< HEAD
+//		val panelBotonUsuarios = 		new Panel(botonesPanel)
+//		val panelBotonCalificaciones = 	new Panel(botonesPanel)
+//		val panelBotonServicios = 		new Panel(botonesPanel)		
+//		val panelBotonLugares = 		new Panel(botonesPanel)
+//
+//		val anchoLabelBoton = 140
+//
+//		new Button(panelBotonUsuarios) =>[
+//			it.caption = "Adm. Usuarios"	
+//			it.onClick [ | new AdministrarUsuariosWindow(this, new AdministrarUsuariosRankItAppModel()).open ]
+//			it.width = anchoLabelBoton
+//=======
 		crearBotonAdminUsuarios(botonesPanel)
 		crearBotonAdminCalificaciones(botonesPanel)
 		crearBotonAdminServicios(botonesPanel)
@@ -116,6 +129,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 			//width = 100
 			setAsDefault
 			onClick [ | new AdministradorCalificacionesWindow(this, this.modelObject.admin.adminCalificaciones).open ]
+//>>>>>>> af44ac69892fec2f44bc06e8424a4af2dc24bb79
 		]
  		
 		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
@@ -145,12 +159,21 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 	def void crearBotonAdminServicios(Panel owner) {
 		val Panel botonAdminPanel = new Panel(owner)
 		
+//<<<<<<< HEAD
+//		new Button(panelBotonServicios) =>[
+//			it.caption = "Adm. Servicios"
+////			it.onClick [ | new AdministrarServiciosWindow(this, new AdministrarServiciosRankItAppModel).open ]
+//			it.width = anchoLabelBoton
+//			
+//		] 
+//=======
 		new Button(botonAdminPanel) => [
 			caption = "Adm. Servicios"
 			//width = 100
 			setAsDefault
 			onClick [ | new AdministradorServiciosWindow(this, this.modelObject.admin.adminPublicaciones).open ]
 		]
+//>>>>>>> af44ac69892fec2f44bc06e8424a4af2dc24bb79
 		
 		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
 		datosDeUsuariosPanel.layout = new ColumnLayout(4)
@@ -164,9 +187,16 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 			//width = 135	
 		]
 		
+//<<<<<<< HEAD
+//		new Button(panelBotonLugares) =>[
+//			it.caption = "Adm. Lugares"
+////			it.onClick [ | new AdministrarLugaresWindow(this, new AdministrarLugaresRankItAppModel).open ]
+//			it.width = anchoLabelBoton
+//=======
 		new Label(datosDeUsuariosPanel) => [
 			//bindValueToProperty("?")
 			//width = 135	
+//>>>>>>> af44ac69892fec2f44bc06e8424a4af2dc24bb79
 		]
 		
 		new Label(datosDeUsuariosPanel) => [

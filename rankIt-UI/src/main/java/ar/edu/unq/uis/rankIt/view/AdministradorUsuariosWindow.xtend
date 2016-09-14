@@ -17,20 +17,23 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
+import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
-import org.uqbar.arena.windows.Dialog
 import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.bindings.NotNullObservable
 
-class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
+class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
+	
+	val hayUsuarioSeleccionado = new NotNullObservable("buscador.selected")
 	
 	new(WindowOwner owner, AdministradorDeUsuarios model) {
-		super(owner, new UsuariosAppModel(model))
+		super(owner, new UsuariosAppModel())
 		this.title = "RankIt -> Admin. Usuarios"
 	}
-	
-	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+
 	
 	/**
 	 * Este método redefine el template para la ventana {@link AdministrarUsuariosWindow}.
@@ -86,21 +89,21 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 //			it.width = 160
 		]
 		
-		new Label(panelResumenEstadisticas).text = "Activos: "
+		new Label(panelResumenEstadisticas).text = " Activos: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
 			it.value <=> "cantidadUsuariosActivos"
 //			it.width = 120
 		]
 		
-		new Label(panelResumenEstadisticas).text = "Inactivos: "
+		new Label(panelResumenEstadisticas).text = " Inactivos: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosInactivos"
 //			it.width = 120
 		]
 		
-		new Label(panelResumenEstadisticas).text = "Baneados: "
+		new Label(panelResumenEstadisticas).text = " Baneados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosBaneados"
@@ -130,10 +133,6 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 			it.width = 250
 		]
 		
-		new Button(panelBusqueda) => [
-			it.caption = "Buscar"
-			it.width = 120
-		]
 	}
 	
 	
@@ -153,6 +152,8 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 		this.crearPanelEdicion(panelAdministracion)
 	}
 	
+	
+	
 	/**
 	 * {@link Panel} que mostrará la grilla donde se mostrará los {@link Usuario}s de la aplicación.
 	 * 
@@ -163,43 +164,48 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 		
 		val tablaUsuarios = new Table(panelAdministracionGrilla, Usuario) => [
-			it.items <=> "usuariosRegistrados"
-			it.value <=> "usuarioSeleccionado"
+			it.items <=> "buscador.results"
+			it.value <=> "buscador.selected"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Fecha de registro"
-			it.bindContentsToProperty("fechaDeRegistro")
-//			it.weight = 115
-			it.fixedSize = 120
+			it.bindContentsToProperty("fechaDeRegistro").transformer = 
+			 [ DateTime fecha | 
+			 	DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(fecha)
+			 ]
+			it.fixedSize = 130
 		]
 
 		new Column(tablaUsuarios) => [
 			it.title = "Nombre"
 			it.bindContentsToProperty("nombre")
-//			it.weight = 90
 			it.fixedSize = 100
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Activo"
-			it.bindContentsToProperty("estaActivo")
-//			it.weight = 60
-			it.fixedSize = 60
+			it.bindContentsToProperty("estaActivo").transformer = 
+			 [ Boolean activo | 
+			 	if (activo) "Sí" else "No"
+			 ]
+			it.fixedSize = 70
 		]
 		
 		new Column(tablaUsuarios) => [
 			it.title = "Baneado"
-			it.bindContentsToProperty("estaBaneado")
-//			it.weight = 60
-			it.fixedSize = 60
+			it.bindContentsToProperty("estaBaneado").transformer = 
+			 [ Boolean baneado | 
+			 	if (baneado) "Sí" else "-"
+			 ]
+			it.fixedSize = 70
 		]
 		
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
-			//it.onClick [| modelObject.crearNuevoUsuario()]
+			it.onClick [| modelObject.crearNuevoUsuario()]
 		]
 	}
 	
@@ -222,20 +228,23 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 			]
 			
 			new Label(it) => [
-				value <=> "nombreDeUsuarioSeleccionado"
+				value <=> "buscador.selected.nombre"
+				it.bindVisible(hayUsuarioSeleccionado)
 				fontSize = 14
 			]
 				
 		]
 		
-		new ErrorsPanel(panelAdministracionEdicion, "Edita la informacion")
+		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
 		
 		new Label(panelAdministracionEdicion) => [
 			it.text = "Fecha de Registro:"
 		]
 		
-		new TextBox(panelAdministracionEdicion) => [
-			it.value <=> "fechaDeRegistroUsuarioSeleccionado"
+		new Label(panelAdministracionEdicion) => [
+			it.bindValueToProperty("buscador.selected.fechaDeRegistro").transformer = new DateTimeTransformer
+			it.bindVisible(hayUsuarioSeleccionado)
+			it.background = Color.GRAY
 			it.width = 200
 		]
 		
@@ -243,6 +252,8 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 			it.layout = new HorizontalLayout
 		
 			new CheckBox(it) => [
+				it.value <=> "usuarioSeleccionadoActivo"
+				it.bindEnabled(hayUsuarioSeleccionado)
 				it.height = 16
 			]
 			
@@ -252,6 +263,8 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
 			new CheckBox(it) => [
+				it.value <=> "usuarioSeleccionadoBaneado"
+				it.bindEnabled(hayUsuarioSeleccionado)
 				it.height = 16
 			]
 			
@@ -264,26 +277,34 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 		
 		new Label(panelAdministracionEdicion) => [
 			it.text = "09/07/2016 01:30"
+			it.bindEnabled(hayUsuarioSeleccionado)
 			it.height = 30
 		]
 		
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Revisar calificaciones"
+			it.bindEnabled(hayUsuarioSeleccionado)
 //			it.onClick [| ]
 			it.width = 50//No me lo está tomando
 		]
 
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Blanquear clave"
-			//it.onClick [| modelObject.blanquearContrasenia ]
+			it.bindEnabled(hayUsuarioSeleccionado)
+			it.onClick [| modelObject.blanquearContrasenia ]
 			it.width = 50//No me lo está tomando
 		]
 		
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
-			//it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
+			it.bindEnabled(hayUsuarioSeleccionado)
+			it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
 			it.width = 50//No me lo está tomando
 		]
+	}
+	
+	override protected addActions(Panel actionsPanel) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 }

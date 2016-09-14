@@ -4,106 +4,199 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import java.util.List
-import java.util.Date
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
+import org.joda.time.DateTime
+
+import static org.uqbar.commons.model.ObservableUtils.*
+import org.uqbar.commons.utils.ApplicationContext
 
 @Accessors
 @Observable
 class UsuariosAppModel {
 	
-	AdministradorDeUsuarios admin
+	var AdministradorDeUsuarios repositorioUsuarios
+	var BuscadorDeUsuarios buscador
+	var DateTime fechaDeRegistroUsuarioSeleccionado
+	var String nombreABuscar
 	
-	Usuario usuarioSeleccionado
-	List<Usuario> usuariosRegistrados
-	String nombreDeUsuarioBuscado
-	Date fechaDeRegistroUsuarioSeleccionado
-	
-	
-	new(AdministradorDeUsuarios admin) {
-		this.admin = admin
+
+	/**
+	 * Constructor del application model para la vista {@link AdministrarUsuariosWindow}.
+	 * 
+	 * @author Abel Espínola
+	 */
+	new() {
+		this.repositorioUsuarios = this.getRepoUsuarios()
+		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
 	}
 	
-	/* 
-	
+
 	def List<Usuario> getUsuariosRegistrados() {
 		this.usuariosRegistrados
 	}
-//SELECCION NUEVO USUARIO DE LA GRILLA:
-
-	def void setUsuarioSeleccionado(Usuario usuario) {
-		this.usuarioSeleccionado = usuario
-		this.nuevoUsuarioSeleccionado()
-	}
-
+	
 //ALTA BAJA MODIFICACION:
 	
 	
 	 def crearNuevoUsuario() {
-	 	this.administrador.agregarUsuario(new Usuario())
-		this.refrescarListaDeUsuariosEnPantalla()
+	 	this.repositorioUsuarios.agregarUsuario(new Usuario())
+		this.buscarUsuarios()
+	 	this.actualizarResumen()
 	 }
 	
 	
 	def eliminarUsuarioSeleccionado() {
-		this.administrador.eliminarUsuario(usuarioSeleccionado)
-		this.refrescarListaDeUsuariosEnPantalla()
-
+		this.repositorioUsuarios.eliminarUsuario(this.usuarioSeleccionado)
+		this.buscarUsuarios()
+		this.actualizarResumen()
 	}
 	
 	
-	def blanquearContrasenia() {
-		this.usuarioSeleccionado.establecerContraseniaDefault()
+	/** 
+	 * Se inactiva al {@link Usuario} seleccionado.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def setUsuarioSeleccionadoActivo(boolean estado) {
+		this.usuarioSeleccionado.estaActivo = estado
+		this.actualizarResumenActivos()
 	}
+	
+		/** Se responde si el {@link Usuario} seleccionado está activo.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def getUsuarioSeleccionadoActivo() {
+		this.usuarioSeleccionado.estaActivo
+	}	
+	
+	/** 
+	 * Se banea al {@link Usuario} seleccionado.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def setUsuarioSeleccionadoBaneado(boolean estado) {
+		this.usuarioSeleccionado.estaBaneado = estado
+		this.actualizarResumenBaneados()
+	}
+	
+	/** Se responde si el {@link Usuario} seleccionado está baneado.
+	 * 
+	 * @author Abel Espínola
+	 */
+	def getUsuarioSeleccionadoBaneado() {
+		this.usuarioSeleccionado.estaBaneado
+	}
+	
 //PANEL DE RESUMEN:
 
 	
 	def Integer getCantidadUsuariosRegistrados() {
-		this.administrador.usuariosTotales()
+		this.repositorioUsuarios.usuariosTotales()
 	}
 	
 	
 	def Integer getCantidadUsuariosActivos() {
-		this.administrador.usuariosActivos()
+		this.repositorioUsuarios.usuariosActivos()
 	}
 	
 	
 	def Integer getCantidadUsuariosInactivos() {
-		this.administrador.usuariosInactivos()
+		this.repositorioUsuarios.usuariosInactivos()
 	}
 	
 	
 	def Integer getCantidadUsuariosBaneados() {
-		this.administrador.usuariosBaneados()
+		this.repositorioUsuarios.usuariosBaneados()
 	}
 	
+//BUSCADOR:
+
+	def void setNombreDeUsuarioBuscado(String nombre) {
+		this.nombreABuscar = nombre
+		this.buscador.setNombreUsuarioABuscar(nombre)
+	}
+	
+	def String getNombreDeUsuarioBuscado() {
+		return this.nombreABuscar
+	}
+
+
+	def void buscarUsuarios() {
+		this.buscador.search()
+	}
+	
+	/**
+	 * 
+	 * @author Abel Espínola
+	 */
+	def Usuario getUsuarioSeleccionado() {
+		this.buscador.selected
+	}
+
+
 //PANEL DE EDICION:
 
-	
+	/**
+	 * Se reinicia la clave del {@link Usuario} seleccionado al valor '123'
+	 * 
+	 * @author Abel Espínola
+	 */
+	def blanquearContrasenia() {
+		this.usuarioSeleccionado.establecerContraseniaDefault()
+	}
+
+	 /**
+	  * Se informa a la ventana de administración de {@link Usuario}s que un nuevo usuario a sido seleccionado en la grilla.
+	  * En este método se definen las notificaciones pertinentes que se deben realizar a los elementos observables.
+	  * 
+	  * @author Abel Espínola
+	  */
 	 def String getFechaDeRegistroUsuarioSeleccionado() {
 	 	this.usuarioSeleccionado.fechaDeRegistro.toString()
 	 }
 	 
 	 
-	 def void nuevoUsuarioSeleccionado() {
-	 	firePropertyChanged(this, "nombreDeUsuarioSeleccionado")
-	 	firePropertyChanged(this, "fechaDeRegistroUsuarioSeleccionado")
-	 }
-	 
 	 def String getNombreDeUsuarioSeleccionado() {
 	 	this.usuarioSeleccionado.nombre
 	 }
-	
+	 
+//BINDING GRILLA
 
-//METODOS AUXILIARES:
+	/**
+	 * TODO
+	 */
 
-	def refrescarListaDeUsuariosEnPantalla() {
-		firePropertyChanged(this, "cantidadUsuariosRegistrados")
-		firePropertyChanged(this, "usuariosRegistrados")
-//		firePropertyChanged(this, "cantidadUsariosActivos")
-//		firePropertyChanged(this, "cantidadUsariosInactivos")
-//		firePropertyChanged(this, "cantidadUsariosBaneados")
+
+
+//METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
+
+	def void actualizarPanelEdicionUsuario() {
+		firePropertyChanged(this, "nombreDeUsuarioSeleccionado")
+		firePropertyChanged(this, "fechaDeRegistroUsuarioSeleccionado")
 	}
 
-	*/
 
+	def void actualizarResumen() {
+		firePropertyChanged(this, "cantidadUsuariosRegistrados")
+		this.actualizarResumenActivos()
+		this.actualizarResumenBaneados
+	}
+	
+	def void actualizarResumenBaneados() {
+		firePropertyChanged(this, "cantidadUsuariosBaneados")
+	}
+	
+	def void actualizarResumenActivos() {
+		firePropertyChanged(this, "cantidadUsuariosActivos")
+		firePropertyChanged(this, "cantidadUsuariosInactivos")
+	}
+	
+	
+//CARGO EL APPLICATION CONTEXT
+
+	def AdministradorDeUsuarios getRepoUsuarios() {
+		ApplicationContext.instance.getSingleton(typeof(AdministradorDeUsuarios))
+	}	
+	
 }
