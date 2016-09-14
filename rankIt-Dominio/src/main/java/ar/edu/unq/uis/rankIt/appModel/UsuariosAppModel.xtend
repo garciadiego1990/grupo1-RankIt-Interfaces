@@ -8,6 +8,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 import org.joda.time.DateTime
 
 import static org.uqbar.commons.model.ObservableUtils.*
+import org.uqbar.commons.utils.ApplicationContext
 
 @Accessors
 @Observable
@@ -25,7 +26,7 @@ class UsuariosAppModel {
 	 * @author Abel Espínola
 	 */
 	new() {
-		this.repositorioUsuarios = new AdministradorDeUsuarios()
+		this.repositorioUsuarios = this.getRepoUsuarios()
 		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
 	}
 	
@@ -190,5 +191,12 @@ class UsuariosAppModel {
 		firePropertyChanged(this, "cantidadUsuariosActivos")
 		firePropertyChanged(this, "cantidadUsuariosInactivos")
 	}
+	
+	
+//CARGO EL APPLICATION CONTEXT
+
+	def AdministradorDeUsuarios getRepoUsuarios() {
+		ApplicationContext.instance.getSingleton(typeof(AdministradorDeUsuarios))
+	}	
 	
 }

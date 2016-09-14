@@ -4,6 +4,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.utils.ApplicationContext
 
 @Accessors
 @Observable
@@ -14,8 +15,11 @@ class ServiciosAppModel {
 	int serviciosHabilitados
 
 	new(AdministradorDePublicaciones admin) {
-		this.admin = admin
+		// Abel (modificacion) -> Cargado el ApplicationContext. El parametro admin de este constructor 
+		//							ya no es necesario.
+		this.admin = this.repoServicios
 	}
+
 	
 	def nuevoServicio() {
 		var servicio = new Publicacion()
@@ -68,4 +72,10 @@ class ServiciosAppModel {
 	}
 	* 
 	*/
+	
+//CARGO EL APPLICATION CONTEXT
+	/**@author Abel */
+	def AdministradorDePublicaciones getRepoServicios() {
+		ApplicationContext.instance.getSingleton(typeof(AdministradorDePublicaciones))
+	}	
 }
