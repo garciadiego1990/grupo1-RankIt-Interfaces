@@ -13,6 +13,9 @@ class AdministradorServiciosAppModel {
 	int serviciosInscriptos
 	int serviciosHabilitados
 
+	new(AdministradorDePublicaciones admin) {
+		this.admin = admin
+	}
 	
 	def nuevoServicio() {
 		var servicio = new Publicacion()

@@ -111,10 +111,10 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		val Panel botonAdminPanel = new Panel(owner)
 		
 		new Button(botonAdminPanel) => [
-			caption = "Adm. Usuarios"
+			caption = "Adm. Calificaciones"
 			//width = 100
 			setAsDefault
-			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
+			onClick [ | new AdministradorCalificacionesWindow(this, this.modelObject.admin.adminCalificaciones).open ]
 		]
 		
 		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
@@ -144,10 +144,10 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		val Panel botonAdminPanel = new Panel(owner)
 		
 		new Button(botonAdminPanel) => [
-			caption = "Adm. Usuarios"
+			caption = "Adm. Servicios"
 			//width = 100
 			setAsDefault
-			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
+			onClick [ | new AdministradorServiciosWindow(this, this.modelObject.admin.adminPublicaciones).open ]
 		]
 		
 		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
@@ -177,10 +177,10 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		val Panel botonAdminPanel = new Panel(owner)
 		
 		new Button(botonAdminPanel) => [
-			caption = "Adm. Usuarios"
+			caption = "Adm. Lugares"
 			//width = 100
 			setAsDefault
-			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.admin.adminUsuarios).open ]
+			onClick [ | new AdministradorLugaresWindow(this, this.modelObject.admin.adminPublicaciones).open ]
 		]
 		
 		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)

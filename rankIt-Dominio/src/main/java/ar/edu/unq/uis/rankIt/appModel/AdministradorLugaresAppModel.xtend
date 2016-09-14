@@ -13,6 +13,10 @@ class AdministradorLugaresAppModel {
 	Publicacion lugarSeleccionado
 	String nombreDeLugarBuscado
 	
+	new(AdministradorDePublicaciones admin) {
+		this.admin = admin
+	}
+	
 	/* 
 	def eliminarLugarSeleccionado() {
 		admin.eliminarLugar(nombreDeLugarBuscado)

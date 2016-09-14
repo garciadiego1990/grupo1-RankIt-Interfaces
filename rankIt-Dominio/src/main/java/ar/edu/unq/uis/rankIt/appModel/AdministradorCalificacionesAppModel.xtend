@@ -8,4 +8,9 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 @Observable
 class AdministradorCalificacionesAppModel {
 	AdministradorDeCalificaciones admin
+	
+	
+	new(AdministradorDeCalificaciones admin) {
+		this.admin = admin
+	}
 }

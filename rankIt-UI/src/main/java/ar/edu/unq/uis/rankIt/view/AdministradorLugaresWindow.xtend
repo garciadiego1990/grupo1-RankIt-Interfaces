@@ -1,6 +1,5 @@
 package ar.edu.unq.uis.rankIt.view
 
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
@@ -17,11 +16,13 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import ar.edu.unq.uis.rankIt.appModel.AdministradorLugaresAppModel
+import org.uqbar.arena.windows.Dialog
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 
-class AdministradorLugaresWindow extends SimpleWindow<AdministradorLugaresAppModel> {
-	new(WindowOwner owner, AdministradorLugaresAppModel model) {
-		super(owner, model)
-		this.title = "Rank-IT -> Adm Lugares"
+class AdministradorLugaresWindow extends Dialog<AdministradorLugaresAppModel> {
+	new(WindowOwner owner, AdministradorDePublicaciones model) {
+		super(owner, new AdministradorLugaresAppModel(model))
+		this.title = "Rank-IT -> Adm Servicios"
 	}
 
 	override protected addActions(Panel actionsPanel) {

@@ -18,10 +18,12 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.appModel.AdministradorServiciosAppModel
+import org.uqbar.arena.windows.Dialog
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 
-class AdministradorServiciosWindow extends SimpleWindow<AdministradorServiciosAppModel> {
-	new(WindowOwner owner, AdministradorServiciosAppModel model) {
-		super(owner, model)
+class AdministradorServiciosWindow extends Dialog<AdministradorServiciosAppModel> {
+	new(WindowOwner owner, AdministradorDePublicaciones model) {
+		super(owner, new AdministradorServiciosAppModel(model))
 		this.title = "Rank-IT -> Adm Servicios"
 	}
 
