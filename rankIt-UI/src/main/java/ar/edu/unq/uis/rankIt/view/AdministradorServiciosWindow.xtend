@@ -1,6 +1,5 @@
 package ar.edu.unq.uis.rankIt.view
 
-
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.layout.VerticalLayout
@@ -18,14 +17,14 @@ import ar.edu.unq.uis.rankIt.view.components.Titulo
 import ar.edu.unq.uis.rankIt.view.components.LabeledTextBox
 import ar.edu.unq.uis.rankIt.view.components.LabeledCheckBox
 import ar.edu.unq.uis.rankIt.view.components.Labeled
-import ar.edu.unq.uis.rankIt.appModel.AdministradorServiciosAppModel
 import org.uqbar.arena.windows.Dialog
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
+import ar.edu.unq.uis.rankIt.appModel.ServiciosAppModel
 
-class AdministradorServiciosWindow extends Dialog<AdministradorServiciosAppModel> {
+class AdministradorServiciosWindow extends Dialog<ServiciosAppModel> {
 	
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
-		super(owner, new AdministradorServiciosAppModel(model))
+		super(owner, new ServiciosAppModel(model))
 	}
 	
 	override protected addActions(Panel actionsPanel) {}

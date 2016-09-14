@@ -6,7 +6,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 
 @Accessors
 @Observable
-class AdministradorCalificacionesAppModel {
+class CalificacionesAppModel {
 	AdministradorDeCalificaciones admin
 	
 	

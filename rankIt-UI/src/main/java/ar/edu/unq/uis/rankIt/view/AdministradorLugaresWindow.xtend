@@ -15,13 +15,13 @@ import org.uqbar.arena.layout.VerticalLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
-import ar.edu.unq.uis.rankIt.appModel.AdministradorLugaresAppModel
 import org.uqbar.arena.windows.Dialog
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
+import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
 
-class AdministradorLugaresWindow extends Dialog<AdministradorLugaresAppModel> {
+class AdministradorLugaresWindow extends Dialog<LugaresAppModel> {
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
-		super(owner, new AdministradorLugaresAppModel(model))
+		super(owner, new LugaresAppModel(model))
 		this.title = "Rank-IT -> Adm Servicios"
 	}
 
@@ -238,11 +238,13 @@ class AdministradorLugaresWindow extends Dialog<AdministradorLugaresAppModel> {
 			it.caption = "Revisar calificaciones"
 			it.width = 50 // No me lo está tomando
 		]
-
+		/* 
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
 			it.onClick [| modelObject.eliminarLugarSeleccionado ]
 			it.width = 50 // No me lo está tomando
 		]
+		* 
+		*/
 	}
 }

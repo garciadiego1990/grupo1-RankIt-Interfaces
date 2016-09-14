@@ -9,7 +9,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 
 @Accessors
 @Observable
-class AdministradorUsuariosAppModel {
+class UsuariosAppModel {
 	
 	AdministradorDeUsuarios admin
 	

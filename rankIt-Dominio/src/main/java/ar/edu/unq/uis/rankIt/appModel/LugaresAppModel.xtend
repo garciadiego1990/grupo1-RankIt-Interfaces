@@ -7,7 +7,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 
 @Accessors
 @Observable
-class AdministradorLugaresAppModel {
+class LugaresAppModel {
 	
 	AdministradorDePublicaciones admin 
 	Publicacion lugarSeleccionado

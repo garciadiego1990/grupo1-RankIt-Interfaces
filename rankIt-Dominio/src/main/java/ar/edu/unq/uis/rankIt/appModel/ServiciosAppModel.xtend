@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
-class AdministradorServiciosAppModel {
+class ServiciosAppModel {
 	AdministradorDePublicaciones admin
 	Publicacion publicacionSeleccionada
 	int serviciosInscriptos

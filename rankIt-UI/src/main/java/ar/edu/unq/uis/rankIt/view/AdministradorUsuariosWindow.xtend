@@ -17,14 +17,14 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
-import ar.edu.unq.uis.rankIt.appModel.AdministradorUsuariosAppModel
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 import org.uqbar.arena.windows.Dialog
+import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
 
-class AdministradorUsuariosWindow extends Dialog<AdministradorUsuariosAppModel> {
+class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 	
 	new(WindowOwner owner, AdministradorDeUsuarios model) {
-		super(owner, new AdministradorUsuariosAppModel(model))
+		super(owner, new UsuariosAppModel(model))
 		this.title = "RankIt -> Admin. Usuarios"
 	}
 	
