@@ -17,6 +17,7 @@ class LugaresAppModel {
 		this.admin = admin
 	}
 	
+	
 	/* 
 	def eliminarLugarSeleccionado() {
 		admin.eliminarLugar(nombreDeLugarBuscado)

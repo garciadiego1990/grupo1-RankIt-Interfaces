@@ -1,15 +1,22 @@
 package ar.edu.unq.uis.rankIt.appModel
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
-
+import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
 class MenuAppModel {
 	
 	AdministradorGeneral admin
+	
+	
+	
+	
+	def int getServiciosInscriptos() {
+		return admin.serviciosTotales()
+	}
+	
 	
 	/*  
 	def String getEstadisticasUsuarios() {

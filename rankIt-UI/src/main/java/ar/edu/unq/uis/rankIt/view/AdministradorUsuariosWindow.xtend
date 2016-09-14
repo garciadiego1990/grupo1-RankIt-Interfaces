@@ -28,7 +28,6 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 		this.title = "RankIt -> Admin. Usuarios"
 	}
 	
-	
 	override protected addActions(Panel actionsPanel) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
@@ -200,7 +199,7 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 		
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
-			it.onClick [| modelObject.crearNuevoUsuario()]
+			//it.onClick [| modelObject.crearNuevoUsuario()]
 		]
 	}
 	
@@ -276,13 +275,13 @@ class AdministradorUsuariosWindow extends Dialog<UsuariosAppModel> {
 
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Blanquear clave"
-			it.onClick [| modelObject.blanquearContrasenia ]
+			//it.onClick [| modelObject.blanquearContrasenia ]
 			it.width = 50//No me lo está tomando
 		]
 		
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
-			it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
+			//it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
 			it.width = 50//No me lo está tomando
 		]
 	}

@@ -22,6 +22,7 @@ class ServiciosAppModel {
 		admin.agregarServicio(servicio)
 	}
 	
+	
 	def eliminarServicio() {
 		admin.borrarServicio(publicacionSeleccionada)
 	}
