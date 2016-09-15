@@ -8,14 +8,15 @@ import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 
 class RankItBootstrap  extends CollectionBasedBootstrap {
 	
 	new(){
 		ApplicationContext.instance => [
 			configureSingleton(typeof(AdministradorDeUsuarios), new AdministradorDeUsuarios)
-			//configureSingleton(typeof(AdministradorDePublicaciones), new AdministradorDePublicaciones)
 			configureSingleton(typeof(AdministradorGeneral), new AdministradorGeneral)
+			configureSingleton(typeof(AdministradorDePublicaciones), new AdministradorDePublicaciones)
 			configureSingleton(typeof(AdministradorDeCalificaciones), new AdministradorDeCalificaciones)
 		]
 	}
