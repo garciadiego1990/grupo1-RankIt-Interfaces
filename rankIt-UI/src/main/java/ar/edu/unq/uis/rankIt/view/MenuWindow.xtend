@@ -25,42 +25,18 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		
 		this.title = "Rank-It"
 		
-		//new Titulo(mainPanel, "Rank-It! Modulo de administracion", 20)
-		
 		val tituloPanel = new Panel(mainPanel)
-		tituloPanel.layout = new ColumnLayout(3)
 		
-		// darle independencia al titulo
 		new Titulo(tituloPanel, "Rank-It! Modulo de administración", 20)
-		new Label(tituloPanel) => []
-		new Label(tituloPanel) => []
-		
 		
 		val textoPanel = new Panel(mainPanel)
-		textoPanel.layout = new ColumnLayout(3) 		
-		new Label(textoPanel) => [
-			text = 	"Desde este módulo vas a poder gestionar los datos y opciones de la aplicación"
-			height = 50	   	
-		]
-		new Label(textoPanel) => [height = 50]
-		new Label(textoPanel) => [height = 50]
 		
-		new Label(textoPanel) => [
-			text = "Como sos una persona de confianza vas a tener acceso a todo! "
-			height = 50
-		]
-		new Label(textoPanel) => [height = 50]
-		new Label(textoPanel) => [height = 50]
-		
-		new Label(textoPanel) => [
-			text = "Siempre acordate: \"con un gran poder viene una gran responsabilidad\""
-			height = 50
-			
-		]
-		new Label(textoPanel) => [height = 50]
-		new Label(textoPanel) => [height = 50]
+		new Label(textoPanel).text = "Desde este modulo vas a poder gestionar los datos y opciones de la aplicación\n\n" 		
+		+"como sos una persona de confianza vas a tener acceso a todo!!\n\n"
+		+"Siempre acordate con un gran poder viene una gran responsabilidad\n"
 		
 		this.crearBotonesDeAdmins(mainPanel)
+		
 	}
 	
 	 
