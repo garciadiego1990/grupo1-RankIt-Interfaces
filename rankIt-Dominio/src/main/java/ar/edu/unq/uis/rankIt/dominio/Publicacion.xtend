@@ -9,50 +9,47 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class Publicacion {
-	String nombre 
+	String nombre
 	boolean estaHabilitado
 	DateTime fechaDeRegistro
 	List<Calificacion> calificaciones
- 	
 	
+
 	new() {
 		fechaDeRegistro = new DateTime
 		calificaciones = new ArrayList<Calificacion>
 	}
-	
+
 	new(String nombre) {
 		estaHabilitado = false
 		fechaDeRegistro = new DateTime
 		calificaciones = new ArrayList<Calificacion>
 		this.nombre = nombre
 	}
-	
-	def getCalificaciones(){
+
+	def getCalificaciones() {
 		calificaciones
 	}
-/*	
-	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion){
-		var Calificacion c = new Calificacion
-		c.calificar(unaCalificacion, unEvaluador, this)
-		calificaciones.add(c)
-				
-	}
-*/
+
+	/*	
+	 * 	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion){
+	 * 		var Calificacion c = new Calificacion
+	 * 		c.calificar(unaCalificacion, unEvaluador, this)
+	 * 		calificaciones.add(c)
+	 * 				
+	 * 	}
+	 */
 	def void eliminarCalificacion(Calificacion c) {
 		this.calificaciones.remove(c)
-	} 
-	
+	}
 
-	def Integer cantidadDeEvaluaciones(){
+	def int cantidadDeEvaluaciones() {
 		calificaciones.size
 	}
-	
-	def double ratingPromedio(){
-		var ret = 0
-		for(Calificacion c:calificaciones){
-			ret = ret + c.puntaje
-		}
-	return ret/cantidadDeEvaluaciones 
+
+	def double ratingPromedio() {
+		var suma = calificaciones.fold(0, [acum, calificacion|acum + calificacion.puntaje])
+		return suma / cantidadDeEvaluaciones
 	}
-	 
+
 }

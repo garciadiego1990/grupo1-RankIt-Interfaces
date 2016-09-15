@@ -15,24 +15,22 @@ class ServiciosAppModel {
 	int serviciosHabilitados
 
 	new(AdministradorDePublicaciones admin) {
-		// Abel (modificacion) -> Cargado el ApplicationContext. El parametro admin de este constructor 
-		//							ya no es necesario.
 		this.admin = this.repoServicios
 	}
 
 	
 	def nuevoServicio() {
 		var servicio = new Publicacion()
-		admin.agregarServicio(servicio)
+		admin.agregar(servicio)
 	}
 	
 	
 	def eliminarServicio() {
-		admin.borrarServicio(publicacionSeleccionada)
+		admin.borrar(publicacionSeleccionada)
 	}
 	
 	def setServiciosInscriptos() {
-		serviciosInscriptos = admin.serviciosInscriptos()
+		serviciosInscriptos = admin.inscriptos()
 	}
 	
 	def int getServiciosInscriptos() {
@@ -40,7 +38,7 @@ class ServiciosAppModel {
 	}
 	
 	def setServiciosHabilitados() {
-		serviciosHabilitados = admin.serviciosHabilitados()
+		serviciosHabilitados = admin.habilitados()
 	}
 	/* 
 	def int getServiciosHabilitados() {

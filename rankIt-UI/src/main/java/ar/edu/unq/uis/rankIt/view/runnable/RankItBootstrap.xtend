@@ -28,13 +28,18 @@ class RankItBootstrap  extends CollectionBasedBootstrap {
 	def crearAdminPublicaciones() {
 		 
 		ApplicationContext.instance.getSingleton(typeof(AdministradorDePublicaciones)) as AdministradorDePublicaciones => [
-			agregarServicio(servicioSpeddy)
-			agregarServicio(servicioMulticanal)
-			agregarServicio(servicioTelefonica)
-			agregarServicio(servicioFibertel)
-			agregarLugar(Quilmes)
-			agregarLugar(Berazategui)
-			agregarLugar(Ezpeleta) 
+			agregar(servicioSpeddy)
+			agregar(servicioMulticanal)
+			agregar(servicioTelefonica)
+			agregar(servicioFibertel)
+			calificacion1.puntaje = 5
+			calificacion2.puntaje = 8
+			Quilmes.calificaciones.add(calificacion1)
+			Berazategui.calificaciones.add(calificacion2)
+			agregar(Quilmes)
+			agregar(Berazategui)
+			agregar(Ezpeleta) 
+		
 		]	
 	}
 	
@@ -60,9 +65,13 @@ class RankItBootstrap  extends CollectionBasedBootstrap {
 	var servicioSpeddy = new Publicacion("Speedy")
 	var servicioMulticanal = new Publicacion("Multicanal")
 	var servicioTelefonica = new Publicacion("Telefonica")
+	
 	var Quilmes = new Publicacion("Quilmes")
+
 	var Berazategui = new Publicacion("Berazategui")
+	
 	var Ezpeleta = new Publicacion("Ezpeleta")
+	
 	var calificacion1 = new Calificacion()
 	var calificacion2 = new Calificacion()
 	var calificacion3 = new Calificacion()

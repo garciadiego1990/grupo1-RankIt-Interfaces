@@ -5,7 +5,6 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
-
 // Estoy tratando de subir los cambios
 
 @Observable
@@ -25,8 +24,8 @@ class AdministradorDeCalificaciones {
 	def List<Calificacion> calificacionesDeLugaresYServicios() {
 		var List<Publicacion> publicaciones = new ArrayList<Publicacion>
 		var List<Calificacion> todasLasCalificaciones= new ArrayList<Calificacion>
-		publicaciones.addAll(admin.lugares)
-		publicaciones.addAll(admin.servicios)
+		publicaciones.addAll(admin.todo)
+		publicaciones.addAll(admin.todo)
 	
 		for(Publicacion p : publicaciones){
 			todasLasCalificaciones.addAll(p.calificaciones)

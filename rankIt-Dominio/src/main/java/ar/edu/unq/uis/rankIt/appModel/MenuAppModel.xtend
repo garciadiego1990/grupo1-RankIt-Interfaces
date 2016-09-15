@@ -14,11 +14,11 @@ class MenuAppModel {
 	
 	
 	def int getServiciosInscriptos() {
-		return admin.serviciosTotales()
+		return admin.adminServicios.inscriptos()
 	}
 	
 	def int getLugaresInscriptos(){
-		admin.lugaresTotales
+		admin.adminLugares.inscriptos()
 	}
 	
 	

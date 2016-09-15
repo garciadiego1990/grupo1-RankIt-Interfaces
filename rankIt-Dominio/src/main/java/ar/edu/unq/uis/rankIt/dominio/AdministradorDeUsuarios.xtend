@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class AdministradorDeUsuarios {
 	List<Usuario> usuarios
 	
-	
+	 
 	new() {
 		this.usuarios = new ArrayList<Usuario>
 	}

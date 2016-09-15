@@ -27,7 +27,7 @@ import org.uqbar.arena.bindings.NotNullObservable
 
 class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 	
-	var hayLugarSeleccionado = new NotNullObservable("buscador.selected")
+	var hayLugarSeleccionado = new NotNullObservable("lugarSeleccionado")
 	
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
 		super(owner, new LugaresAppModel())
@@ -35,26 +35,10 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 	}
 
 	
-	/**
-	 * Este método redefine el template para la ventana {@link AdministrarUsuariosWindow}.
-	 * En caso de existir la definición del método {@link #createContents(Panel)}
-	 * se ejecutará en lugar de este
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana
-	 * @author Abel Espínola
-	 */
 	override protected createMainTemplate(Panel mainPanel) {
 		this.createFormPanel(mainPanel)
 	}
 	
-	
-	/**
-	 * En este método se define el contenido principal de la ventana para administrar {@link Usuario}s
-	 * en RankIt.
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana
-	 * @author Abel Espínola
-	 */
 	override protected createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
 		
@@ -66,15 +50,6 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		this.crearPanelAdministracionLugares(mainPanel)
 	}
 	
-
-	
-	/**
-	 * {@link Panel} horizontal que mostrará datos estadisticos de todos los {@link Usuario}s
-	 *  de la aplicación.
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana.
-	 * @author Abel Espínola
-	 */
 	def panelResumenLugares(Panel mainPanel) {
 		
 		val panelResumenEstadisticas = new GroupPanel(mainPanel) => [
@@ -104,13 +79,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		]
 	}
 	
-	
-	/**
-	 * {@link Panel} que mostrará los elementos de búsqueda de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} principal de la ventana.
-	 * @author Abel Espínola
-	 */
+
 	def crearPanelDeBusqueda(Panel ownerPanel) {
 		val panelBusqueda = new Panel(ownerPanel)
 		
@@ -127,14 +96,6 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		
 	}
 	
-	
-	
-	/**
-	 * {@link Panel} que contendrá toda la funcionalidad para administrar {@link Usuario}s.
-	 * 
-	 * @param ownerPanel - {@link Panel} principal de la ventana
-	 * @author Abel Espínola
-	 */
 	def crearPanelAdministracionLugares(Panel ownerPanel) {
 		val panelAdministracion = new Panel(ownerPanel)
 		panelAdministracion.layout = new HorizontalLayout
@@ -144,20 +105,12 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		this.crearPanelEdicion(panelAdministracion)
 	}
 	
-	
-	
-	/**
-	 * {@link Panel} que mostrará la grilla donde se mostrará los {@link Usuario}s de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} de administración.
-	 * @author Abel Espínola
-	 */
 	def crearPanelGrilla(Panel ownerPanel) {
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 		
 		val tablaLugares = new Table(panelAdministracionGrilla, Publicacion) => [
-			it.items <=> "buscador.results"
-			it.value <=> "buscador.selected"
+			it.items <=> "buscador.lugaresFiltrados"
+			it.value <=> "lugarSeleccionado"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
@@ -193,12 +146,6 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 	}
 	
 	
-	/**
-	 * {@link Panel} que mostrará los elementos para editar {@link Usuario}s de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} de administración.
-	 * @author Abel Espínola
-	 */
 	def crearPanelEdicion(Panel administracionPanel) {
 		val panelAdministracionEdicion = new Panel(administracionPanel)
 		
@@ -211,7 +158,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 			]
 			
 			new Label(it) => [
-				value <=> "buscador.selected.nombre"
+				value <=> "lugarSeleccionado.nombre"
 				it.bindVisible(hayLugarSeleccionado)
 				fontSize = 14
 			]
@@ -220,9 +167,8 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		
 		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
 		
-		new Label(panelAdministracionEdicion) => [
-			it.text = "Nombre:"
-		]
+		new Label(panelAdministracionEdicion).text = "Nombre:"
+		new TextBox(panelAdministracionEdicion).bindValueToProperty("lugarSeleccionado.nombre")
 		/* 
 		new Label(panelAdministracionEdicion) => [
 			it.bindValueToProperty("buscador.selected.fechaDeRegistro").transformer = new DateTimeTransformer
@@ -231,11 +177,12 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 			it.width = 200
 		]
 		*/
+		
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
 		
 			new CheckBox(it) => [
-				it.value <=> "lugarSeleccionadoHabilitado"
+				it.value <=> "lugarSeleccionado.estaHabilitado"
 				it.bindEnabled(hayLugarSeleccionado)
 				it.height = 16
 			]
@@ -243,37 +190,34 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 			new Label(it).text = "Habilitado"
 		]
 		
-		new Label(panelAdministracionEdicion) => [
-			it.text = "Rating promedio:"
-		]
-		
+		new Label(panelAdministracionEdicion).text = "Rating promedio:"
 		new Label(panelAdministracionEdicion) => [
 			it.value<=>"ratingPromedio"
 			it.height = 30
 		]
-		
-		new Label(panelAdministracionEdicion) => [
-			it.text = "Calificaciones:"
-		]
-		
-		new Label(panelAdministracionEdicion) => [
-			it.value<=>"cantidadDeCalificaciones"
-			it.height = 30
-		]
-		
-		new Button(panelAdministracionEdicion) => [
-			it.caption = "Revisar publicaciones"
-	//		it.bindEnabled(hayLugarSeleccionado)
-		//	it.onClick [| modelObject.]
-			it.width = 50
-		]
-		
-		new Button(panelAdministracionEdicion) => [
-			it.caption = "Eliminar"
-			it.bindEnabled(hayLugarSeleccionado)
-			it.onClick [| modelObject.eliminarLugarSeleccionado ]
-			it.width = 50
-		]
+//		
+//		new Label(panelAdministracionEdicion) => [
+//			it.text = "Calificaciones:"
+//		]
+//		
+//		new Label(panelAdministracionEdicion) => [
+//			it.value<=>"cantidadDeCalificaciones"
+//			it.height = 30
+//		]
+//		
+//		new Button(panelAdministracionEdicion) => [
+//			it.caption = "Revisar calificaciones"
+//	//		it.bindEnabled(hayLugarSeleccionado)
+//		//	it.onClick [| modelObject.]
+//			it.width = 50
+//		]
+//		
+//		new Button(panelAdministracionEdicion) => [
+//			it.caption = "Eliminar"
+//			it.bindEnabled(hayLugarSeleccionado)
+//			it.onClick [| modelObject.eliminarLugarSeleccionado ]
+//			it.width = 50
+//		]
 	}
 	
 	override protected addActions(Panel actionsPanel) {

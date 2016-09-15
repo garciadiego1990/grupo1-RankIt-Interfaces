@@ -7,6 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.utils.ApplicationContext
 import static org.uqbar.commons.model.ObservableUtils.*
+import org.uqbar.commons.model.ObservableUtils
 
 @Accessors
 @Observable
@@ -15,10 +16,11 @@ class LugaresAppModel {
 	AdministradorDePublicaciones admin 
 	String nombreDeLugarBuscado
 	var BuscadorDeLugares buscador
+	Publicacion lugarSeleccionado
 	
 	new() {
 		admin = getRepoLugares
-		buscador = new BuscadorDeLugares(typeof(Publicacion), admin.lugares)
+		buscador = new BuscadorDeLugares(admin.todo)
 	}
 	
 	def DateTime getFechaDeRegistro(){
@@ -34,24 +36,33 @@ class LugaresAppModel {
 	}
 	
 	def int getCantidadDeCalificaciones(){
-		lugarSeleccionado.cantidadDeEvaluaciones
+		getLugarSeleccionado.cantidadDeEvaluaciones
 	} 
 	
 	def double getRatingPromedio(){
-		lugarSeleccionado.ratingPromedio
+		if(lugarSeleccionado == null){
+			0
+		}else{
+			lugarSeleccionado.ratingPromedio
+		}
+	}
+	
+	def void setLugarSeleccionado(Publicacion publicacion){
+		this.lugarSeleccionado=publicacion
+		ObservableUtils.firePropertyChanged(this,"ratingPromedio")
 	}
 	
 
 	
 	def crearNuevoLugar() {
-	 	admin.agregarLugar(new Publicacion())
+	 	admin.agregar(new Publicacion())
 		buscarLugares()
 	 	actualizarResumen()
 	 }
 	
 	
 	def eliminarLugarSeleccionado() {
-		this.admin.eliminarLugar(lugarSeleccionado)
+		this.admin.borrar(lugarSeleccionado)
 		buscarLugares()
 		actualizarResumen()
 	}
@@ -61,24 +72,20 @@ class LugaresAppModel {
 		actualizarResumenHabilitados()
 	}
 	
-	def getLugarSeleccionadoHabilitado() {
-		lugarSeleccionado.estaHabilitado
-	}	
-	
 	//PANEL DE RESUMEN:
 
 	
 	def Integer getCantidadLugaresRegistrados() {
-		admin.lugaresInscriptos
+		admin.inscriptos
 	}
 	
 	
 	def Integer getCantidadLugaresHabilitados() {
-		admin.lugaresHabilitados
+		admin.habilitados
 	}
 	
 	def int getCantidadLugaresDeshabilitados() {
-		admin.lugaresDeshabilitados
+		admin.deshabilitados
 	}
 	
 	//BUSCADOR:
@@ -95,10 +102,6 @@ class LugaresAppModel {
 
 	def void buscarLugares() {
 		buscador.search()
-	}
-	
-	def Publicacion getLugarSeleccionado() {
-		this.buscador.selected
 	}
 	
 //PANEL DE EDICION:
