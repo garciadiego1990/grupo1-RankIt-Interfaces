@@ -3,47 +3,47 @@ package ar.edu.unq.uis.rankIt.view.runnable
 import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import org.uqbar.commons.utils.ApplicationContext
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
+import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
-import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 
 class RankItBootstrap  extends CollectionBasedBootstrap {
 	
 	new(){
 		ApplicationContext.instance => [
 			configureSingleton(typeof(AdministradorDeUsuarios), new AdministradorDeUsuarios)
-			//configureSingleton(typeof(AdministradorDePublicaciones), new AdministradorDePublicaciones)
-			configureSingleton(typeof(AdministradorGeneral), new AdministradorGeneral)
+			configureSingleton(typeof(AdministradorDePublicaciones), new AdministradorDePublicaciones)
 			configureSingleton(typeof(AdministradorDeCalificaciones), new AdministradorDeCalificaciones)
 		]
 	}
 	
 	override run() {
-		this.crearAdminGeneral()
-		//this.crearAdminCalificaciones()
-		//this.crearAdminUsuarios()
+		this.crearAdminPublicaciones()
+		this.crearAdminCalificaciones()
+		this.crearAdminUsuarios()
 	}
 	 
-	def crearAdminGeneral() {
+	def crearAdminPublicaciones() {
 		 
-		ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral)) as AdministradorGeneral => [
-			adminServicios.agregar(servicioSpeddy)
-			adminServicios.agregar(servicioMulticanal)
-			adminServicios.agregar(servicioTelefonica)
-			adminServicios.agregar(servicioFibertel)
-			//calificacion1.puntaje = 5
-			//calificacion2.puntaje = 8
-			//Quilmes.calificaciones.add(calificacion1)
-			//Berazategui.calificaciones.add(calificacion2)
-			adminLugares.agregar(Quilmes)
-			adminLugares.agregar(Berazategui)
-			adminLugares.agregar(Ezpeleta) 
+		ApplicationContext.instance.getSingleton(typeof(AdministradorDePublicaciones)) as AdministradorDePublicaciones => [
+			agregar(servicioSpeddy)
+			agregar(servicioMulticanal)
+			agregar(servicioTelefonica)
+			agregar(servicioFibertel)
+			calificacion1.puntaje = 5
+			calificacion2.puntaje = 8
+			Quilmes.calificaciones.add(calificacion1)
+			Berazategui.calificaciones.add(calificacion2)
+			agregar(Quilmes)
+			agregar(Berazategui)
+			agregar(Ezpeleta) 
 		
 		]	
 	}
-	/* 
+	
 	def crearAdminCalificaciones() {
 		 
 		ApplicationContext.instance.getSingleton(typeof(AdministradorDeCalificaciones)) as AdministradorDeCalificaciones => [
@@ -61,20 +61,21 @@ class RankItBootstrap  extends CollectionBasedBootstrap {
 			agregarUsuario(usuarioMarcos) 
 		]	
 	}
-	*/
+	
 	var servicioFibertel = new Publicacion("Fibertel")
 	var servicioSpeddy = new Publicacion("Speedy")
 	var servicioMulticanal = new Publicacion("Multicanal")
 	var servicioTelefonica = new Publicacion("Telefonica")
 	
 	var Quilmes = new Publicacion("Quilmes")
+
 	var Berazategui = new Publicacion("Berazategui")
+	
 	var Ezpeleta = new Publicacion("Ezpeleta")
 	
 	var calificacion1 = new Calificacion()
 	var calificacion2 = new Calificacion()
 	var calificacion3 = new Calificacion()
-	
 	var usuarioPepe = new Usuario("pepe")
 	var usuarioLuis = new Usuario("Luis")
 	var usuarioMarcos = new Usuario("Marcos")

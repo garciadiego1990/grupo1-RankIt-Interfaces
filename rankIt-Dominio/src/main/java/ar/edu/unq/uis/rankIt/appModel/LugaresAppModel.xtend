@@ -12,157 +12,159 @@ import org.uqbar.commons.model.ObservableUtils
 @Accessors
 @Observable
 class LugaresAppModel {
-	
-	AdministradorDePublicaciones admin 
+
+	AdministradorDePublicaciones admin
 	String nombreDeLugarBuscado
 	var BuscadorDeLugares buscador
 	Publicacion lugarSeleccionado
-	
+
 	new() {
 		admin = getRepoLugares
 		buscador = new BuscadorDeLugares(admin.todo)
 	}
-	
-	def DateTime getFechaDeRegistro(){
+
+	def DateTime getFechaDeRegistro() {
 		lugarSeleccionado.fechaDeRegistro
 	}
-	
-	def String getNombre(){
+
+	def String getNombre() {
 		lugarSeleccionado.getNombre
 	}
-	
-	def boolean estaHabilitado(){
+
+	def boolean estaHabilitado() {
 		lugarSeleccionado.estaHabilitado
 	}
-	
-	def int getCantidadDeCalificaciones(){
-		lugarSeleccionado.cantidadDeEvaluaciones
-	} 
-	
-	// falta chequear la division por cero
-	def double getRatingPromedio(){
-		if(lugarSeleccionado == null){
+
+	def int getCantidadDeCalificaciones() {
+		if (lugarSeleccionado == null) {
 			0
-		}else{
+		} else {
+			lugarSeleccionado.cantidadDeEvaluaciones
+		}
+	}
+
+	def double getRatingPromedio() {
+		if (lugarSeleccionado == null) {
+			0
+		} else {
 			lugarSeleccionado.ratingPromedio
 		}
 	}
-	
-	def void setLugarSeleccionado(Publicacion publicacion){
-		this.lugarSeleccionado=publicacion
-		ObservableUtils.firePropertyChanged(this,"ratingPromedio")
-	}
-	
 
-	
+	def void setLugarSeleccionado(Publicacion publicacion) {
+		lugarSeleccionado = publicacion
+		ObservableUtils.firePropertyChanged(this, "ratingPromedio")
+		ObservableUtils.firePropertyChanged(this, "cantidadDeCalificaciones")
+		ObservableUtils.firePropertyChanged(this, "lugarHabilitado")
+
+	}
+
 	def crearNuevoLugar() {
-	 	admin.agregar(new Publicacion())
+		admin.agregar(new Publicacion())
 		buscarLugares()
-	 	actualizarResumen()
-	 }
-	
-	
+		actualizarResumen()
+	}
+
 	def eliminarLugarSeleccionado() {
 		admin.borrar(lugarSeleccionado)
 		buscarLugares()
 		actualizarResumen()
+		ObservableUtils.firePropertyChanged(buscador,"lugaresFiltrados")
 	}
-	
+
 	def setLugarSeleccionadoHabilitado(boolean estado) {
 		lugarSeleccionado.estaHabilitado = estado
 		actualizarResumenHabilitados()
 	}
-	
-	//PANEL DE RESUMEN:
 
-	
+	// PANEL DE RESUMEN:
 	def Integer getCantidadLugaresRegistrados() {
 		admin.inscriptos
 	}
-	
-	
+
 	def Integer getCantidadLugaresHabilitados() {
 		admin.habilitados
 	}
-	
+
 	def int getCantidadLugaresDeshabilitados() {
 		admin.deshabilitados
 	}
 	
-	//BUSCADOR:
+	def boolean getLugarHabilitado(){
+		lugarSeleccionado.estaHabilitado
+	}
+	
+	def void setLugarHabilitado(boolean value){
+		lugarSeleccionado.estaHabilitado = value
+		ObservableUtils.firePropertyChanged(this, "lugarHabilitado")
+		ObservableUtils.firePropertyChanged(this, "cantidadLugaresHabilitados")
+		ObservableUtils.firePropertyChanged(this, "cantidadLugaresDeshabilitados")
+	}
 
+	// BUSCADOR:
 	def void setNombreDeLugarBuscado(String nombre) {
 		this.nombreDeLugarBuscado = nombre
 		this.buscador.setNombreLugarABuscar(nombre)
 	}
-	
+
 	def String getNombreDeLugarBuscado() {
 		nombreDeLugarBuscado
 	}
 
-
 	def void buscarLugares() {
 		buscador.search()
 	}
-	
+
 //PANEL DE EDICION:
+	def String getNombreDeLugarSeleccionado() {
+		this.lugarSeleccionado.nombre
+	}
 
-	 def String getNombreDeLugarSeleccionado() {
-	 	this.lugarSeleccionado.nombre
-	 }
-	 
-//METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
-
+// METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
 	def void actualizarPanelEdicionUsuario() {
 		firePropertyChanged(this, "nombreDeLugarSeleccionado")
 	}
 
-
 	def void actualizarResumen() {
 		firePropertyChanged(this, "cantidadLugaresRegistrados")
 		this.actualizarResumenHabilitados()
-		
+
 	}
-	
+
 	def void actualizarResumenHabilitados() {
 		firePropertyChanged(this, "cantidadLugaresHabilitados")
 		firePropertyChanged(this, "cantidadLugaresDeshabilitados")
 	}
-	
-	
-//CARGO EL APPLICATION CONTEXT
 
+//CARGO EL APPLICATION CONTEXT
 	def AdministradorDePublicaciones getRepoLugares() {
 		ApplicationContext.instance.getSingleton(typeof(AdministradorDePublicaciones))
-	}	
-	 
+	}
 
-	
-	
-	/* 
-	def eliminarLugarSeleccionado() {
-		admin.eliminarLugar(nombreDeLugarBuscado)
-	}
-	
-		def int getLugaresHabilitados() {
-			admin.lugaresHabilitados
-	}
-	
-		def int getLugaresTotales() {
-			admin.lugaresTotales
-	}
-	
-	def int getLugaresDeshabilitados(){
-		admin.lugaresDeshabilitados
-	}
-	
-	def getRatingPromedio(){
-		lugarSeleccionado.ratingPromedio
-	}
-	
-	def getCantidadDeEvaluaciones(){
-		lugarSeleccionado.cantidadDeEvaluaciones
-	}
-	* 
-	*/
+/* 
+ * def eliminarLugarSeleccionado() {
+ * 	admin.eliminarLugar(nombreDeLugarBuscado)
+ * }
+ * 
+ * 	def int getLugaresHabilitados() {
+ * 		admin.lugaresHabilitados
+ * }
+ * 
+ * 	def int getLugaresTotales() {
+ * 		admin.lugaresTotales
+ * }
+ * 
+ * def int getLugaresDeshabilitados(){
+ * 	admin.lugaresDeshabilitados
+ * }
+ * 
+ * def getRatingPromedio(){
+ * 	lugarSeleccionado.ratingPromedio
+ * }
+ * 
+ * def getCantidadDeEvaluaciones(){
+ * 	lugarSeleccionado.cantidadDeEvaluaciones
+ * }
+ * 
+ */
 }

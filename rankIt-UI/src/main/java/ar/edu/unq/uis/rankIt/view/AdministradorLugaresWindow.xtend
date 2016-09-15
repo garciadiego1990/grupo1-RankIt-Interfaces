@@ -1,6 +1,5 @@
 package ar.edu.unq.uis.rankIt.view
 
-
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
@@ -26,32 +25,31 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 
 class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
-	
+
 	var hayLugarSeleccionado = new NotNullObservable("lugarSeleccionado")
-	
+
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
 		super(owner, new LugaresAppModel())
 		this.title = "RankIt -> Admin. Lugares"
 	}
 
-	
 	override protected createMainTemplate(Panel mainPanel) {
 		this.createFormPanel(mainPanel)
 	}
-	
+
 	override protected createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
-		
+
 		this.panelResumenLugares(mainPanel)
-		
+
 		new Titulo(mainPanel, "Lugares")
-		
+
 		this.crearPanelDeBusqueda(mainPanel)
 		this.crearPanelAdministracionLugares(mainPanel)
 	}
-	
+
 	def panelResumenLugares(Panel mainPanel) {
-		
+
 		val panelResumenEstadisticas = new GroupPanel(mainPanel) => [
 			it.title = "Resumen de situacion"
 			it.layout = new HorizontalLayout
@@ -63,14 +61,14 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 			it.value <=> "cantidadLugaresRegistrados"
 //			it.width = 160
 		]
-		
+
 		new Label(panelResumenEstadisticas).text = " Habilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
 			it.value <=> "cantidadLugaresHabilitados"
 //			it.width = 120
 		]
-		
+
 		new Label(panelResumenEstadisticas).text = " Deshabilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
@@ -78,49 +76,47 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 //			it.width = 120
 		]
 	}
-	
 
 	def crearPanelDeBusqueda(Panel ownerPanel) {
 		val panelBusqueda = new Panel(ownerPanel)
-		
+
 		panelBusqueda.layout = new HorizontalLayout
-		
+
 		new Label(panelBusqueda) => [
 			it.text = "Buscar por nombre de lugar: "
 		]
-		
+
 		new TextBox(panelBusqueda) => [
 			it.value <=> "nombreDeLugarBuscado"
 			it.width = 250
 		]
-		
+
 	}
-	
+
 	def crearPanelAdministracionLugares(Panel ownerPanel) {
 		val panelAdministracion = new Panel(ownerPanel)
 		panelAdministracion.layout = new HorizontalLayout
-		
+
 		this.crearPanelGrilla(panelAdministracion)
-		
+
 		this.crearPanelEdicion(panelAdministracion)
 	}
-	
+
 	def crearPanelGrilla(Panel ownerPanel) {
 		val panelAdministracionGrilla = new Panel(ownerPanel)
-		
+
 		val tablaLugares = new Table(panelAdministracionGrilla, Publicacion) => [
 			it.items <=> "buscador.lugaresFiltrados"
 			it.value <=> "lugarSeleccionado"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
-		
+
 		new Column(tablaLugares) => [
 			it.title = "Fecha de registro"
-			it.bindContentsToProperty("fechaDeRegistro").transformer = 
-			 [ DateTime fecha | 
-			 	DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(fecha)
-			 ]
+			it.bindContentsToProperty("fechaDeRegistro").transformer = [ DateTime fecha |
+				DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(fecha)
+			]
 			it.fixedSize = 130
 		]
 
@@ -129,99 +125,87 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 			it.bindContentsToProperty("nombre")
 			it.fixedSize = 100
 		]
-		
+
 		new Column(tablaLugares) => [
 			it.title = "Habilitado"
-			it.bindContentsToProperty("estaHabilitado").transformer = 
-			 [ Boolean habilitado | 
-			 	if (habilitado) "Sí" else "No"
-			 ]
+			it.bindContentsToProperty("estaHabilitado").transformer = [ Boolean habilitado |
+				if(habilitado) "Sí" else "No"
+			]
 			it.fixedSize = 70
 		]
-		
+
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
 //			it.onClick [| modelObject.crearNuevoUsuario()]
 		]
 	}
-	
-	
+
 	def crearPanelEdicion(Panel administracionPanel) {
 		val panelAdministracionEdicion = new Panel(administracionPanel)
-		
+
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
-			
+
 			new Label(it) => [
 				text = "Nombre:    "
 				fontSize = 14
 			]
-			
+
 			new Label(it) => [
 				value <=> "lugarSeleccionado.nombre"
 				it.bindVisible(hayLugarSeleccionado)
 				fontSize = 14
 			]
-				
+
 		]
-		
+
 		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
-		
+
 		new Label(panelAdministracionEdicion).text = "Nombre:"
 		new TextBox(panelAdministracionEdicion).bindValueToProperty("lugarSeleccionado.nombre")
-		/* 
-		new Label(panelAdministracionEdicion) => [
-			it.bindValueToProperty("buscador.selected.fechaDeRegistro").transformer = new DateTimeTransformer
-			it.bindVisible(hayLugarSeleccionado)
-			it.background = Color.GRAY
-			it.width = 200
-		]
-		*/
-		
+
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
-		
+
 			new CheckBox(it) => [
-				it.value <=> "lugarSeleccionado.estaHabilitado"
+				it.value <=> "lugarHabilitado"
 				it.bindEnabled(hayLugarSeleccionado)
 				it.height = 16
 			]
-			
+
 			new Label(it).text = "Habilitado"
 		]
-		
+
 		new Label(panelAdministracionEdicion).text = "Rating promedio:"
 		new Label(panelAdministracionEdicion) => [
-			it.value<=>"ratingPromedio"
+			it.value <=> "ratingPromedio"
 			it.height = 30
 		]
-//		
-//		new Label(panelAdministracionEdicion) => [
-//			it.text = "Calificaciones:"
-//		]
-//		
-//		new Label(panelAdministracionEdicion) => [
-//			it.value<=>"cantidadDeCalificaciones"
-//			it.height = 30
-//		]
-//		
+
+		new Label(panelAdministracionEdicion) => [
+			it.text = "Calificaciones:"
+		]
+
+		new Label(panelAdministracionEdicion) => [
+			it.value <=> "cantidadDeCalificaciones"
+			it.height = 30
+		]
 //		new Button(panelAdministracionEdicion) => [
 //			it.caption = "Revisar calificaciones"
-//	//		it.bindEnabled(hayLugarSeleccionado)
-//		//	it.onClick [| modelObject.]
+		// it.bindEnabled(hayLugarSeleccionado)
+		// it.onClick [| modelObject.]
 //			it.width = 50
 //		]
-//		
-//		new Button(panelAdministracionEdicion) => [
-//			it.caption = "Eliminar"
-//			it.bindEnabled(hayLugarSeleccionado)
-//			it.onClick [| modelObject.eliminarLugarSeleccionado ]
-//			it.width = 50
-//		]
+		new Button(panelAdministracionEdicion) => [
+			it.caption = "Eliminar"
+			it.bindEnabled(hayLugarSeleccionado)
+			it.onClick[|modelObject.eliminarLugarSeleccionado]
+			it.width = 50
+		]
 	}
-	
+
 	override protected addActions(Panel actionsPanel) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	
+
 }

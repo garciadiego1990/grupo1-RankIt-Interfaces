@@ -48,8 +48,13 @@ class Publicacion {
 	}
 
 	def double ratingPromedio() {
-		var suma = calificaciones.fold(0, [acum, calificacion|acum + calificacion.puntaje])
-		return suma / cantidadDeEvaluaciones
+		if(cantidadDeEvaluaciones>0){
+			var suma = calificaciones.fold(0, [acum, calificacion|acum + calificacion.puntaje])
+			return suma / cantidadDeEvaluaciones
+		}
+		else {return 0}
+		
+		
 	}
 
 }

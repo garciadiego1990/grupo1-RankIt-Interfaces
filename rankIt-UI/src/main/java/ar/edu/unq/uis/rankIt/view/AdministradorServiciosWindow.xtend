@@ -160,7 +160,7 @@ class AdministradorServiciosWindow extends Dialog<ServiciosAppModel> {
 		val panelDeListadoDeServicios = new Panel(owner)
 		
 		val tablaDeServicios = new Table<Publicacion>(panelDeListadoDeServicios, Publicacion) => [
-			bindItemsToProperty("admin.servicios")
+			bindItemsToProperty("admin.todo")
 			bindValueToProperty("publicacionSeleccionada")
 		]
 		
