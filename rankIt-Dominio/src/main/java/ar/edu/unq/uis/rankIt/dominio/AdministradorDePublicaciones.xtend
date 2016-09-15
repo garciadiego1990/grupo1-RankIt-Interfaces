@@ -43,8 +43,24 @@ class AdministradorDePublicaciones {
 	
 	// metodos de lugares
 	
-	def agregarLugar(Publicacion p) {
+	def void agregarLugar(Publicacion p) {
 		lugares.add(p)
+	}
+	
+	def int lugaresInscriptos() {
+		lugares.size
+	}
+	
+	def int lugaresHabilitados() {
+		lugares.filter[it.estaHabilitado].size
+	}
+
+	def int lugaresDeshabilitados() {
+		lugaresInscriptos - lugaresHabilitados
+	}
+	
+	def void eliminarLugar(Publicacion p) {
+		lugares.remove(p)
 	}
 		
 }

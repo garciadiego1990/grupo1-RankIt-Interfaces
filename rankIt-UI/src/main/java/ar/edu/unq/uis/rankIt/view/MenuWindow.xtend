@@ -219,7 +219,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		datosDeUsuariosPanel.layout = new ColumnLayout(4)
 		
 		new Label(datosDeUsuariosPanel) => [
-			//bindValueToProperty("?")
+			bindValueToProperty("lugaresInscriptos")
 			//width = 135	
 		]
 		new Label(datosDeUsuariosPanel) => [

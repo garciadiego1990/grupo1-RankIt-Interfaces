@@ -2,7 +2,7 @@ package ar.edu.unq.uis.rankIt.dominio
 
 import java.util.List
 import java.util.ArrayList
-import java.util.Date
+import org.joda.time.DateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -11,19 +11,18 @@ import org.uqbar.commons.utils.Observable
 class Publicacion {
 	String nombre 
 	boolean estaHabilitado
-	Date fechaDeRegistro
+	DateTime fechaDeRegistro
 	List<Calificacion> calificaciones
  	
 	
 	new() {
-		estaHabilitado = false
-		fechaDeRegistro = new Date
+		fechaDeRegistro = new DateTime
 		calificaciones = new ArrayList<Calificacion>
 	}
 	
 	new(String nombre) {
 		estaHabilitado = false
-		fechaDeRegistro = new Date
+		fechaDeRegistro = new DateTime
 		calificaciones = new ArrayList<Calificacion>
 		this.nombre = nombre
 	}
@@ -48,7 +47,7 @@ class Publicacion {
 		calificaciones.size
 	}
 	
-	def Integer ratingPromedio(){
+	def double ratingPromedio(){
 		var ret = 0
 		for(Calificacion c:calificaciones){
 			ret = ret + c.puntaje

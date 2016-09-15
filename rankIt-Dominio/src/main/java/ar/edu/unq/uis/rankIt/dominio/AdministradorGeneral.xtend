@@ -36,16 +36,19 @@ class AdministradorGeneral {
 	def buscarServicio(Publicacion p) {
 		adminPublicaciones.buscarServicio(p)
 	}
-	/* 
+	 
 	// Métodos de lugares
  
+	def lugaresTotales() {
+		adminPublicaciones.lugaresInscriptos
+	}
+	/*
+	
 	def agregarLugar(Publicacion p) {
 		adminPublicaciones.agregarLugar(p)
 	}
 	
-	def lugaresTotales() {
-		adminPublicaciones.lugaresInscriptos
-	}
+
 	
 	def lugaresHabilitados() {
 		adminPublicaciones.lugaresHabilitados

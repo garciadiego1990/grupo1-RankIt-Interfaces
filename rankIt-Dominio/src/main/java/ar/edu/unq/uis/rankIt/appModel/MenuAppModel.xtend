@@ -17,6 +17,10 @@ class MenuAppModel {
 		return admin.serviciosTotales()
 	}
 	
+	def int getLugaresInscriptos(){
+		admin.lugaresTotales
+	}
+	
 	
 	/*  
 	def String getEstadisticasUsuarios() {
