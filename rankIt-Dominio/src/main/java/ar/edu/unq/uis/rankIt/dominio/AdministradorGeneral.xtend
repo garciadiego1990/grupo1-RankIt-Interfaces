@@ -6,12 +6,12 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class AdministradorGeneral {
-	AdministradorDeUsuarios adminUsuarios
-	AdministradorDeCalificaciones adminCalificaciones
+	AdministradorDeUsuarios adminUsuarios = new AdministradorDeUsuarios
+	AdministradorDeCalificaciones adminCalificaciones = new AdministradorDeCalificaciones
 	AdministradorDePublicaciones adminServicios = new AdministradorDePublicaciones	
 	AdministradorDePublicaciones adminLugares = new AdministradorDePublicaciones
 	
-	new(){}
+	
 	
 	// Métodos de usuario
 //	
