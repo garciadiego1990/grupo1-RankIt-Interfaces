@@ -8,10 +8,7 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class MenuAppModel {
 	
-	AdministradorGeneral admin
-	
-	
-	
+	AdministradorGeneral admin = new AdministradorGeneral
 	
 	def int getServiciosInscriptos() {
 		return admin.adminServicios.inscriptos()

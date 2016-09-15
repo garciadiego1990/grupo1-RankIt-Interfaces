@@ -188,7 +188,9 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 			caption = "Adm. Lugares"
 			//width = 100
 			setAsDefault
-			onClick [ | new AdministradorLugaresWindow(this, this.modelObject.admin.adminLugares).open ]
+			onClick [ | 
+				new AdministradorLugaresWindow(this, this.modelObject.admin.adminLugares).open
+			]
 		]
 		
 		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
