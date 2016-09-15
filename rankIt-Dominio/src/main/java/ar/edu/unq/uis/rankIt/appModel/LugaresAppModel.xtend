@@ -36,9 +36,10 @@ class LugaresAppModel {
 	}
 	
 	def int getCantidadDeCalificaciones(){
-		getLugarSeleccionado.cantidadDeEvaluaciones
+		lugarSeleccionado.cantidadDeEvaluaciones
 	} 
 	
+	// falta chequear la division por cero
 	def double getRatingPromedio(){
 		if(lugarSeleccionado == null){
 			0
@@ -62,7 +63,7 @@ class LugaresAppModel {
 	
 	
 	def eliminarLugarSeleccionado() {
-		this.admin.borrar(lugarSeleccionado)
+		admin.borrar(lugarSeleccionado)
 		buscarLugares()
 		actualizarResumen()
 	}

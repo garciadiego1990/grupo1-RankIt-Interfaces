@@ -11,6 +11,7 @@ class AdministradorGeneral {
 	AdministradorDePublicaciones adminServicios = new AdministradorDePublicaciones	
 	AdministradorDePublicaciones adminLugares = new AdministradorDePublicaciones
 	
+	new(){}
 	
 	// Métodos de usuario
 //	

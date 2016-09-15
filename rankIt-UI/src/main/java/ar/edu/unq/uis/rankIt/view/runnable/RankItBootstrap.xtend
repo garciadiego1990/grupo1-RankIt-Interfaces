@@ -4,6 +4,7 @@ import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import org.uqbar.commons.utils.ApplicationContext
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
+import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
