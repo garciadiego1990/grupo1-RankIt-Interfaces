@@ -23,7 +23,7 @@ import org.uqbar.arena.bindings.NotNullObservable
 
 class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<UsuariosAppModel> {
 	
-	val hayUsuarioSeleccionado = new NotNullObservable("buscador.selected")
+	val hayUsuarioSeleccionado = new NotNullObservable("usuarioSeleccionado")
 	
 	new(WindowOwner owner, AdministradorDeUsuarios model) {
 		super(owner, new UsuariosAppModel())
@@ -72,7 +72,7 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		]
 		
 		new TextBox(panelDeBusqueda) => [
-			it.value <=> "nombreDeUsuarioBuscado"
+			it.value <=> "nombreABuscar"
 			it.width = 250
 		]
 	}
@@ -80,8 +80,8 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 	/** @author ae*/
 	override crearSeccionDeGrilla(Panel panelGrilla) {
 		val tablaUsuarios = new Table(panelGrilla, Usuario) => [
-			it.items <=> "buscador.results"
-			it.value <=> "buscador.selected"
+			it.items <=> "buscador.resultados"
+			it.value <=> "usuarioSeleccionado"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
@@ -137,7 +137,7 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 			]
 			
 			new Label(it) => [
-				value <=> "buscador.selected.nombre"
+				value <=> "usuarioSeleccionado.nombre"
 				it.bindVisible(hayUsuarioSeleccionado)
 				fontSize = 14
 			]
@@ -151,7 +151,7 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		]
 		
 		new TextBox(panelEdicion) => [
-			it.bindValueToProperty("buscador.selected.fechaDeRegistro").transformer = new DateTimeTransformer
+			it.bindValueToProperty("usuarioSeleccionado.fechaDeRegistro").transformer = new DateTimeTransformer
 			it.bindVisible(hayUsuarioSeleccionado)
 			it.width = 200
 		]
@@ -193,21 +193,18 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 			it.caption = "Revisar calificaciones"
 			it.bindEnabled(hayUsuarioSeleccionado)
 //			it.onClick [| ]
-			it.width = 50//No me lo está tomando
 		]
 
 		new Button(panelEdicion) => [
 			it.caption = "Blanquear clave"
 			it.bindEnabled(hayUsuarioSeleccionado)
 			it.onClick [| modelObject.blanquearContrasenia ]
-			it.width = 50//No me lo está tomando
 		]
 		
 		new Button(panelEdicion) => [
 			it.caption = "Eliminar"
 			it.bindEnabled(hayUsuarioSeleccionado)
 			it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
-			it.width = 50//No me lo está tomando
 		]
 	}
 	

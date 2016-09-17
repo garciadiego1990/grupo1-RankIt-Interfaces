@@ -5,7 +5,6 @@ import org.uqbar.commons.utils.Observable
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import java.util.List
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
-import org.joda.time.DateTime
 
 import static org.uqbar.commons.model.ObservableUtils.*
 import org.uqbar.commons.utils.ApplicationContext
@@ -15,18 +14,16 @@ import org.uqbar.commons.utils.ApplicationContext
 class UsuariosAppModel {
 	
 	var AdministradorDeUsuarios repositorioUsuarios
+	var Usuario usuarioSeleccionado
 	var BuscadorDeUsuarios buscador
-	var DateTime fechaDeRegistroUsuarioSeleccionado
 	var String nombreABuscar
 	
 
-	/**
-	 * Constructor del application model para la vista {@link AdministrarUsuariosWindow}.
+	/** Constructor del application model para la vista {@link AdministrarUsuariosWindow}.
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	new() {
-		this.repositorioUsuarios = new AdministradorDeUsuarios//this.getRepoUsuarios()
+		this.repositorioUsuarios = this.getRepoUsuarios()
 		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
 	}
 	
@@ -36,7 +33,6 @@ class UsuariosAppModel {
 	}
 	
 //ALTA BAJA MODIFICACION:
-	
 	
 	 def crearNuevoUsuario() {
 	 	this.repositorioUsuarios.agregarUsuario(new Usuario())
@@ -52,29 +48,24 @@ class UsuariosAppModel {
 	}
 	
 	
-	/** 
-	 * Se inactiva al {@link Usuario} seleccionado.
+	/** Se inactiva al {@link Usuario} seleccionado.
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	def setUsuarioSeleccionadoActivo(boolean estado) {
 		this.usuarioSeleccionado.estaActivo = estado
 		this.actualizarResumenActivos()
 	}
 	
-		/** Se responde si el {@link Usuario} seleccionado está activo.
+	/** Se responde si el {@link Usuario} seleccionado está activo.
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	def getUsuarioSeleccionadoActivo() {
 		this.usuarioSeleccionado.estaActivo
 	}	
 	
-	/** 
-	 * Se banea al {@link Usuario} seleccionado.
+	/** Se banea al {@link Usuario} seleccionado.
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	def setUsuarioSeleccionadoBaneado(boolean estado) {
 		this.usuarioSeleccionado.estaBaneado = estado
 		this.actualizarResumenBaneados()
@@ -82,8 +73,7 @@ class UsuariosAppModel {
 	
 	/** Se responde si el {@link Usuario} seleccionado está baneado.
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	def getUsuarioSeleccionadoBaneado() {
 		this.usuarioSeleccionado.estaBaneado
 	}
@@ -112,9 +102,9 @@ class UsuariosAppModel {
 	
 //BUSCADOR:
 
-	def void setNombreDeUsuarioBuscado(String nombre) {
+	def void setNombreABuscar(String nombre) {
 		this.nombreABuscar = nombre
-		this.buscador.setNombreUsuarioABuscar(nombre)
+		this.buscador.setPatronDeBusqueda(nombre)
 	}
 	
 	def String getNombreDeUsuarioBuscado() {
@@ -126,35 +116,22 @@ class UsuariosAppModel {
 		this.buscador.search()
 	}
 	
-	/**
-	 * 
-	 * @author Abel Espínola
-	 */
-	def Usuario getUsuarioSeleccionado() {
-		this.buscador.selected
-	}
-
-
 //PANEL DE EDICION:
 
-	/**
-	 * Se reinicia la clave del {@link Usuario} seleccionado al valor '123'
+	/** Se reinicia la clave del {@link Usuario} seleccionado al valor '123'
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	def blanquearContrasenia() {
 		this.usuarioSeleccionado.establecerContraseniaDefault()
 	}
 
-	 /**
-	  * Se informa a la ventana de administración de {@link Usuario}s que un nuevo usuario a sido seleccionado en la grilla.
-	  * En este método se definen las notificaciones pertinentes que se deben realizar a los elementos observables.
-	  * 
-	  * @author Abel Espínola
-	  */
-	 def String getFechaDeRegistroUsuarioSeleccionado() {
-	 	this.usuarioSeleccionado.fechaDeRegistro.toString()
-	 }
+//	 /** Se informa a la ventana de administración de {@link Usuario}s que un nuevo usuario a sido seleccionado en la grilla.
+//	  * En este método se definen las notificaciones pertinentes que se deben realizar a los elementos observables.
+//	  * 
+//	  * @author ae */
+//	 def String getFechaDeRegistroUsuarioSeleccionado() {
+//	 	this.usuarioSeleccionado.fechaDeRegistro.toString()
+//	 }
 	 
 	 
 	 def String getNombreDeUsuarioSeleccionado() {
@@ -163,24 +140,25 @@ class UsuariosAppModel {
 	 
 //BINDING GRILLA
 
-	/**
-	 * TODO
-	 */
-
+	def void setUsuarioSeleccionado(Usuario usuario) {
+		this.usuarioSeleccionado = usuario
+		if (usuario != null)
+			this.actualizarPanelEdicionUsuario()
+	}
 
 
 //METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
 
 	def void actualizarPanelEdicionUsuario() {
-		firePropertyChanged(this, "nombreDeUsuarioSeleccionado")
-		firePropertyChanged(this, "fechaDeRegistroUsuarioSeleccionado")
+		firePropertyChanged(this, "usuarioSeleccionadoActivo")
+		firePropertyChanged(this, "usuarioSeleccionadoBaneado")
 	}
 
 
 	def void actualizarResumen() {
 		firePropertyChanged(this, "cantidadUsuariosRegistrados")
 		this.actualizarResumenActivos()
-		this.actualizarResumenBaneados
+		this.actualizarResumenBaneados()
 	}
 	
 	def void actualizarResumenBaneados() {
@@ -195,8 +173,8 @@ class UsuariosAppModel {
 	
 //CARGO EL APPLICATION CONTEXT
 
-//	def AdministradorDeUsuarios getRepoUsuarios() {
-//		ApplicationContext.instance.getSingleton(typeof(AdministradorDeUsuarios))
-//	}	
+	def AdministradorDeUsuarios getRepoUsuarios() {
+		ApplicationContext.instance.getSingleton(typeof(AdministradorDeUsuarios))
+	}	
 	
 }

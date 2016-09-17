@@ -2,11 +2,11 @@ package ar.edu.unq.uis.rankIt.view
 
 import org.uqbar.arena.Application
 import ar.edu.unq.uis.rankIt.appModel.MenuAppModel
-import ar.edu.unq.uis.rankIt.view.RankItBootstrap
+import ar.edu.unq.uis.rankIt.view.runnable.BootstrapRankit
 
 class RankItApplication extends Application {
 	
-	val static final RankItBootstrap BOOT = new RankItBootstrap
+	val static final BootstrapRankit BOOT = new BootstrapRankit
 	
 	new() {
 		super(BOOT)

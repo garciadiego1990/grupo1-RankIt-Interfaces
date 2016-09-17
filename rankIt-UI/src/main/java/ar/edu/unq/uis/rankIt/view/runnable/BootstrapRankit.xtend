@@ -10,7 +10,7 @@ import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 
-class RankItBootstrap  extends CollectionBasedBootstrap {
+class BootstrapRankit  extends CollectionBasedBootstrap {
 	
 	new(){
 		ApplicationContext.instance => [
