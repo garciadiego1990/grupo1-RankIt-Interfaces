@@ -11,7 +11,7 @@ import org.uqbar.commons.model.ObservableUtils
 
 @Accessors
 @Observable
-class PublicacionAppModel {
+abstract class PublicacionAppModel {
 
 	AdministradorDePublicaciones admin
 	String nombreDePublicacionBuscada
@@ -138,7 +138,10 @@ class PublicacionAppModel {
 	}
 
 //CARGO EL APPLICATION CONTEXT
-	def AdministradorDePublicaciones getRepoPublicaciones() {
-		ApplicationContext.instance.getSingleton(typeof(AdministradorDePublicaciones))
-	}
+
+	/**Este método debe ser implementado por {@link ServiciosAppModel} y {@link LugaresAppModel}. 
+	 * Estas clases deben implementar este método para obtener sus publicaciones correspondientes.
+	 * 
+	 * @author ae */
+	abstract def AdministradorDePublicaciones getRepoPublicaciones();
 }

@@ -8,6 +8,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 
 import static org.uqbar.commons.model.ObservableUtils.*
 import org.uqbar.commons.utils.ApplicationContext
+import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 
 @Accessors
 @Observable
@@ -173,8 +174,11 @@ class UsuariosAppModel {
 	
 //CARGO EL APPLICATION CONTEXT
 
+	/** Obtengo desde el {@link ApplicationContext} el {@link AdministradorDeUsuarios}.
+	 * @author ae */
 	def AdministradorDeUsuarios getRepoUsuarios() {
-		ApplicationContext.instance.getSingleton(typeof(AdministradorDeUsuarios))
-	}	
+		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
+		adminGral.adminUsuarios
+	}
 	
 }

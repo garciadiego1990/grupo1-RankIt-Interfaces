@@ -19,16 +19,16 @@ import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
-import ar.edu.unq.uis.rankIt.appModel.PublicacionAppModel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
+import ar.edu.unq.uis.rankIt.appModel.ServiciosAppModel
 
-class AdministradorServiciosWindow extends SimpleWindow<PublicacionAppModel> {
+class AdministradorServiciosWindow extends SimpleWindow<ServiciosAppModel> {
 
 	var hayPublicacionSeleccionada = new NotNullObservable("publicacionSeleccionada")
 
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
-		super(owner, new PublicacionAppModel())
+		super(owner, new ServiciosAppModel())
 		this.title = "RankIt -> Admin. Servicios"
 	}
 
