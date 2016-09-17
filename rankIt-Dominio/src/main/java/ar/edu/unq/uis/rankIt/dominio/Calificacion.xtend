@@ -1,6 +1,6 @@
 package ar.edu.unq.uis.rankIt.dominio
 
-import java.util.Date
+import org.joda.time.DateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -8,7 +8,7 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class Calificacion {
 	Integer puntaje
-	Date fecha
+	DateTime fecha
 	boolean esOfensiva
 	String detalle
 	Usuario evaluador
@@ -21,5 +21,6 @@ class Calificacion {
 		puntaje = unaCalificacion
 		evaluador = unEvaluador
 		evaluado = unaPublicacion
+		esOfensiva = false
 	}
 }

@@ -25,7 +25,7 @@ class AdministradorDeCalificaciones {
 		var List<Publicacion> publicaciones = new ArrayList<Publicacion>
 		var List<Calificacion> todasLasCalificaciones= new ArrayList<Calificacion>
 		publicaciones.addAll(admin.todo)
-		publicaciones.addAll(admin.todo)
+		todasLasCalificaciones.addAll(calificaciones)
 	
 		for(Publicacion p : publicaciones){
 			todasLasCalificaciones.addAll(p.calificaciones)
