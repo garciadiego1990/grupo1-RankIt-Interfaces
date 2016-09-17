@@ -59,10 +59,11 @@ class PublicacionAppModel {
 
 	}
 
-	def crearNuevoLugar() {
+	def crearNuevaPublicacion() {
 		admin.agregar(new Publicacion())
 		buscarPublicaciones()
 		actualizarResumen()
+		ObservableUtils.firePropertyChanged(buscador,"publicacionesFiltradas")
 	}
 
 	def eliminarPublicacionSeleccionada() {
