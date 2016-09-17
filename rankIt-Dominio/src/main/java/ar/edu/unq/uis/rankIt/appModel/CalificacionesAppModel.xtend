@@ -12,12 +12,17 @@ import org.uqbar.commons.utils.ApplicationContext
 @Accessors
 @Observable
 class CalificacionesAppModel {
-	AdministradorDeCalificaciones admin
-	Calificacion calificacionSeleccionada
+	var AdministradorDeCalificaciones admin
+	var String nombreDePublicacionBuscada
+	var String nombreDeUsuarioBuscado
+	var BuscadorDeCalificaciones buscador
+	var Calificacion calificacionSeleccionada
 	
 
 	new(AdministradorDeCalificaciones admin) {
-		this.admin = admin
+		this.admin = getRepoCalificaciones
+		buscador = new BuscadorDeCalificaciones(admin.calificaciones)
+		
 	}
 	
 	def DateTime getFecha(){
@@ -29,8 +34,8 @@ class CalificacionesAppModel {
 	}
 	
 	def String getNombrePublicacion(){
-		//calificacionSeleccionada.getEvaluado.getNombre
-		"Diego"
+		calificacionSeleccionada.getEvaluado.getNombre
+	
 	}
 	
 	def int getPuntaje(){
@@ -62,16 +67,16 @@ class CalificacionesAppModel {
 	
 	def void crearNuevaCalificacion(){
 		admin.calificaciones.add(new Calificacion)
-		//buscarCalificaciones()
+		buscarCalificaciones()
 		actualizarResumen()
-		// ObservableUtils.firePropertyChanged(buscador,"calificacionesFiltradas")
+		ObservableUtils.firePropertyChanged(buscador,"calificacionesFiltradas")
 	}
 	
 	def eliminarCalificacionSeleccionada() {
 		admin.calificaciones.remove(calificacionSeleccionada)
-		//buscarCalificaciones()
+		buscarCalificaciones()
 		actualizarResumen()
-	//	ObservableUtils.firePropertyChanged(buscador,"calificacionesFiltradas")
+		ObservableUtils.firePropertyChanged(buscador,"calificacionesFiltradas")
 	}
 	
 	def void setPublicacionConContenidoOfensivo(boolean value){
@@ -80,10 +85,15 @@ class CalificacionesAppModel {
 	
 	}
 
+// BUSCADOR:
+
+	def void buscarCalificaciones() {
+		buscador.search()
+	}
+
+
 //PANEL DE EDICION:
-//	def String getNombreDeCalificacionSeleccionada() {
-//		this.calificacionSeleccionada.nombre
-//	}
+
 
 // METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
 //	def void actualizarPanelEdicionUsuario() {
@@ -101,7 +111,7 @@ class CalificacionesAppModel {
 	}
 
 //CARGO EL APPLICATION CONTEXT
-	def AdministradorDeCalificaciones getRepoPublicaciones() {
+	def AdministradorDeCalificaciones getRepoCalificaciones() {
 		ApplicationContext.instance.getSingleton(typeof(AdministradorDeCalificaciones))
 	}
 /* 	
