@@ -4,7 +4,7 @@ import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import org.uqbar.commons.utils.ApplicationContext
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
-import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
+//import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
@@ -47,6 +47,11 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	def crearAdminCalificaciones() {
 		 
 		ApplicationContext.instance.getSingleton(typeof(AdministradorDeCalificaciones)) as AdministradorDeCalificaciones => [
+			calificacion1.calificar(5, usuarioPepe, Quilmes)
+			calificacion2.calificar(6, usuarioLuis, Ezpeleta)
+			calificacion3.calificar(7, usuarioMarcos, Berazategui)
+			
+			
 			agregarCalificacion(calificacion1)
 			agregarCalificacion(calificacion2)
 			agregarCalificacion(calificacion3) 
@@ -76,6 +81,7 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	var calificacion1 = new Calificacion()
 	var calificacion2 = new Calificacion()
 	var calificacion3 = new Calificacion()
+	
 	var usuarioPepe = new Usuario("pepe")
 	var usuarioLuis = new Usuario("Luis")
 	var usuarioMarcos = new Usuario("Marcos")

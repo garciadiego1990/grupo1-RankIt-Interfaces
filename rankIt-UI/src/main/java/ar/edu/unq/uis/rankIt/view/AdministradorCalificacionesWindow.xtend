@@ -86,7 +86,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		]
 		
 		new TextBox(panelBusqueda) => [
-			//it.value <=> "nombreDeUsuarioBuscado"
+		//	it.value <=> "nombreUsuario"
 			it.width = 100
 		]
 		
@@ -110,22 +110,22 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 		
 		val tablaCalificaciones = new Table(panelAdministracionGrilla, Calificacion) => [
-//			it.items <=> "calificaciones"
-//			it.value <=> "calificacionSeleccionada"
+			it.items <=> "admin.calificaciones"
+			it.value <=> "calificacionSeleccionada"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
 		
 		new Column(tablaCalificaciones) => [
 			it.title = "Evaluado"
-			it.bindContentsToProperty("evaluado")
+			it.bindContentsToProperty("nombrePublicacion")
 //			it.weight = 115
 			it.fixedSize = 120
 		]
 
 		new Column(tablaCalificaciones) => [
 			it.title = "Ptos"
-			it.bindContentsToProperty("calificacion")
+			it.bindContentsToProperty("puntaje")
 //			it.weight = 90
 			it.fixedSize = 60
 		]
@@ -139,7 +139,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		
 		new Column(tablaCalificaciones) => [
 			it.title = "User"
-			it.bindContentsToProperty("usuario")
+			it.bindContentsToProperty("nombreUsuario")
 //			it.weight = 60
 			it.fixedSize = 60
 		]

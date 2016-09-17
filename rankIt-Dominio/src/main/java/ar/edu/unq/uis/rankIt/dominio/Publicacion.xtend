@@ -18,6 +18,7 @@ class Publicacion {
 	new() {
 		fechaDeRegistro = new DateTime
 		calificaciones = new ArrayList<Calificacion>
+		nombre = "--"
 	}
 
 	new(String nombre) {
@@ -53,8 +54,6 @@ class Publicacion {
 			return suma / cantidadDeEvaluaciones
 		}
 		else {return 0}
-		
-		
 	}
 
 }

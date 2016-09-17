@@ -135,7 +135,7 @@ class AdministradorServiciosWindow extends SimpleWindow<PublicacionAppModel> {
 
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
-//			it.onClick [| modelObject.crearNuevoUsuario()]
+			it.onClick [| modelObject.crearNuevaPublicacion()]
 		]
 	}
 
