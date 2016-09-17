@@ -18,18 +18,17 @@ import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
-import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
+import ar.edu.unq.uis.rankIt.appModel.PublicacionAppModel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 
-class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
+class AdministradorLugaresWindow extends SimpleWindow<PublicacionAppModel> {
 
-	var hayLugarSeleccionado = new NotNullObservable("lugarSeleccionado")
+	var hayPublicacionSeleccionada = new NotNullObservable("publicacionSeleccionada")
 
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
-		super(owner, new LugaresAppModel())
+		super(owner, new PublicacionAppModel())
 		this.title = "RankIt -> Admin. Lugares"
 	}
 
@@ -58,21 +57,21 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		new Label(panelResumenEstadisticas).text = "Lugares inscriptos: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadLugaresRegistrados"
+			it.value <=> "cantidadPublicacionesRegistradas"
 //			it.width = 160
 		]
 
 		new Label(panelResumenEstadisticas).text = " Habilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadLugaresHabilitados"
+			it.value <=> "cantidadPublicacionesHabilitadas"
 //			it.width = 120
 		]
 
 		new Label(panelResumenEstadisticas).text = " Deshabilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
-			it.value <=> "cantidadLugaresDeshabilitados"
+			it.value <=> "cantidadPublicacionesDeshabilitadas"
 //			it.width = 120
 		]
 	}
@@ -87,7 +86,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		]
 
 		new TextBox(panelBusqueda) => [
-			it.value <=> "nombreDeLugarBuscado"
+			it.value <=> "nombreDePublicacionBuscada"
 			it.width = 250
 		]
 
@@ -106,8 +105,8 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 
 		val tablaLugares = new Table(panelAdministracionGrilla, Publicacion) => [
-			it.items <=> "buscador.lugaresFiltrados"
-			it.value <=> "lugarSeleccionado"
+			it.items <=> "buscador.publicacionesFiltradas"
+			it.value <=> "publicacionSeleccionada"
 			it.numberVisibleRows = 12
 			it.width = 400
 		]
@@ -152,8 +151,8 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 			]
 
 			new Label(it) => [
-				value <=> "lugarSeleccionado.nombre"
-				it.bindVisible(hayLugarSeleccionado)
+				value <=> "publicacionSeleccionada.nombre"
+				it.bindVisible(hayPublicacionSeleccionada)
 				fontSize = 14
 			]
 
@@ -162,14 +161,14 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
 
 		new Label(panelAdministracionEdicion).text = "Nombre:"
-		new TextBox(panelAdministracionEdicion).bindValueToProperty("lugarSeleccionado.nombre")
+		new TextBox(panelAdministracionEdicion).bindValueToProperty("publicacionSeleccionada.nombre")
 
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
 
 			new CheckBox(it) => [
-				it.value <=> "lugarHabilitado"
-				it.bindEnabled(hayLugarSeleccionado)
+				it.value <=> "publicacionHabilitada"
+				it.bindEnabled(hayPublicacionSeleccionada)
 				it.height = 16
 			]
 
@@ -192,14 +191,14 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		]
 //		new Button(panelAdministracionEdicion) => [
 //			it.caption = "Revisar calificaciones"
-		// it.bindEnabled(hayLugarSeleccionado)
+		// it.bindEnabled(hayPublicacionSeleccionada)
 		// it.onClick [| modelObject.]
 //			it.width = 50
 //		]
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
-			it.bindEnabled(hayLugarSeleccionado)
-			it.onClick[|modelObject.eliminarLugarSeleccionado]
+			it.bindEnabled(hayPublicacionSeleccionada)
+			it.onClick[|modelObject.eliminarPublicacionSeleccionada]
 			it.width = 50
 		]
 	}

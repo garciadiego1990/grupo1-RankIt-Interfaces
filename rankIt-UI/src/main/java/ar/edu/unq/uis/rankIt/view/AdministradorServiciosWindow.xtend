@@ -1,195 +1,210 @@
 package ar.edu.unq.uis.rankIt.view
 
-import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.tables.Table
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.uqbar.arena.widgets.tables.Column
-import java.util.Date
-import java.text.SimpleDateFormat
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.windows.ErrorsPanel
+import org.uqbar.arena.widgets.GroupPanel
+import org.uqbar.arena.layout.VerticalLayout
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import ar.edu.unq.uis.rankIt.view.components.Titulo
-import ar.edu.unq.uis.rankIt.view.components.LabeledTextBox
-import ar.edu.unq.uis.rankIt.view.components.LabeledCheckBox
-import ar.edu.unq.uis.rankIt.view.components.Labeled
-import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.widgets.CheckBox
+import java.awt.Color
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
-import ar.edu.unq.uis.rankIt.appModel.ServiciosAppModel
+import ar.edu.unq.uis.rankIt.appModel.PublicacionAppModel
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.bindings.NotNullObservable
 
-class AdministradorServiciosWindow extends Dialog<ServiciosAppModel> {
-	
+class AdministradorServiciosWindow extends SimpleWindow<PublicacionAppModel> {
+
+	var hayPublicacionSeleccionada = new NotNullObservable("publicacionSeleccionada")
+
 	new(WindowOwner owner, AdministradorDePublicaciones model) {
-		super(owner, new ServiciosAppModel(model))
+		super(owner, new PublicacionAppModel())
+		this.title = "RankIt -> Admin. Servicios"
 	}
-	
-	override protected addActions(Panel actionsPanel) {}
 
-	override protected createFormPanel(Panel mainPanel) {} 
-	
-	override createMainTemplate(Panel mainPanel) {
-		this.title = "Adm. Servicios"
+	override protected createMainTemplate(Panel mainPanel) {
+		this.createFormPanel(mainPanel)
+	}
+
+	override protected createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
-	 
-		//Agregamos el contenido
-		val Panel resumenPanel = new Panel(mainPanel)
-		val Panel buscadorPanel = new Panel(mainPanel)
-		val Panel contentPanel = new Panel(mainPanel)
-		contentPanel.layout = new ColumnLayout(2)
-		this.crearResumenSituacion(resumenPanel)
-		this.crearBuscadorServicios(buscadorPanel)
-		this.crearListadoDeServicios(contentPanel)
-		this.crearEdicionDeServicioSeleccionada(contentPanel)
+
+		this.panelResumenLugares(mainPanel)
+
+		new Titulo(mainPanel, "Servicios")
+
+		this.crearPanelDeBusqueda(mainPanel)
+		this.crearPanelAdministracionServicios(mainPanel)
 	}
-	
-	def crearResumenSituacion(Panel owner) {
-		val resumenPanel = new Panel(owner)
-		
-		resumenPanel.layout = new ColumnLayout(3)
-		
-		// darle independencia al titulo
-		new Titulo(resumenPanel, "Resumen de situación:", 12)
-		new Label(resumenPanel) => []
-		new Label(resumenPanel) => []
-		
-		new Label(resumenPanel) => [
-			text = "Servicios inscriptos: "
-			width = 135
-			//bindValueToProperty("?")
+
+	def panelResumenLugares(Panel mainPanel) {
+
+		val panelResumenEstadisticas = new GroupPanel(mainPanel) => [
+			it.title = "Resumen de situacion"
+			it.layout = new HorizontalLayout
 		]
-		
-		new Label(resumenPanel) => [
-			text = "Habilitados: "
-			width = 135
-			//bindValueToProperty("?")
+
+		new Label(panelResumenEstadisticas).text = "Servicios inscriptos: "
+		new Label(panelResumenEstadisticas) => [
+			it.foreground = Color.BLUE
+			it.value <=> "cantidadPublicacionesRegistradas"
+//			it.width = 160
 		]
-		
-		new Label(resumenPanel) => [
-			text = "Deshabilitados: "
-			width = 135
-			//bindValueToProperty("?")
+
+		new Label(panelResumenEstadisticas).text = " Habilitados: "
+		new Label(panelResumenEstadisticas) => [
+			it.foreground = Color.BLUE
+			it.value <=> "cantidadPublicacionesHabilitadas"
+//			it.width = 120
 		]
-		
-	}
-	
-	def crearBuscadorServicios(Panel owner) {
-		val buscarPanel = new Panel(owner)
-		
-		//new TituloAlineado(buscarPanel, "Servicios", 15)
-			
-		buscarPanel.layout = new ColumnLayout(3)
-		
-		new Titulo(buscarPanel, "Servicios", 15)
-		new Label(buscarPanel) => []
-		new Label(buscarPanel) => []
-		
-		new Label(buscarPanel).text = "Buscar por nombre de servicio"
-		
-		new TextBox(buscarPanel) => [
-			width = 200
-			//(value <=> "fecha").transformer = new DateTransformer
-		]
-		
-		new Button(buscarPanel) => [
-			caption = "Buscar"
-			width = 100
-			//setAsDefault
-			//onClick [ | jugar 
+
+		new Label(panelResumenEstadisticas).text = " Deshabilitados: "
+		new Label(panelResumenEstadisticas) => [
+			it.foreground = Color.RED
+			it.value <=> "cantidadPublicacionesDeshabilitadas"
+//			it.width = 120
 		]
 	}
-	
-	
-	
-	def crearEdicionDeServicioSeleccionada(Panel owner) {
-		
-		val Panel edicionPanel = new Panel(owner)
-		edicionPanel.layout = new VerticalLayout
-		
-		new Labeled(edicionPanel)
-			.setText("Nombre:")
-			.bindValueToProperty("publicacionSeleccionada.nombre")	
-		
-		
-		new Button(edicionPanel)=>[
-			caption = "Edita la informacion"]
-		
-		new LabeledTextBox(edicionPanel)
-			.setText("Nombre:")
-			.bindValueToProperty("publicacionSeleccionada.nombre")
-			
-		
-		new LabeledCheckBox(edicionPanel)
-			.setText("Habilitado:")
-			.bindValueToProperty("publicacionSeleccionada.nombre")
-		
-		new Labeled(edicionPanel)
-			.setText("Rating promedio:")
-			.bindValueToProperty("publicacionSeleccionada.nombre")
-		
-		new Labeled(edicionPanel)
-			.setText("Calificaciones:")
-			.bindValueToProperty("publicacionSeleccionada.nombre")
-			
-			
-		// botonera
-		val botoneraPanel = new Panel(edicionPanel)
-		botoneraPanel.layout = new VerticalLayout
-			
-		new Button(botoneraPanel)=>[
-			caption = "Revisar Publicaciones"
-			onClick [ |
-				//this.modelObject.eliminarServicio
+
+	def crearPanelDeBusqueda(Panel ownerPanel) {
+		val panelBusqueda = new Panel(ownerPanel)
+
+		panelBusqueda.layout = new HorizontalLayout
+
+		new Label(panelBusqueda) => [
+			it.text = "Buscar por nombre de Servicio: "
+		]
+
+		new TextBox(panelBusqueda) => [
+			it.value <=> "nombreDePublicacionBuscada"
+			it.width = 250
+		]
+
+	}
+
+	def crearPanelAdministracionServicios(Panel ownerPanel) {
+		val panelAdministracion = new Panel(ownerPanel)
+		panelAdministracion.layout = new HorizontalLayout
+
+		this.crearPanelGrilla(panelAdministracion)
+
+		this.crearPanelEdicion(panelAdministracion)
+	}
+
+	def crearPanelGrilla(Panel ownerPanel) {
+		val panelAdministracionGrilla = new Panel(ownerPanel)
+
+		val tablaServicios = new Table(panelAdministracionGrilla, Publicacion) => [
+			it.items <=> "buscador.publicacionesFiltradas"
+			it.value <=> "publicacionSeleccionada"
+			it.numberVisibleRows = 12
+			it.width = 400
+		]
+
+		new Column(tablaServicios) => [
+			it.title = "Fecha de registro"
+			it.bindContentsToProperty("fechaDeRegistro").transformer = [ DateTime fecha |
+				DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(fecha)
 			]
+			it.fixedSize = 130
 		]
-		val eliminarPanel = new Panel(botoneraPanel)
-		new Button(eliminarPanel)=>[
-			caption = "Eliminar"
-			width = 100
-			onClick [ |
-				this.modelObject.eliminarServicio
+
+		new Column(tablaServicios) => [
+			it.title = "Nombre"
+			it.bindContentsToProperty("nombre")
+			it.fixedSize = 100
+		]
+
+		new Column(tablaServicios) => [
+			it.title = "Habilitado"
+			it.bindContentsToProperty("estaHabilitado").transformer = [ Boolean habilitado |
+				if(habilitado) "Sí" else "No"
 			]
+			it.fixedSize = 70
 		]
-			
+
+		new Button(panelAdministracionGrilla) => [
+			it.caption = "Nuevo"
+//			it.onClick [| modelObject.crearNuevoUsuario()]
+		]
 	}
-		
-	def crearListadoDeServicios(Panel owner) {
-		val panelDeListadoDeServicios = new Panel(owner)
-		
-		val tablaDeServicios = new Table<Publicacion>(panelDeListadoDeServicios, Publicacion) => [
-			bindItemsToProperty("admin.todo")
-			bindValueToProperty("publicacionSeleccionada")
-		]
-		
-		new Column(tablaDeServicios) =>[
-			title = "Fecha de Registro"
-			bindContentsToProperty("fechaDeRegistro").transformer = [ Date fecha | new SimpleDateFormat("dd/MM/YYYY").format(fecha)] 
-		]
-		
-		new Column(tablaDeServicios)=>[
-			title = "Nombre"
-			bindContentsToProperty("nombre")
-			
-		]
-		
-		new Column(tablaDeServicios) =>[
-			title = "Habilitado"
-			bindContentsToProperty("estaHabilitado").transformer = [ Boolean estaHabilitado | if (estaHabilitado) "SI" else "NO" ]
-		]
-		
-		val botoneraPanel = new Panel(panelDeListadoDeServicios)
-		botoneraPanel.layout = new HorizontalLayout
-			
-		new Button(botoneraPanel)=>[
-			caption = "Nuevo"
-			width = 100
-			onClick [ |
-				this.modelObject.nuevoServicio
+
+	def crearPanelEdicion(Panel administracionPanel) {
+		val panelAdministracionEdicion = new Panel(administracionPanel)
+
+		new Panel(panelAdministracionEdicion) => [
+			it.layout = new HorizontalLayout
+
+			new Label(it) => [
+				text = "Nombre:    "
+				fontSize = 14
 			]
-		] 
-	}	
-	
+
+			new Label(it) => [
+				value <=> "publicacionSeleccionada.nombre"
+				it.bindVisible(hayPublicacionSeleccionada)
+				fontSize = 14
+			]
+
+		]
+
+		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
+
+		new Label(panelAdministracionEdicion).text = "Nombre:"
+		new TextBox(panelAdministracionEdicion).bindValueToProperty("publicacionSeleccionada.nombre")
+
+		new Panel(panelAdministracionEdicion) => [
+			it.layout = new HorizontalLayout
+
+			new CheckBox(it) => [
+				it.value <=> "publicacionHabilitada"
+				it.bindEnabled(hayPublicacionSeleccionada)
+				it.height = 16
+			]
+
+			new Label(it).text = "Habilitado"
+		]
+
+		new Label(panelAdministracionEdicion).text = "Rating promedio:"
+		new Label(panelAdministracionEdicion) => [
+			it.value <=> "ratingPromedio"
+			it.height = 30
+		]
+
+		new Label(panelAdministracionEdicion) => [
+			it.text = "Calificaciones:"
+		]
+
+		new Label(panelAdministracionEdicion) => [
+			it.value <=> "cantidadDeCalificaciones"
+			it.height = 30
+		]
+//		new Button(panelAdministracionEdicion) => [
+//			it.caption = "Revisar calificaciones"
+		// it.bindEnabled(hayPublicacionSeleccionada)
+		// it.onClick [| modelObject.]
+//			it.width = 50
+//		]
+		new Button(panelAdministracionEdicion) => [
+			it.caption = "Eliminar"
+			it.bindEnabled(hayPublicacionSeleccionada)
+			it.onClick[|modelObject.eliminarPublicacionSeleccionada]
+			it.width = 50
+		]
+	}
+
+	override protected addActions(Panel actionsPanel) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+
 }
