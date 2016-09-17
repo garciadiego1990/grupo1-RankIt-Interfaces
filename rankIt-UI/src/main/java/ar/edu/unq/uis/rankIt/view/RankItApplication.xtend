@@ -2,7 +2,7 @@ package ar.edu.unq.uis.rankIt.view
 
 import org.uqbar.arena.Application
 import ar.edu.unq.uis.rankIt.appModel.MenuAppModel
-import ar.edu.unq.uis.rankIt.view.runnable.RankItBootstrap
+import ar.edu.unq.uis.rankIt.view.RankItBootstrap
 
 class RankItApplication extends Application {
 	

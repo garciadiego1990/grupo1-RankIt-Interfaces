@@ -25,13 +25,9 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		
 		this.title = "Rank-It"
 		
-		val tituloPanel = new Panel(mainPanel)
+		new Titulo(mainPanel, "Rank-It! Modulo de administración", 20)
 		
-		new Titulo(tituloPanel, "Rank-It! Modulo de administración", 20)
-		
-		val textoPanel = new Panel(mainPanel)
-		
-		new Label(textoPanel).text = "Desde este modulo vas a poder gestionar los datos y opciones de la aplicación\n\n" 		
+		new Label(mainPanel).text = "Desde este modulo vas a poder gestionar los datos y opciones de la aplicación\n\n" 		
 		+"como sos una persona de confianza vas a tener acceso a todo!!\n\n"
 		+"Siempre acordate con un gran poder viene una gran responsabilidad\n"
 		

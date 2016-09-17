@@ -11,10 +11,7 @@ import org.uqbar.arena.widgets.tables.Table
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.windows.ErrorsPanel
-import org.uqbar.arena.widgets.GroupPanel
-import org.uqbar.arena.layout.VerticalLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import ar.edu.unq.uis.rankIt.view.components.Titulo
 import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
 import org.joda.time.format.DateTimeFormat
@@ -22,89 +19,44 @@ import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 
-class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
+class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<UsuariosAppModel> {
 	
 	val hayUsuarioSeleccionado = new NotNullObservable("buscador.selected")
 	
 	new(WindowOwner owner, AdministradorDeUsuarios model) {
 		super(owner, new UsuariosAppModel())
-		this.title = "RankIt -> Admin. Usuarios"
+		this.title = "Usuarios"
 	}
 
 	
-	/**
-	 * Este método redefine el template para la ventana {@link AdministrarUsuariosWindow}.
-	 * En caso de existir la definición del método {@link #createContents(Panel)}
-	 * se ejecutará en lugar de este
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana
-	 * @author Abel Espínola
-	 */
-	override protected createMainTemplate(Panel mainPanel) {
-		this.createFormPanel(mainPanel)
-	}
-	
-	
-	/**
-	 * En este método se define el contenido principal de la ventana para administrar {@link Usuario}s
-	 * en RankIt.
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana
-	 * @author Abel Espínola
-	 */
-	override protected createFormPanel(Panel mainPanel) {
-		mainPanel.layout = new VerticalLayout
-		
-		this.panelResumenUsuarios(mainPanel)
-		
-		new Titulo(mainPanel, "Usuarios")
-		
-		this.crearPanelDeBusqueda(mainPanel)
-		this.crearPanelAdministracionUsuarios(mainPanel)
-	}
-	
+	/**@author ae */
+	override crearSeccionDeResumen(Panel panelDeResumen) {
 
-	
-	/**
-	 * {@link Panel} horizontal que mostrará datos estadisticos de todos los {@link Usuario}s
-	 *  de la aplicación.
-	 * 
-	 * @param mainPanel - {@link Panel} principal de la ventana.
-	 * @author Abel Espínola
-	 */
-	def panelResumenUsuarios(Panel mainPanel) {
-		
-		val panelResumenEstadisticas = new GroupPanel(mainPanel) => [
-			it.title = "Resumen"
-			it.layout = new HorizontalLayout
-		]
-
-		new Label(panelResumenEstadisticas).text = "Usuarios Registrados: "
-		new Label(panelResumenEstadisticas) => [
+		new Label(panelDeResumen).text = "Usuarios Registrados: "
+		new Label(panelDeResumen) => [
 			it.foreground = Color.BLUE
 			it.value <=> "cantidadUsuariosRegistrados"
 //			it.width = 160
 		]
 		
-		new Label(panelResumenEstadisticas).text = " Activos: "
-		new Label(panelResumenEstadisticas) => [
+		new Label(panelDeResumen).text = " Activos: "
+		new Label(panelDeResumen) => [
 			it.foreground = Color.BLUE
 			it.value <=> "cantidadUsuariosActivos"
 //			it.width = 120
 		]
 		
-		new Label(panelResumenEstadisticas).text = " Inactivos: "
-		new Label(panelResumenEstadisticas) => [
+		new Label(panelDeResumen).text = " Inactivos: "
+		new Label(panelDeResumen) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosInactivos"
 //			it.width = 120
 		]
 		
-		new Label(panelResumenEstadisticas).text = " Baneados: "
-		new Label(panelResumenEstadisticas) => [
+		new Label(panelDeResumen).text = " Baneados: "
+		new Label(panelDeResumen) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosBaneados"
 //			it.width = 120
@@ -113,57 +65,21 @@ class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
 	}
 	
 	
-	/**
-	 * {@link Panel} que mostrará los elementos de búsqueda de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} principal de la ventana.
-	 * @author Abel Espínola
-	 */
-	def crearPanelDeBusqueda(Panel ownerPanel) {
-		val panelBusqueda = new Panel(ownerPanel)
-		
-		panelBusqueda.layout = new HorizontalLayout
-		
-		new Label(panelBusqueda) => [
+	/**@author ae */
+	override crearSeccionDeBusqueda(Panel panelDeBusqueda) {
+		new Label(panelDeBusqueda) => [
 			it.text = "Buscar por nombre de usuario: "
 		]
 		
-		new TextBox(panelBusqueda) => [
+		new TextBox(panelDeBusqueda) => [
 			it.value <=> "nombreDeUsuarioBuscado"
 			it.width = 250
 		]
-		
 	}
 	
-	
-	
-	/**
-	 * {@link Panel} que contendrá toda la funcionalidad para administrar {@link Usuario}s.
-	 * 
-	 * @param ownerPanel - {@link Panel} principal de la ventana
-	 * @author Abel Espínola
-	 */
-	def crearPanelAdministracionUsuarios(Panel ownerPanel) {
-		val panelAdministracion = new Panel(ownerPanel)
-		panelAdministracion.layout = new HorizontalLayout
-		
-		this.crearPanelGrilla(panelAdministracion)
-		
-		this.crearPanelEdicion(panelAdministracion)
-	}
-	
-	
-	
-	/**
-	 * {@link Panel} que mostrará la grilla donde se mostrará los {@link Usuario}s de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} de administración.
-	 * @author Abel Espínola
-	 */
-	def crearPanelGrilla(Panel ownerPanel) {
-		val panelAdministracionGrilla = new Panel(ownerPanel)
-		
-		val tablaUsuarios = new Table(panelAdministracionGrilla, Usuario) => [
+	/** @author ae*/
+	override crearSeccionDeGrilla(Panel panelGrilla) {
+		val tablaUsuarios = new Table(panelGrilla, Usuario) => [
 			it.items <=> "buscador.results"
 			it.value <=> "buscador.selected"
 			it.numberVisibleRows = 12
@@ -203,23 +119,16 @@ class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
 			it.fixedSize = 70
 		]
 		
-		new Button(panelAdministracionGrilla) => [
+		new Button(panelGrilla) => [
 			it.caption = "Nuevo"
 			it.onClick [| modelObject.crearNuevoUsuario()]
 		]
 	}
 	
-	
-	/**
-	 * {@link Panel} que mostrará los elementos para editar {@link Usuario}s de la aplicación.
-	 * 
-	 * @param ownerPanel - {@link Panel} de administración.
-	 * @author Abel Espínola
-	 */
-	def crearPanelEdicion(Panel administracionPanel) {
-		val panelAdministracionEdicion = new Panel(administracionPanel)
+	/**@author ae */
+	override crearSeccionDeEdicion(Panel panelEdicion) {
 		
-		new Panel(panelAdministracionEdicion) => [
+		new Panel(panelEdicion) => [
 			it.layout = new HorizontalLayout
 			
 			new Label(it) => [
@@ -235,20 +144,19 @@ class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
 				
 		]
 		
-		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
+		new ErrorsPanel(panelEdicion, "Edite la información")
 		
-		new Label(panelAdministracionEdicion) => [
+		new Label(panelEdicion) => [
 			it.text = "Fecha de Registro:"
 		]
 		
-		new Label(panelAdministracionEdicion) => [
+		new TextBox(panelEdicion) => [
 			it.bindValueToProperty("buscador.selected.fechaDeRegistro").transformer = new DateTimeTransformer
 			it.bindVisible(hayUsuarioSeleccionado)
-			it.background = Color.GRAY
 			it.width = 200
 		]
 		
-		new Panel(panelAdministracionEdicion) => [
+		new Panel(panelEdicion) => [
 			it.layout = new HorizontalLayout
 		
 			new CheckBox(it) => [
@@ -260,7 +168,7 @@ class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
 			new Label(it).text = "Activo"
 		]
 		
-		new Panel(panelAdministracionEdicion) => [
+		new Panel(panelEdicion) => [
 			it.layout = new HorizontalLayout
 			new CheckBox(it) => [
 				it.value <=> "usuarioSeleccionadoBaneado"
@@ -271,40 +179,36 @@ class AdministradorUsuariosWindow extends SimpleWindow<UsuariosAppModel> {
 			new Label(it).text = "Baneado"
 		]
 		
-		new Label(panelAdministracionEdicion) => [
+		new Label(panelEdicion) => [
 			it.text = "Última publicación:"
 		]
 		
-		new Label(panelAdministracionEdicion) => [
+		new Label(panelEdicion) => [
 			it.text = "09/07/2016 01:30"
 			it.bindEnabled(hayUsuarioSeleccionado)
 			it.height = 30
 		]
 		
-		new Button(panelAdministracionEdicion) => [
+		new Button(panelEdicion) => [
 			it.caption = "Revisar calificaciones"
 			it.bindEnabled(hayUsuarioSeleccionado)
 //			it.onClick [| ]
 			it.width = 50//No me lo está tomando
 		]
 
-		new Button(panelAdministracionEdicion) => [
+		new Button(panelEdicion) => [
 			it.caption = "Blanquear clave"
 			it.bindEnabled(hayUsuarioSeleccionado)
 			it.onClick [| modelObject.blanquearContrasenia ]
 			it.width = 50//No me lo está tomando
 		]
 		
-		new Button(panelAdministracionEdicion) => [
+		new Button(panelEdicion) => [
 			it.caption = "Eliminar"
 			it.bindEnabled(hayUsuarioSeleccionado)
 			it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
 			it.width = 50//No me lo está tomando
 		]
-	}
-	
-	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 }

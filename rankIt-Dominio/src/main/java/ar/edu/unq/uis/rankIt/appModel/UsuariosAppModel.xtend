@@ -26,7 +26,7 @@ class UsuariosAppModel {
 	 * @author Abel Espínola
 	 */
 	new() {
-		this.repositorioUsuarios = this.getRepoUsuarios()
+		this.repositorioUsuarios = new AdministradorDeUsuarios//this.getRepoUsuarios()
 		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
 	}
 	
@@ -195,8 +195,8 @@ class UsuariosAppModel {
 	
 //CARGO EL APPLICATION CONTEXT
 
-	def AdministradorDeUsuarios getRepoUsuarios() {
-		ApplicationContext.instance.getSingleton(typeof(AdministradorDeUsuarios))
-	}	
+//	def AdministradorDeUsuarios getRepoUsuarios() {
+//		ApplicationContext.instance.getSingleton(typeof(AdministradorDeUsuarios))
+//	}	
 	
 }
