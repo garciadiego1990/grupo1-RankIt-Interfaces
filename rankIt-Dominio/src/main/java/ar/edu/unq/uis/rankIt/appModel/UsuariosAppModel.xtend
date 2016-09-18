@@ -149,12 +149,12 @@ class UsuariosAppModel {
 
 
 //METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
-
+	 
 	def void actualizarPanelEdicionUsuario() {
 		firePropertyChanged(this, "usuarioSeleccionadoActivo")
 		firePropertyChanged(this, "usuarioSeleccionadoBaneado")
 	}
-
+	
 
 	def void actualizarResumen() {
 		firePropertyChanged(this, "cantidadUsuariosRegistrados")

@@ -5,7 +5,6 @@ import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import org.uqbar.commons.utils.ApplicationContext
 import static org.uqbar.commons.model.ObservableUtils.*
 import org.uqbar.commons.model.ObservableUtils
 
@@ -53,10 +52,8 @@ abstract class PublicacionAppModel {
 
 	def void setPublicacionSeleccionada(Publicacion publicacion) {
 		publicacionSeleccionada = publicacion
-		ObservableUtils.firePropertyChanged(this, "ratingPromedio")
-		ObservableUtils.firePropertyChanged(this, "cantidadDeCalificaciones")
-		ObservableUtils.firePropertyChanged(this, "publicacionHabilitada")
-
+		if (publicacion != null)
+			this.actualizarPanelEdicionPublicacion()
 	}
 
 	def crearNuevaPublicacion() {
@@ -79,6 +76,7 @@ abstract class PublicacionAppModel {
 	}
 
 	// PANEL DE RESUMEN:
+	
 	def Integer getCantidadPublicacionesRegistradas() {
 		admin.inscriptos
 	}
@@ -103,6 +101,7 @@ abstract class PublicacionAppModel {
 	}
 
 	// BUSCADOR:
+	
 	def void setNombreDePublicacionBuscada(String nombre) {
 		nombreDePublicacionBuscada = nombre
 		buscador.setNombrePublicacionABuscar(nombre)
@@ -117,13 +116,20 @@ abstract class PublicacionAppModel {
 	}
 
 //PANEL DE EDICION:
+
 	def String getNombreDePublicacionSeleccionada() {
 		this.publicacionSeleccionada.nombre
 	}
+	
 
-// METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
-	def void actualizarPanelEdicionUsuario() {
-		firePropertyChanged(this, "nombreDepublicacionSeleccionada")
+
+//  METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA: 
+
+	def void actualizarPanelEdicionPublicacion() {
+		ObservableUtils.firePropertyChanged(this, "nombre")
+		ObservableUtils.firePropertyChanged(this, "ratingPromedio")
+		ObservableUtils.firePropertyChanged(this, "cantidadDeCalificaciones")
+		ObservableUtils.firePropertyChanged(this, "publicacionHabilitada")
 	}
 
 	def void actualizarResumen() {
@@ -139,9 +145,5 @@ abstract class PublicacionAppModel {
 
 //CARGO EL APPLICATION CONTEXT
 
-	/**Este método debe ser implementado por {@link ServiciosAppModel} y {@link LugaresAppModel}. 
-	 * Estas clases deben implementar este método para obtener sus publicaciones correspondientes.
-	 * 
-	 * @author ae */
 	abstract def AdministradorDePublicaciones getRepoPublicaciones();
 }

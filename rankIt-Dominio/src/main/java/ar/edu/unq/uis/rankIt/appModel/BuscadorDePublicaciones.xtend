@@ -12,7 +12,6 @@ class BuscadorDePublicaciones{
 	var String nombrePublicacionABuscar
 	var List<Publicacion> publicaciones
 	
-	
 	new(List<Publicacion> lugares) {
 		this.publicaciones = lugares
 		this.nombrePublicacionABuscar = ""
@@ -28,10 +27,8 @@ class BuscadorDePublicaciones{
 	}
 	
 	def search() {
-		if(nombrePublicacionABuscar == "" )
-			publicaciones
-		else
-			publicaciones.filter[ publicacion | publicacion.nombre.contains(nombrePublicacionABuscar)].toList
+		if(nombrePublicacionABuscar == "" ) return publicaciones
+		else publicaciones.filter[ publicacion | publicacion.nombre.contains(nombrePublicacionABuscar)].toList
 	}
 	
 	def List<Publicacion> getPublicacionesFiltradas(){
