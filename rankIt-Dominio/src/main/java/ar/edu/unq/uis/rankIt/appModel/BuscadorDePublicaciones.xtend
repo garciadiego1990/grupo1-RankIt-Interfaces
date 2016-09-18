@@ -19,10 +19,12 @@ class BuscadorDePublicaciones{
 		this.search()
 	}
 	
+	
 	def setNombrePublicacionABuscar(String nombre) {
 		this.nombrePublicacionABuscar = nombre
-		ObservableUtils.firePropertyChanged(this,"publicacionesFiltradas")
 		this.search()
+		ObservableUtils.firePropertyChanged(this,"publicacionesFiltradas")
+		
 	}
 	
 	def search() {

@@ -60,7 +60,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
 			it.value <=> "calificacionesRegistradas"
-//			it.width = 160
+		//	it.width = 160
 		]
 		
 		new Label(panelResumenEstadisticas).text = "Ofensivas: "
@@ -149,7 +149,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
-			//it.onClick [| modelObject.crearNuevoUsuario()]
+			//onClick [| modelObject.crearNuevoUsuario()]
 		]
 	}
 	

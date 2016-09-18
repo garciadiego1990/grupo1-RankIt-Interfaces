@@ -21,8 +21,15 @@ class CalificacionesAppModel {
 
 	new(AdministradorDeCalificaciones admin) {
 		this.admin = getRepoCalificaciones
-		buscador = new BuscadorDeCalificaciones(admin.calificaciones)
-		
+		buscador = new BuscadorDeCalificaciones(admin.calificaciones)	
+	}
+	
+	def int getCalificacionesRegistradas(){
+		admin.totalCalificaciones
+	}
+	
+	def int getCalificacionesOfensivas(){
+		admin.calificacionesOfensivas
 	}
 	
 	def DateTime getFecha(){
@@ -50,13 +57,9 @@ class CalificacionesAppModel {
 		calificacionSeleccionada.getDetalle
 	}
 	
-	def int getCalificacionesRegistradas(){
-		admin.totalDeEvaluaciones
-	}
 	
-	def int getCalificacionesOfensivas(){
-		admin.calificacionesOfensivas
-	}
+	
+	
 	
 	def void setCalificacionSeleccionada(Calificacion c){
 		calificacionSeleccionada = c

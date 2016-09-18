@@ -12,10 +12,7 @@ import org.uqbar.commons.utils.Observable
 class AdministradorDeCalificaciones {
 	AdministradorDePublicaciones admin = new AdministradorDePublicaciones
 	List<Calificacion> calificaciones = new ArrayList<Calificacion>
-	
-	new() {
 		
-	}	
 	
 	def agregarCalificacion(Calificacion c) {
 		calificaciones.add(c)
@@ -33,19 +30,12 @@ class AdministradorDeCalificaciones {
 	todasLasCalificaciones
 	}
 	
-	def int totalDeEvaluaciones() {
-		calificacionesDeLugaresYServicios.size
+	def totalCalificaciones() {
+		calificaciones.size
 	}
 	
-	def int calificacionesOfensivas() {
-		var calificacionesOfensivas = 0
-		var List<Calificacion> todasLasCalificaciones = calificacionesDeLugaresYServicios()
-		for (Calificacion c : todasLasCalificaciones) {
-			if(c.esOfensiva) {
-				calificacionesOfensivas++
-			}
-		}
-		calificacionesOfensivas
+	def calificacionesOfensivas() {
+		calificaciones.filter[esOfensiva].size
 	}
 	
 	// Va a haber problemas si no encuentra lo que busca
