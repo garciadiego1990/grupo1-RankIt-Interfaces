@@ -15,6 +15,8 @@ class Calificacion {
 	Publicacion evaluado
 	
 	new() {
+		evaluador = new Usuario("ADMIN")
+		detalle = "prueba"
 	}
 	
 	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion, String det){
