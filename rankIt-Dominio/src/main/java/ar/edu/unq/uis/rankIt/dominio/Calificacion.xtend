@@ -8,8 +8,8 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class Calificacion {
 	Integer puntaje
-	DateTime fecha
-	boolean esOfensiva
+	DateTime fecha = new DateTime
+	boolean esOfensiva = false
 	String detalle
 	Usuario evaluador
 	Publicacion evaluado
@@ -17,10 +17,19 @@ class Calificacion {
 	new() {
 	}
 	
-	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion){
+	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion, String det){
 		puntaje = unaCalificacion
 		evaluador = unEvaluador
 		evaluado = unaPublicacion
-		esOfensiva = false
+		detalle = det
+		
+	}
+	
+	def String getNombrePublicacion(){
+		evaluado.nombre
+	}
+	
+	def String getNombreUsuario(){
+		evaluador.nombre
 	}
 }

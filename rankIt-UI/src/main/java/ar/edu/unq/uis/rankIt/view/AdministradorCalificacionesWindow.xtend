@@ -2,13 +2,13 @@ package ar.edu.unq.uis.rankIt.view
 
 
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.tables.Table
-import ar.edu.unq.uis.rankIt.dominio.Usuario
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.widgets.GroupPanel
@@ -22,19 +22,15 @@ import org.uqbar.arena.windows.Dialog
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 
-// Estoy tratando de subir los cambios
 
 class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
+	
+	//var hayPublicacionSeleccionada = new NotNullObservable("publicacionSeleccionada")
 	
 	new(WindowOwner owner, AdministradorDeCalificaciones model) {
 		super(owner, new CalificacionesAppModel(model))
 		this.title = "RankIt -> Admin. Calificaciones"
 	}
-	
-	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
 
 	override protected createMainTemplate(Panel mainPanel) {
 		this.createFormPanel(mainPanel)
@@ -64,7 +60,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
 			it.value <=> "calificacionesRegistradas"
-//			it.width = 160
+		//	it.width = 160
 		]
 		
 		new Label(panelResumenEstadisticas).text = "Ofensivas: "
@@ -110,7 +106,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 		
 		val tablaCalificaciones = new Table(panelAdministracionGrilla, Calificacion) => [
-			it.items <=> "admin.calificaciones"
+			it.items <=> "buscador.calificacionesFiltradas"
 			it.value <=> "calificacionSeleccionada"
 			it.numberVisibleRows = 12
 			it.width = 400
@@ -153,7 +149,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
-			//it.onClick [| modelObject.crearNuevoUsuario()]
+			//onClick [| modelObject.crearNuevoUsuario()]
 		]
 	}
 	
@@ -174,7 +170,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 		]
 		
 		new TextBox(panelAdministracionEdicion) => [
-			it.value <=> "evaluado"
+			it.value <=> "nombrePublicacion"
 			//it.width = 100
 		]
 		
@@ -194,7 +190,7 @@ class AdministradorCalificacionesWindow extends Dialog<CalificacionesAppModel> {
 			it.text = "Puntaje:"
 		]
 		new Label(panelAdministracionEdicion) => [
-			it.value <=> "calificacion"
+			it.value <=> "puntaje"
 			//it.width = 100
 		]
 		

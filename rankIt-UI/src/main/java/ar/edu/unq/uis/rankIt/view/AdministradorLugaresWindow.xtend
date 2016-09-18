@@ -36,6 +36,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		this.createFormPanel(mainPanel)
 	}
 
+	
 	override protected createFormPanel(Panel mainPanel) {
 		mainPanel.layout = new VerticalLayout
 
@@ -47,6 +48,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		this.crearPanelAdministracionLugares(mainPanel)
 	}
 
+	
 	def panelResumenLugares(Panel mainPanel) {
 
 		val panelResumenEstadisticas = new GroupPanel(mainPanel) => [

@@ -47,13 +47,15 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	}
 	
 	def cargarCalificaciones() {
-		 
 		adminGral.adminCalificaciones => [
-			calificacion1.calificar(5, usuarioPepe, Quilmes)
-			calificacion2.calificar(6, usuarioLuis, Ezpeleta)
-			calificacion3.calificar(7, usuarioMarcos, Berazategui)
-			
-			
+//			calificacion1.calificar(5, usuarioPepe, Quilmes)
+//			calificacion2.calificar(6, usuarioLuis, Ezpeleta)
+//			calificacion3.calificar(7, usuarioMarcos, Berazategui)
+			calificacion1.calificar(5, usuarioPepe, Quilmes, "Prueba1")
+			calificacion1.esOfensiva = true
+			calificacion2.calificar(6, usuarioLuis, Ezpeleta, "Prueba2")
+			calificacion3.calificar(7, usuarioMarcos, Berazategui, "Prueba3")
+
 			agregarCalificacion(calificacion1)
 			agregarCalificacion(calificacion2)
 			agregarCalificacion(calificacion3) 
