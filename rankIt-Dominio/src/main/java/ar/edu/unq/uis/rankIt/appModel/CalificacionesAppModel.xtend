@@ -7,7 +7,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.ApplicationContext
-
+import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 
 @Accessors
 @Observable
@@ -115,7 +115,8 @@ class CalificacionesAppModel {
 
 //CARGO EL APPLICATION CONTEXT
 	def AdministradorDeCalificaciones getRepoCalificaciones() {
-		ApplicationContext.instance.getSingleton(typeof(AdministradorDeCalificaciones))
+		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
+		adminGral.adminCalificaciones
 	}
 /* 	
  
