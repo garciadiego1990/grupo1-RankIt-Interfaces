@@ -23,7 +23,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
-
+import org.uqbar.arena.widgets.Selector
 class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppModel> {
 
 	var hayCalificacionSeleccionada = new NotNullObservable("calificacionSeleccionada")
@@ -155,20 +155,16 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
 
-//			new Label(it) => [
-//				text = "Nombre:    "
-//				fontSize = 14
-//			]
-//
-//			new Label(it) => [
-//				value <=> "publicacionSeleccionada.nombre"
-//				it.bindVisible(hayCalificacionSeleccionada)
-//				fontSize = 14
-//			]
-
 		]
 
-		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
+		new ErrorsPanel(panelAdministracionEdicion, "Evaluado")
+		
+		new Label(panelAdministracionEdicion).text = "Ubicación:"
+		new Selector(panelAdministracionEdicion) => [
+			items <=> "nombreEvaluados"
+			value <=> "calificacionSeleccionada.evaluado.nombre"
+			width = 200
+		]
 
 		
 		new Label(panelAdministracionEdicion) => [
@@ -208,35 +204,6 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 			new Label(it).text = "Contenido Ofensivo"
 		]
 
-//		new Label(panelAdministracionEdicion).text = "Nombre:"
-//		new TextBox(panelAdministracionEdicion).bindValueToProperty("publicacionSeleccionada.nombre")
-//
-//		new Panel(panelAdministracionEdicion) => [
-//			it.layout = new HorizontalLayout
-//
-//			new CheckBox(it) => [
-//				it.value <=> "publicacionHabilitada"
-//				it.bindEnabled(hayCalificacionSeleccionada)
-//				it.height = 16
-//			]
-
-	//		new Label(it).text = "Habilitado"
-//		]
-//
-//		new Label(panelAdministracionEdicion) => [
-//			it.text = "Calificaciones:"
-//		]
-//
-//		new Label(panelAdministracionEdicion) => [
-//			it.value <=> "cantidadDeCalificaciones"
-//			it.height = 30
-//		]
-////		new Button(panelAdministracionEdicion) => [
-////			it.caption = "Revisar calificaciones"
-		// it.bindEnabled(hayPublicacionSeleccionada)
-		// it.onClick [| modelObject.]
-//			it.width = 50
-//		]
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
 			it.bindEnabled(hayCalificacionSeleccionada)

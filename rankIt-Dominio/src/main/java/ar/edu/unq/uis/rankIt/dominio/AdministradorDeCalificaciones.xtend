@@ -52,5 +52,16 @@ class AdministradorDeCalificaciones {
 	}
 	def void eliminarCalificacion(Calificacion c){
 		//
+	}
+	
+	def List<String> getNombrePublicaciones(){
+		var List<String> ret = new ArrayList<String>()
+		
+		for(Calificacion c: calificaciones){
+			ret.add(c.evaluado.nombre)
+		}
+		
+		return ret 
+		
 	}	 
 }

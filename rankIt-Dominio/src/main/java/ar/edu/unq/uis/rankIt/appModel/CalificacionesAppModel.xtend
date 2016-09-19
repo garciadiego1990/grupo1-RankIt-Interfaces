@@ -8,6 +8,7 @@ import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.ApplicationContext
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
+import java.util.Arrays
 
 @Accessors
 @Observable
@@ -23,6 +24,11 @@ class CalificacionesAppModel {
 		buscador = new BuscadorDeCalificaciones(admin.calificaciones)
 	}
 
+	def getNombreEvaluados(){
+		
+		Arrays.asList(admin.getNombrePublicaciones)
+	}
+	
 	def DateTime getFecha() {
 		calificacionSeleccionada.getFecha
 	}
@@ -130,49 +136,4 @@ class CalificacionesAppModel {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
 		adminGral.adminCalificaciones
 	}
-/* 	
- *  
- * 	def void eliminarCalificacion(){
- * 		admin.eliminarCalificacion(calificacionSeleccionada)
- * 	}
- * 	
- * 	def void nuevaCalificacion(){
- * 		var Calificacion cal = new Calificacion
- * 		admin.agregarCalificacion(cal)
- * 	}
- * 	
- * 	def Integer getCalificacion(){
- * 		calificacionSeleccionada.getPuntaje
- * 	}
- * 	
- * 	def String getUsuario(){
- * 		calificacionSeleccionada.getEvaluador.getNombre
- * 	}
- * 	
- * 	def String getDetalle(){
- * 		calificacionSeleccionada.getDetalle
- * 	}
- * 	
-
- * 	
- * 	def String esOfensiva(){
- * 		if(calificacionSeleccionada.esOfensiva){
- * 			"SI"
- * 		}
- * 		else {"NO"}
- * 	}
- * 	
- * 	def Integer getCalificacionesRegistradas(){
- * 		admin.totalDeEvaluaciones
- * 	}
- * 	
- * 	def Integer getCalificacionesOfensivas(){
- * 		admin.calificacionesOfensivas
- * 	}
- * 	
- * 	def String getEvaluado(){
- * 		calificacionSeleccionada.getEvaluado.getNombre
- * 	}
- * 	
- */
 }
