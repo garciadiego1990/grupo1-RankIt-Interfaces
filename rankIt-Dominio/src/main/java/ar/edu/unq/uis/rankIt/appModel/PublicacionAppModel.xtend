@@ -12,10 +12,10 @@ import org.uqbar.commons.model.ObservableUtils
 @Observable
 abstract class PublicacionAppModel {
 
-	AdministradorDePublicaciones admin
-	String nombreDePublicacionBuscada
+	var AdministradorDePublicaciones admin
+	var String nombreDePublicacionBuscada
 	var BuscadorDePublicaciones buscador
-	Publicacion publicacionSeleccionada
+	var Publicacion publicacionSeleccionada
 
 	//new(String s) {}
 	
@@ -36,7 +36,7 @@ abstract class PublicacionAppModel {
 		publicacionSeleccionada.estaHabilitado
 	}
 
-	def int getCantidadDeCalificaciones() {
+	def Integer getCantidadDeCalificaciones() {
 		if (publicacionSeleccionada == null) {
 			0
 		} else {
