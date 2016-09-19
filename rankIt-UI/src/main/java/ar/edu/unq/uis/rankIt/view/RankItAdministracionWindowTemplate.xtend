@@ -18,10 +18,16 @@ import org.uqbar.arena.layout.VerticalLayout
 @Accessors
 public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 	
+	var String tituloPrincipal
+	
 	new(WindowOwner owner, T model) {
 		super(owner, model)
 	}
 		
+	override setTitle(String titulo) {
+		super.title = "RankIt -> Admin. "+titulo
+	}	
+	
 	override final void createContents(Panel mainPanel) {
 		this.crearTemplate(mainPanel)
 	}
@@ -33,8 +39,7 @@ public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 	 * @author ae
 	 */
 	def private final void crearTemplate(Panel mainPanel) {
-		val tituloPrincipal = this.title
-		this.title = "RankIt -> Admin. "+this.title
+
 		mainPanel.layout = new VerticalLayout
 		
 		val panelDeResumen = new GroupPanel(mainPanel) => [
@@ -45,7 +50,7 @@ public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 		this.crearSeccionDeResumen(panelDeResumen)
 		
 		new Label(mainPanel) => [
-			it.text = tituloPrincipal
+			it.text = this.tituloPrincipal
 			it.fontSize = 20
 		]
 		
@@ -72,6 +77,15 @@ public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 	}
 	
 	
+	/** 
+	 * Se asigna el título principal a la ventana.
+	 * 
+	 * @param titulo - Título principal.
+	 * @author ae */
+	def void setTituloPrincipal(String titulo) {
+		this.setTitle(titulo)
+		this.tituloPrincipal = titulo	
+	}
 	
 	/*Los siguientes métodos son los únicos que deben ser implementados por las subclases de 
 	 * RankItAdministracionWindowTemplate.

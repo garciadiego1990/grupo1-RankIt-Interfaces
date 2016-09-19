@@ -17,7 +17,6 @@ import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
-import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
 import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
 import org.uqbar.arena.bindings.NotNullObservable
 
@@ -25,11 +24,10 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 	
 	val hayUsuarioSeleccionado = new NotNullObservable("usuarioSeleccionado")
 	
-	new(WindowOwner owner, AdministradorDeUsuarios model) {
-		super(owner, new UsuariosAppModel())
-		this.title = "Usuarios"
+	new(WindowOwner owner, UsuariosAppModel model) {
+		super(owner, model)
+		this.tituloPrincipal = "Usuarios"
 	}
-
 	
 	/**@author ae */
 	override crearSeccionDeResumen(Panel panelDeResumen) {
@@ -38,28 +36,24 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		new Label(panelDeResumen) => [
 			it.foreground = Color.BLUE
 			it.value <=> "cantidadUsuariosRegistrados"
-//			it.width = 160
 		]
 		
 		new Label(panelDeResumen).text = " Activos: "
 		new Label(panelDeResumen) => [
 			it.foreground = Color.BLUE
 			it.value <=> "cantidadUsuariosActivos"
-//			it.width = 120
 		]
 		
 		new Label(panelDeResumen).text = " Inactivos: "
 		new Label(panelDeResumen) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosInactivos"
-//			it.width = 120
 		]
 		
 		new Label(panelDeResumen).text = " Baneados: "
 		new Label(panelDeResumen) => [
 			it.foreground = Color.RED
 			it.value <=> "cantidadUsuariosBaneados"
-//			it.width = 120
 		]
 		
 	}
