@@ -27,8 +27,8 @@ class AdministradorServiciosWindow extends SimpleWindow<ServiciosAppModel> {
 
 	var hayPublicacionSeleccionada = new NotNullObservable("publicacionSeleccionada")
 
-	new(WindowOwner owner, AdministradorDePublicaciones model) {
-		super(owner, new ServiciosAppModel())
+	new(WindowOwner owner, ServiciosAppModel model) {
+		super(owner, model)
 		this.title = "RankIt -> Admin. Servicios"
 	}
 

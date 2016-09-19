@@ -17,7 +17,6 @@ abstract class PublicacionAppModel {
 	var BuscadorDePublicaciones buscador
 	var Publicacion publicacionSeleccionada
 
-	//new(String s) {}
 	
 	new() {
 		admin = getRepoPublicaciones

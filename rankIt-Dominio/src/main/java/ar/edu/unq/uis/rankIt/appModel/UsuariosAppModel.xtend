@@ -19,7 +19,11 @@ class UsuariosAppModel {
 	var BuscadorDeUsuarios buscador
 	var String nombreABuscar
 	
-
+	var int registrados
+	var int activos
+	var int inactivos
+	var int baneados
+	
 	new() {
 		this.repositorioUsuarios = this.getRepoUsuarios()
 		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
@@ -148,6 +152,10 @@ class UsuariosAppModel {
 	def void actualizarResumenActivos() {
 		firePropertyChanged(this, "cantidadUsuariosActivos")
 		firePropertyChanged(this, "cantidadUsuariosInactivos")
+	}
+	
+	def void actualizarMenu() {
+		firePropertyChanged(this, "resumen")
 	}
 	
 	

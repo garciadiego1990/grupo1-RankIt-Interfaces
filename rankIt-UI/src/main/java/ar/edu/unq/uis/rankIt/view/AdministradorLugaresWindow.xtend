@@ -18,7 +18,6 @@ import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
@@ -27,8 +26,8 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 
 	var hayPublicacionSeleccionada = new NotNullObservable("publicacionSeleccionada")
 
-	new(WindowOwner owner, AdministradorDePublicaciones model) {
-		super(owner, new LugaresAppModel())
+	new(WindowOwner owner, LugaresAppModel model) {
+		super(owner, model)
 		this.title = "RankIt -> Admin. Lugares"
 	}
 
@@ -195,7 +194,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Revisar calificaciones"
 			it.bindEnabled(hayPublicacionSeleccionada)
-//			it.onClick [| this.]
+//			it.onClick [| modelObject.]
 			it.width = 50
 		]
 

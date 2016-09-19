@@ -19,7 +19,6 @@ import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
@@ -28,8 +27,8 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 	var hayCalificacionSeleccionada = new NotNullObservable("calificacionSeleccionada")
 
-	new(WindowOwner owner, AdministradorDeCalificaciones model) {
-		super(owner, new CalificacionesAppModel())
+	new(WindowOwner owner, CalificacionesAppModel model) {
+		super(owner, model)
 		this.title = "RankIt -> Admin. Calificaciones"
 	}
 
@@ -77,12 +76,21 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		panelBusqueda.layout = new HorizontalLayout
 
-		new Label(panelBusqueda) => [
-			it.text = "Buscar: "
+			new Label(panelBusqueda) => [
+			it.text = "Usuario: "
 		]
 
 		new TextBox(panelBusqueda) => [
-	//		it.value <=> ""
+			it.value <=> "nombreDeUsuarioBuscado"
+			it.width = 250
+		]
+
+		new Label(panelBusqueda) => [
+			it.text = "Evaluado: "
+		]
+
+		new TextBox(panelBusqueda) => [
+			it.value <=> "nombreDePublicacionBuscada"
 			it.width = 250
 		]
 
