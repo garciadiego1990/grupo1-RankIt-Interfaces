@@ -18,7 +18,6 @@ import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.ServiciosAppModel
@@ -57,22 +56,19 @@ class AdministradorServiciosWindow extends SimpleWindow<ServiciosAppModel> {
 		new Label(panelResumenEstadisticas).text = "Servicios inscriptos: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadPublicacionesRegistradas"
-//			it.width = 160
+			it.value <=> "inscriptos"
 		]
 
 		new Label(panelResumenEstadisticas).text = " Habilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadPublicacionesHabilitadas"
-//			it.width = 120
+			it.value <=> "habilitados"
 		]
 
 		new Label(panelResumenEstadisticas).text = " Deshabilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
-			it.value <=> "cantidadPublicacionesDeshabilitadas"
-//			it.width = 120
+			it.value <=> "inhabilitados"
 		]
 	}
 

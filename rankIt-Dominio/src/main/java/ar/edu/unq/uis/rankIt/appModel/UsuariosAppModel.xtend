@@ -27,6 +27,7 @@ class UsuariosAppModel {
 	new() {
 		this.repositorioUsuarios = this.getRepoUsuarios()
 		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
+		this.actualizarResumen()
 	}
 	
 
@@ -71,28 +72,6 @@ class UsuariosAppModel {
 		this.usuarioSeleccionado.estaBaneado
 	}
 	
-//PANEL DE RESUMEN:
-
-	
-	def Integer getCantidadUsuariosRegistrados() {
-		this.repositorioUsuarios.usuariosTotales()
-	}
-	
-	
-	def Integer getCantidadUsuariosActivos() {
-		this.repositorioUsuarios.usuariosActivos()
-	}
-	
-	
-	def Integer getCantidadUsuariosInactivos() {
-		this.repositorioUsuarios.usuariosInactivos()
-	}
-	
-	
-	def Integer getCantidadUsuariosBaneados() {
-		this.repositorioUsuarios.usuariosBaneados()
-	}
-	
 //BUSCADOR:
 
 	def void setNombreABuscar(String nombre) {
@@ -130,34 +109,41 @@ class UsuariosAppModel {
 			this.actualizarPanelEdicionUsuario()
 	}
 
-
-//METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
+//METODOS DE ACTUALIZACION DE LA VISTA:
 	 
 	def void actualizarPanelEdicionUsuario() {
 		firePropertyChanged(this, "usuarioSeleccionadoActivo")
 		firePropertyChanged(this, "usuarioSeleccionadoBaneado")
 	}
 	
-
 	def void actualizarResumen() {
-		firePropertyChanged(this, "cantidadUsuariosRegistrados")
-		this.actualizarResumenActivos()
-		this.actualizarResumenBaneados()
+		this.registrados = this.repositorioUsuarios.usuariosTotales()
+		this.activos = this.repositorioUsuarios.usuariosActivos()
+		this.inactivos = this.registrados - this.activos
+		this.baneados = this.repositorioUsuarios.usuariosBaneados()
+		this.actualizarMenu()
 	}
 	
 	def void actualizarResumenBaneados() {
-		firePropertyChanged(this, "cantidadUsuariosBaneados")
+		this.baneados = this.repositorioUsuarios.usuariosBaneados()
+		this.actualizarMenu()
 	}
 	
 	def void actualizarResumenActivos() {
-		firePropertyChanged(this, "cantidadUsuariosActivos")
-		firePropertyChanged(this, "cantidadUsuariosInactivos")
+		this.activos = this.repositorioUsuarios.usuariosActivos()
+		this.inactivos = this.registrados - this.activos
+		this.actualizarMenu()
 	}
 	
 	def void actualizarMenu() {
 		firePropertyChanged(this, "resumen")
 	}
+
+//MENU
 	
+	def String getResumen() {
+		return this.activos + " / " + this.registrados + " (" + this.baneados + ")"
+	}
 	
 //CARGO EL APPLICATION CONTEXT
 

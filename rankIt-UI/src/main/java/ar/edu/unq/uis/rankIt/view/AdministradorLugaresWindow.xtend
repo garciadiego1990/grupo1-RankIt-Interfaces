@@ -58,22 +58,19 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		new Label(panelResumenEstadisticas).text = "Lugares inscriptos: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadPublicacionesRegistradas"
-//			it.width = 160
+			it.value <=> "inscriptos"
 		]
 
 		new Label(panelResumenEstadisticas).text = " Habilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadPublicacionesHabilitadas"
-//			it.width = 120
+			it.value <=> "habilitados"
 		]
 
 		new Label(panelResumenEstadisticas).text = " Deshabilitados: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.RED
-			it.value <=> "cantidadPublicacionesDeshabilitadas"
-//			it.width = 120
+			it.value <=> "inhabilitados"
 		]
 	}
 

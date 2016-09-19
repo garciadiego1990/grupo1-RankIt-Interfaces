@@ -3,7 +3,6 @@ package ar.edu.unq.uis.rankIt.test
 import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
 import org.junit.Before
 import org.junit.Test
-import org.joda.time.DateTime
 import org.junit.Assert
 
 class PublicacionAppModelTest extends BaseTest {
@@ -67,54 +66,54 @@ class PublicacionAppModelTest extends BaseTest {
 	@Test
 	def void crearNuevaPublicacionTest() {
 		Assert.assertEquals(lugaresAppModel.admin.todo.size, 3)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesRegistradas, 3)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 0)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 3)
+		Assert.assertEquals(lugaresAppModel.inscriptos, 3)
+		Assert.assertEquals(lugaresAppModel.habilitados, 0)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 3)
 		lugaresAppModel.crearNuevaPublicacion()
 		Assert.assertEquals(lugaresAppModel.admin.todo.size, 4)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesRegistradas, 4)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 0)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 4)
+		Assert.assertEquals(lugaresAppModel.inscriptos, 4)
+		Assert.assertEquals(lugaresAppModel.habilitados, 0)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 4)
 	}
 	
 	@Test
 	def void eliminarPublicacionSeleccionadaTest() {
 		lugaresAppModel.publicacionSeleccionada = lugarEasy
 		Assert.assertEquals(lugaresAppModel.admin.todo.size, 3)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesRegistradas, 3)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 0)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 3)
+		Assert.assertEquals(lugaresAppModel.inscriptos, 3)
+		Assert.assertEquals(lugaresAppModel.habilitados, 0)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 3)
 		lugaresAppModel.eliminarPublicacionSeleccionada()
 		Assert.assertEquals(lugaresAppModel.admin.todo.size, 2)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesRegistradas, 2)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 0)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 2)
+		Assert.assertEquals(lugaresAppModel.inscriptos, 2)
+		Assert.assertEquals(lugaresAppModel.habilitados, 0)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 2)
 	}
 	
 	@Test
 	def void setPublicacionSeleccionadaHabilitadoTest() {
 		lugaresAppModel.publicacionSeleccionada = lugarEasy
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 0)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 3)
+		Assert.assertEquals(lugaresAppModel.habilitados, 0)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 3)
 		lugaresAppModel.setPublicacionSeleccionadaHabilitado(true)
 		Assert.assertEquals(lugaresAppModel.publicacionSeleccionada.estaHabilitado, true)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 1)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 2)
+		Assert.assertEquals(lugaresAppModel.habilitados, 1)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 2)
 	}
 	
 	@Test
-	def void getCantidadPublicacionesRegistradasTest() {
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesRegistradas, 3)
+	def void inscriptosTest() {
+		Assert.assertEquals(lugaresAppModel.inscriptos, 3)
 	}
 	
 	@Test
-	def void getCantidadPublicacionesHabilitadasTest() {
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 0)
+	def void habilitadosTest() {
+		Assert.assertEquals(lugaresAppModel.habilitados, 0)
 	}
 	
 	@Test
-	def void getCantidadPublicacionesDeshabilitadasTest() {
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 3)
+	def void inhabilitadosTest() {
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 3)
 	}
 	
 	
@@ -128,12 +127,12 @@ class PublicacionAppModelTest extends BaseTest {
 	def void setPublicacionHabilitadaTest() {
 		lugaresAppModel.publicacionSeleccionada = lugarEasy
 		Assert.assertEquals(lugaresAppModel.getPublicacionHabilitada, false)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 0)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 3)
+		Assert.assertEquals(lugaresAppModel.habilitados, 0)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 3)
 		lugaresAppModel.setPublicacionHabilitada(true)
 		Assert.assertEquals(lugaresAppModel.getPublicacionHabilitada, true)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesHabilitadas, 1)
-		Assert.assertEquals(lugaresAppModel.getCantidadPublicacionesDeshabilitadas, 2)
+		Assert.assertEquals(lugaresAppModel.habilitados, 1)
+		Assert.assertEquals(lugaresAppModel.inhabilitados, 2)
 	}
 	
 	@Test

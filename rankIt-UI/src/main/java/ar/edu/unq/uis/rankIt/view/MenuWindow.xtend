@@ -10,12 +10,11 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.unq.uis.rankIt.appModel.MenuAppModel
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.HorizontalLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class MenuWindow extends SimpleWindow<MenuAppModel> {
 	
-	val anchoLabelBoton = 140
+	val anchoBoton = 130
 	
 	new(WindowOwner parent, MenuAppModel model) {
 		super(parent, model)
@@ -24,14 +23,14 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 	override protected createFormPanel(Panel mainPanel) {
 		this.title = "Rank-It"
 		
-		new Titulo(mainPanel, "Rank-It! Modulo de administración", 20)
+		new Titulo(mainPanel, "Rank-It! Modulo de administración", 20).width = 500
 		
 		new Label(mainPanel).text = "\n"
 		+"Desde este modulo vas a poder gestionar los datos y opciones de la aplicación"
 		+"\n\n" 		
 		+"como sos una persona de confianza vas a tener acceso a todo!!"
 		+"\n\n"
-		+"Siempre acordate: \"con un gran poder viene una gran responsabilidad.\"\n"
+		+"Siempre acordate: \"Con un gran poder viene una gran responsabilidad\"\n"
 	}
 	
 	override protected addActions(Panel actionsPanel) {
@@ -51,113 +50,67 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 	
 	 
 	def void crearBotonAdminUsuarios(Panel owner) {
-		val Panel botonAdminPanel = new Panel(owner)
+		val Panel botonUsuariosPanel = new Panel(owner)
 		
-		new Button(botonAdminPanel) => [
-			caption = "Adm. Usuarios"
-//			width = 
-			setAsDefault
-			onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.usuariosAppModel).open ]
+		new Button(botonUsuariosPanel) => [
+			it.caption = "Adm. Usuarios"
+			it.width = this.anchoBoton
+			it.onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.usuariosAppModel).open ]
+		]
+		
+		new Label(botonUsuariosPanel) => [
+			it.value <=> "usuariosAppModel.resumen"
+			it.width = this.anchoBoton
 		]
 
-		
-		val Panel datosPanel = new Panel(botonAdminPanel)
-		datosPanel.layout = new HorizontalLayout()
-		
-		this.crearLabelEstadisticasDeUsuario(datosPanel)
-
-	}
-	
-	
-	def crearLabelEstadisticasDeUsuario(Panel datosPanel) {
-		new Label(datosPanel).value <=> "usuariosAppModel.antidadUsuariosActivos"
-		new Label(datosPanel).text = " / "
-		new Label(datosPanel).value
-		new Label(datosPanel)
 	}
 	
 	
 	def void crearBotonAdminCalificaciones(Panel owner) {
-		val Panel botonAdminPanel = new Panel(owner)
+		val Panel botonCalificacionesPanel = new Panel(owner)
 		
-		new Button(botonAdminPanel) => [
-			caption = "Adm. Calificaciones"
-			//width = 100
-			setAsDefault
-			onClick [ | new AdministradorCalificacionesWindow(this, this.modelObject.calificacionesAppModel).open ]
+		new Button(botonCalificacionesPanel) => [
+			it.caption = "Adm. Calificaciones"
+			it.width = this.anchoBoton
+			it.onClick [ | new AdministradorCalificacionesWindow(this, this.modelObject.calificacionesAppModel).open ]
 		]
- 		
-		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
-		datosDeUsuariosPanel.layout = new ColumnLayout(4)
-		
-		new Label(datosDeUsuariosPanel) => [
-			//bindValueToProperty("?")
-			//width = 135	
-		]
-		new Label(datosDeUsuariosPanel) => [
-			text = ("/")
-			//width = 135	
-		]
-		
-		new Label(datosDeUsuariosPanel) => [
-			//bindValueToProperty("?")
-			//width = 135	
-		]
-		
-		new Label(datosDeUsuariosPanel) => [
-			//bindValueToProperty("?")
-			//width = 135	
+
+		new Label(botonCalificacionesPanel) => [
+			it.value <=> "calificacionesAppModel.resumen"
+			it.width = this.anchoBoton	
 		]
 	
 	}
 	
 	
 	def void crearBotonAdminServicios(Panel owner) {
-		val Panel botonAdminPanel = new Panel(owner)
+		val Panel botonServiciosPanel = new Panel(owner)
 		
-		new Button(botonAdminPanel) => [
-			caption = "Adm. Servicios"
-			//width = 100
-			setAsDefault
-			onClick [ | new AdministradorServiciosWindow(this, this.modelObject.serviciosAppModel).open ]
+		new Button(botonServiciosPanel) => [
+			it.caption = "Adm. Servicios"
+			it.width = this.anchoBoton
+			it.onClick [ | new AdministradorServiciosWindow(this, this.modelObject.serviciosAppModel).open ]
 		]
 		
-		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
-		datosDeUsuariosPanel.layout = new ColumnLayout(4)
-		
-		new Label(datosDeUsuariosPanel)
-
-		new Label(datosDeUsuariosPanel)
-		
-		new Label(datosDeUsuariosPanel)
-		
-		new Label(datosDeUsuariosPanel)
+		new Label(botonServiciosPanel) => [
+			it.value <=> "serviciosAppModel.resumen"
+			it.width = this.anchoBoton
+		]
 	}
 	
 	
 	def void crearBotonAdminLugares(Panel owner) {
-		val Panel botonAdminPanel = new Panel(owner)
+		val Panel botonLugaresPanel = new Panel(owner)
 		
-		new Button(botonAdminPanel) => [
-			caption = "Adm. Lugares"
-			setAsDefault
-			onClick [ | 
-				new AdministradorLugaresWindow(this, this.modelObject.lugaresAppModel).open
-			]
+		new Button(botonLugaresPanel) => [
+			it.caption = "Adm. Lugares"
+			it.width = this.anchoBoton
+			it.onClick [ | new AdministradorLugaresWindow(this, this.modelObject.lugaresAppModel).open	]
 		]
-		
-		val Panel datosDeUsuariosPanel = new Panel(botonAdminPanel)
-		datosDeUsuariosPanel.layout = new ColumnLayout(4)
-		
-		new Label(datosDeUsuariosPanel)
-		
-		new Label(datosDeUsuariosPanel)
-		
-		new Label(datosDeUsuariosPanel)
-		
-		new Label(datosDeUsuariosPanel) => [
-			//bindValueToProperty("?")
-			//width = 135	
+
+		new Label(botonLugaresPanel) => [
+			it.value <=> "lugaresAppModel.resumen"
+			it.width = this.anchoBoton
 		]
 	}
 	

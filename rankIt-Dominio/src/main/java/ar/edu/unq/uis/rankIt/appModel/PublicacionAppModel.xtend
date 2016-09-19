@@ -16,11 +16,16 @@ abstract class PublicacionAppModel {
 	var String nombreDePublicacionBuscada
 	var BuscadorDePublicaciones buscador
 	var Publicacion publicacionSeleccionada
+	
+	var	int inscriptos
+	var int habilitados
+	var int inhabilitados
 
 	
 	new() {
 		admin = getRepoPublicaciones
 		buscador = new BuscadorDePublicaciones(admin.todo)
+		this.actualizarResumen()
 	}
 
 	def DateTime getFechaDeRegistro() {
@@ -76,19 +81,9 @@ abstract class PublicacionAppModel {
 		actualizarResumenHabilitados()
 	}
 
-	// PANEL DE RESUMEN:
-	
-	def Integer getCantidadPublicacionesRegistradas() {
-		admin.inscriptos
-	}
 
-	def Integer getCantidadPublicacionesHabilitadas() {
-		admin.habilitados
-	}
 
-	def int getCantidadPublicacionesDeshabilitadas() {
-		admin.deshabilitados
-	}
+
 	
 	def boolean getPublicacionHabilitada(){
 		publicacionSeleccionada.estaHabilitado
@@ -97,8 +92,7 @@ abstract class PublicacionAppModel {
 	def void setPublicacionHabilitada(boolean value){
 		publicacionSeleccionada.estaHabilitado = value
 		ObservableUtils.firePropertyChanged(this, "publicacionHabilitada")
-		ObservableUtils.firePropertyChanged(this, "cantidadPublicacionesHabilitadas")
-		ObservableUtils.firePropertyChanged(this, "cantidadPublicacionesDeshabilitadas")
+		this.actualizarResumenHabilitados
 	}
 
 	// BUSCADOR:
@@ -121,8 +115,6 @@ abstract class PublicacionAppModel {
 	def String getNombreDePublicacionSeleccionada() {
 		this.publicacionSeleccionada.nombre
 	}
-	
-
 
 //  METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA: 
 
@@ -134,17 +126,30 @@ abstract class PublicacionAppModel {
 	}
 
 	def void actualizarResumen() {
-		firePropertyChanged(this, "cantidadPublicacionesRegistradas")
-		this.actualizarResumenHabilitados()
-
+		this.inscriptos = this.admin.inscriptos
+		this.habilitados = this.admin.habilitados
+		this.inhabilitados = this.admin.inscriptos - this.admin.habilitados
+		this.actualizarMenu()
 	}
 
 	def void actualizarResumenHabilitados() {
-		firePropertyChanged(this, "cantidadPublicacionesHabilitadas")
-		firePropertyChanged(this, "cantidadPublicacionesDeshabilitadas")
+		this.habilitados = this.admin.habilitados
+		this.inhabilitados = this.admin.inscriptos - this.admin.habilitados
+		this.actualizarMenu()
+	}
+	
+	def void actualizarMenu() {
+		firePropertyChanged(this, "resumen")
+	}
+
+//MENU
+	
+	def String getResumen() {
+		return this.habilitados + " / " + this.inscriptos
 	}
 
 //CARGO EL APPLICATION CONTEXT
 
 	abstract def AdministradorDePublicaciones getRepoPublicaciones();
+	
 }

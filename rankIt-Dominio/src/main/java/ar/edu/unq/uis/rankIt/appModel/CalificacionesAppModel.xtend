@@ -8,7 +8,6 @@ import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.ApplicationContext
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
-import java.util.Arrays
 
 @Accessors
 @Observable
@@ -18,10 +17,15 @@ class CalificacionesAppModel {
 	var String nombreDeUsuarioBuscado
 	var BuscadorDeCalificaciones buscador
 	var Calificacion calificacionSeleccionada
+	
+	int ofensivas
+	
+	int registradas
 
 	new() {
 		admin = getRepoCalificaciones
 		buscador = new BuscadorDeCalificaciones(admin.calificaciones)
+		this.actualizarResumen()
 	}
 
 	def getNombreEvaluados(){
@@ -88,28 +92,17 @@ class CalificacionesAppModel {
 		ObservableUtils.firePropertyChanged(buscador, "calificacionesFiltradas")
 	}
 	
-	def setPublicacionConContenidoOfensivo(boolean value) {
-		calificacionSeleccionada.esOfensiva = value
-		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
-		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
-	}
-	
-
-	// PANEL DE RESUMEN
-	
-	
-	def int getCalificacionesOfensivas() {
-		admin.calificacionesOfensivas
-	}
-
-	def int getCalificacionesRegistradas() {
-		admin.totalCalificaciones
-	}
+//	ESTE MÉTODO ESTÁ REPETIDO - Abel
+//	def setPublicacionConContenidoOfensivo(boolean value) {
+//		calificacionSeleccionada.esOfensiva = value
+//		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
+//		this.actualizarResumen
+//	}
 	
 	def void setCalificacionOfensiva(boolean value) {
 		calificacionSeleccionada.esOfensiva = value
 		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
-		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
+		this.actualizarResumen
 	}
 	
 	// BUSCADOR:
@@ -123,18 +116,23 @@ class CalificacionesAppModel {
 		ObservableUtils.firePropertyChanged(this,"nombreUsuario")
 		ObservableUtils.firePropertyChanged(this,"detalle")
 		ObservableUtils.firePropertyChanged(this,"puntaje")
-		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
+		ObservableUtils.firePropertyChanged(this, "ofensivas")
 		ObservableUtils.firePropertyChanged(this,"calificacionOfensiva")
 		
 	}
 	
 	def void actualizarResumen() {
-		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
-		ObservableUtils.firePropertyChanged(this, "calificacionesRegistradas")
+		this.ofensivas = this.admin.calificacionesOfensivas
+		this.registradas = this.admin.totalCalificaciones
 		ObservableUtils.firePropertyChanged(this, "nombreEvaluados")
-		
+		ObservableUtils.firePropertyChanged(this, "resumen")
 	}
+	
+//MENU
 
+	def String getResumen() {
+		return this.ofensivas + " / " + this.registradas
+	}
 
 //CARGO EL APPLICATION CONTEXT
 	def AdministradorDeCalificaciones getRepoCalificaciones() {

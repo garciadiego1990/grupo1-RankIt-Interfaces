@@ -35,25 +35,25 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		new Label(panelDeResumen).text = "Usuarios Registrados: "
 		new Label(panelDeResumen) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadUsuariosRegistrados"
+			it.value <=> "registrados"
 		]
 		
 		new Label(panelDeResumen).text = " Activos: "
 		new Label(panelDeResumen) => [
 			it.foreground = Color.BLUE
-			it.value <=> "cantidadUsuariosActivos"
+			it.value <=> "activos"
 		]
 		
 		new Label(panelDeResumen).text = " Inactivos: "
 		new Label(panelDeResumen) => [
 			it.foreground = Color.RED
-			it.value <=> "cantidadUsuariosInactivos"
+			it.value <=> "inactivos"
 		]
 		
 		new Label(panelDeResumen).text = " Baneados: "
 		new Label(panelDeResumen) => [
 			it.foreground = Color.RED
-			it.value <=> "cantidadUsuariosBaneados"
+			it.value <=> "baneados"
 		]
 		
 	}

@@ -59,15 +59,13 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 		new Label(panelResumenEstadisticas).text = "Calificaciones registradas: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "calificacionesRegistradas"
-//			it.width = 160
+			it.value <=> "registradas"
 		]
 
 		new Label(panelResumenEstadisticas).text = "Ofensivas: "
 		new Label(panelResumenEstadisticas) => [
 			it.foreground = Color.BLUE
-			it.value <=> "calificacionesOfensivas"
-//			it.width = 120
+			it.value <=> "ofensivas"
 		]
 	}
 
