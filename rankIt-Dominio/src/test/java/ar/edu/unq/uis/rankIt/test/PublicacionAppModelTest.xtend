@@ -10,12 +10,13 @@ class PublicacionAppModelTest {
 	
 	@Before
 	def void setUp() {
-		//lugaresAppModel = new LugaresAppModel() 
+		lugaresAppModel = new LugaresAppModel() 
 	}
 	
 	@Test
 	def void getCantidadDeCalificaciones() {
 		//Assert.assertEquals(lugaresAppModel.getCantidadDeCalificaciones, 0)
+		Assert.assertTrue(true);
 	}
 	
 	
