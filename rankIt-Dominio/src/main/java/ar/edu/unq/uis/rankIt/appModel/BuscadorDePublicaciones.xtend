@@ -12,8 +12,8 @@ class BuscadorDePublicaciones{
 	var String nombrePublicacionABuscar
 	var List<Publicacion> publicaciones
 	
-	new(List<Publicacion> lugares) {
-		this.publicaciones = lugares
+	new(List<Publicacion> publicaciones) {
+		this.publicaciones = publicaciones
 		this.nombrePublicacionABuscar = ""
 		this.search()
 	}
