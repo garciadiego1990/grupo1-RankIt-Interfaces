@@ -77,12 +77,21 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		panelBusqueda.layout = new HorizontalLayout
 
-		new Label(panelBusqueda) => [
-			it.text = "Buscar: "
+			new Label(panelBusqueda) => [
+			it.text = "Usuario: "
 		]
 
 		new TextBox(panelBusqueda) => [
-	//		it.value <=> ""
+			it.value <=> "nombreDeUsuarioBuscado"
+			it.width = 250
+		]
+
+		new Label(panelBusqueda) => [
+			it.text = "Evaluado: "
+		]
+
+		new TextBox(panelBusqueda) => [
+			it.value <=> "nombreDePublicacionBuscada"
 			it.width = 250
 		]
 

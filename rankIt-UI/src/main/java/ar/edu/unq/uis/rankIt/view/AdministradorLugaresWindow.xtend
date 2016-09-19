@@ -195,7 +195,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Revisar calificaciones"
 			it.bindEnabled(hayPublicacionSeleccionada)
-			it.onClick [| modelObject.]
+//			it.onClick [| modelObject.]
 			it.width = 50
 		]
 
