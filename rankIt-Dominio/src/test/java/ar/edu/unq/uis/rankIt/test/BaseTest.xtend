@@ -9,6 +9,7 @@ import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import org.junit.Before
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.ApplicationContext
 
 @Accessors
 class BaseTest {
@@ -37,14 +38,16 @@ class BaseTest {
 	Usuario usuarioGerman
 	
 	
-	
 	@Before
 	def void setUp() {
-		adminGeneral = new AdministradorGeneral
-		adminServicios = new AdministradorDePublicaciones
-		adminLugares = new AdministradorDePublicaciones
-		adminUsuarios = new AdministradorDeUsuarios
-		adminCalificaciones = new AdministradorDeCalificaciones
+		
+		ApplicationContext.instance.configureSingleton(typeof(AdministradorGeneral), new AdministradorGeneral)
+		
+		adminGeneral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral)) as  AdministradorGeneral
+		adminServicios = adminGeneral.getAdminServicios
+		adminLugares = adminGeneral.getAdminLugares
+		adminUsuarios = adminGeneral.getAdminUsuarios
+		adminCalificaciones = adminGeneral.getAdminCalificaciones
 		
 		usuarioPepe = new Usuario("Pepe")
 		usuarioLuis = new Usuario("Luis")
@@ -107,7 +110,7 @@ class BaseTest {
 		adminGeneral.adminUsuarios = adminUsuarios
 		adminGeneral.adminCalificaciones = adminCalificaciones
 		adminGeneral.adminServicios = adminServicios
-		adminGeneral.adminLugares = adminLugares 
+		adminGeneral.adminLugares = adminLugares
 	}
 		
 }

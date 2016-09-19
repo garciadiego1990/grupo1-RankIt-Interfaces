@@ -20,9 +20,6 @@ class UsuariosAppModel {
 	var String nombreABuscar
 	
 
-	/** Constructor del application model para la vista {@link AdministrarUsuariosWindow}.
-	 * 
-	 * @author ae */
 	new() {
 		this.repositorioUsuarios = this.getRepoUsuarios()
 		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
@@ -49,32 +46,23 @@ class UsuariosAppModel {
 	}
 	
 	
-	/** Se inactiva al {@link Usuario} seleccionado.
-	 * 
-	 * @author ae */
 	def setUsuarioSeleccionadoActivo(boolean estado) {
 		this.usuarioSeleccionado.estaActivo = estado
 		this.actualizarResumenActivos()
 	}
 	
-	/** Se responde si el {@link Usuario} seleccionado está activo.
-	 * 
-	 * @author ae */
+
 	def getUsuarioSeleccionadoActivo() {
 		this.usuarioSeleccionado.estaActivo
 	}	
 	
-	/** Se banea al {@link Usuario} seleccionado.
-	 * 
-	 * @author ae */
+	
 	def setUsuarioSeleccionadoBaneado(boolean estado) {
 		this.usuarioSeleccionado.estaBaneado = estado
 		this.actualizarResumenBaneados()
 	}
 	
-	/** Se responde si el {@link Usuario} seleccionado está baneado.
-	 * 
-	 * @author ae */
+	
 	def getUsuarioSeleccionadoBaneado() {
 		this.usuarioSeleccionado.estaBaneado
 	}
@@ -119,20 +107,11 @@ class UsuariosAppModel {
 	
 //PANEL DE EDICION:
 
-	/** Se reinicia la clave del {@link Usuario} seleccionado al valor '123'
-	 * 
-	 * @author ae */
+	
 	def blanquearContrasenia() {
 		this.usuarioSeleccionado.establecerContraseniaDefault()
 	}
 
-//	 /** Se informa a la ventana de administración de {@link Usuario}s que un nuevo usuario a sido seleccionado en la grilla.
-//	  * En este método se definen las notificaciones pertinentes que se deben realizar a los elementos observables.
-//	  * 
-//	  * @author ae */
-//	 def String getFechaDeRegistroUsuarioSeleccionado() {
-//	 	this.usuarioSeleccionado.fechaDeRegistro.toString()
-//	 }
 	 
 	 
 	 def String getNombreDeUsuarioSeleccionado() {
@@ -174,11 +153,8 @@ class UsuariosAppModel {
 	
 //CARGO EL APPLICATION CONTEXT
 
-	/** Obtengo desde el {@link ApplicationContext} el {@link AdministradorDeUsuarios}.
-	 * @author ae */
 	def AdministradorDeUsuarios getRepoUsuarios() {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
 		adminGral.adminUsuarios
-	}
-	
+	}	
 }
