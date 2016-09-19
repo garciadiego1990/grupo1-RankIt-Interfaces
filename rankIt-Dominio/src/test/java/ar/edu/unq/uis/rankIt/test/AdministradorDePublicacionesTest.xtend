@@ -4,7 +4,7 @@ import org.junit.Test
 import org.junit.Assert
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 
-class AdministradorDeServiciosTest extends BaseTest {
+class AdministradorDePublicacionesTest extends BaseTest {
 	
 	@Test
 	def void agregarTest() {
