@@ -8,7 +8,9 @@ import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import org.junit.Before
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class BaseTest {
 	AdministradorGeneral adminGeneral
 	AdministradorDePublicaciones adminServicios
