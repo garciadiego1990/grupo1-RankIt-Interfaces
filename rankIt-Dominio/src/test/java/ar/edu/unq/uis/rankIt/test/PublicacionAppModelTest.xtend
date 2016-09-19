@@ -4,19 +4,21 @@ import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
 
-class PublicacionAppModelTest {
+class PublicacionAppModelTest extends BaseTest {
 	LugaresAppModel lugaresAppModel
 	
 	@Before
-	def void setUp() {
+	override void setUp() {
+		super.setUp()
 		lugaresAppModel = new LugaresAppModel() 
+		lugaresAppModel.admin = new AdministradorDePublicaciones()
 	}
 	
 	@Test
 	def void getCantidadDeCalificaciones() {
-		//Assert.assertEquals(lugaresAppModel.getCantidadDeCalificaciones, 0)
-		Assert.assertTrue(true);
+		Assert.assertEquals(lugaresAppModel.getCantidadDeCalificaciones, 0)
 	}
 	
 	
