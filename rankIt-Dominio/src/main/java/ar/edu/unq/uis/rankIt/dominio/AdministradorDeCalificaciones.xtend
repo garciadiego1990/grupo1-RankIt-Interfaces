@@ -12,9 +12,7 @@ class AdministradorDeCalificaciones {
 	AdministradorDePublicaciones admin = new AdministradorDePublicaciones
 	List<Calificacion> calificaciones = new ArrayList<Calificacion>
 	
-	new(){}
-
-	
+	new(){}	
 
 	
 	def agregarCalificacion(Calificacion c) {
