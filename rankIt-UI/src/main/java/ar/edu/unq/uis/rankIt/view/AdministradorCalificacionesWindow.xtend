@@ -157,9 +157,9 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		]
 
-		new ErrorsPanel(panelAdministracionEdicion, "Evaluado")
+		new ErrorsPanel(panelAdministracionEdicion, "Edita la información")
 		
-		new Label(panelAdministracionEdicion).text = "Ubicación:"
+		new Label(panelAdministracionEdicion).text = "Evaluado"
 		new Selector(panelAdministracionEdicion) => [
 			items <=> "nombreEvaluados"
 			value <=> "calificacionSeleccionada.evaluado.nombre"

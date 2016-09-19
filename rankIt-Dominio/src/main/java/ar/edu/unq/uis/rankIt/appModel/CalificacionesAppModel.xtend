@@ -25,8 +25,7 @@ class CalificacionesAppModel {
 	}
 
 	def getNombreEvaluados(){
-		
-		Arrays.asList(admin.getNombrePublicaciones)
+		admin.getNombrePublicaciones
 	}
 	
 	def DateTime getFecha() {
@@ -71,10 +70,15 @@ class CalificacionesAppModel {
 	}
 	
 	def void crearNuevaCalificacion() {
-		admin.agregarCalificacion(new Calificacion)
-		buscarCalificaciones()
-		actualizarResumen()
-		ObservableUtils.firePropertyChanged(buscador, "calificacionesFiltradas")
+		if (calificacionSeleccionada != null){
+			var Calificacion c = new Calificacion
+			c.evaluado= calificacionSeleccionada.evaluado
+			c.puntaje = 0
+			admin.agregarCalificacion(c)
+			buscarCalificaciones()
+			actualizarResumen()
+			ObservableUtils.firePropertyChanged(buscador, "calificacionesFiltradas")
+		}
 	}
 
 	def eliminarCalificacionSeleccionada() {
@@ -127,6 +131,7 @@ class CalificacionesAppModel {
 	def void actualizarResumen() {
 		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
 		ObservableUtils.firePropertyChanged(this, "calificacionesRegistradas")
+		ObservableUtils.firePropertyChanged(this, "nombreEvaluados")
 		
 	}
 
