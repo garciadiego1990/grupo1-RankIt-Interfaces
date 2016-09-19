@@ -17,101 +17,113 @@ class CalificacionesAppModel {
 	var String nombreDeUsuarioBuscado
 	var BuscadorDeCalificaciones buscador
 	var Calificacion calificacionSeleccionada
-	
 
-	new(AdministradorDeCalificaciones admin) {
-		this.admin = getRepoCalificaciones
-		buscador = new BuscadorDeCalificaciones(admin.calificaciones)	
+	new() {
+		admin = getRepoCalificaciones
+		buscador = new BuscadorDeCalificaciones(admin.calificaciones)
 	}
-	
-	def int getCalificacionesRegistradas(){
-		admin.totalCalificaciones
-	}
-	
-	def int getCalificacionesOfensivas(){
-		admin.calificacionesOfensivas
-	}
-	
-	def DateTime getFecha(){
+
+	def DateTime getFecha() {
 		calificacionSeleccionada.getFecha
 	}
-	
-	def String getNombreUsuario(){
+
+	def String getNombreUsuario() {
 		calificacionSeleccionada.getEvaluador.getNombre
 	}
-	
-	def String getNombrePublicacion(){
-		calificacionSeleccionada.getEvaluado.getNombre
-	
+
+	def String getNombrePublicacion() {
+		if (calificacionSeleccionada.getEvaluado.getNombre == null) {
+			return "--"
+		} else {
+			calificacionSeleccionada.getEvaluado.getNombre
+		}
 	}
 	
-	def int getPuntaje(){
-		calificacionSeleccionada.getPuntaje
-	}
-	
-	def boolean getEsOfensiva(){
+	def boolean getCalificacionOfensiva() {
 		calificacionSeleccionada.esOfensiva
 	}
+
+	def int getPuntaje() {
+		if (calificacionSeleccionada.getPuntaje == null) {
+			return 0
+		} else {
+			calificacionSeleccionada.getPuntaje
+		}
+	}
 	
-	def String getDetalle(){
+	def String getDetalle() {
 		calificacionSeleccionada.getDetalle
 	}
-	
-	
-	
-	
-	
-	def void setCalificacionSeleccionada(Calificacion c){
+
+	def void setCalificacionSeleccionada(Calificacion c) {
 		calificacionSeleccionada = c
-		ObservableUtils.firePropertyChanged(this,"calificacionesRegistradas")
-		ObservableUtils.firePropertyChanged(this,"calificacionesOfensivas")
-		
+		if(c!=null){
+			actualizarPanelEdicionCalificacion()
+			//ObservableUtils.firePropertyChanged(this, "calificacionesRegistradas")
+		    //ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
+		}
 	}
 	
-	def void crearNuevaCalificacion(){
-		admin.calificaciones.add(new Calificacion)
+	def void crearNuevaCalificacion() {
+		admin.agregarCalificacion(new Calificacion)
 		buscarCalificaciones()
 		actualizarResumen()
-		ObservableUtils.firePropertyChanged(buscador,"calificacionesFiltradas")
+		ObservableUtils.firePropertyChanged(buscador, "calificacionesFiltradas")
 	}
-	
+
 	def eliminarCalificacionSeleccionada() {
 		admin.calificaciones.remove(calificacionSeleccionada)
 		buscarCalificaciones()
 		actualizarResumen()
-		ObservableUtils.firePropertyChanged(buscador,"calificacionesFiltradas")
+		ObservableUtils.firePropertyChanged(buscador, "calificacionesFiltradas")
 	}
 	
-	def void setPublicacionConContenidoOfensivo(boolean value){
+	def setPublicacionConContenidoOfensivo(boolean value) {
 		calificacionSeleccionada.esOfensiva = value
+		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
 		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
+	}
 	
+
+	// PANEL DE RESUMEN
+	
+	
+	def int getCalificacionesOfensivas() {
+		admin.calificacionesOfensivas
 	}
 
-// BUSCADOR:
-
+	def int getCalificacionesRegistradas() {
+		admin.totalCalificaciones
+	}
+	
+	def void setCalificacionOfensiva(boolean value) {
+		calificacionSeleccionada.esOfensiva = value
+		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
+		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
+	}
+	
+	// BUSCADOR:
 	def void buscarCalificaciones() {
 		buscador.search()
 	}
 
-
-//PANEL DE EDICION:
-
-
-// METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
-//	def void actualizarPanelEdicionUsuario() {
-//		ObservableUtils.firePropertyChanged(this, "nombreDeCalificacionSeleccionada")
-//	}
-
+   // METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
+	def void actualizarPanelEdicionCalificacion() {
+		ObservableUtils.firePropertyChanged(this,"fecha")
+		ObservableUtils.firePropertyChanged(this,"nombreUsuario")
+		ObservableUtils.firePropertyChanged(this,"detalle")
+		ObservableUtils.firePropertyChanged(this,"puntaje")
+		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
+		ObservableUtils.firePropertyChanged(this,"calificacionOfensiva")
+		
+	}
+	
 	def void actualizarResumen() {
-		ObservableUtils.firePropertyChanged(this, "cantidadCalificacionesOfensivas")
-		actualizarResumenOfensivas()
-
+		ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
+		ObservableUtils.firePropertyChanged(this, "calificacionesRegistradas")
+		
 	}
 
-	def void actualizarResumenOfensivas() {
-		ObservableUtils.firePropertyChanged(this, "cantidadCalificacionesOfensivas")
-	}
 
 //CARGO EL APPLICATION CONTEXT
 	def AdministradorDeCalificaciones getRepoCalificaciones() {
@@ -119,48 +131,48 @@ class CalificacionesAppModel {
 		adminGral.adminCalificaciones
 	}
 /* 	
- 
-	def void eliminarCalificacion(){
-		admin.eliminarCalificacion(calificacionSeleccionada)
-	}
-	
-	def void nuevaCalificacion(){
-		var Calificacion cal = new Calificacion
-		admin.agregarCalificacion(cal)
-	}
-	
-	def Integer getCalificacion(){
-		calificacionSeleccionada.getPuntaje
-	}
-	
-	def String getUsuario(){
-		calificacionSeleccionada.getEvaluador.getNombre
-	}
-	
-	def String getDetalle(){
-		calificacionSeleccionada.getDetalle
-	}
-	
+ *  
+ * 	def void eliminarCalificacion(){
+ * 		admin.eliminarCalificacion(calificacionSeleccionada)
+ * 	}
+ * 	
+ * 	def void nuevaCalificacion(){
+ * 		var Calificacion cal = new Calificacion
+ * 		admin.agregarCalificacion(cal)
+ * 	}
+ * 	
+ * 	def Integer getCalificacion(){
+ * 		calificacionSeleccionada.getPuntaje
+ * 	}
+ * 	
+ * 	def String getUsuario(){
+ * 		calificacionSeleccionada.getEvaluador.getNombre
+ * 	}
+ * 	
+ * 	def String getDetalle(){
+ * 		calificacionSeleccionada.getDetalle
+ * 	}
+ * 	
 
-	
-	def String esOfensiva(){
-		if(calificacionSeleccionada.esOfensiva){
-			"SI"
-		}
-		else {"NO"}
-	}
-	
-	def Integer getCalificacionesRegistradas(){
-		admin.totalDeEvaluaciones
-	}
-	
-	def Integer getCalificacionesOfensivas(){
-		admin.calificacionesOfensivas
-	}
-	
-	def String getEvaluado(){
-		calificacionSeleccionada.getEvaluado.getNombre
-	}
-	
-	*/
+ * 	
+ * 	def String esOfensiva(){
+ * 		if(calificacionSeleccionada.esOfensiva){
+ * 			"SI"
+ * 		}
+ * 		else {"NO"}
+ * 	}
+ * 	
+ * 	def Integer getCalificacionesRegistradas(){
+ * 		admin.totalDeEvaluaciones
+ * 	}
+ * 	
+ * 	def Integer getCalificacionesOfensivas(){
+ * 		admin.calificacionesOfensivas
+ * 	}
+ * 	
+ * 	def String getEvaluado(){
+ * 		calificacionSeleccionada.getEvaluado.getNombre
+ * 	}
+ * 	
+ */
 }

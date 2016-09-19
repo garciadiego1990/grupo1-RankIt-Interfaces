@@ -30,12 +30,15 @@ class AdministradorDeCalificaciones {
 	todasLasCalificaciones
 	}
 	
-	def totalCalificaciones() {
+	def int totalCalificaciones() {
 		calificaciones.size
 	}
 	
-	def calificacionesOfensivas() {
-		calificaciones.filter[esOfensiva].size
+	def int calificacionesOfensivas() {
+		if(calificaciones.size == 0){
+			return 0
+		}
+		else {calificaciones.filter[esOfensiva].size}
 	}
 	
 	// Va a haber problemas si no encuentra lo que busca
