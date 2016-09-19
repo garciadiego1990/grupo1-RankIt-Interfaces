@@ -8,10 +8,10 @@ import org.joda.time.DateTime
 @Observable
 class Usuario {
 	String nombre
-	String contrasenia
-	DateTime fechaDeRegistro
-	boolean estaActivo
-	boolean estaBaneado
+	String contrasenia = contraseniaDefault
+	DateTime fechaDeRegistro = new DateTime
+	boolean estaActivo = false
+	boolean estaBaneado = false
 	Integer publicacionesOfensivas = 0
 	
 	val static String nombreDefault = "NN"
@@ -59,6 +59,5 @@ class Usuario {
 	def void establecerContraseniaDefault() {
 		this.setContrasenia(contraseniaDefault)
 	}
-		
-	
+			
 }

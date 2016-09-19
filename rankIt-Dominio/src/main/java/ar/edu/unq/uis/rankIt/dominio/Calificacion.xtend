@@ -17,8 +17,11 @@ class Calificacion {
 	new() {
 		evaluador = new Usuario("ADMIN")
 		detalle = "prueba"
+//<<<<<<< HEAD
 		puntaje = null
 		evaluado= null
+//=======
+//>>>>>>> 120cc6d034d8187646b9b1597b4761afd2c0c877
 	}
 	
 	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion, String det){

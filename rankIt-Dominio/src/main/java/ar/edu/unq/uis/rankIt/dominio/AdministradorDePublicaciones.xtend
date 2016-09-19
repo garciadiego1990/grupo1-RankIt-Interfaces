@@ -8,12 +8,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class AdministradorDePublicaciones {
 	List<Publicacion> todo = new ArrayList<Publicacion>
 	
-	new(){}
-	
-	def getTodo(){
-		todo
-	}
-	
 	def agregar(Publicacion p){
 		todo.add(p)
 	}
@@ -35,8 +29,9 @@ class AdministradorDePublicaciones {
 	}
 	
 	def buscar(Publicacion p) {
-		return todo.filter[it.nombre == p.nombre].get(0)
+		var publicacionesBuscadas = todo.filter[it.nombre == p.nombre]
+		if (publicacionesBuscadas.size != 0) return publicacionesBuscadas.get(0)
+		else null
 	}
-	
 	
 }

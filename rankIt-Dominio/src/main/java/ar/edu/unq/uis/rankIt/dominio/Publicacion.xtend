@@ -31,15 +31,11 @@ class Publicacion {
 	def getCalificaciones() {
 		calificaciones
 	}
+	
+	def agregarCalificacion(Calificacion c) {
+		calificaciones.add(c)
+	} 
 
-	/*	
-	 * 	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion){
-	 * 		var Calificacion c = new Calificacion
-	 * 		c.calificar(unaCalificacion, unEvaluador, this)
-	 * 		calificaciones.add(c)
-	 * 				
-	 * 	}
-	 */
 	def void eliminarCalificacion(Calificacion c) {
 		this.calificaciones.remove(c)
 	}
@@ -53,7 +49,7 @@ class Publicacion {
 			var suma = calificaciones.fold(0, [acum, calificacion|acum + calificacion.puntaje])
 			return suma / cantidadDeEvaluaciones
 		}
-		else {return 0}
+		else return 0
 	}
 
 }
