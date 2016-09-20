@@ -14,9 +14,11 @@ class AdministradorDeCalificaciones {
 	
 	new(){}	
 
-	
+	// ¿Es necesario este método? La calificación se la tiene que agregar una publicación - Abel
 	def agregarCalificacion(Calificacion c) {
 		calificaciones.add(c)
+	//-> Actualizo las calificaciones cada vez que se agregan - Abel
+		this.calificaciones = this.calificacionesDeLugaresYServicios
 	}
 	
 	def List<Calificacion> calificacionesDeLugaresYServicios() {

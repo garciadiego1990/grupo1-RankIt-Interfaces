@@ -8,6 +8,7 @@ import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.ApplicationContext
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
+import ar.edu.unq.uis.rankIt.dominio.Usuario
 
 @Accessors
 @Observable
@@ -53,11 +54,7 @@ class CalificacionesAppModel {
 	}
 
 	def int getPuntaje() {
-		if (calificacionSeleccionada.getPuntaje == null) {
-			return 0
-		} else {
-			calificacionSeleccionada.getPuntaje
-		}
+		calificacionSeleccionada.getPuntaje
 	}
 	
 	def String getDetalle() {
@@ -73,23 +70,28 @@ class CalificacionesAppModel {
 		}
 	}
 	
+	/**@author ae */
 	def void crearNuevaCalificacion() {
-		if (calificacionSeleccionada != null){
-			var Calificacion c = new Calificacion
-			c.evaluado= calificacionSeleccionada.evaluado
-			c.puntaje = 0
-			admin.agregarCalificacion(c)
-			buscarCalificaciones()
-			actualizarResumen()
-			ObservableUtils.firePropertyChanged(buscador, "calificacionesFiltradas")
-		}
+		if (calificacionSeleccionada == null)
+			return;
+			
+		new Calificacion(	calificacionSeleccionada.evaluado,
+							new Usuario("ADMIN", Usuario.contraseniaDefault),
+							0,
+							"")
+//		c.evaluado= calificacionSeleccionada.evaluado
+//		c.puntaje = 0
+//		admin.agregarCalificacion(c)
+		buscarCalificaciones()
+		actualizarResumen()
+//		buscador.search()
 	}
 
 	def eliminarCalificacionSeleccionada() {
 		admin.calificaciones.remove(calificacionSeleccionada)
 		buscarCalificaciones()
 		actualizarResumen()
-		ObservableUtils.firePropertyChanged(buscador, "calificacionesFiltradas")
+//		buscador.search()
 	}
 	
 //	ESTE MÉTODO ESTÁ REPETIDO - Abel
@@ -121,6 +123,7 @@ class CalificacionesAppModel {
 		
 	}
 	
+	/**@author ae */
 	def void actualizarResumen() {
 		this.ofensivas = this.admin.calificacionesOfensivas
 		this.registradas = this.admin.totalCalificaciones
@@ -128,13 +131,29 @@ class CalificacionesAppModel {
 		ObservableUtils.firePropertyChanged(this, "resumen")
 	}
 	
+//BUSCADOR	
+	
+	/**@author ae */
+	def void setNombreDeUsuarioBuscado(String nombre) {
+		this.nombreDeUsuarioBuscado = nombre
+		this.buscador.nombreUsuarioABuscar = nombre
+	}
+	
+	/**@author ae */
+	def void setNombreDePublicacionBuscada(String nombre) {
+		this.nombreDePublicacionBuscada = nombre
+		this.buscador.nombrePublicacionABuscar = nombre 
+	}
+	
 //MENU
 
+	/**@author ae */
 	def String getResumen() {
 		return this.ofensivas + " / " + this.registradas
 	}
 
 //CARGO EL APPLICATION CONTEXT
+
 	def AdministradorDeCalificaciones getRepoCalificaciones() {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
 		adminGral.adminCalificaciones

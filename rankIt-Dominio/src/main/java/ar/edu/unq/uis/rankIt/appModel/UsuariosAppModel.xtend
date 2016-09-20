@@ -14,7 +14,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 @Observable
 class UsuariosAppModel {
 	
-	var AdministradorDeUsuarios repositorioUsuarios
+	var AdministradorDeUsuarios admin
 	var Usuario usuarioSeleccionado
 	var BuscadorDeUsuarios buscador
 	var String nombreABuscar
@@ -25,8 +25,8 @@ class UsuariosAppModel {
 	var int baneados
 	
 	new() {
-		this.repositorioUsuarios = this.getRepoUsuarios()
-		this.buscador = new BuscadorDeUsuarios(typeof(Usuario), repositorioUsuarios.usuarios)
+		this.admin = this.getRepoUsuarios()
+		this.buscador = new BuscadorDeUsuarios(admin.usuarios)
 		this.actualizarResumen()
 	}
 	
@@ -38,14 +38,14 @@ class UsuariosAppModel {
 //ALTA BAJA MODIFICACION:
 	
 	 def crearNuevoUsuario() {
-	 	this.repositorioUsuarios.agregarUsuario(new Usuario())
+	 	this.admin.agregarUsuario(new Usuario())
 		this.buscarUsuarios()
 	 	this.actualizarResumen()
 	 }
 	
 	
 	def eliminarUsuarioSeleccionado() {
-		this.repositorioUsuarios.eliminarUsuario(this.usuarioSeleccionado)
+		this.admin.eliminarUsuario(this.usuarioSeleccionado)
 		this.buscarUsuarios()
 		this.actualizarResumen()
 	}
@@ -83,7 +83,6 @@ class UsuariosAppModel {
 		return this.nombreABuscar
 	}
 
-
 	def void buscarUsuarios() {
 		this.buscador.search()
 	}
@@ -117,20 +116,20 @@ class UsuariosAppModel {
 	}
 	
 	def void actualizarResumen() {
-		this.registrados = this.repositorioUsuarios.usuariosTotales()
-		this.activos = this.repositorioUsuarios.usuariosActivos()
+		this.registrados = this.admin.usuariosTotales()
+		this.activos = this.admin.usuariosActivos()
 		this.inactivos = this.registrados - this.activos
-		this.baneados = this.repositorioUsuarios.usuariosBaneados()
+		this.baneados = this.admin.usuariosBaneados()
 		this.actualizarMenu()
 	}
 	
 	def void actualizarResumenBaneados() {
-		this.baneados = this.repositorioUsuarios.usuariosBaneados()
+		this.baneados = this.admin.usuariosBaneados()
 		this.actualizarMenu()
 	}
 	
 	def void actualizarResumenActivos() {
-		this.activos = this.repositorioUsuarios.usuariosActivos()
+		this.activos = this.admin.usuariosActivos()
 		this.inactivos = this.registrados - this.activos
 		this.actualizarMenu()
 	}

@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class Calificacion {
-	Integer puntaje
+	int puntaje
 	DateTime fecha = new DateTime
 	boolean esOfensiva = false
 	String detalle
@@ -15,16 +15,16 @@ class Calificacion {
 	Publicacion evaluado
 	
 	new() {
-		evaluador = new Usuario("ADMIN")
+		evaluador = new Usuario("ADMIN", Usuario.contraseniaDefault)
 		detalle = "prueba"
 	}
 	
-	def void calificar(Integer unaCalificacion, Usuario unEvaluador, Publicacion unaPublicacion, String det){
-		puntaje = unaCalificacion
-		evaluador = unEvaluador
-		evaluado = unaPublicacion
-		detalle = det
-		
+	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle){
+		this.puntaje = puntaje
+		this.evaluador = evaluador
+		this.evaluado = publicacion
+		this.detalle = detalle
+		publicacion.agregarCalificacion(this)
 	}
 	
 	def String getNombrePublicacion(){

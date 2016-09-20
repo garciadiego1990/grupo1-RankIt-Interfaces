@@ -51,10 +51,10 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 //			calificacion1.calificar(5, usuarioPepe, Quilmes)
 //			calificacion2.calificar(6, usuarioLuis, Ezpeleta)
 //			calificacion3.calificar(7, usuarioMarcos, Berazategui)
-			calificacion1.calificar(5, usuarioPepe, Quilmes, "Prueba1")
+			calificacion1 = new Calificacion(Quilmes, usuarioPepe, 5, "Prueba1")
 			calificacion1.esOfensiva = true
-			calificacion2.calificar(6, usuarioLuis, Ezpeleta, "Prueba2")
-			calificacion3.calificar(7, usuarioMarcos, Berazategui, "Prueba3")
+			calificacion2 = new Calificacion(Ezpeleta, usuarioLuis, 6, "Prueba2")
+			calificacion3 = new Calificacion(Berazategui, usuarioMarcos, 7, "Prueba3")
 
 			agregarCalificacion(calificacion1)
 			agregarCalificacion(calificacion2)
@@ -86,9 +86,9 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	var calificacion2 = new Calificacion()
 	var calificacion3 = new Calificacion()
 	
-	var usuarioPepe = new Usuario("pepe")
-	var usuarioLuis = new Usuario("Luis")
-	var usuarioMarcos = new Usuario("Marcos")
+	var usuarioPepe = new Usuario("pepe", Usuario.contraseniaDefault)
+	var usuarioLuis = new Usuario("Luis", Usuario.contraseniaDefault)
+	var usuarioMarcos = new Usuario("Marcos", Usuario.contraseniaDefault)
 	
 	var AdministradorGeneral adminGral
 	

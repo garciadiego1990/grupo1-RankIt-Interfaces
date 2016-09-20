@@ -9,7 +9,7 @@ class AdministradorDeUsuariosTest extends BaseTest {
 	@Test
 	def void agregarUsuarioTest() {
 		Assert.assertEquals(adminUsuarios.usuariosTotales, 6)
-		var usuarioNicolas = new Usuario("Nicolas")
+		var usuarioNicolas = new Usuario("Nicolas", Usuario.contraseniaDefault)
 		adminUsuarios.agregarUsuario(usuarioNicolas)
 		Assert.assertEquals(adminUsuarios.usuariosTotales, 7)
 	}

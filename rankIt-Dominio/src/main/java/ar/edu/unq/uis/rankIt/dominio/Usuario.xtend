@@ -14,8 +14,8 @@ class Usuario {
 	boolean estaBaneado = false
 	Integer publicacionesOfensivas = 0
 	
-	val static String nombreDefault = "NN"
-	val static String contraseniaDefault = "123" 
+	public val static String nombreDefault = "NN"
+	public val static String contraseniaDefault = "123" 
 	
 	
 	new(String unNombre, String contrasenia) {
@@ -26,36 +26,26 @@ class Usuario {
 		this.fechaDeRegistro = new DateTime
 	}
 	
-	new(String nombre) {
-		this.nombre = nombre
-	}
 	
-	
-	/**
-	 * Contructor que genera un {@link Usuario} con sus valores seteados por default.
+	/**Contructor que genera un {@link Usuario} con sus valores seteados por default.
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	new() {
 		this(nombreDefault, contraseniaDefault)
 	}
 	
 	
-	/**
-	 * Dada una nueva contraseña, se la setea al {@link Usuario}.
+	/**Dada una nueva contraseña, se la setea al {@link Usuario}.
 	 * 
 	 * @param nuevaContrasenia - La nueva contraseña del {@link Usuario}
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	def void setContrasenia(String nuevaContrasenia){
 		this.contrasenia = nuevaContrasenia
 	}
 	
-	/**
-	 * Se le asigna al {@link Usuario} la contraseña por default.
+	/**Se le asigna al {@link Usuario} la contraseña por default.
 	 * 
-	 * @author Abel Espínola
-	 */
+	 * @author ae */
 	def void establecerContraseniaDefault() {
 		this.setContrasenia(contraseniaDefault)
 	}

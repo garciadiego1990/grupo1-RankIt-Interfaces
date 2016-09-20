@@ -1,4 +1,4 @@
-package ar.edu.unq.uis.rankIt.appModel
+package ar.edu.unq.uis.rankIt.dominio.buscadores
 
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import java.util.List
@@ -20,7 +20,7 @@ class BuscadorDePublicaciones{
 	
 	
 	def setNombrePublicacionABuscar(String nombre) {
-		this.nombrePublicacionABuscar = nombre
+		this.nombrePublicacionABuscar = nombre.toLowerCase
 		this.search()
 		ObservableUtils.firePropertyChanged(this,"publicacionesFiltradas")
 		
@@ -28,7 +28,9 @@ class BuscadorDePublicaciones{
 	
 	def search() {
 		if(nombrePublicacionABuscar == "" ) return publicaciones
-		else publicaciones.filter[ publicacion | publicacion.nombre.contains(nombrePublicacionABuscar)].toList
+		else publicaciones.filter[ publicacion |
+			publicacion.nombre.toLowerCase.contains(nombrePublicacionABuscar)
+		].toList
 	}
 	
 	def List<Publicacion> getPublicacionesFiltradas(){

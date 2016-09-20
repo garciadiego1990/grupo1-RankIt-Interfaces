@@ -107,7 +107,7 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 		val panelAdministracionGrilla = new Panel(ownerPanel)
 
 		val tablaCalificaciones = new Table(panelAdministracionGrilla, Calificacion) => [
-			it.items <=> "buscador.calificacionesFiltradas"
+			it.items <=> "buscador.resultados"
 			it.value <=> "calificacionSeleccionada"
 			it.numberVisibleRows = 12
 			it.width = 400
@@ -151,7 +151,7 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
-			it.onClick [| modelObject.crearNuevaCalificacion()]
+			it.onClick [| this.modelObject.crearNuevaCalificacion()]
 		]
 	}
 
@@ -167,8 +167,8 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 		
 		new Label(panelAdministracionEdicion).text = "Evaluado"
 		new Selector(panelAdministracionEdicion) => [
-			items <=> "nombreEvaluados"
-			value <=> "calificacionSeleccionada.evaluado.nombre"
+//			items <=> "nombreEvaluados"
+//			value <=> "calificacionSeleccionada.evaluado.nombre"
 			width = 200
 		]
 

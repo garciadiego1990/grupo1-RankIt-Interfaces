@@ -49,12 +49,12 @@ class BaseTest {
 		adminUsuarios = adminGeneral.getAdminUsuarios
 		adminCalificaciones = adminGeneral.getAdminCalificaciones
 		
-		usuarioPepe = new Usuario("Pepe")
-		usuarioLuis = new Usuario("Luis")
-		usuarioJuan = new Usuario("Juan")
-		usuarioMarcos = new Usuario("Marcos")
-		usuarioMatias = new Usuario("Matias")
-		usuarioGerman = new Usuario("German")
+		usuarioPepe = new Usuario("Pepe", Usuario.contraseniaDefault)
+		usuarioLuis = new Usuario("Luis", Usuario.contraseniaDefault)
+		usuarioJuan = new Usuario("Juan", Usuario.contraseniaDefault)
+		usuarioMarcos = new Usuario("Marcos", Usuario.contraseniaDefault)
+		usuarioMatias = new Usuario("Matias", Usuario.contraseniaDefault)
+		usuarioGerman = new Usuario("German", Usuario.contraseniaDefault)
 		
 		servicioSpeedy = new Publicacion("Speedy")
 		servicioTelefonica = new Publicacion("Telefonica")
@@ -64,18 +64,18 @@ class BaseTest {
 		lugarAltoAvellaneda = new Publicacion("AltoAvellaneda")
 		lugarTecnopolis = new Publicacion("Tecnopolis")
 		
-		calificacionSpeedyPepe = new Calificacion
-		calificacionSpeedyPepe.calificar(4, usuarioPepe, servicioSpeedy, "es una bazofia")
-		calificacionTelefonicaLuis = new Calificacion
-		calificacionTelefonicaLuis.calificar(5, usuarioLuis, servicioTelefonica, "no tengo tono")
-		calificacionMetrogasJuan = new Calificacion
-		calificacionMetrogasJuan.calificar(3, usuarioJuan, servicioMetrogas, "es carisimo, hdp")
-		calificacionEasyMarcos = new Calificacion
-		calificacionEasyMarcos.calificar(8, usuarioMarcos, lugarEasy, "bunas ofertas y atencion")
-		calificacionAltoAvellanedaMatias = new Calificacion
-		calificacionAltoAvellanedaMatias.calificar(6, usuarioMatias, lugarAltoAvellaneda, "mi jermu se engancha con la vidriera y no vuelvo a casa mas. No voy mas!!")
-		calificacionTecnopolisGerman = new Calificacion
-		calificacionTecnopolisGerman.calificar(8, usuarioGerman, lugarTecnopolis, "esta muy bueno")
+		calificacionSpeedyPepe = 
+				new Calificacion(servicioSpeedy, usuarioPepe, 4, "es una bazofia")
+		calificacionTelefonicaLuis = 
+				new Calificacion(servicioTelefonica, usuarioLuis, 5, "no tengo tono")
+		calificacionMetrogasJuan =
+				new Calificacion(servicioMetrogas, usuarioJuan, 3, "es carisimo, hdp")
+		calificacionEasyMarcos =
+				new Calificacion(lugarEasy, usuarioMarcos, 8, "buenas ofertas y atencion")
+		calificacionAltoAvellanedaMatias =
+				new Calificacion(lugarAltoAvellaneda, usuarioMatias, 6, "mi jermu se engancha con la vidriera y no vuelvo a casa mas. No voy mas!!")
+		calificacionTecnopolisGerman =
+				new Calificacion(lugarTecnopolis, usuarioGerman, 8, "esta muy bueno")
 		
 		lugarEasy.agregarCalificacion(calificacionEasyMarcos)
 		lugarAltoAvellaneda.agregarCalificacion(calificacionAltoAvellanedaMatias)
