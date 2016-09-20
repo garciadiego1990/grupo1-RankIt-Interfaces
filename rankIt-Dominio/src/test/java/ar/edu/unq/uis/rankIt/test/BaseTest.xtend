@@ -75,9 +75,9 @@ class BaseTest {
 		//lugarAltoAvellaneda.agregarCalificacion(calificacionAltoAvellanedaMatias)
 		//lugarTecnopolis.agregarCalificacion(calificacionTecnopolisGerman)
 		
-		servicioSpeedy.agregarCalificacion(calificacionSpeedyPepe)
-		servicioTelefonica.agregarCalificacion(calificacionTelefonicaLuis)
-		servicioMetrogas.agregarCalificacion(calificacionMetrogasJuan)
+		//servicioSpeedy.agregarCalificacion(calificacionSpeedyPepe)
+		//servicioTelefonica.agregarCalificacion(calificacionTelefonicaLuis)
+		//servicioMetrogas.agregarCalificacion(calificacionMetrogasJuan)
 		
 		adminServicios.agregar(servicioSpeedy)
 		adminServicios.agregar(servicioTelefonica)
