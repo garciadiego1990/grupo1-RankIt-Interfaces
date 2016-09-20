@@ -1,14 +1,15 @@
 package ar.edu.unq.uis.rankIt.appModel
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
-import ar.edu.unq.uis.rankIt.dominio.Usuario
-import java.util.List
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeUsuarios
+import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
+import ar.edu.unq.uis.rankIt.dominio.Usuario
+import ar.edu.unq.uis.rankIt.dominio.buscadores.BuscadorDeUsuarios
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.ApplicationContext
+import org.uqbar.commons.utils.Observable
 
 import static org.uqbar.commons.model.ObservableUtils.*
-import org.uqbar.commons.utils.ApplicationContext
-import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 
 @Accessors
 @Observable

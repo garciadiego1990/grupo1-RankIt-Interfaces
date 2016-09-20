@@ -163,14 +163,22 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		new ErrorsPanel(panelAdministracionEdicion, "Edita la información")
 		
-		new Label(panelAdministracionEdicion).text = "Evaluado"
-		new Selector(panelAdministracionEdicion) => [
-			it.bindEnabled(this.hayCalificacionSeleccionada)
-//			items <=> "nombreDePublicacionBuscada"
-//			value <=> "calificacionSeleccionada.evaluado.nombre"
-			width = 200
-		]
+//		new Label(panelAdministracionEdicion).text = "Evaluado"
+//		new Selector(panelAdministracionEdicion) => [
+//			it.bindEnabled(this.hayCalificacionSeleccionada)
+//			it. items <=> "nombreEvaluados"
+//			it. value <=> "calificacionSeleccionada.evaluado.nombre"
+//			width = 200
+//		
+//		]
 
+	    new Label(panelAdministracionEdicion).text = "Evaluado:"
+		new TextBox(panelAdministracionEdicion).bindValueToProperty("calificacionSeleccionada.evaluado.nombre")
+	/* 	new TextBox(panelAdministracionEdicion) => [
+			it.bindEnabled(this.hayCalificacionSeleccionada)
+			it.value <=> "calificacionSeleccionada.evaluado.nombre"
+		]
+*/
 		
 		new Label(panelAdministracionEdicion).text = "Fecha:"
 		new Label(panelAdministracionEdicion) => [

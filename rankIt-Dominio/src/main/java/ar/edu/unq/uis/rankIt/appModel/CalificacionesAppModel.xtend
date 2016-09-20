@@ -1,14 +1,15 @@
 package ar.edu.unq.uis.rankIt.appModel
 
+import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
+import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
+import ar.edu.unq.uis.rankIt.dominio.Calificacion
+import ar.edu.unq.uis.rankIt.dominio.Usuario
+import ar.edu.unq.uis.rankIt.dominio.buscadores.BuscadorDeCalificaciones
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
-import org.uqbar.commons.utils.Observable
-import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
-import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.ApplicationContext
-import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
-import ar.edu.unq.uis.rankIt.dominio.Usuario
+import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
@@ -40,13 +41,28 @@ class CalificacionesAppModel {
 	def String getNombreUsuario() {
 		calificacionSeleccionada.getEvaluador.getNombre
 	}
-
+//
+//	def String getNombrePublicacion() {
+//		if (calificacionSeleccionada.getEvaluado.getNombre == null) {
+//			return "--"
+//		} else {
+//			calificacionSeleccionada.getEvaluado.getNombre
+//		}
+//	}
+	
+	
 	def String getNombrePublicacion() {
-		if (calificacionSeleccionada.getEvaluado.getNombre == null) {
-			return "--"
-		} else {
-			calificacionSeleccionada.getEvaluado.getNombre
-		}
+		calificacionSeleccionada.getNombrePublicacion
+	}
+	
+	// No se si es necesario
+	def void setNombrePublicacion(String unNombre){
+		calificacionSeleccionada.evaluador.nombre = unNombre 
+		ObservableUtils.firePropertyChanged(this, "nombrePublicacion")
+		this.actualizarResumen
+		buscarCalificaciones
+		actualizarPanelEdicionCalificacion() 
+		admin.actualizarListaDeCalificaciones
 	}
 	
 	def boolean getCalificacionOfensiva() {
@@ -69,6 +85,8 @@ class CalificacionesAppModel {
 		    //ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
 		}
 	}
+	
+
 	
 	//TODO
 	/**@author ae */
@@ -120,6 +138,7 @@ class CalificacionesAppModel {
 	def void actualizarPanelEdicionCalificacion() {
 		ObservableUtils.firePropertyChanged(this,"fecha")
 		ObservableUtils.firePropertyChanged(this,"nombreUsuario")
+		ObservableUtils.firePropertyChanged(this,"nombrePublicacion")
 		ObservableUtils.firePropertyChanged(this,"detalle")
 		ObservableUtils.firePropertyChanged(this,"puntaje")
 		ObservableUtils.firePropertyChanged(this, "ofensivas")
@@ -147,6 +166,11 @@ class CalificacionesAppModel {
 	def void setNombreDePublicacionBuscada(String nombre) {
 		this.nombreDePublicacionBuscada = nombre
 		this.buscador.nombrePublicacionABuscar = nombre 
+	}
+	
+	// yoo
+	def String getNombreDePublicacionBuscada() {
+		nombreDePublicacionBuscada
 	}
 	
 //MENU

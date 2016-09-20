@@ -1,12 +1,14 @@
 package ar.edu.unq.uis.rankIt.appModel
 
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDePublicaciones
-import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
+import ar.edu.unq.uis.rankIt.dominio.buscadores.BuscadorDePublicaciones
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
-import static org.uqbar.commons.model.ObservableUtils.*
+import org.joda.time.DateTime
 import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.utils.Observable
+
+import static org.uqbar.commons.model.ObservableUtils.*
 
 @Accessors
 @Observable
@@ -112,9 +114,10 @@ abstract class PublicacionAppModel {
 
 //PANEL DE EDICION:
 
-	def String getNombreDePublicacionSeleccionada() {
-		this.publicacionSeleccionada.nombre
-	}
+// Esta repetido
+//	def String getNombreDePublicacionSeleccionada() {
+//		this.publicacionSeleccionada.nombre
+//	}
 
 //  METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA: 
 
