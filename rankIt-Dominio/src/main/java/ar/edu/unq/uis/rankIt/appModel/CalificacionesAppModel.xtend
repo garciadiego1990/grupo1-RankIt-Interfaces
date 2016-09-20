@@ -24,8 +24,8 @@ class CalificacionesAppModel {
 	int registradas
 
 	new() {
-		admin = getRepoCalificaciones
-		buscador = new BuscadorDeCalificaciones(admin.calificaciones)
+		this.admin = this.getRepoCalificaciones()
+		this.buscador = new BuscadorDeCalificaciones(admin.calificaciones)
 		this.actualizarResumen()
 	}
 
@@ -70,21 +70,25 @@ class CalificacionesAppModel {
 		}
 	}
 	
+	//TODO
 	/**@author ae */
-	def void crearNuevaCalificacion() {
+	def void crearNuevaCalificacion() throws RuntimeException {
 		if (calificacionSeleccionada == null)
-			return;
-			
+			new RuntimeException("Seleccione una publicacion")
+		
 		new Calificacion(	calificacionSeleccionada.evaluado,
 							new Usuario("ADMIN", Usuario.contraseniaDefault),
 							0,
-							"")
+							"prueba")
 //		c.evaluado= calificacionSeleccionada.evaluado
 //		c.puntaje = 0
 //		admin.agregarCalificacion(c)
-		buscarCalificaciones()
-		actualizarResumen()
-//		buscador.search()
+
+		// Actualizo la lista de calificaciones cada vez que se agregan - Abel
+		this.admin.actualizarListaDeCalificaciones()
+
+		this.buscarCalificaciones()
+		this.actualizarResumen()
 	}
 
 	def eliminarCalificacionSeleccionada() {
@@ -123,7 +127,7 @@ class CalificacionesAppModel {
 		
 	}
 	
-	/**@author ae */
+	
 	def void actualizarResumen() {
 		this.ofensivas = this.admin.calificacionesOfensivas
 		this.registradas = this.admin.totalCalificaciones

@@ -24,7 +24,7 @@ abstract class PublicacionAppModel {
 	
 	new() {
 		admin = getRepoPublicaciones
-		buscador = new BuscadorDePublicaciones(admin.todo)
+		buscador = new BuscadorDePublicaciones(admin.publicaciones)
 		this.actualizarResumen()
 	}
 

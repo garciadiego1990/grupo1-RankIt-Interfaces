@@ -26,39 +26,33 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	def cargarServicios() {
 		 
 		adminGral.adminServicios => [
-			agregar(servicioSpeddy)
-			agregar(servicioMulticanal)
-			agregar(servicioTelefonica)
-			agregar(servicioFibertel)
+			it.agregar(servicioSpeedy)
+			it.agregar(servicioMulticanal)
+			it.agregar(servicioTelefonica)
+			it.agregar(servicioFibertel)
 		]	
 	}
 	
 	def cargarLugares() {
 		
 		adminGral.adminLugares => [
-			calificacion1.puntaje = 5
-			calificacion2.puntaje = 8
-			Quilmes.calificaciones.add(calificacion1)
-			Berazategui.calificaciones.add(calificacion2)
-			agregar(Quilmes)
-			agregar(Berazategui)
-			agregar(Ezpeleta)
+			calificacion1.esOfensiva = true
+			it.agregar(Quilmes)
+			it.agregar(Berazategui)
+			it.agregar(Ezpeleta)
 		]
 	}
 	
+	/** Con este método creo referencias de todas las listas de {@link Publicacion}es en {@link AdministradorDeCalificaciones}.
+	 * NOTA: Referencio a dichas listas en vez de copiarlas a una lista nueva en {@link AdministradorDeCalificaciones}. Esto tiene
+	 * 		la ventaja de que en caso de crearse una nueva {@link Publicacion}, como estoy referenciando a la lista que la contiene,
+	 * 		también podré acceder a ella desde el {@link AdministradorDeCalificaciones}. 
+	 * @author ae */
 	def cargarCalificaciones() {
 		adminGral.adminCalificaciones => [
-//			calificacion1.calificar(5, usuarioPepe, Quilmes)
-//			calificacion2.calificar(6, usuarioLuis, Ezpeleta)
-//			calificacion3.calificar(7, usuarioMarcos, Berazategui)
-			calificacion1 = new Calificacion(Quilmes, usuarioPepe, 5, "Prueba1")
-			calificacion1.esOfensiva = true
-			calificacion2 = new Calificacion(Ezpeleta, usuarioLuis, 6, "Prueba2")
-			calificacion3 = new Calificacion(Berazategui, usuarioMarcos, 7, "Prueba3")
-
-			agregarCalificacion(calificacion1)
-			agregarCalificacion(calificacion2)
-			agregarCalificacion(calificacion3) 
+			it.servicios = adminGral.adminServicios.publicaciones
+			it.lugares	 = adminGral.adminLugares.publicaciones
+			it.actualizarListaDeCalificaciones
 		]	
 	}
 	
@@ -72,7 +66,7 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	}
 	
 	var servicioFibertel = new Publicacion("Fibertel")
-	var servicioSpeddy = new Publicacion("Speedy")
+	var servicioSpeedy = new Publicacion("Speedy")
 	var servicioMulticanal = new Publicacion("Multicanal")
 	var servicioTelefonica = new Publicacion("Telefonica")
 	
@@ -82,15 +76,17 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	
 	var Ezpeleta = new Publicacion("Ezpeleta")
 	
-	var calificacion1 = new Calificacion()
-	var calificacion2 = new Calificacion()
-	var calificacion3 = new Calificacion()
-	
 	var usuarioPepe = new Usuario("pepe", Usuario.contraseniaDefault)
 	var usuarioLuis = new Usuario("Luis", Usuario.contraseniaDefault)
 	var usuarioMarcos = new Usuario("Marcos", Usuario.contraseniaDefault)
 	
+	var calificacion1 = new Calificacion(Quilmes, usuarioPepe, 5, "Prueba1")
+	var calificacion2 = new Calificacion(Ezpeleta, usuarioLuis, 6, "Prueba2")
+	var calificacion3 = new Calificacion(Berazategui, usuarioMarcos, 7, "Prueba3")
+	var calificacion4 = new Calificacion(servicioSpeedy, usuarioPepe, 5, "Prueba1")
+	var calificacion5 = new Calificacion(servicioMulticanal, usuarioLuis, 0, "Prueba2")
+	var calificacion6 = new Calificacion(servicioTelefonica, usuarioMarcos, 7, "Prueba3")
+	
 	var AdministradorGeneral adminGral
-	
-	
+
 }

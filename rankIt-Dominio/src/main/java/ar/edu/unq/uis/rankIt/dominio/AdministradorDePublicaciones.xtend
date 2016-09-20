@@ -6,18 +6,18 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class AdministradorDePublicaciones {
-	List<Publicacion> todo = new ArrayList<Publicacion>
+	List<Publicacion> publicaciones = new ArrayList<Publicacion>
 	
 	def agregar(Publicacion p){
-		todo.add(p)
+		publicaciones.add(p)
 	}
 	
 	def inscriptos() {
-		todo.size
+		publicaciones.size
 	}
 	
 	def habilitados() {
-		todo.filter[it.estaHabilitado].size
+		publicaciones.filter[it.estaHabilitado].size
 	}
 
 	def deshabilitados() {
@@ -25,11 +25,13 @@ class AdministradorDePublicaciones {
 	}
 	
 	def borrar(Publicacion p) {
-		todo.remove(p)
+		publicaciones.remove(p)
 	}
 	
+	//TODO: publicaciones: Creo que esto no es necesario ya que de las búsquedas se encarga otro objeto.
+	//No lo borro por que no sé si se usa en otro lado.	- Abel
 	def buscar(Publicacion p) {
-		var publicacionesBuscadas = todo.filter[it.nombre == p.nombre]
+		var publicacionesBuscadas = publicaciones.filter[it.nombre == p.nombre]
 		if (publicacionesBuscadas.size != 0) return publicacionesBuscadas.get(0)
 		else null
 	}

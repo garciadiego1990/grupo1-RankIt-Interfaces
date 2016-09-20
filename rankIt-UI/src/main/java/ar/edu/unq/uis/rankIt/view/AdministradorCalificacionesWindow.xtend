@@ -151,6 +151,7 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		new Button(panelAdministracionGrilla) => [
 			it.caption = "Nuevo"
+			it.bindEnabled(hayCalificacionSeleccionada)
 			it.onClick [| this.modelObject.crearNuevaCalificacion()]
 		]
 	}
@@ -158,52 +159,52 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 	def crearPanelEdicion(Panel administracionPanel) {
 		val panelAdministracionEdicion = new Panel(administracionPanel)
 
-		new Panel(panelAdministracionEdicion) => [
-			it.layout = new HorizontalLayout
-
-		]
+		new Panel(panelAdministracionEdicion).layout = new HorizontalLayout
 
 		new ErrorsPanel(panelAdministracionEdicion, "Edita la información")
 		
 		new Label(panelAdministracionEdicion).text = "Evaluado"
 		new Selector(panelAdministracionEdicion) => [
-//			items <=> "nombreEvaluados"
+			it.bindEnabled(this.hayCalificacionSeleccionada)
+//			items <=> "nombreDePublicacionBuscada"
 //			value <=> "calificacionSeleccionada.evaluado.nombre"
 			width = 200
 		]
 
 		
+		new Label(panelAdministracionEdicion).text = "Fecha:"
 		new Label(panelAdministracionEdicion) => [
-			it.text = "Fecha:"
-		]
-
-		new Label(panelAdministracionEdicion) => [
+			it.bindVisible(this.hayCalificacionSeleccionada)
 			it.bindValueToProperty("calificacionSeleccionada.fecha").transformer = new DateTimeTransformer
 			it.height = 30
 		]
 		
+		new Label(panelAdministracionEdicion).text = "Usuario:"
 		new Label(panelAdministracionEdicion) => [
-			it.text = "Usuario:"
-		]
-
-		new Label(panelAdministracionEdicion) => [
+			it.bindEnabled(this.hayCalificacionSeleccionada)
 			it.value <=> "nombreUsuario"
 			it.height = 30
 		]
 
 
 	    new Label(panelAdministracionEdicion).text = "Puntaje:"
-		new TextBox(panelAdministracionEdicion).bindValueToProperty("calificacionSeleccionada.puntaje")
+		new TextBox(panelAdministracionEdicion) => [
+			it.bindEnabled(this.hayCalificacionSeleccionada)
+			it.value <=> "calificacionSeleccionada.puntaje"
+		]
 		
 		new Label(panelAdministracionEdicion).text = "Detalle:"
-		new TextBox(panelAdministracionEdicion).bindValueToProperty("calificacionSeleccionada.detalle")
+		new TextBox(panelAdministracionEdicion) => [
+			it.bindEnabled(this.hayCalificacionSeleccionada)
+			it.value <=> "calificacionSeleccionada.detalle"
+		]
 		
 		new Panel(panelAdministracionEdicion) => [
 			it.layout = new HorizontalLayout
 
 			new CheckBox(it) => [
-				it.value <=> "calificacionOfensiva"
 				it.bindEnabled(hayCalificacionSeleccionada)
+				it.value <=> "calificacionOfensiva"
 				it.height = 16
 			]
 
@@ -211,8 +212,8 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 		]
 
 		new Button(panelAdministracionEdicion) => [
-			it.caption = "Eliminar"
 			it.bindEnabled(hayCalificacionSeleccionada)
+			it.caption = "Eliminar"
 			it.onClick[|modelObject.eliminarCalificacionSeleccionada]
 			it.width = 50
 		]

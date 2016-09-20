@@ -186,7 +186,7 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		new Button(panelEdicion) => [
 			it.caption = "Revisar calificaciones"
 			it.bindEnabled(hayUsuarioSeleccionado)
-//			it.onClick [| ]
+			it.onClick [| this.delegate.open]
 		]
 
 		new Button(panelEdicion) => [

@@ -7,13 +7,14 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 class Calificacion {
-	int puntaje
+	Integer puntaje
 	DateTime fecha = new DateTime
 	boolean esOfensiva = false
 	String detalle
 	Usuario evaluador
 	Publicacion evaluado
 	
+	// TODO: No se si esto se usa - Abel
 	new() {
 		evaluador = new Usuario("ADMIN", Usuario.contraseniaDefault)
 		detalle = "prueba"
