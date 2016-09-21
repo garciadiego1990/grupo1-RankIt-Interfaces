@@ -52,7 +52,13 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 		adminGral.adminCalificaciones => [
 			it.servicios = adminGral.adminServicios.publicaciones
 			it.lugares	 = adminGral.adminLugares.publicaciones
-			it.actualizarListaDeCalificaciones
+			
+			it.agregarCalificacion(calificacion1)
+			it.agregarCalificacion(calificacion2)
+			it.agregarCalificacion(calificacion3)
+			it.agregarCalificacion(calificacion4)
+			it.agregarCalificacion(calificacion5)
+			it.agregarCalificacion(calificacion6)
 		]	
 	}
 	

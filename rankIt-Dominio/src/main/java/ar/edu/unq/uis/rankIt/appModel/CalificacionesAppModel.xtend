@@ -86,53 +86,35 @@ class CalificacionesAppModel {
 		}
 	}
 	
-
 	
-	//TODO
 	/**@author ae */
 	def void crearNuevaCalificacion() throws RuntimeException {
 		if (calificacionSeleccionada == null)
 			new RuntimeException("Seleccione una publicacion")
 		
-		new Calificacion(	calificacionSeleccionada.evaluado,
-							new Usuario("ADMIN", Usuario.contraseniaDefault),
-							0,
-							"prueba")
-//		c.evaluado= calificacionSeleccionada.evaluado
-//		c.puntaje = 0
-//		admin.agregarCalificacion(c)
-
-		// Actualizo la lista de calificaciones cada vez que se agregan - Abel
-		this.admin.actualizarListaDeCalificaciones()
-
+		var nuevaCalificacion = new Calificacion(	calificacionSeleccionada.evaluado,
+													new Usuario("ADMIN", Usuario.contraseniaDefault),
+													0,
+													"prueba")
+		this.admin.agregarCalificacion(nuevaCalificacion)
 		this.buscarCalificaciones()
 		this.actualizarResumen()
 	}
 
+
 	def eliminarCalificacionSeleccionada() {
-		admin.calificaciones.remove(calificacionSeleccionada)
-		buscarCalificaciones()
-		actualizarResumen()
-//		buscador.search()
+		this.admin.eliminarCalificacion(calificacionSeleccionada)
+		this.buscarCalificaciones()
+		this.actualizarResumen()
 	}
-	
-//	ESTE MÉTODO ESTÁ REPETIDO - Abel
-//	def setPublicacionConContenidoOfensivo(boolean value) {
-//		calificacionSeleccionada.esOfensiva = value
-//		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
-//		this.actualizarResumen
-//	}
+		
 	
 	def void setCalificacionOfensiva(boolean value) {
 		calificacionSeleccionada.esOfensiva = value
 		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
 		this.actualizarResumen
 	}
-	
-	// BUSCADOR:
-	def void buscarCalificaciones() {
-		buscador.search()
-	}
+
 
    // METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
 	def void actualizarPanelEdicionCalificacion() {
@@ -143,7 +125,6 @@ class CalificacionesAppModel {
 		ObservableUtils.firePropertyChanged(this,"puntaje")
 		ObservableUtils.firePropertyChanged(this, "ofensivas")
 		ObservableUtils.firePropertyChanged(this,"calificacionOfensiva")
-		
 	}
 	
 	
@@ -155,6 +136,10 @@ class CalificacionesAppModel {
 	}
 	
 //BUSCADOR	
+	
+	def void buscarCalificaciones() {
+		buscador.search()
+	}
 	
 	/**@author ae */
 	def void setNombreDeUsuarioBuscado(String nombre) {
@@ -168,7 +153,7 @@ class CalificacionesAppModel {
 		this.buscador.nombrePublicacionABuscar = nombre 
 	}
 	
-	// yoo
+	/**TODO @author dg */
 	def String getNombreDePublicacionBuscada() {
 		nombreDePublicacionBuscada
 	}
@@ -184,6 +169,6 @@ class CalificacionesAppModel {
 
 	def AdministradorDeCalificaciones getRepoCalificaciones() {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
-		adminGral.adminCalificaciones
+		return adminGral.adminCalificaciones
 	}
 }

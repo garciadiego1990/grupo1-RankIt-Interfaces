@@ -17,6 +17,9 @@ class Usuario {
 	public val static String nombreDefault = "NN"
 	public val static String contraseniaDefault = "123" 
 	
+	new() {
+		this(nombreDefault, contraseniaDefault)
+	}
 	
 	new(String unNombre, String contrasenia) {
 		this.nombre = unNombre
@@ -25,13 +28,6 @@ class Usuario {
 		this.contrasenia = contrasenia
 		this.fechaDeRegistro = new DateTime
 	}
-	
-	
-	
-	new() {
-		this(nombreDefault, contraseniaDefault)
-	}
-	
 	
 	
 	def void setContrasenia(String nuevaContrasenia){

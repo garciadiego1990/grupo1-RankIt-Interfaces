@@ -25,7 +25,6 @@ class Calificacion {
 		this.evaluador = evaluador
 		this.evaluado = publicacion
 		this.detalle = detalle
-		publicacion.agregarCalificacion(this)
 	}
 	
 	def String getNombrePublicacion(){

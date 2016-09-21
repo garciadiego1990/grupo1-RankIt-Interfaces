@@ -11,24 +11,17 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 class AdministradorDeCalificaciones {
 	
-	List<Calificacion> calificaciones = new ArrayList<Calificacion>
-	
-	//Cargados en el bootsrap
-	List<Publicacion> servicios	= new ArrayList<Publicacion>
-	List<Publicacion> lugares = new ArrayList<Publicacion>
-	
+	var List<Calificacion> calificaciones
+	//Cargados en el bootsTrap
+	var List<Publicacion> servicios
+	var List<Publicacion> lugares
 	
 	new(){
 		this.calificaciones = new ArrayList<Calificacion>
 		this.servicios	= new ArrayList<Publicacion>
 		this.lugares = new ArrayList<Publicacion>
-		this.actualizarListaDeCalificaciones()
+		this.actualizarListaDeCalificaciones()// TODO
 	}	
-//
-//	// TODO: ¿Es necesario este método? La calificación se la tiene que agregar una publicación - Abel
-//	def agregarCalificacion(Calificacion c) {
-//		calificaciones.add(c)
-//	}
 
 	def int totalCalificaciones() {
 		calificaciones.size
@@ -37,19 +30,6 @@ class AdministradorDeCalificaciones {
 	// Modificado por recomendacion de Abel
 	def int calificacionesOfensivas() {
 		calificaciones.filter[esOfensiva].size
-	}
-//	
-//	//TODO: Creo que no se usa. Hay un buscador para hacer esto - Abel
-//	// Va a haber problemas si no encuentra lo que busca
-//	def Calificacion buscarCalificacion(String usuario, String publicacion) {
-//		var List<Calificacion> todasLasCalificaciones = this.calificaciones
-//		for(Calificacion c: todasLasCalificaciones){
-//			if(c.evaluador.equals(usuario) && c.evaluado.equals(publicacion)) return c		
-//		}
-//	}
-	
-	def void eliminarCalificacion(Calificacion c){
-		//TODO
 	}
 	
 	def Set<String> getNombrePublicaciones(){
@@ -60,13 +40,27 @@ class AdministradorDeCalificaciones {
 		}
 		
 		return ret 
-		
 	}	 
+	
+//ALTA BAJA CALIFICACIONES
 
-//ACTUALIZAR CALIFICACIONES
+	def void agregarCalificacion(Calificacion calificacion){
+		var evaluado = calificacion.evaluado
+		evaluado.agregarCalificacion(calificacion)
+		this.actualizarListaDeCalificaciones()
+	}
+	
+	def void eliminarCalificacion(Calificacion calificacion){
+		var evaluado = calificacion.evaluado
+		evaluado.eliminarCalificacion(calificacion)
+		this.actualizarListaDeCalificaciones()
+	}
+
+//ACTUALIZAR CALIFICACIONES EN EL ADMINISTRADOR
 
 	/** Actualizo la lista de calificaciones de este administrador.
-	 * Este método debe ser llamado explícitamente cada vez que se hace una inserción o eliminación de una {@link Calificacion} o {@link Publicacion}.
+	 * Este método debe ser llamado explícitamente cada vez que se hace una inserción o eliminación
+	 * de una {@link Calificacion} o {@link Publicacion}.
 	 * @author ae */
 	def void actualizarListaDeCalificaciones() {
 		this.calificaciones.clear()
