@@ -83,10 +83,6 @@ abstract class PublicacionAppModel {
 		actualizarResumenHabilitados()
 	}
 
-
-
-
-	
 	def boolean getPublicacionHabilitada(){
 		publicacionSeleccionada.estaHabilitado
 	}
@@ -112,12 +108,6 @@ abstract class PublicacionAppModel {
 		buscador.search()
 	}
 
-//PANEL DE EDICION:
-
-// Esta repetido
-//	def String getNombreDePublicacionSeleccionada() {
-//		this.publicacionSeleccionada.nombre
-//	}
 
 //  METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA: 
 

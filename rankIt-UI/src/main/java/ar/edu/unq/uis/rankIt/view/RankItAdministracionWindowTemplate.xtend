@@ -1,5 +1,6 @@
 package ar.edu.unq.uis.rankIt.view
 
+
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.windows.Window

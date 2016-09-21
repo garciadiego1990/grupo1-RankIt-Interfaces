@@ -14,12 +14,6 @@ class Calificacion {
 	Usuario evaluador
 	Publicacion evaluado
 	
-	
-//	new() {
-//		evaluador = new Usuario("ADMIN", Usuario.contraseniaDefault)
-//		detalle = "prueba"
-//	}
-	
 	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle){
 		this.puntaje = puntaje
 		this.evaluador = evaluador

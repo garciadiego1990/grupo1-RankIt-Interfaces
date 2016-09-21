@@ -9,5 +9,4 @@ class ServiciosAppModel extends PublicacionAppModel {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
 		adminGral.adminServicios
 	}
-	
 }
