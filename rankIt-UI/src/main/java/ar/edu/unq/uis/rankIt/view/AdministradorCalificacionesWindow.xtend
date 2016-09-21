@@ -23,6 +23,9 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
 import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.bindings.PropertyAdapter
+import ar.edu.unq.uis.rankIt.dominio.Publicacion
+
 class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppModel> {
 
 	var hayCalificacionSeleccionada = new NotNullObservable("calificacionSeleccionada")
@@ -115,7 +118,7 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		new Column(tablaCalificaciones) => [
 			it.title = "Evaluado"
-		    it.bindContentsToProperty("nombrePublicacion")
+		    it.bindContentsToProperty("evaluado").transformer = [ Publicacion publicacion | publicacion.nombre ]
 			it.fixedSize = 100
 		]
 		
@@ -139,8 +142,6 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 			it.fixedSize = 100
 		]
 
-
-
 		new Column(tablaCalificaciones) => [
 			it.title = "Es Ofensiva"
 			it.bindContentsToProperty("esOfensiva").transformer = [ Boolean esOfensiva |
@@ -163,22 +164,13 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 
 		new ErrorsPanel(panelAdministracionEdicion, "Edita la información")
 		
-//		new Label(panelAdministracionEdicion).text = "Evaluado"
-//		new Selector(panelAdministracionEdicion) => [
-//			it.bindEnabled(this.hayCalificacionSeleccionada)
-//			it. items <=> "nombreEvaluados"
-//			it. value <=> "calificacionSeleccionada.evaluado.nombre"
-//			width = 200
-//		
-//		]
-
-	    new Label(panelAdministracionEdicion).text = "Evaluado:"
-		new TextBox(panelAdministracionEdicion).bindValueToProperty("calificacionSeleccionada.evaluado.nombre")
-	/* 	new TextBox(panelAdministracionEdicion) => [
+		new Label(panelAdministracionEdicion).text = "Evaluado"
+		new Selector<Publicacion>(panelAdministracionEdicion) => [
 			it.bindEnabled(this.hayCalificacionSeleccionada)
-			it.value <=> "calificacionSeleccionada.evaluado.nombre"
+			it.bindItemsToProperty("publicaciones").adapter = new PropertyAdapter(typeof(Publicacion), "nombre")
+			it.value <=> "calificacionSeleccionada.evaluado"
+			width = 200
 		]
-*/
 		
 		new Label(panelAdministracionEdicion).text = "Fecha:"
 		new Label(panelAdministracionEdicion) => [

@@ -10,6 +10,8 @@ import org.joda.time.DateTime
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
+import ar.edu.unq.uis.rankIt.dominio.Publicacion
+import java.util.List
 
 @Accessors
 @Observable
@@ -30,8 +32,8 @@ class CalificacionesAppModel {
 		this.actualizarResumen()
 	}
 
-	def getNombreEvaluados(){
-		admin.getNombrePublicaciones
+	def List<Publicacion> getPublicaciones(){
+		admin.publicaciones
 	}
 	
 	def DateTime getFecha() {
@@ -56,14 +58,14 @@ class CalificacionesAppModel {
 	}
 	
 	// No se si es necesario
-	def void setNombrePublicacion(String unNombre){
-		calificacionSeleccionada.evaluador.nombre = unNombre 
-		ObservableUtils.firePropertyChanged(this, "nombrePublicacion")
-		this.actualizarResumen
-		buscarCalificaciones
-		actualizarPanelEdicionCalificacion() 
-		admin.actualizarListaDeCalificaciones
-	}
+//	def void setNombrePublicacion(String unNombre){
+//		calificacionSeleccionada.evaluador.nombre = unNombre 
+//		ObservableUtils.firePropertyChanged(this, "nombrePublicacion")
+//		this.actualizarResumen
+//		buscarCalificaciones
+//		actualizarPanelEdicionCalificacion() 
+//		admin.actualizarListaDeCalificaciones
+//	}
 	
 	def boolean getCalificacionOfensiva() {
 		calificacionSeleccionada.esOfensiva
@@ -131,7 +133,6 @@ class CalificacionesAppModel {
 	def void actualizarResumen() {
 		this.ofensivas = this.admin.calificacionesOfensivas
 		this.registradas = this.admin.totalCalificaciones
-		ObservableUtils.firePropertyChanged(this, "nombreEvaluados")
 		ObservableUtils.firePropertyChanged(this, "resumen")
 	}
 	

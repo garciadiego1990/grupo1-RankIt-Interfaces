@@ -1,9 +1,7 @@
 package ar.edu.unq.uis.rankIt.dominio
 
 import java.util.ArrayList
-import java.util.LinkedHashSet
 import java.util.List
-import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -32,14 +30,14 @@ class AdministradorDeCalificaciones {
 		calificaciones.filter[esOfensiva].size
 	}
 	
-	def Set<String> getNombrePublicaciones(){
-		var Set<String> ret = new LinkedHashSet<String>
+	/**@author ae */
+	def List<Publicacion> getPublicaciones() {
+		var List<Publicacion> publicaciones = new ArrayList<Publicacion>
 		
-		for(Calificacion c: calificaciones){
-			ret.add(c.evaluado.nombre)
-		}
+		publicaciones.addAll(this.servicios)
+		publicaciones.addAll(this.lugares)
 		
-		return ret 
+		return publicaciones
 	}	 
 	
 //ALTA BAJA CALIFICACIONES

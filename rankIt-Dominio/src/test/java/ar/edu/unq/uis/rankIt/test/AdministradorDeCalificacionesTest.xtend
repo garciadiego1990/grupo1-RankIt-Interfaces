@@ -57,7 +57,7 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 	
 //CONSULTAS CALIFICACIONES
 	
-	/** Dado una administrador de calificaciones con cuatro publicaciones de las cuales dos contienen
+	/** Dado un administrador de calificaciones con cuatro publicaciones de las cuales dos contienen
 	 * una calificación cada una, cuento la cantidad calificaciones. El administrador debe tener dos
 	 * calificaciones.
 	 * @author ae */
@@ -75,6 +75,21 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 		adminCalificaciones.agregarCalificacion(calificacion2)
 
 		Assert.assertEquals(adminCalificaciones.calificaciones.size, 2)
+	}
+	
+	
+	/** Dado un administrador de calificaciones, inicialmente sin publicaciones, le agrego cuatro
+	 *  publicaciones: dos en la lista de servicios y dos en la lista de lugares.
+	 *  Luego consulto todas sus publicaciones y compruebo si tiene las 4 insertadas previamente.
+	 * @author ae */
+	@Test
+	def void testDadoUnAdministradorDeCalificacionesLePidoTodasLasPublicacionesYMeLasDevuelve() {
+		adminCalificaciones.servicios.add(publicacion1)
+		adminCalificaciones.servicios.add(publicacion2)
+		adminCalificaciones.lugares.add(publicacion3)
+		adminCalificaciones.lugares.add(publicacion4)
+		
+		Assert.assertEquals(adminCalificaciones.publicaciones.size, 4)
 	}
 	
 }
