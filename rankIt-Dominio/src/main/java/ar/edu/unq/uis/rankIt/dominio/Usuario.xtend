@@ -27,25 +27,18 @@ class Usuario {
 	}
 	
 	
-	/**Contructor que genera un {@link Usuario} con sus valores seteados por default.
-	 * 
-	 * @author ae */
+	
 	new() {
 		this(nombreDefault, contraseniaDefault)
 	}
 	
 	
-	/**Dada una nueva contraseña, se la setea al {@link Usuario}.
-	 * 
-	 * @param nuevaContrasenia - La nueva contraseña del {@link Usuario}
-	 * @author ae */
+	
 	def void setContrasenia(String nuevaContrasenia){
 		this.contrasenia = nuevaContrasenia
 	}
 	
-	/**Se le asigna al {@link Usuario} la contraseña por default.
-	 * 
-	 * @author ae */
+	
 	def void establecerContraseniaDefault() {
 		this.setContrasenia(contraseniaDefault)
 	}
