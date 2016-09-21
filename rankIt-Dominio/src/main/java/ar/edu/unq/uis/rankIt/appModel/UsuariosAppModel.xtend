@@ -64,8 +64,8 @@ class UsuariosAppModel {
 	
 	
 	def setUsuarioSeleccionadoBaneado(boolean estado) {
-		this.usuarioSeleccionado.estaBaneado = estado
-		this.actualizarResumenBaneados()
+		this.usuarioSeleccionado.setEstaBaneado(estado)
+		this.actualizarResumen()
 	}
 	
 	

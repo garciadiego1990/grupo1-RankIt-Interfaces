@@ -49,5 +49,10 @@ class Usuario {
 	def void establecerContraseniaDefault() {
 		this.setContrasenia(contraseniaDefault)
 	}
+	
+	def void setEstaBaneado(boolean baneado) {
+		this.estaBaneado = baneado
+		if(baneado) estaActivo = false
+	}
 			
 }
