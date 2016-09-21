@@ -129,7 +129,6 @@ class PublicacionAppModelTest extends BaseTest {
 		lugaresAppModel.setNombreDePublicacionBuscada("DiarioOle")
 		Assert.assertEquals(lugaresAppModel.nombreDePublicacionBuscada, "DiarioOle")
 		Assert.assertEquals(lugaresAppModel.buscador.nombrePublicacionABuscar, "diarioole")
-		//Assert.assertTrue(lugaresAppModel.buscador.getPublicacionesFiltradas.contains("diarioole"))
 	}
 	
 		

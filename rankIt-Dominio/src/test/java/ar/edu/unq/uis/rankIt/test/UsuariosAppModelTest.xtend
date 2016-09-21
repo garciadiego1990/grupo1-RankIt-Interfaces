@@ -73,7 +73,6 @@ class UsuariosAppModelTest extends BaseTest {
 	}
 	
 	@Test
-	// 
 	def void setNombreABuscarTest() {
 		usuariosAppModel.setNombreABuscar("usuarioPepe")
 		Assert.assertEquals(usuariosAppModel.nombreABuscar, "usuarioPepe")
@@ -93,8 +92,5 @@ class UsuariosAppModelTest extends BaseTest {
 		Assert.assertEquals(usuariosAppModel.getUsuarioSeleccionadoActivo, false)
 		Assert.assertEquals(usuariosAppModel.getUsuarioSeleccionadoBaneado, false)
 	}
-	
-	
-	
-	
+		
 }

@@ -22,9 +22,8 @@ class CalificacionesAppModel {
 	var String nombreDeUsuarioBuscado
 	var BuscadorDeCalificaciones buscador
 	var Calificacion calificacionSeleccionada
-	
+
 	int ofensivas
-	
 	int registradas
 
 	new() {
@@ -35,11 +34,12 @@ class CalificacionesAppModel {
 	
 	
 
-	def List<Publicacion> getPublicaciones(){
+	def List<Publicacion> getPublicaciones() {
 		admin.publicaciones
 	}
 	
 	
+
 	def DateTime getFecha() {
 		calificacionSeleccionada.getFecha
 	}
@@ -58,8 +58,9 @@ class CalificacionesAppModel {
 	def int getPuntaje() {
 		calificacionSeleccionada.getPuntaje
 	}
-	
-	
+
+
+
 	def String getDetalle() {
 		calificacionSeleccionada.getDetalle
 	}
@@ -67,12 +68,11 @@ class CalificacionesAppModel {
 
 	def void setCalificacionSeleccionada(Calificacion c) {
 		calificacionSeleccionada = c
-		if(c!=null){
+		if (c != null) {
 			actualizarPanelEdicionCalificacion()
 		}
 	}
-	
-	
+
 	/**@author ae */
 	def void crearNuevaCalificacion() throws UserException {
 		if (calificacionSeleccionada == null)
@@ -82,22 +82,22 @@ class CalificacionesAppModel {
 													new Usuario("ADMIN", Usuario.contraseniaDefault),
 													0,
 													"prueba")
+
 		this.admin.agregarCalificacion(nuevaCalificacion)
 		this.buscarCalificaciones()
 		this.actualizarResumen()
 	}
-
 
 	def eliminarCalificacionSeleccionada() {
 		this.admin.eliminarCalificacion(calificacionSeleccionada)
 		this.buscarCalificaciones()
 		this.actualizarResumen()
 	}
-	
+
 	def boolean getCalificacionOfensiva() {
 		calificacionSeleccionada.esOfensiva
-	}	
-	
+	}
+
 	def void setCalificacionOfensiva(boolean value) {
 		calificacionSeleccionada.esOfensiva = value
 		this.admin.banearSiEsOfensivo(calificacionSeleccionada.evaluador)
@@ -109,49 +109,46 @@ class CalificacionesAppModel {
 // METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
 
 	def void actualizarPanelEdicionCalificacion() {
-		ObservableUtils.firePropertyChanged(this,"fecha")
-		ObservableUtils.firePropertyChanged(this,"nombreUsuario")
-		ObservableUtils.firePropertyChanged(this,"nombrePublicacion")
-		ObservableUtils.firePropertyChanged(this,"detalle")
-		ObservableUtils.firePropertyChanged(this,"puntaje")
+		ObservableUtils.firePropertyChanged(this, "fecha")
+		ObservableUtils.firePropertyChanged(this, "nombreUsuario")
+		ObservableUtils.firePropertyChanged(this, "nombrePublicacion")
+		ObservableUtils.firePropertyChanged(this, "detalle")
+		ObservableUtils.firePropertyChanged(this, "puntaje")
 		ObservableUtils.firePropertyChanged(this, "ofensivas")
-		ObservableUtils.firePropertyChanged(this,"calificacionOfensiva")
+		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
 	}
-	
-	
+
 	def void actualizarResumen() {
 		this.ofensivas = this.admin.calificacionesOfensivas
 		this.registradas = this.admin.totalCalificaciones
 		ObservableUtils.firePropertyChanged(this, "resumen")
 	}
-	
+
 //BUSCADOR	
-	
 	def void buscarCalificaciones() {
 		buscador.search()
 	}
-	
+
 	/**@author ae */
 	def void setNombreDeUsuarioBuscado(String nombre) {
 		this.nombreDeUsuarioBuscado = nombre
 		this.buscador.nombreUsuarioABuscar = nombre
 	}
-	
+
 	/**@author ae */
 	def void setNombreDePublicacionBuscada(String nombre) {
 		this.nombreDePublicacionBuscada = nombre
-		this.buscador.nombrePublicacionABuscar = nombre 
+		this.buscador.nombrePublicacionABuscar = nombre
 	}
-	
-//MENU
 
+
+//MENU
 	/**@author ae */
 	def String getResumen() {
 		return this.ofensivas + " / " + this.registradas
 	}
 
 //CARGO EL APPLICATION CONTEXT
-
 	def AdministradorDeCalificaciones getRepoCalificaciones() {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
 		return adminGral.adminCalificaciones

@@ -42,6 +42,7 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 		Assert.assertFalse(publicacion1.calificaciones.contains(calificacion1))
 		adminCalificaciones.agregarCalificacion(calificacion1)
 		Assert.assertTrue(publicacion1.calificaciones.contains(calificacion1))
+		Assert.assertEquals(adminCalificaciones.calificaciones.size, 1)
 	}
 	
 	
@@ -103,10 +104,7 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 		var Calificacion c
 		var int i
 		adminCalificaciones.servicios.add(publicacion1)
-//		usuario1 => [
-//			it.estaActivo = false
-//			it.estaBaneado = false
-//		]
+
 			for(i=1; i<=5; i++) {
 				c = new Calificacion(publicacion1, usuario1, 0, "")
 				c.esOfensiva = true

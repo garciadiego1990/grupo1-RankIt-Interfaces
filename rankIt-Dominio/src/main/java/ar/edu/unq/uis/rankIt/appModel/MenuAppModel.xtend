@@ -18,5 +18,4 @@ class MenuAppModel {
 		this.appModelLugares = AppModelsSingleton.instance.appModelLugares
 		this.appModelCalificaciones = AppModelsSingleton.instance.appModelCalificaciones
 	}
-
 }
