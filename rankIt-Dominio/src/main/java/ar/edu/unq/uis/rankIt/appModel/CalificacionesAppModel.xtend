@@ -66,10 +66,6 @@ class CalificacionesAppModel {
 //		actualizarPanelEdicionCalificacion() 
 //		admin.actualizarListaDeCalificaciones
 //	}
-	
-	def boolean getCalificacionOfensiva() {
-		calificacionSeleccionada.esOfensiva
-	}
 
 	def int getPuntaje() {
 		calificacionSeleccionada.getPuntaje
@@ -109,10 +105,14 @@ class CalificacionesAppModel {
 		this.buscarCalificaciones()
 		this.actualizarResumen()
 	}
-		
+	
+	def boolean getCalificacionOfensiva() {
+		calificacionSeleccionada.esOfensiva
+	}	
 	
 	def void setCalificacionOfensiva(boolean value) {
 		calificacionSeleccionada.esOfensiva = value
+		this.admin.banearSiEsOfensivo(calificacionSeleccionada.evaluador)
 		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
 		this.actualizarResumen
 	}

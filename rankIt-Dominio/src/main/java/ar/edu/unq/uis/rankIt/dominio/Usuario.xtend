@@ -41,7 +41,8 @@ class Usuario {
 	
 	def void setEstaBaneado(boolean baneado) {
 		this.estaBaneado = baneado
-		if(baneado) estaActivo = false
+		if(baneado)
+			estaActivo = false
 	}
 			
 }

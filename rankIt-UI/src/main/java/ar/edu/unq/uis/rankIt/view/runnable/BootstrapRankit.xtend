@@ -59,6 +59,12 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 			it.agregarCalificacion(calificacion4)
 			it.agregarCalificacion(calificacion5)
 			it.agregarCalificacion(calificacion6)
+			it.agregarCalificacion(calificacion7)
+			it.agregarCalificacion(calificacion8)
+			it.agregarCalificacion(calificacion9)
+			it.agregarCalificacion(calificacion10)
+			it.agregarCalificacion(calificacion11)
+			it.agregarCalificacion(calificacion12)
 		]	
 	}
 	
@@ -92,6 +98,12 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 	var calificacion4 = new Calificacion(servicioSpeedy, usuarioPepe, 5, "Prueba1")
 	var calificacion5 = new Calificacion(servicioMulticanal, usuarioLuis, 0, "Prueba2")
 	var calificacion6 = new Calificacion(servicioTelefonica, usuarioMarcos, 7, "Prueba3")
+	var calificacion7 = new Calificacion(Quilmes, usuarioPepe, 5, "Prueba1")
+	var calificacion8 = new Calificacion(Ezpeleta, usuarioPepe, 6, "Prueba2")
+	var calificacion9 = new Calificacion(Berazategui, usuarioPepe, 7, "Prueba3")
+	var calificacion10 = new Calificacion(servicioSpeedy, usuarioPepe, 5, "Prueba1")
+	var calificacion11 = new Calificacion(servicioMulticanal, usuarioLuis, 0, "Prueba2")
+	var calificacion12 = new Calificacion(servicioTelefonica, usuarioMarcos, 7, "Prueba3")
 	
 	var AdministradorGeneral adminGral
 

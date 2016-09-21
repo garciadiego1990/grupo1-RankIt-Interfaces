@@ -25,7 +25,7 @@ class AdministradorDeCalificaciones {
 		calificaciones.size
 	}
 	
-	// Modificado por recomendacion de Abel
+	
 	def int calificacionesOfensivas() {
 		calificaciones.filter[esOfensiva].size
 	}
@@ -70,6 +70,21 @@ class AdministradorDeCalificaciones {
 		for(Publicacion p : publicaciones){
 			this.calificaciones.addAll(p.calificaciones)
 		}
+	}
+	
+	/** Dado un {@link Usuario} se responde si superó el límite de calificaciones ofensivas.
+	 * @author ae */
+	def Boolean esOfensivoElUsuario(Usuario usuario) {
+		var calificacionesOfensivas = 
+			calificaciones.filter[each | each.evaluador.equals(usuario) && each.esOfensiva ].size
+		return calificacionesOfensivas > 5
+	}
+
+	/** Dado un {@link Usuario} se lo banea si superó el límite de calificaciones ofensivas.
+	 * @author ae */
+	def banearSiEsOfensivo(Usuario usuario) {
+		if(this.esOfensivoElUsuario(usuario))
+			usuario.estaBaneado = true
 	}
 
 }

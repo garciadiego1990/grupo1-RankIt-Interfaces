@@ -10,6 +10,7 @@ import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
 
 class AdministradorDeCalificacionesTest extends BaseTest {
 	
+	var Usuario usuario1
 	var Publicacion publicacion1
 	var Publicacion publicacion2
 	var Publicacion publicacion3
@@ -20,6 +21,7 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 	
 	@Before
 	override void setUp(){
+		usuario1 = new Usuario()
 		publicacion1 = new Publicacion()
 		publicacion2 = new Publicacion()
 		publicacion3 = new Publicacion()
@@ -92,4 +94,65 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 		Assert.assertEquals(adminCalificaciones.publicaciones.size, 4)
 	}
 	
+	/** Dado un administrador de calificaciones y un usuario que realiza calificaciones ofensivas,
+	 * consulto si el usuario va a ser baneado. El usuario puede ser baneado luego de superar 5
+	 * calificaciones ofensivas.
+	 * @author ae */
+	@Test
+	def void testDadoUnAdministradorDeCalificacionesConsultoSiUnUsuarioDebeSerBaneado() {
+		var Calificacion c
+		var int i
+		adminCalificaciones.servicios.add(publicacion1)
+//		usuario1 => [
+//			it.estaActivo = false
+//			it.estaBaneado = false
+//		]
+			for(i=1; i<=5; i++) {
+				c = new Calificacion(publicacion1, usuario1, 0, "")
+				c.esOfensiva = true
+				adminCalificaciones.agregarCalificacion(c)
+			}
+			
+		var esOfensivo = adminCalificaciones.esOfensivoElUsuario(usuario1)
+		
+		Assert.assertFalse(esOfensivo)
+		
+		c = new Calificacion(publicacion1, usuario1, 0, "")
+		c.esOfensiva = true
+		adminCalificaciones.agregarCalificacion(c)
+		
+		esOfensivo = adminCalificaciones.esOfensivoElUsuario(usuario1)
+		
+		Assert.assertTrue(esOfensivo)
+	}
+	
+	/** Dado un administrador de calificaciones y un usuario que realiza calificaciones ofensivas,
+	 * baneo al usuario luego de superar 5 calificaciones ofensivas.
+	 * @author ae */
+	@Test
+	def void testDadoUnAdministradorDeCalificacionesBaneoAUnUsuarioOfensivo() {
+		var Calificacion c
+		var int i
+		adminCalificaciones.servicios.add(publicacion1)
+		usuario1 => [
+			it.estaActivo = true
+			it.estaBaneado = false
+		]
+			for(i=1; i<=5; i++) {
+				c = new Calificacion(publicacion1, usuario1, 0, "")
+				c.esOfensiva = true
+				adminCalificaciones.agregarCalificacion(c)
+			}
+		adminCalificaciones.banearSiEsOfensivo(usuario1)
+		
+		Assert.assertTrue(usuario1.estaActivo == true && usuario1.estaBaneado == false)
+		
+		c = new Calificacion(publicacion1, usuario1, 0, "")
+		c.esOfensiva = true
+		adminCalificaciones.agregarCalificacion(c)
+		
+		adminCalificaciones.banearSiEsOfensivo(usuario1)
+		
+		Assert.assertTrue(usuario1.estaActivo == false && usuario1.estaBaneado == true)
+	}
 }
