@@ -94,12 +94,12 @@ class BaseTest {
 		adminUsuarios.agregarUsuario(usuarioMatias)
 		adminUsuarios.agregarUsuario(usuarioGerman)
 		
-		//adminCalificaciones.agregarCalificacion(calificacionSpeedyPepe)
-		//adminCalificaciones.agregarCalificacion(calificacionTelefonicaLuis)
-		//adminCalificaciones.agregarCalificacion(calificacionMetrogasJuan) 
-		//adminCalificaciones.agregarCalificacion(calificacionEasyMarcos)
-		//adminCalificaciones.agregarCalificacion(calificacionAltoAvellanedaMatias)
-		//adminCalificaciones.agregarCalificacion(calificacionTecnopolisGerman)   
+		adminCalificaciones.agregarCalificacion(calificacionSpeedyPepe)
+		adminCalificaciones.agregarCalificacion(calificacionTelefonicaLuis)
+		adminCalificaciones.agregarCalificacion(calificacionMetrogasJuan) 
+		adminCalificaciones.agregarCalificacion(calificacionEasyMarcos)
+		adminCalificaciones.agregarCalificacion(calificacionAltoAvellanedaMatias)
+		adminCalificaciones.agregarCalificacion(calificacionTecnopolisGerman)   
 		
 		adminGeneral.adminUsuarios = adminUsuarios
 		adminGeneral.adminCalificaciones = adminCalificaciones

@@ -1,6 +1,7 @@
 package ar.edu.unq.uis.rankIt.view
 
 import org.uqbar.arena.windows.WindowOwner
+
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
@@ -21,6 +22,8 @@ import org.joda.time.DateTime
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
+import ar.edu.unq.uis.rankIt.view.ConfirmacionDialog
+
 
 class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 
@@ -138,6 +141,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 	}
 
 	def crearPanelEdicion(Panel administracionPanel) {
+<<<<<<< HEAD
 //		val panelAdministracionEdicion = new Panel(administracionPanel)
 //
 //		new Panel(panelAdministracionEdicion) => [
@@ -201,6 +205,72 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 //			it.onClick[|modelObject.eliminarPublicacionSeleccionada]
 //			it.width = 50
 //		]
+=======
+		val panelAdministracionEdicion = new Panel(administracionPanel)
+
+		new Panel(panelAdministracionEdicion) => [
+			it.layout = new HorizontalLayout
+
+			new Label(it) => [
+				text = "Nombre:    "
+				fontSize = 14
+			]
+
+			new Label(it) => [
+				value <=> "publicacionSeleccionada.nombre"
+				it.bindVisible(hayPublicacionSeleccionada)
+				fontSize = 14
+			]
+
+		]
+
+		new ErrorsPanel(panelAdministracionEdicion, "Edite la información")
+
+		new Label(panelAdministracionEdicion).text = "Nombre:"
+		new TextBox(panelAdministracionEdicion).bindValueToProperty("publicacionSeleccionada.nombre")
+
+		new Panel(panelAdministracionEdicion) => [
+			it.layout = new HorizontalLayout
+
+			new CheckBox(it) => [
+				it.value <=> "publicacionHabilitada"
+				it.bindEnabled(hayPublicacionSeleccionada)
+				it.height = 16
+			]
+
+			new Label(it).text = "Habilitado"
+		]
+
+		new Label(panelAdministracionEdicion).text = "Rating promedio:"
+		new Label(panelAdministracionEdicion) => [
+			it.value <=> "ratingPromedio"
+			it.height = 30
+		]
+
+		new Label(panelAdministracionEdicion) => [
+			it.text = "Calificaciones:"
+		]
+
+		new Label(panelAdministracionEdicion) => [
+			it.value <=> "cantidadDeCalificaciones"
+			it.height = 30
+		]
+
+		new Button(panelAdministracionEdicion) => [
+			it.caption = "Revisar calificaciones"
+			it.bindEnabled(hayPublicacionSeleccionada)
+//			it.onClick [| modelObject.]
+			it.width = 50
+		]
+
+		new Button(panelAdministracionEdicion) => [
+			it.caption = "Eliminar"
+			it.bindEnabled(hayPublicacionSeleccionada)
+			//it.onClick[|modelObject.eliminarPublicacionSeleccionada]
+			it.onClick[|ConfirmacionDialog(this, this.modelObject).open]
+			it.width = 50
+		]
+>>>>>>> 40a1c7b27effcd0e285d47c119c682d2a8fb5d19
 	}
 
 	override protected addActions(Panel actionsPanel) {
