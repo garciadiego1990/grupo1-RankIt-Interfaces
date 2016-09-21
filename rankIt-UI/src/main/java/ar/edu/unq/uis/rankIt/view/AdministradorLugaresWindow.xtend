@@ -1,6 +1,7 @@
 package ar.edu.unq.uis.rankIt.view
 
 import org.uqbar.arena.windows.WindowOwner
+
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.HorizontalLayout
@@ -21,6 +22,8 @@ import org.joda.time.DateTime
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
+import ar.edu.unq.uis.rankIt.view.ConfirmacionDialog
+
 
 class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 
@@ -198,7 +201,8 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 		new Button(panelAdministracionEdicion) => [
 			it.caption = "Eliminar"
 			it.bindEnabled(hayPublicacionSeleccionada)
-			it.onClick[|modelObject.eliminarPublicacionSeleccionada]
+			//it.onClick[|modelObject.eliminarPublicacionSeleccionada]
+			it.onClick[|ConfirmacionDialog(this, this.modelObject).open]
 			it.width = 50
 		]
 	}
