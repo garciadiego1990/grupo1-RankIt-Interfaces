@@ -86,13 +86,13 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 			 [ DateTime fecha | 
 			 	DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(fecha)
 			 ]
-			it.fixedSize = 130
+			it.fixedSize = 140
 		]
 
 		new Column(tablaUsuarios) => [
 			it.title = "Nombre"
 			it.bindContentsToProperty("nombre")
-			it.fixedSize = 100
+			it.fixedSize = 110
 		]
 		
 		new Column(tablaUsuarios) => [
@@ -101,7 +101,7 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 			 [ Boolean activo | 
 			 	if (activo) "Sí" else "No"
 			 ]
-			it.fixedSize = 70
+			it.fixedSize = 75
 		]
 		
 		new Column(tablaUsuarios) => [

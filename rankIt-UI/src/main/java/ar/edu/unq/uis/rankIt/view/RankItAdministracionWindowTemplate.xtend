@@ -23,7 +23,7 @@ public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 	
 	new(WindowOwner owner, T model, String tituloPrincipal) {
 		super(owner, model)
-		this.tituloPrincipal = tituloPrincipal
+		this.setTituloPrincipal(tituloPrincipal)
 	}
 		
 	override setTitle(String titulo) {
@@ -85,8 +85,8 @@ public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 	 * @param titulo - Título principal.
 	 * @author ae */
 	def void setTituloPrincipal(String titulo) {
-		this.setTitle(titulo)
 		this.tituloPrincipal = titulo	
+		this.setTitle(titulo)
 	}
 	
 	/*Los siguientes métodos son los únicos que deben ser implementados por las subclases de 

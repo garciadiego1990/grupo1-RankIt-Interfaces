@@ -114,7 +114,10 @@ class AdministradorPublicacionesWindow extends RankItAdministracionWindowTemplat
 		new ErrorsPanel(panelEdicion, "Edite la información")
 
 		new Label(panelEdicion).text = "Nombre:"
-		new TextBox(panelEdicion).bindValueToProperty("publicacionSeleccionada.nombre")
+		new TextBox(panelEdicion) => [
+			it.value <=> "publicacionSeleccionada.nombre"
+			it.width = 200
+		]
 
 		new Panel(panelEdicion) => [
 			it.layout = new HorizontalLayout

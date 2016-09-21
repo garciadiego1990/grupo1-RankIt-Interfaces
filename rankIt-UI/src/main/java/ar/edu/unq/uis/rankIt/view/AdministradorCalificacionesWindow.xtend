@@ -1,115 +1,79 @@
 package ar.edu.unq.uis.rankIt.view
 
-import org.uqbar.arena.windows.WindowOwner
-import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.tables.Table
-import ar.edu.unq.uis.rankIt.dominio.Calificacion
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.windows.ErrorsPanel
-import org.uqbar.arena.widgets.GroupPanel
-import org.uqbar.arena.layout.VerticalLayout
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import ar.edu.unq.uis.rankIt.view.components.Titulo
-import org.uqbar.arena.widgets.CheckBox
-import java.awt.Color
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.DateTime
-import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
-import org.uqbar.arena.widgets.Selector
-import org.uqbar.arena.bindings.PropertyAdapter
+import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
+import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
+import java.awt.Color
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.ErrorsPanel
+import org.uqbar.arena.windows.WindowOwner
 
-class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppModel> {
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.ui.view.ErrorViewer
+import org.uqbar.arena.windows.MessageBox
+
+
+class AdministradorCalificacionesWindow extends RankItAdministracionWindowTemplate<CalificacionesAppModel> implements ErrorViewer {
 
 	var hayCalificacionSeleccionada = new NotNullObservable("calificacionSeleccionada")
 
 	new(WindowOwner owner, CalificacionesAppModel model) {
-		super(owner, model)
-		this.title = "RankIt -> Admin. Calificaciones"
+		super(owner, model, "Calificaciones")
+		this.getDelegate().setErrorViewer(this)
 	}
 
-	override protected createMainTemplate(Panel mainPanel) {
-		this.createFormPanel(mainPanel)
-	}
 
-	
-	override protected createFormPanel(Panel mainPanel) {
-		mainPanel.layout = new VerticalLayout
-
-		this.panelResumenCalificaciones(mainPanel)
-
-		new Titulo(mainPanel, "Calificaciones")
-
-		this.crearPanelDeBusqueda(mainPanel)
-		this.crearPanelAdministracionCalificaciones(mainPanel)
-	}
-
-	
-	def panelResumenCalificaciones(Panel mainPanel) {
-
-		val panelResumenEstadisticas = new GroupPanel(mainPanel) => [
-			it.title = "Resumen de situacion"
-			it.layout = new HorizontalLayout
-		]
-
-		new Label(panelResumenEstadisticas).text = "Calificaciones registradas: "
-		new Label(panelResumenEstadisticas) => [
+	override crearSeccionDeResumen(Panel panelDeResumen) {
+		new Label(panelDeResumen).text = "Calificaciones registradas: "
+		new Label(panelDeResumen) => [
 			it.foreground = Color.BLUE
 			it.value <=> "registradas"
 		]
 
-		new Label(panelResumenEstadisticas).text = "  Ofensivas: "
-		new Label(panelResumenEstadisticas) => [
+		new Label(panelDeResumen).text = "  Ofensivas: "
+		new Label(panelDeResumen) => [
 			it.foreground = Color.RED
 			it.value <=> "ofensivas"
 		]
 	}
-
-	def crearPanelDeBusqueda(Panel ownerPanel) {
-		val panelBusqueda = new Panel(ownerPanel)
-
-		panelBusqueda.layout = new HorizontalLayout
-
-			new Label(panelBusqueda) => [
+	
+	
+	override crearSeccionDeBusqueda(Panel panelDeBusqueda) {
+		new Label(panelDeBusqueda) => [
 			it.text = "Usuario: "
 		]
 
-		new TextBox(panelBusqueda) => [
+		new TextBox(panelDeBusqueda) => [
 			it.value <=> "nombreDeUsuarioBuscado"
 			it.width = 250
 		]
 
-		new Label(panelBusqueda) => [
+		new Label(panelDeBusqueda) => [
 			it.text = "Evaluado: "
 		]
 
-		new TextBox(panelBusqueda) => [
+		new TextBox(panelDeBusqueda) => [
 			it.value <=> "nombreDePublicacionBuscada"
 			it.width = 250
 		]
-
 	}
-
-	def crearPanelAdministracionCalificaciones(Panel ownerPanel) {
-		val panelAdministracion = new Panel(ownerPanel)
-		panelAdministracion.layout = new HorizontalLayout
-
-		this.crearPanelGrilla(panelAdministracion)
-
-		this.crearPanelEdicion(panelAdministracion)
-	}
-
-	def crearPanelGrilla(Panel ownerPanel) {
-		val panelAdministracionGrilla = new Panel(ownerPanel)
-
-		val tablaCalificaciones = new Table(panelAdministracionGrilla, Calificacion) => [
+	
+	
+	override crearSeccionDeGrilla(Panel panelGrilla) {
+		val tablaCalificaciones = new Table(panelGrilla, Calificacion) => [
 			it.items <=> "buscador.resultados"
 			it.value <=> "calificacionSeleccionada"
 			it.numberVisibleRows = 12
@@ -150,56 +114,53 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 			it.fixedSize = 70
 		]
 
-		new Button(panelAdministracionGrilla) => [
+		new Button(panelGrilla) => [
 			it.caption = "Nuevo"
-			it.bindEnabled(hayCalificacionSeleccionada)
 			it.onClick [| this.modelObject.crearNuevaCalificacion()]
 		]
+			
 	}
-
-	def crearPanelEdicion(Panel administracionPanel) {
-		val panelAdministracionEdicion = new Panel(administracionPanel)
-
-		new Panel(panelAdministracionEdicion).layout = new HorizontalLayout
-
-		new ErrorsPanel(panelAdministracionEdicion, "Edita la información")
+	
+	
+	override crearSeccionDeEdicion(Panel panelEdicion) {
+		new ErrorsPanel(panelEdicion, "Edita la información")
 		
-		new Label(panelAdministracionEdicion).text = "Evaluado"
-		new Selector<Publicacion>(panelAdministracionEdicion) => [
+		new Label(panelEdicion).text = "Evaluado"
+		new Selector<Publicacion>(panelEdicion) => [
 			it.bindEnabled(this.hayCalificacionSeleccionada)
 			it.bindItemsToProperty("publicaciones").adapter = new PropertyAdapter(typeof(Publicacion), "nombre")
 			it.value <=> "calificacionSeleccionada.evaluado"
 			width = 200
 		]
 		
-		new Label(panelAdministracionEdicion).text = "Fecha:"
-		new Label(panelAdministracionEdicion) => [
+		new Label(panelEdicion).text = "Fecha:"
+		new Label(panelEdicion) => [
 			it.bindVisible(this.hayCalificacionSeleccionada)
 			it.bindValueToProperty("calificacionSeleccionada.fecha").transformer = new DateTimeTransformer
 			it.height = 30
 		]
 		
-		new Label(panelAdministracionEdicion).text = "Usuario:"
-		new Label(panelAdministracionEdicion) => [
+		new Label(panelEdicion).text = "Usuario:"
+		new Label(panelEdicion) => [
 			it.bindEnabled(this.hayCalificacionSeleccionada)
 			it.value <=> "nombreUsuario"
 			it.height = 30
 		]
 
 
-	    new Label(panelAdministracionEdicion).text = "Puntaje:"
-		new TextBox(panelAdministracionEdicion) => [
+	    new Label(panelEdicion).text = "Puntaje:"
+		new TextBox(panelEdicion) => [
 			it.bindEnabled(this.hayCalificacionSeleccionada)
 			it.value <=> "calificacionSeleccionada.puntaje"
 		]
 		
-		new Label(panelAdministracionEdicion).text = "Detalle:"
-		new TextBox(panelAdministracionEdicion) => [
+		new Label(panelEdicion).text = "Detalle:"
+		new TextBox(panelEdicion) => [
 			it.bindEnabled(this.hayCalificacionSeleccionada)
 			it.value <=> "calificacionSeleccionada.detalle"
 		]
 		
-		new Panel(panelAdministracionEdicion) => [
+		new Panel(panelEdicion) => [
 			it.layout = new HorizontalLayout
 
 			new CheckBox(it) => [
@@ -211,16 +172,30 @@ class AdministradorCalificacionesWindow extends SimpleWindow<CalificacionesAppMo
 			new Label(it).text = "Contenido Ofensivo"
 		]
 
-		new Button(panelAdministracionEdicion) => [
+		new Button(panelEdicion) => [
 			it.bindEnabled(hayCalificacionSeleccionada)
 			it.caption = "Eliminar"
 			it.onClick[|modelObject.eliminarCalificacionSeleccionada]
 			it.width = 50
 		]
 	}
-
-	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	
+	override showError(String message) {
+		this.showMessageBox(MessageBox.Type.Error, message);
 	}
-
+	
+	override showInfo(String message) {
+		this.showMessageBox(MessageBox.Type.Information, message);
+	}
+	
+	override showWarning(String message) {
+		this.showMessageBox(MessageBox.Type.Warning, message);
+	}
+	
+	def void showMessageBox(MessageBox.Type type, String message) {
+		var MessageBox messageBox = new MessageBox(this, type);
+		messageBox.setMessage(message);
+		messageBox.open();
+	}
+	
 }

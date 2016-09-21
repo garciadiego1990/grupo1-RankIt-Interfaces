@@ -12,6 +12,7 @@ import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import java.util.List
+import org.uqbar.commons.model.UserException
 
 @Accessors
 @Observable
@@ -31,64 +32,51 @@ class CalificacionesAppModel {
 		this.buscador = new BuscadorDeCalificaciones(admin.calificaciones)
 		this.actualizarResumen()
 	}
+	
+	
 
 	def List<Publicacion> getPublicaciones(){
 		admin.publicaciones
 	}
 	
+	
 	def DateTime getFecha() {
 		calificacionSeleccionada.getFecha
 	}
 
+
 	def String getNombreUsuario() {
 		calificacionSeleccionada.getEvaluador.getNombre
 	}
-//
-//	def String getNombrePublicacion() {
-//		if (calificacionSeleccionada.getEvaluado.getNombre == null) {
-//			return "--"
-//		} else {
-//			calificacionSeleccionada.getEvaluado.getNombre
-//		}
-//	}
-	
+
 	
 	def String getNombrePublicacion() {
 		calificacionSeleccionada.getNombrePublicacion
 	}
 	
-	// No se si es necesario
-//	def void setNombrePublicacion(String unNombre){
-//		calificacionSeleccionada.evaluador.nombre = unNombre 
-//		ObservableUtils.firePropertyChanged(this, "nombrePublicacion")
-//		this.actualizarResumen
-//		buscarCalificaciones
-//		actualizarPanelEdicionCalificacion() 
-//		admin.actualizarListaDeCalificaciones
-//	}
 
 	def int getPuntaje() {
 		calificacionSeleccionada.getPuntaje
 	}
 	
+	
 	def String getDetalle() {
 		calificacionSeleccionada.getDetalle
 	}
+	
 
 	def void setCalificacionSeleccionada(Calificacion c) {
 		calificacionSeleccionada = c
 		if(c!=null){
 			actualizarPanelEdicionCalificacion()
-			//ObservableUtils.firePropertyChanged(this, "calificacionesRegistradas")
-		    //ObservableUtils.firePropertyChanged(this, "calificacionesOfensivas")
 		}
 	}
 	
 	
 	/**@author ae */
-	def void crearNuevaCalificacion() throws RuntimeException {
+	def void crearNuevaCalificacion() throws UserException {
 		if (calificacionSeleccionada == null)
-			new RuntimeException("Seleccione una publicacion")
+			throw new UserException("Debe seleccionar una calificacion de la grilla antes \nde crear una nueva.")
 		
 		var nuevaCalificacion = new Calificacion(	calificacionSeleccionada.evaluado,
 													new Usuario("ADMIN", Usuario.contraseniaDefault),
@@ -118,7 +106,8 @@ class CalificacionesAppModel {
 	}
 
 
-   // METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
+// METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
+
 	def void actualizarPanelEdicionCalificacion() {
 		ObservableUtils.firePropertyChanged(this,"fecha")
 		ObservableUtils.firePropertyChanged(this,"nombreUsuario")
@@ -152,11 +141,6 @@ class CalificacionesAppModel {
 	def void setNombreDePublicacionBuscada(String nombre) {
 		this.nombreDePublicacionBuscada = nombre
 		this.buscador.nombrePublicacionABuscar = nombre 
-	}
-	
-	/**TODO @author dg */
-	def String getNombreDePublicacionBuscada() {
-		nombreDePublicacionBuscada
 	}
 	
 //MENU
