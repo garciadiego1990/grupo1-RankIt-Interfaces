@@ -146,10 +146,12 @@ class AdministradorPublicacionesWindow extends RankItAdministracionWindowTemplat
 		new Button(panelEdicion) => [
 			it.caption = "Revisar calificaciones"
 			it.bindEnabled(hayPublicacionSeleccionada)
+			it.onClick [ |
 				new AdministradorCalificacionesWindow(this.owner, AppModelsSingleton.instance.appModelCalificaciones) => [
-					it.modelObject.nombreDeUsuarioBuscado = this.modelObject.publicacionSeleccionada.nombre
+					it.modelObject.nombreDePublicacionBuscada = this.modelObject.publicacionSeleccionada.nombre
 					it.open
 				]
+			]
 			it.width = 50
 		]
 
