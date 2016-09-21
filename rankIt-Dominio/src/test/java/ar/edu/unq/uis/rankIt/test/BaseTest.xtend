@@ -71,13 +71,13 @@ class BaseTest {
 		calificacionAltoAvellanedaMatias = new Calificacion(lugarAltoAvellaneda, usuarioMatias, 6, "mi jermu se engancha con la vidriera y no vuelvo a casa mas. No voy mas!!")
 		calificacionTecnopolisGerman = new Calificacion(lugarTecnopolis, usuarioGerman, 8, "esta muy bueno")
 		
-		lugarEasy.agregarCalificacion(calificacionEasyMarcos)
-		lugarAltoAvellaneda.agregarCalificacion(calificacionAltoAvellanedaMatias)
-		lugarTecnopolis.agregarCalificacion(calificacionTecnopolisGerman)
+		//lugarEasy.agregarCalificacion(calificacionEasyMarcos)
+		//lugarAltoAvellaneda.agregarCalificacion(calificacionAltoAvellanedaMatias)
+		//lugarTecnopolis.agregarCalificacion(calificacionTecnopolisGerman)
 		
-		servicioSpeedy.agregarCalificacion(calificacionSpeedyPepe)
-		servicioTelefonica.agregarCalificacion(calificacionTelefonicaLuis)
-		servicioMetrogas.agregarCalificacion(calificacionMetrogasJuan)
+		//servicioSpeedy.agregarCalificacion(calificacionSpeedyPepe)
+		//servicioTelefonica.agregarCalificacion(calificacionTelefonicaLuis)
+		//servicioMetrogas.agregarCalificacion(calificacionMetrogasJuan)
 		
 		adminServicios.agregar(servicioSpeedy)
 		adminServicios.agregar(servicioTelefonica)
