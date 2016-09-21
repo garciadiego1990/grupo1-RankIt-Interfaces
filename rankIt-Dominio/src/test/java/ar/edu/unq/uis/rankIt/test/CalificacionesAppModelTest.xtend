@@ -60,4 +60,28 @@ class CalificacionesAppModelTest extends BaseTest {
 		Assert.assertEquals(calificacionesAppModel.getCalificacionOfensiva, false)
 	}
 	
+	@Test(expected=RuntimeException)
+	def void crearNuevaCalificacionSinPublicacionSeleccionadaTest() {
+		calificacionesAppModel.crearNuevaCalificacion()
+	}
+	
+	@Test
+	def void crearNuevaCalificacionConPublicacionSeleccionadaTest() {
+		calificacionesAppModel.setCalificacionSeleccionada(calificacionSpeedyPepe)
+		calificacionesAppModel.crearNuevaCalificacion()
+		Assert.assertEquals(calificacionSpeedyPepe.evaluado.calificaciones.get(0), calificacionSpeedyPepe)
+		Assert.assertEquals(calificacionesAppModel.ofensivas, 0)
+		//Assert.assertEquals(calificacionesAppModel.registradas,1)		
+	}
+	
+	
+	@Test
+	def void eliminarCalificacionSeleccionadaTest() {
+		calificacionesAppModel.admin.calificaciones.add(calificacionSpeedyPepe)
+		calificacionesAppModel.setCalificacionSeleccionada(calificacionSpeedyPepe)
+		calificacionesAppModel.eliminarCalificacionSeleccionada()
+		Assert.assertEquals(calificacionesAppModel.ofensivas, 0)
+		Assert.assertEquals(calificacionesAppModel.registradas,0)
+	}
+		
 }

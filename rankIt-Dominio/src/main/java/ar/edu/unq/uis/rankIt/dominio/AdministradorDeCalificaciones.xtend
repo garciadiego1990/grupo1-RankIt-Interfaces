@@ -25,7 +25,6 @@ class AdministradorDeCalificaciones {
 		calificaciones.size
 	}
 	
-	
 	def int calificacionesOfensivas() {
 		calificaciones.filter[esOfensiva].size
 	}
