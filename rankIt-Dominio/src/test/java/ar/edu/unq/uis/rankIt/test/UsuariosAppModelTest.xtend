@@ -62,7 +62,6 @@ class UsuariosAppModelTest extends BaseTest {
 		Assert.assertEquals(usuariosAppModel.getActivos, 1)
 		usuariosAppModel.setUsuarioSeleccionadoBaneado(true)	
 		Assert.assertEquals(usuariosAppModel.getBaneados, 1)
-		// Aca deberia pasar a estar inactivo el usuario seleccionado ya que esta baneado
 		Assert.assertEquals(usuariosAppModel.getActivos, 0)
 	}
 	
