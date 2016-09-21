@@ -35,12 +35,5 @@ class AdministradorDePublicacionesTest extends BaseTest {
 		adminServicios.borrar(servicioSpeedy)
 		Assert.assertEquals(adminServicios.inscriptos, 2)
 	}
-	
-	@Test
-	def void buscarTest() {
-		Assert.assertEquals(adminServicios.buscar(servicioSpeedy).nombre, "Speedy")
-		var servicioRoca = new Publicacion("ferrocarrilesRoca")
-		Assert.assertEquals(adminServicios.buscar(servicioRoca), null)
-	}
 		
 }
