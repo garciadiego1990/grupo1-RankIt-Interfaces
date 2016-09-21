@@ -23,7 +23,6 @@ import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.ui.view.ErrorViewer
-import org.uqbar.arena.windows.MessageBox
 
 
 class AdministradorCalificacionesWindow extends RankItAdministracionWindowTemplate<CalificacionesAppModel> implements ErrorViewer {
@@ -32,7 +31,6 @@ class AdministradorCalificacionesWindow extends RankItAdministracionWindowTempla
 
 	new(WindowOwner owner, CalificacionesAppModel model) {
 		super(owner, model, "Calificaciones")
-		this.getDelegate().setErrorViewer(this)
 	}
 
 
@@ -175,27 +173,15 @@ class AdministradorCalificacionesWindow extends RankItAdministracionWindowTempla
 		new Button(panelEdicion) => [
 			it.bindEnabled(hayCalificacionSeleccionada)
 			it.caption = "Eliminar"
-			it.onClick[|modelObject.eliminarCalificacionSeleccionada]
+			it.onClick [| 
+				new ConfirmacionDialog(this, this.modelObject, "¿Desea eliminar la calificación seleccionada?") => [
+					it.onAccept[| this.modelObject.eliminarCalificacionSeleccionada ]
+					it.onCancel[| ]
+					it.open
+				]
+			]
 			it.width = 50
 		]
-	}
-	
-	override showError(String message) {
-		this.showMessageBox(MessageBox.Type.Error, message);
-	}
-	
-	override showInfo(String message) {
-		this.showMessageBox(MessageBox.Type.Information, message);
-	}
-	
-	override showWarning(String message) {
-		this.showMessageBox(MessageBox.Type.Warning, message);
-	}
-	
-	def void showMessageBox(MessageBox.Type type, String message) {
-		var MessageBox messageBox = new MessageBox(this, type);
-		messageBox.setMessage(message);
-		messageBox.open();
 	}
 	
 }

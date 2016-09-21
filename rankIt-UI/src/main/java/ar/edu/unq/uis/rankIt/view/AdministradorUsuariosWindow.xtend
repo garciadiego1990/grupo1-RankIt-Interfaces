@@ -20,6 +20,7 @@ import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
 import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.AppModelsSingleton
+import org.uqbar.arena.windows.MessageBox
 
 class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<UsuariosAppModel> {
 	
@@ -198,13 +199,22 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		new Button(panelEdicion) => [
 			it.caption = "Blanquear clave"
 			it.bindEnabled(hayUsuarioSeleccionado)
-			it.onClick [| modelObject.blanquearContrasenia ]
+			it.onClick [|
+				this.modelObject.blanquearContrasenia
+				this.showMessageBox(MessageBox.Type.Information, "Se ha actualizado la contraseña\nexitosamente.")
+			]
 		]
 		
 		new Button(panelEdicion) => [
 			it.caption = "Eliminar"
 			it.bindEnabled(hayUsuarioSeleccionado)
-			it.onClick [| modelObject.eliminarUsuarioSeleccionado ]
+			it.onClick [| 
+				new ConfirmacionDialog(this, this.modelObject, "¿Desea eliminar el usuario seleccionado?") => [
+					it.onAccept[| this.modelObject.eliminarUsuarioSeleccionado ]
+					it.onCancel[| ]
+					it.open
+				]
+			]
 		]
 	}
 	

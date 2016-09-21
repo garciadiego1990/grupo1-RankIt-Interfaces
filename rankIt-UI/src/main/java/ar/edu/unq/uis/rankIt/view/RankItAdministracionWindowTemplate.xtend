@@ -8,7 +8,8 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.GroupPanel
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.layout.VerticalLayout
-import ar.edu.unq.uis.rankIt.appModel.PublicacionAppModel
+import org.uqbar.ui.view.ErrorViewer
+import org.uqbar.arena.windows.MessageBox
 
 /**
  * Template para todas las ventanas de la aplicación RankIt. Todas las ventanas de administración implementarán este template para
@@ -17,13 +18,14 @@ import ar.edu.unq.uis.rankIt.appModel.PublicacionAppModel
  * @author ae
  */
 @Accessors
-public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
+public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> implements ErrorViewer {
 	
 	var String tituloPrincipal
 	
 	new(WindowOwner owner, T model, String tituloPrincipal) {
 		super(owner, model)
 		this.setTituloPrincipal(tituloPrincipal)
+		this.getDelegate().setErrorViewer(this)
 	}
 		
 	override setTitle(String titulo) {
@@ -132,4 +134,24 @@ public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 	 * @author ae
 	 */
 	def abstract void crearSeccionDeEdicion(Panel panelEdicion);
+	
+//MANEJO DE ERRORES
+	
+	override showError(String message) {
+		this.showMessageBox(MessageBox.Type.Error, message);
+	}
+	
+	override showInfo(String message) {
+		this.showMessageBox(MessageBox.Type.Information, message);
+	}
+	
+	override showWarning(String message) {
+		this.showMessageBox(MessageBox.Type.Warning, message);
+	}
+	
+	def void showMessageBox(MessageBox.Type type, String message) {
+		var MessageBox messageBox = new MessageBox(this, type);
+		messageBox.setMessage(message);
+		messageBox.open();
+	}
 }

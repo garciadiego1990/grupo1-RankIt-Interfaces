@@ -161,15 +161,13 @@ class AdministradorPublicacionesWindow extends RankItAdministracionWindowTemplat
 		new Button(panelEdicion) => [
 			it.caption = "Eliminar"
 			it.bindEnabled(hayPublicacionSeleccionada)
-			it.onClick[| 
-				new ConfirmacionDialog(this, this.modelObject) => [
-					it.onAccept[| modelObject.eliminarPublicacionSeleccionada ]
+			it.onClick [| 
+				new ConfirmacionDialog(this, this.modelObject, "¿Desea eliminar la publicación seleccionada?") => [
+					it.onAccept[| this.modelObject.eliminarPublicacionSeleccionada ]
 					it.onCancel[| ]
 					it.open
 				]
-				
 			]
-//			it.onClick[| modelObject.eliminarPublicacionSeleccionada]
 			it.width = 50
 		]
 	}
