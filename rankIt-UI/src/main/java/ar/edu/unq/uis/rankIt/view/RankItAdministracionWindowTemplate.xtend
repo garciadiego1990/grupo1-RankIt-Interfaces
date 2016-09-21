@@ -8,6 +8,7 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.GroupPanel
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.layout.VerticalLayout
+import ar.edu.unq.uis.rankIt.appModel.PublicacionAppModel
 
 /**
  * Template para todas las ventanas de la aplicación RankIt. Todas las ventanas de administración implementarán este template para
@@ -20,8 +21,9 @@ public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> {
 	
 	var String tituloPrincipal
 	
-	new(WindowOwner owner, T model) {
+	new(WindowOwner owner, T model, String tituloPrincipal) {
 		super(owner, model)
+		this.tituloPrincipal = tituloPrincipal
 	}
 		
 	override setTitle(String titulo) {

@@ -141,7 +141,11 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 	}
 
 	def crearPanelEdicion(Panel administracionPanel) {
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> 2011555b16465bef9b40f66ff9a7458b813ebb1f
 //		val panelAdministracionEdicion = new Panel(administracionPanel)
 //
 //		new Panel(panelAdministracionEdicion) => [
@@ -205,7 +209,11 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 //			it.onClick[|modelObject.eliminarPublicacionSeleccionada]
 //			it.width = 50
 //		]
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> 2011555b16465bef9b40f66ff9a7458b813ebb1f
 		val panelAdministracionEdicion = new Panel(administracionPanel)
 
 		new Panel(panelAdministracionEdicion) => [
@@ -270,6 +278,7 @@ class AdministradorLugaresWindow extends SimpleWindow<LugaresAppModel> {
 			it.onClick[|ConfirmacionDialog(this, this.modelObject).open]
 			it.width = 50
 		]
+>>>>>>> 40a1c7b27effcd0e285d47c119c682d2a8fb5d19
 	}
 
 	override protected addActions(Panel actionsPanel) {

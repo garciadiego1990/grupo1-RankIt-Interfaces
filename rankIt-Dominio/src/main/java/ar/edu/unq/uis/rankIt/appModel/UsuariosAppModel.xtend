@@ -38,11 +38,11 @@ class UsuariosAppModel {
 	
 //ALTA BAJA MODIFICACION:
 	
-	 def crearNuevoUsuario() {
-	 	this.admin.agregarUsuario(new Usuario())
+	def crearNuevoUsuario() {
+		this.admin.agregarUsuario(new Usuario())
 		this.buscarUsuarios()
-	 	this.actualizarResumen()
-	 }
+		this.actualizarResumen()
+	}
 	
 	
 	def eliminarUsuarioSeleccionado() {

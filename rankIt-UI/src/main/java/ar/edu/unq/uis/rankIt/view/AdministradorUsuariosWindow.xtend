@@ -19,14 +19,14 @@ import org.joda.time.DateTime
 import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
 import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
 import org.uqbar.arena.bindings.NotNullObservable
+import ar.edu.unq.uis.rankIt.appModel.AppModelsSingleton
 
 class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<UsuariosAppModel> {
 	
 	val hayUsuarioSeleccionado = new NotNullObservable("usuarioSeleccionado")
 	
-	new(WindowOwner owner, UsuariosAppModel model) {
-		super(owner, model)
-		this.tituloPrincipal = "Usuarios"
+	new(WindowOwner owner, UsuariosAppModel model, String tituloPrincipal) {
+		super(owner, model, tituloPrincipal)
 	}
 	
 	/**@author ae */
@@ -186,7 +186,13 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		new Button(panelEdicion) => [
 			it.caption = "Revisar calificaciones"
 			it.bindEnabled(hayUsuarioSeleccionado)
-			it.onClick [| this.delegate.open]
+			it.onClick [|
+				this.close
+				new AdministradorCalificacionesWindow(this.owner, AppModelsSingleton.instance.appModelCalificaciones) => [
+					it.modelObject.nombreDeUsuarioBuscado = this.modelObject.usuarioSeleccionado.nombre
+					it.open
+				]
+			]
 		]
 
 		new Button(panelEdicion) => [

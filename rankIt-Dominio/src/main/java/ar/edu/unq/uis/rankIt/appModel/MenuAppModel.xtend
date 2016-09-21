@@ -7,16 +7,16 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class MenuAppModel {
 	
-	val UsuariosAppModel usuariosAppModel
-	val LugaresAppModel lugaresAppModel
-	val ServiciosAppModel serviciosAppModel
-	val CalificacionesAppModel calificacionesAppModel
+	val UsuariosAppModel appModelUsuarios
+	val LugaresAppModel appModelLugares
+	val ServiciosAppModel appModelServicios
+	val CalificacionesAppModel appModelCalificaciones
 	
 	new() {
-		this.usuariosAppModel = new UsuariosAppModel
-		this.serviciosAppModel = new ServiciosAppModel
-		this.lugaresAppModel = new LugaresAppModel
-		this.calificacionesAppModel = new CalificacionesAppModel
+		this.appModelUsuarios = AppModelsSingleton.instance.appModelUsuarios
+		this.appModelServicios = AppModelsSingleton.instance.appModelServicios
+		this.appModelLugares = AppModelsSingleton.instance.appModelLugares
+		this.appModelCalificaciones = AppModelsSingleton.instance.appModelCalificaciones
 	}
 
 }
