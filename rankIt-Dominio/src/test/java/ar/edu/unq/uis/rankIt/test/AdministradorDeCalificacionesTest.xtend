@@ -42,6 +42,7 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 		Assert.assertFalse(publicacion1.calificaciones.contains(calificacion1))
 		adminCalificaciones.agregarCalificacion(calificacion1)
 		Assert.assertTrue(publicacion1.calificaciones.contains(calificacion1))
+		Assert.assertEquals(adminCalificaciones.calificaciones.size, 1)
 	}
 	
 	
