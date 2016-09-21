@@ -14,7 +14,7 @@ class Calificacion {
 	Usuario evaluador
 	Publicacion evaluado
 	
-	// TODO: No se si esto se usa - Abel
+	
 	new() {
 		evaluador = new Usuario("ADMIN", Usuario.contraseniaDefault)
 		detalle = "prueba"
