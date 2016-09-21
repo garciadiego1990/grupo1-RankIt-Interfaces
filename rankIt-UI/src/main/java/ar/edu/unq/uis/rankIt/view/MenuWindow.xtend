@@ -55,11 +55,13 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		new Button(botonUsuariosPanel) => [
 			it.caption = "Adm. Usuarios"
 			it.width = this.anchoBoton
-			it.onClick [ | new AdministradorUsuariosWindow(this, this.modelObject.usuariosAppModel).open ]
+			it.onClick [ |
+				new AdministradorUsuariosWindow(this, this.modelObject.appModelUsuarios, "Usuarios").open
+			]
 		]
 		
 		new Label(botonUsuariosPanel) => [
-			it.value <=> "usuariosAppModel.resumen"
+			it.value <=> "appModelUsuarios.resumen"
 			it.width = this.anchoBoton
 		]
 
@@ -72,11 +74,11 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		new Button(botonCalificacionesPanel) => [
 			it.caption = "Adm. Calificaciones"
 			it.width = this.anchoBoton
-			it.onClick [ | new AdministradorCalificacionesWindow(this, this.modelObject.calificacionesAppModel).open ]
+			it.onClick [ | new AdministradorCalificacionesWindow(this, this.modelObject.appModelCalificaciones).open ]
 		]
 
 		new Label(botonCalificacionesPanel) => [
-			it.value <=> "calificacionesAppModel.resumen"
+			it.value <=> "appModelCalificaciones.resumen"
 			it.width = this.anchoBoton	
 		]
 	
@@ -89,11 +91,13 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		new Button(botonServiciosPanel) => [
 			it.caption = "Adm. Servicios"
 			it.width = this.anchoBoton
-			it.onClick [ | new AdministradorServiciosWindow(this, this.modelObject.serviciosAppModel).open ]
+			it.onClick [ |
+				new AdministradorPublicacionesWindow(this, this.modelObject.appModelServicios, "Servicios").open
+			]
 		]
 		
 		new Label(botonServiciosPanel) => [
-			it.value <=> "serviciosAppModel.resumen"
+			it.value <=> "appModelServicios.resumen"
 			it.width = this.anchoBoton
 		]
 	}
@@ -105,11 +109,13 @@ class MenuWindow extends SimpleWindow<MenuAppModel> {
 		new Button(botonLugaresPanel) => [
 			it.caption = "Adm. Lugares"
 			it.width = this.anchoBoton
-			it.onClick [ | new AdministradorLugaresWindow(this, this.modelObject.lugaresAppModel).open	]
+			it.onClick [ |
+				new AdministradorPublicacionesWindow(this, this.modelObject.appModelLugares, "Lugares").open
+			]
 		]
 
 		new Label(botonLugaresPanel) => [
-			it.value <=> "lugaresAppModel.resumen"
+			it.value <=> "appModelLugares.resumen"
 			it.width = this.anchoBoton
 		]
 	}
