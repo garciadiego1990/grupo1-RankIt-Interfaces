@@ -10,6 +10,8 @@ import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
 
 import static org.uqbar.commons.model.ObservableUtils.*
+import org.joda.time.DateTime
+import org.uqbar.commons.model.UserException
 
 @Accessors
 @Observable
@@ -96,10 +98,23 @@ class UsuariosAppModel {
 	}
 
 	 
+	def String getNombreDeUsuarioSeleccionado() {
+		this.usuarioSeleccionado.nombre
+	}
 	 
-	 def String getNombreDeUsuarioSeleccionado() {
-	 	this.usuarioSeleccionado.nombre
-	 }
+	 
+	def DateTime getFechaDeCalificacionMasReciente() {
+		var adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral)) as AdministradorGeneral
+		try{
+			var ultimaCalificacion = adminGral.adminCalificaciones.calificacionMasRecienteDelUsuario(usuarioSeleccionado)
+			return ultimaCalificacion.fecha
+		}
+		catch(IndexOutOfBoundsException e) {
+			throw new UserException(e.message)
+		}
+	}
+	
+	def void setFechaDeCalificacionMasReciente() {}
 	 
 //BINDING GRILLA
 
@@ -114,6 +129,7 @@ class UsuariosAppModel {
 	def void actualizarPanelEdicionUsuario() {
 		firePropertyChanged(this, "usuarioSeleccionadoActivo")
 		firePropertyChanged(this, "usuarioSeleccionadoBaneado")
+		firePropertyChanged(this, "fechaDeCalificacionMasReciente")
 	}
 	
 	def void actualizarResumen() {

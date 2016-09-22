@@ -7,6 +7,7 @@ import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import org.junit.Before
 import ar.edu.unq.uis.rankIt.dominio.AdministradorDeCalificaciones
+import org.joda.time.DateTime
 
 class AdministradorDeCalificacionesTest extends BaseTest {
 	
@@ -17,6 +18,10 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 	var Publicacion publicacion4
 	var Calificacion calificacion1
 	var Calificacion calificacion2
+	var Calificacion calificacion3
+	var Calificacion calificacion4
+	var Calificacion calificacion5
+	var Calificacion calificacion6
 	var AdministradorDeCalificaciones adminCalificaciones
 	
 	@Before
@@ -27,8 +32,12 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 		publicacion3 = new Publicacion()
 		publicacion4 = new Publicacion()
 		adminCalificaciones = new AdministradorDeCalificaciones()
-		calificacion1 = new Calificacion(publicacion1, new Usuario("user", "1234" ), 2, "test")
+		calificacion1 = new Calificacion(publicacion1, new Usuario("user", "1234" ), 1, "test")
 		calificacion2 = new Calificacion(publicacion2, new Usuario("user", "1234" ), 2, "test")
+		calificacion3 = new Calificacion(publicacion3, usuario1, 3, "test")
+		calificacion4 = new Calificacion(publicacion4, usuario1, 4, "test")
+		calificacion5 = new Calificacion(publicacion1, usuario1, 5, "test")
+		calificacion6 = new Calificacion(publicacion2, usuario1, 6, "test")
 	}
 	
 //AGREGAR, ELIMINAR UNA CALIFICACION	
@@ -40,6 +49,7 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 	@Test
 	def void testDadaUnaCalificacionLaAgregoATravesDelAdminDeCalificacionesYTesteoSiFueAgregada() {
 		Assert.assertFalse(publicacion1.calificaciones.contains(calificacion1))
+		adminCalificaciones.servicios.add(publicacion1)
 		adminCalificaciones.agregarCalificacion(calificacion1)
 		Assert.assertTrue(publicacion1.calificaciones.contains(calificacion1))
 		Assert.assertEquals(adminCalificaciones.calificaciones.size, 1)
@@ -153,4 +163,63 @@ class AdministradorDeCalificacionesTest extends BaseTest {
 		
 		Assert.assertTrue(usuario1.estaActivo == false && usuario1.estaBaneado == true)
 	}
+	
+	/** Dado un administrador de calificaciones y un usuario, le pido la ultima calificacion hecha por el usuario y me la devuelve.
+	 * @author ae */
+	 @Test
+	 def void testDadoUnUnAdministradorDeCalificacionesYUnUsuarioObtengoLaUltimaCalificacionRealizadaPorElUsuario() {
+	 	adminCalificaciones.servicios => [
+	 		add = publicacion1 ; add = publicacion2
+	 	]
+	 	adminCalificaciones.lugares => [
+	 		add = publicacion3 ; add = publicacion4 
+	 	]
+	 	
+	 	calificacion1.fecha = new DateTime(2016, 1, 1, 0, 0)
+	 	calificacion2.fecha = new DateTime(2016, 1, 6, 0, 0)
+	 	
+	 	//calificaciones del usuario1
+	 	calificacion3.fecha = new DateTime(2016, 1, 5, 0, 0)
+	 	calificacion4.fecha = new DateTime(2016, 1, 4, 0, 0)
+	 	calificacion5.fecha = new DateTime(2016, 1, 3, 0, 0)
+	 	calificacion6.fecha = new DateTime(2016, 1, 2, 0, 0)
+	 	
+	 	adminCalificaciones.agregarCalificacion(calificacion1)
+	 	adminCalificaciones.agregarCalificacion(calificacion2)
+	 	adminCalificaciones.agregarCalificacion(calificacion3)
+	 	adminCalificaciones.agregarCalificacion(calificacion4)
+	 	adminCalificaciones.agregarCalificacion(calificacion5)
+	 	adminCalificaciones.agregarCalificacion(calificacion6)
+	 	
+	 	var califMasReciente = adminCalificaciones.calificacionMasRecienteDelUsuario(usuario1)
+	 	Assert.assertEquals(califMasReciente, calificacion3)
+	 }
+	 
+	 /** Dado un administrador de calificaciones y un usuario sin calificaciones realizadas, le pido la ultima calificacion hecha por el usuario
+	  * y me lanza una IndexOutOfBoundsException informando que el usuario dado "nunca calificó".
+	 * @author ae */
+	 @Test
+	 def void testDadoUnUnAdministradorDeCalificacionesYUnUsuarioSinCalificacionesPidoLaUltimaCalificacionRealizadaPorElUsuario() {
+	 	adminCalificaciones.servicios => [
+	 		add = publicacion1 ; add = publicacion2
+	 	]
+	 	adminCalificaciones.lugares => [
+	 		add = publicacion3 ; add = publicacion4 
+	 	]
+	 	
+	 	calificacion1.fecha = new DateTime(2016, 1, 1, 0, 0)
+	 	calificacion2.fecha = new DateTime(2016, 1, 6, 0, 0)
+	 	
+	 	adminCalificaciones.agregarCalificacion(calificacion1)
+	 	adminCalificaciones.agregarCalificacion(calificacion2)
+	 	
+	 	try {
+	 		adminCalificaciones.calificacionMasRecienteDelUsuario(usuario1)
+	 		Assert.assertTrue(false)
+	 	}
+	 	catch(IndexOutOfBoundsException e) {
+	 		Assert.assertTrue(e.message.contains("nunca calificó"))
+	 	}
+	 	
+	 }
 }

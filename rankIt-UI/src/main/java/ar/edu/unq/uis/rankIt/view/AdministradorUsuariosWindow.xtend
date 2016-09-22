@@ -174,12 +174,9 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 			new Label(it).text = "Baneado"
 		]
 		
+		new Label(panelEdicion).text = "Última calificación:"
 		new Label(panelEdicion) => [
-			it.text = "Última publicación:"
-		]
-		
-		new Label(panelEdicion) => [
-			it.text = "09/07/2016 01:30"
+			it.bindValueToProperty("fechaDeCalificacionMasReciente").transformer = new DateTimeTransformer
 			it.bindEnabled(hayUsuarioSeleccionado)
 			it.height = 30
 		]

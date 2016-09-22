@@ -86,4 +86,19 @@ class AdministradorDeCalificaciones {
 			usuario.estaBaneado = true
 	}
 
+	/** Dado un {@link Usuario} se retorna su calificación más reciente.
+	 * @author ae */	
+	def Calificacion calificacionMasRecienteDelUsuario(Usuario usuario) {
+		var calificacionesDelUsuario =
+				this.calificaciones.filter[each | each.evaluador.equals(usuario)].toList
+		try {
+			calificacionesDelUsuario = calificacionesDelUsuario.sortBy[each | each.fecha ].reverse
+			return calificacionesDelUsuario.get(0)
+		}
+		catch(IndexOutOfBoundsException e) {
+			throw new IndexOutOfBoundsException(usuario.nombre+" nunca calificó.")
+		}
+		
+	}
+
 }
