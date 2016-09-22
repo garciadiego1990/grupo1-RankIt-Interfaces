@@ -56,6 +56,7 @@ class UsuariosAppModel {
 	
 	def setUsuarioSeleccionadoActivo(boolean estado) {
 		this.usuarioSeleccionado.estaActivo = estado
+		firePropertyChanged(this, "usuarioSeleccionadoBaneado")
 		this.actualizarResumenActivos()
 	}
 	
@@ -67,6 +68,7 @@ class UsuariosAppModel {
 	
 	def setUsuarioSeleccionadoBaneado(boolean estado) {
 		this.usuarioSeleccionado.setEstaBaneado(estado)
+		firePropertyChanged(this, "usuarioSeleccionadoActivo")
 		this.actualizarResumen()
 	}
 	

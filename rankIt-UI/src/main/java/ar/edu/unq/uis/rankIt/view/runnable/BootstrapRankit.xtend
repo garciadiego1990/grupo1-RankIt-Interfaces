@@ -6,6 +6,7 @@ import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Usuario
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
+import org.joda.time.DateTime
 
 class BootstrapRankit  extends CollectionBasedBootstrap {
 	
@@ -52,6 +53,19 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 		adminGral.adminCalificaciones => [
 			it.servicios = adminGral.adminServicios.publicaciones
 			it.lugares	 = adminGral.adminLugares.publicaciones
+			
+			calificacion1.fecha = new DateTime(2005, 1, 1, 0, 0)
+			calificacion2.fecha = new DateTime(2005, 2, 2, 0, 0)
+			calificacion3.fecha = new DateTime(2005, 3, 3, 0, 0)
+			calificacion4.fecha = new DateTime(2005, 4, 4, 0, 0)
+			calificacion5.fecha = new DateTime(2005, 5, 5, 0, 0)
+			calificacion6.fecha = new DateTime(2005, 6, 6, 0, 0)
+			calificacion7.fecha = new DateTime(2005, 7, 7, 0, 0)
+			calificacion8.fecha = new DateTime(2005, 8, 8, 0, 0)
+			calificacion9.fecha = new DateTime(2005, 9, 9, 0, 0)
+			calificacion10.fecha = new DateTime(2005, 10, 10, 0, 0)
+			calificacion11.fecha = new DateTime(2005, 11, 11, 0, 0)
+			calificacion12.fecha = new DateTime(2005, 12, 12, 0, 0)
 			
 			it.agregarCalificacion(calificacion1)
 			it.agregarCalificacion(calificacion2)
