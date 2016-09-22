@@ -83,9 +83,6 @@ class CalificacionesAppModelTest extends BaseTest {
 		calificacionesAppModel.setCalificacionSeleccionada(calificacionSpeedyPepe)
 		calificacionesAppModel.eliminarCalificacionSeleccionada()
 		Assert.assertEquals(calificacionesAppModel.admin.totalCalificaciones,0)
-		// Assert.assertEquals(calificacionesAppModel.ofensivas, 0)
-		//Assert.assertEquals(calificacionesAppModel.registradas,0)
-		
 	}
 		
 }
