@@ -71,17 +71,21 @@ class CalificacionesAppModelTest extends BaseTest {
 		calificacionesAppModel.crearNuevaCalificacion()
 		Assert.assertEquals(calificacionSpeedyPepe.evaluado.calificaciones.get(0), calificacionSpeedyPepe)
 		Assert.assertEquals(calificacionesAppModel.ofensivas, 0)
-		//Assert.assertEquals(calificacionesAppModel.registradas,1)		
+		// Es 2 porque en el "BaseTest" Speedy ya tiene una calificacion pre cargada
+		Assert.assertEquals(calificacionSpeedyPepe.evaluado.calificaciones.size, 2)		
 	}
 	
 	
 	@Test
 	def void eliminarCalificacionSeleccionadaTest() {
 		calificacionesAppModel.admin.calificaciones.add(calificacionSpeedyPepe)
+		Assert.assertEquals(calificacionesAppModel.admin.totalCalificaciones,1)
 		calificacionesAppModel.setCalificacionSeleccionada(calificacionSpeedyPepe)
 		calificacionesAppModel.eliminarCalificacionSeleccionada()
-		Assert.assertEquals(calificacionesAppModel.ofensivas, 0)
-		Assert.assertEquals(calificacionesAppModel.registradas,0)
+		Assert.assertEquals(calificacionesAppModel.admin.totalCalificaciones,0)
+		// Assert.assertEquals(calificacionesAppModel.ofensivas, 0)
+		//Assert.assertEquals(calificacionesAppModel.registradas,0)
+		
 	}
 		
 }
