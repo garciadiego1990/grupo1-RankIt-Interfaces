@@ -4,6 +4,7 @@ import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
+import org.joda.time.DateTime
 
 class PublicacionAppModelTest extends BaseTest {
 	LugaresAppModel lugaresAppModel
@@ -18,8 +19,9 @@ class PublicacionAppModelTest extends BaseTest {
 	@Test
 	def void getFechaDeRegistroTest() {
 		lugaresAppModel.publicacionSeleccionada = lugarEasy
-		Assert.assertEquals(lugaresAppModel.getFechaDeRegistro().getYear, 2016)
-		// falta testear el dia y el mes
+		Assert.assertEquals(lugaresAppModel.getFechaDeRegistro().getYear, new DateTime().getYear)
+		Assert.assertEquals(lugaresAppModel.getFechaDeRegistro().getMonthOfYear, new DateTime().getMonthOfYear)
+		Assert.assertEquals(lugaresAppModel.getFechaDeRegistro().getDayOfMonth, new DateTime().getDayOfMonth)
 	}
 	
 	@Test
