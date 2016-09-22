@@ -34,7 +34,7 @@ class AdministradorDeUsuarios {
 		usuarios.filter[!it.estaActivo].size
 	}
 	
-	def Integer usuariosBaneados() {
+	def int usuariosBaneados() {
 		usuarios.filter[it.estaBaneado].size
 	}
 		

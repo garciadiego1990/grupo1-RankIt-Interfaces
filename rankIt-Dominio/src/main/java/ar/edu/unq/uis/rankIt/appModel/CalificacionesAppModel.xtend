@@ -102,6 +102,8 @@ class CalificacionesAppModel {
 		calificacionSeleccionada.esOfensiva = value
 		this.admin.banearSiEsOfensivo(calificacionSeleccionada.evaluador)
 		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
+		//ver q onda
+		
 		this.actualizarResumen
 	}
 
