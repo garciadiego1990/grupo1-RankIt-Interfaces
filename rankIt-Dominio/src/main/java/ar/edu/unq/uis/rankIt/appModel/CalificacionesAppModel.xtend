@@ -102,10 +102,17 @@ class CalificacionesAppModel {
 		calificacionSeleccionada.esOfensiva = value
 		this.admin.banearSiEsOfensivo(calificacionSeleccionada.evaluador)
 		ObservableUtils.firePropertyChanged(this, "calificacionOfensiva")
-		//ver q onda
-		
 		this.actualizarResumen
 	}
+	
+//	def void setActualizarEvaluadoEnCalificacion(Publicacion nuevoEvaluado) {
+//		this.admin.cambiarEvaluadoEnCalificacion(this.calificacionSeleccionada, nuevoEvaluado)
+//		ObservableUtils.firePropertyChanged(this, "actualizarEvaluadoEnCalificacion")
+//	}
+//	
+//	def getActualizarEvaluadoEnCalificacion() {
+//		calificacionSeleccionada.evaluado
+//	}
 
 
 // METODOS EXPLICITOS DE ACTUALIZACION DE LA VISTA:
@@ -151,6 +158,7 @@ class CalificacionesAppModel {
 	}
 
 //CARGO EL APPLICATION CONTEXT
+
 	def AdministradorDeCalificaciones getRepoCalificaciones() {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
 		return adminGral.adminCalificaciones

@@ -10,8 +10,7 @@ import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
 
 import static org.uqbar.commons.model.ObservableUtils.*
-import org.joda.time.DateTime
-import org.uqbar.commons.model.UserException
+import org.joda.time.format.DateTimeFormat
 
 @Accessors
 @Observable
@@ -57,7 +56,7 @@ class UsuariosAppModel {
 	def setUsuarioSeleccionadoActivo(boolean estado) {
 		this.usuarioSeleccionado.estaActivo = estado
 		firePropertyChanged(this, "usuarioSeleccionadoBaneado")
-		this.actualizarResumenActivos()
+		this.actualizarResumenActivosYBaneados()
 	}
 	
 
@@ -105,14 +104,14 @@ class UsuariosAppModel {
 	}
 	 
 	 
-	def DateTime getFechaDeCalificacionMasReciente() {
+	def String getFechaDeCalificacionMasReciente() throws IndexOutOfBoundsException {
 		var adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral)) as AdministradorGeneral
 		try{
 			var ultimaCalificacion = adminGral.adminCalificaciones.calificacionMasRecienteDelUsuario(usuarioSeleccionado)
-			return ultimaCalificacion.fecha
+			return DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(ultimaCalificacion.fecha)
 		}
 		catch(IndexOutOfBoundsException e) {
-			throw new UserException(e.message)
+			return "--sin calificaciones--"
 		}
 	}
 	
@@ -142,12 +141,8 @@ class UsuariosAppModel {
 		this.actualizarMenu()
 	}
 	
-	def void actualizarResumenBaneados() {
+	def void actualizarResumenActivosYBaneados() {
 		this.baneados = this.admin.usuariosBaneados()
-		this.actualizarMenu()
-	}
-	
-	def void actualizarResumenActivos() {
 		this.activos = this.admin.usuariosActivos()
 		this.inactivos = this.registrados - this.activos
 		this.actualizarMenu()

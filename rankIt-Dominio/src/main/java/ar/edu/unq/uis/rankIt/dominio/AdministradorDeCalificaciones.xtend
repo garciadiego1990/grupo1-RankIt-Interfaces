@@ -39,7 +39,7 @@ class AdministradorDeCalificaciones {
 		return publicaciones
 	}	 
 	
-//ALTA BAJA CALIFICACIONES
+//ALTA BAJA MODIFICACION CALIFICACIONES
 
 	def void agregarCalificacion(Calificacion calificacion){
 		var evaluado = calificacion.evaluado
@@ -51,6 +51,13 @@ class AdministradorDeCalificaciones {
 		var evaluado = calificacion.evaluado
 		evaluado.eliminarCalificacion(calificacion)
 		this.actualizarListaDeCalificaciones()
+	}
+	
+	def void cambiarEvaluadoEnCalificacion(Calificacion calificacion, Publicacion nuevoEvaluado) {
+		var antiguoEvaluado = calificacion.evaluado
+		antiguoEvaluado.eliminarCalificacion(calificacion)
+		calificacion.evaluado = nuevoEvaluado
+		nuevoEvaluado.agregarCalificacion(calificacion)
 	}
 
 //ACTUALIZAR CALIFICACIONES EN EL ADMINISTRADOR

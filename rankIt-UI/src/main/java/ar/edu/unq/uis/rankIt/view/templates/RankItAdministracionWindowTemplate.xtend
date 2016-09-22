@@ -1,4 +1,4 @@
-package ar.edu.unq.uis.rankIt.view
+package ar.edu.unq.uis.rankIt.view.templates
 
 
 import org.uqbar.arena.widgets.Panel
@@ -16,8 +16,7 @@ import org.uqbar.arena.windows.MessageBox
  * Template para todas las ventanas de la aplicación RankIt. Todas las ventanas de administración implementarán este template para
  * obtener el layout y distribución de paneles adecuados.
  * 
- * @author ae
- */
+ * @author ae */
 @Accessors
 public abstract class RankItAdministracionWindowTemplate<T> extends Window<T> implements ErrorViewer {
 	

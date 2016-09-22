@@ -28,4 +28,11 @@ class Calificacion {
 	def String getNombreUsuario(){
 		evaluador.nombre
 	}
+	
+	def void setEvaluado(Publicacion publicacion) {
+		var viejoEvaluado = this.evaluado
+		this.evaluado = publicacion
+		publicacion.agregarCalificacion(this)
+		viejoEvaluado.eliminarCalificacion(this)
+	}
 }

@@ -16,11 +16,12 @@ import org.uqbar.arena.widgets.CheckBox
 import java.awt.Color
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
-import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
+import ar.edu.unq.uis.rankIt.view.transformers.DateTimeTransformer
 import ar.edu.unq.uis.rankIt.appModel.UsuariosAppModel
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.AppModelsSingleton
 import org.uqbar.arena.windows.MessageBox
+import ar.edu.unq.uis.rankIt.view.templates.RankItAdministracionWindowTemplate
 
 class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<UsuariosAppModel> {
 	
@@ -176,7 +177,7 @@ class AdministradorUsuariosWindow extends RankItAdministracionWindowTemplate<Usu
 		
 		new Label(panelEdicion).text = "Última calificación:"
 		new Label(panelEdicion) => [
-			it.bindValueToProperty("fechaDeCalificacionMasReciente").transformer = new DateTimeTransformer
+			it.bindValueToProperty("fechaDeCalificacionMasReciente")
 			it.bindEnabled(hayUsuarioSeleccionado)
 			it.height = 30
 		]

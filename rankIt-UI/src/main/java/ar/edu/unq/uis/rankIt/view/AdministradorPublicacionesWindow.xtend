@@ -18,6 +18,7 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.uis.rankIt.appModel.AppModelsSingleton
+import ar.edu.unq.uis.rankIt.view.templates.RankItAdministracionWindowTemplate
 
 class AdministradorPublicacionesWindow extends RankItAdministracionWindowTemplate<PublicacionAppModel> {
 	

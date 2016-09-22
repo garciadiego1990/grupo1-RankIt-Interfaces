@@ -1,4 +1,4 @@
-package ar.edu.unq.uis.rankIt.view.runnable
+package ar.edu.unq.uis.rankIt.bootstrap
 
 import org.uqbar.arena.bootstrap.CollectionBasedBootstrap
 import org.uqbar.commons.utils.ApplicationContext

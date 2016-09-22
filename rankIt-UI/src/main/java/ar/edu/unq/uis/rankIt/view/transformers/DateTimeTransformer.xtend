@@ -1,4 +1,4 @@
-package ar.edu.unq.uis.rankIt.view.components
+package ar.edu.unq.uis.rankIt.view.transformers
 
 import org.joda.time.DateTime
 import org.uqbar.arena.bindings.ValueTransformer
@@ -31,7 +31,7 @@ class DateTimeTransformer implements ValueTransformer<DateTime, String> {
 		DateTimeFormat.forPattern("dd/MM/yyyy kk:mm").print(fecha)
 	}
 	
-	override viewToModel(String valueFromView) throws IllegalArgumentException {
+	override viewToModel(String valueFromView) {
 		try {
 			formatter.parseDateTime(valueFromView)
 		}

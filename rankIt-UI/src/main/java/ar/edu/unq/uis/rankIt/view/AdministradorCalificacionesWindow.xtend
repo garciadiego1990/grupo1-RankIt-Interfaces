@@ -3,7 +3,7 @@ package ar.edu.unq.uis.rankIt.view
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
-import ar.edu.unq.uis.rankIt.view.components.DateTimeTransformer
+import ar.edu.unq.uis.rankIt.view.transformers.DateTimeTransformer
 import java.awt.Color
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -22,10 +22,9 @@ import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.ui.view.ErrorViewer
+import ar.edu.unq.uis.rankIt.view.templates.RankItAdministracionWindowTemplate
 
-
-class AdministradorCalificacionesWindow extends RankItAdministracionWindowTemplate<CalificacionesAppModel> implements ErrorViewer {
+class AdministradorCalificacionesWindow extends RankItAdministracionWindowTemplate<CalificacionesAppModel> {
 
 	var hayCalificacionSeleccionada = new NotNullObservable("calificacionSeleccionada")
 
