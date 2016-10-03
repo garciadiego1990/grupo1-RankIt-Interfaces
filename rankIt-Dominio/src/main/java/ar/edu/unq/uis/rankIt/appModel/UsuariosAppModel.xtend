@@ -45,6 +45,11 @@ class UsuariosAppModel {
 		this.actualizarResumen()
 	}
 	
+	def void crearUsuario(String nombre, String contrasenia) {}
+	
+	def boolean existeUsuario(String nombre, String contrasenia) {
+		return true
+	}
 	
 	def eliminarUsuarioSeleccionado() {
 		this.admin.eliminarUsuario(this.usuarioSeleccionado)
