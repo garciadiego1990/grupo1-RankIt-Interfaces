@@ -20,6 +20,7 @@ class Publicacion {
 		calificaciones = new ArrayList<Calificacion>
 		nombre = "--"
 	}
+	
 
 	new(String nombre) {
 		estaHabilitado = false

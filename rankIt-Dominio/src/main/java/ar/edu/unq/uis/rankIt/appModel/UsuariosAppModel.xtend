@@ -45,9 +45,9 @@ class UsuariosAppModel {
 		this.actualizarResumen()
 	}
 	
-	def void crearUsuario(String nombre, String contrasenia) {}
+	def void crearUsuario(String nombre) {}
 	
-	def boolean existeUsuario(String nombre, String contrasenia) {
+	def boolean existeUsuario(String nombre) {
 		return true
 	}
 	
