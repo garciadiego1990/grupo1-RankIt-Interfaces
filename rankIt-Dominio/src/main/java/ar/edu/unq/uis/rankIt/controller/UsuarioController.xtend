@@ -11,6 +11,7 @@ import org.uqbar.xtrest.api.annotation.Delete
 import java.util.List
 import java.util.ArrayList
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
+import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
 
 @Controller
 class UsuarioController {
@@ -25,11 +26,13 @@ class UsuarioController {
 		this.serviciosAppModel = serviciosAppModel
 	}
 	
+	/////////////////////////////////////////////////////////////////////////////////////////
+	
 	@Put("/usuarios/:nombre")
     def crearUsuario() {
         response.contentType = "application/json"         	
             if (this.usuarioAppModel.existeUsuario(String.valueOf(nombre))) {
-            	badRequest('{ "error": "nombre de usuario o contrasenia no disponible" }')
+            	badRequest('{ "error": "Nombre de usuario inválido" }')
             } else {
             	this.usuarioAppModel.crearUsuario(String.valueOf(nombre))
             	ok()
@@ -45,7 +48,10 @@ class UsuarioController {
     }
     
     def List<Publicacion> todosLosEvaluadosDisponibles() {
-    	return new ArrayList<Publicacion>
+    	var ArrayList<Publicacion> list = new ArrayList<Publicacion>
+    	list.add(new Publicacion("Speedy"))
+    	list.add(new Publicacion("Coto"))
+    	return list
     }
     ////////////////////////////////////////////////////////////////////
     
@@ -54,13 +60,17 @@ class UsuarioController {
     def deleteCalificacionById() {
     	response.contentType = "application/json"
         try {
-            this.biblioteca.eliminarLibro(Integer.valueOf(id))
+            //this.calificacionesAppModel.eliminarCalificacion(Integer.valueOf(id))
             ok()
-        }
+        	}
         catch (NumberFormatException ex) {
         	badRequest('{ "error": "El id debe ser un numero entero" }')
         }
     }
+    
+    
+    
+    
      
         	
 }
