@@ -19,10 +19,6 @@ class AdministradorDePublicaciones {
 	def habilitados() {
 		publicaciones.filter[it.estaHabilitado].size
 	}
-	
-	def todosLosHabilitados() {
-		publicaciones.filter[it.estaHabilitado]
-	}
 
 	def deshabilitados() {
 		inscriptos - habilitados

@@ -7,6 +7,10 @@ import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.api.annotation.Get
 import ar.edu.unq.uis.rankIt.appModel.ServiciosAppModel
 import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
+import org.uqbar.xtrest.api.annotation.Delete
+import java.util.List
+import java.util.ArrayList
+import ar.edu.unq.uis.rankIt.dominio.Publicacion
 
 @Controller
 class UsuarioController {
@@ -31,12 +35,31 @@ class UsuarioController {
             	ok()
             }
         }
-        
+     
+    ///////////////////////////////////////////////////////////////////    
     @Get("/evaluados")
     def getEvaluados() {
-        response.contentType = "application/json"        	
-        var evaluados = this.serviciosAppModel.admin.todosLosHabilitados + this.lugaresAppModel.admin.todosLosHabilitados 
-       	ok(evaluados.toJson)      
+        response.contentType = "application/json"
+        // reemp por el metodo conveniente        	  
+       	ok(this.todosLosEvaluadosDisponibles.toJson)      
+    }
+    
+    def List<Publicacion> todosLosEvaluadosDisponibles() {
+    	return new ArrayList<Publicacion>
+    }
+    ////////////////////////////////////////////////////////////////////
+    
+    
+    @Delete("/calificaciones/:id")
+    def deleteCalificacionById() {
+    	response.contentType = "application/json"
+        try {
+            this.biblioteca.eliminarLibro(Integer.valueOf(id))
+            ok()
+        }
+        catch (NumberFormatException ex) {
+        	badRequest('{ "error": "El id debe ser un numero entero" }')
+        }
     }
      
         	

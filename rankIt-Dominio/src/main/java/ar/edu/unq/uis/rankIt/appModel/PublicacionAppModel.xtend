@@ -9,6 +9,8 @@ import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
 
 import static org.uqbar.commons.model.ObservableUtils.*
+import java.util.List
+import java.util.ArrayList
 
 @Accessors
 @Observable
@@ -49,6 +51,7 @@ abstract class PublicacionAppModel {
 			publicacionSeleccionada.cantidadDeEvaluaciones
 		}
 	}
+	
 
 	def double getRatingPromedio() {
 		if (publicacionSeleccionada == null) {
