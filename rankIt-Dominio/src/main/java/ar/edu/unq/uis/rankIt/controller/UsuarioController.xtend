@@ -7,13 +7,11 @@ import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.api.annotation.Get
 import ar.edu.unq.uis.rankIt.appModel.ServiciosAppModel
 import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
-import org.uqbar.xtrest.api.annotation.Delete
 import java.util.List
 import java.util.ArrayList
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
 import org.uqbar.xtrest.api.annotation.Post
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Controller
@@ -76,10 +74,22 @@ class UsuarioController {
     
     // devuelve los lugares y servicios con nombre, de tipo, con igual o mayor cantidad de calificaciones y ranking
     @Get("/ranking") 
- 	def getEvaluados(String buscado, String tipo, int calificaciones, int ranking) {
- 		response.contentType = "application/json"        	  
-       	ok(this.todosLosEvaluadosDisponibles(buscado, tipo, calificaciones, ranking).toJson) 	
+ 	def getEvaluados(String nombre, String tipo, String calificaciones, String ranking) {
+ 		response.contentType = "application/json"
+ 		try {        	  
+       	ok(this.todosLosEvaluadosDisponibles(nombre, tipo, (Integer.valueOf(calificaciones)), (Integer.valueOf(ranking))).toJson)
+       		}
+       	catch (NumberFormatException ex) {
+        	badRequest('{ "error": "El id debe ser un numero entero" }')
+        } 	
  	}
+ 	
+ 	def List<RankingMinificada> todosLosEvaluadosDisponibles(String nombre, String tipo, int calificaciones, int ranking) {
+    	var ArrayList<RankingMinificada> list = new ArrayList<RankingMinificada>
+    	list.add(new RankingMinificada((new PublicacionMinificada(new Publicacion(1, "SERVICIO", "Speedy"))), 7, 2))
+    	list.add(new RankingMinificada((new PublicacionMinificada(new Publicacion(2, "LUGAR", "Coto"))), 9, 3))
+    	return list
+    }
     
     @Accessors
 	static class PublicacionMinificada {
@@ -93,31 +103,18 @@ class UsuarioController {
    			this.nombre = publicacion.nombre	
    		}
 	}
-    
-    
-   
-    
-    //@Get("/calificaciones")
-    // getCalificaciones(String buscado, ....)
-    //9000\calificaciones& buscado = starbucks&
-    ////////////////////////////////////////////////////////////////////
-    
-    /* 
-    @Delete("/calificaciones/:id")
-    def deleteCalificacionById() {
-    	response.contentType = "application/json"
-        try {
-            //this.calificacionesAppModel.eliminarCalificacion(Integer.valueOf(id))
-            ok()
-        	}
-        catch (NumberFormatException ex) {
-        	badRequest('{ "error": "El id debe ser un numero entero" }')
-        }
-    }
-    */
-    
-    
-    
-     
-        	
+	
+		@Accessors
+		static class RankingMinificada {
+			PublicacionMinificada evaluado
+   			Integer ranking
+   			Integer calificaciones
+   		   	
+   			new(PublicacionMinificada evaluado, Integer ranking, Integer calificaciones) {
+   				this.evaluado = evaluado
+   				this.ranking = ranking
+   				this.calificaciones = calificaciones	
+   			}
+		}
+           	
 }
