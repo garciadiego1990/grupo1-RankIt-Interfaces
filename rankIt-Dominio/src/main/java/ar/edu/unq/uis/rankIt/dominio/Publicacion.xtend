@@ -5,6 +5,7 @@ import java.util.ArrayList
 import org.joda.time.DateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
 @Accessors
 @Observable
@@ -13,12 +14,19 @@ class Publicacion {
 	boolean estaHabilitado
 	DateTime fechaDeRegistro
 	List<Calificacion> calificaciones
-	
+	Integer id
+	String tipo
 
 	new() {
 		fechaDeRegistro = new DateTime
 		calificaciones = new ArrayList<Calificacion>
 		nombre = "--"
+	}
+	
+	new(Integer id, String tipo, String nombre) {
+		this.id = id
+		this.tipo = tipo
+		this.nombre = nombre
 	}
 	
 

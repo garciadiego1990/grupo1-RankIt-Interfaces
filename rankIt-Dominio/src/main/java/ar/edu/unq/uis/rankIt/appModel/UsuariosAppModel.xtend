@@ -11,6 +11,7 @@ import org.uqbar.commons.utils.Observable
 
 import static org.uqbar.commons.model.ObservableUtils.*
 import org.joda.time.format.DateTimeFormat
+import org.uqbar.commons.model.UserException
 
 @Accessors
 @Observable
@@ -51,8 +52,9 @@ class UsuariosAppModel {
 		return true
 	}
 	
-	def loguear(String nombre, String contrasenia) {
-		return new Usuario()
+	def Usuario loguear(String nombre, String contrasenia) {
+		if(1==1) throw new Exception
+		 new Usuario
 	}
 	
 	def eliminarUsuarioSeleccionado() {
