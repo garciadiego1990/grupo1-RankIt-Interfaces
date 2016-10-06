@@ -13,12 +13,14 @@ class Usuario {
 	boolean estaActivo = false
 	boolean estaBaneado = false
 	Integer publicacionesOfensivas = 0
+	Integer id
 	
 	public val static String nombreDefault = "NN"
 	public val static String contraseniaDefault = "123" 
 	
 	new() {
 		this(nombreDefault, contraseniaDefault)
+		this.id = 5
 	}
 	
 	new(String unNombre, String contrasenia) {

@@ -12,6 +12,7 @@ import java.util.List
 import java.util.ArrayList
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
+import org.uqbar.xtrest.api.annotation.Post
 
 @Controller
 class UsuarioController {
@@ -28,18 +29,45 @@ class UsuarioController {
 	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
-	@Put("/usuarios/:nombre")
-    def crearUsuario() {
+	@Put("/usuarios/:nombre/:contrasenia")
+    def registrarUsuario() {
         response.contentType = "application/json"         	
-            if (this.usuarioAppModel.existeUsuario(String.valueOf(nombre))) {
+            if (this.usuarioAppModel.existeUsuario(String.valueOf(nombre), String.valueOf(contrasenia))) {
             	badRequest('{ "error": "Nombre de usuario inválido" }')
             } else {
-            	this.usuarioAppModel.crearUsuario(String.valueOf(nombre))
+            	this.usuarioAppModel.crearUsuario(String.valueOf(nombre), String.valueOf(contrasenia))
             	ok()
             }
         }
      
-    ///////////////////////////////////////////////////////////////////    
+    ///////////////////////////////////////////////////////////////////
+    @Post("/usuarios/:nombre/:contrasenia")
+    def loguearUsuario() {
+    	response.contentType = "application/json"
+    	try {        	
+            var usuario = this.usuarioAppModel.loguear(nombre, contrasenia)
+            if (usuario == null) {
+            	notFound('{ "error": "Usuario no encontrado" }')
+            } else {
+            	ok(usuario.id.toJson)
+            }
+        }
+        catch (Exception ex) {
+        	badRequest('{ "error": "Password incorrecto" }')
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ////////////////////////////////////////////////////////////////////    
     @Get("/evaluados")
     def getEvaluados() {
         response.contentType = "application/json"

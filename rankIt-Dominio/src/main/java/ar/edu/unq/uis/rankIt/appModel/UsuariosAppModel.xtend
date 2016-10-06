@@ -45,10 +45,14 @@ class UsuariosAppModel {
 		this.actualizarResumen()
 	}
 	
-	def void crearUsuario(String nombre) {}
+	def void crearUsuario(String nombre, String contrasenia) {}
 	
-	def boolean existeUsuario(String nombre) {
+	def boolean existeUsuario(String nombre, String contrasenia) {
 		return true
+	}
+	
+	def loguear(String nombre, String contrasenia) {
+		return new Usuario()
 	}
 	
 	def eliminarUsuarioSeleccionado() {
