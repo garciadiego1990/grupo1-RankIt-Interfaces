@@ -10,9 +10,9 @@ import ar.edu.unq.uis.rankIt.appModel.LugaresAppModel
 import java.util.List
 import java.util.ArrayList
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
-import ar.edu.unq.uis.rankIt.appModel.CalificacionesAppModel
 import org.uqbar.xtrest.api.annotation.Post
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.xtrest.api.annotation.Body
 
 @Controller
 class UsuarioController {
@@ -27,25 +27,32 @@ class UsuarioController {
 		this.serviciosAppModel = serviciosAppModel
 	}
 	
-	/////////////////////////////////////////////////////////////////////////////////////////
-	
-	@Put("/usuarios/:nombre/:contrasenia")
-    def registrarUsuario() {
-        response.contentType = "application/json"         	
-            if (this.usuarioAppModel.existeUsuario(String.valueOf(nombre), String.valueOf(contrasenia))) {
-            	badRequest('{ "error": "Nombre de usuario inválido" }')
-            } else {
-            	this.usuarioAppModel.crearUsuario(String.valueOf(nombre), String.valueOf(contrasenia))
-            	ok()
-            }
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 
+	//registrarse 
+	@Put("/usuarios")
+    def signUp(@Body String body) {
+    	response.contentType = "application/json"
+    	
+    	try {
+    		var DatosUsuario datosUsuario = body.fromJson(typeof(DatosUsuario))	        	
+            this.usuarioAppModel.registrarse(datosUsuario)
+            ok() 
+        }
+        catch (Exception ex) {
+        	badRequest('{ "error": "Nombre de usuario inválido" }')
+        }
     }
      
-    ///////////////////////////////////////////////////////////////////
-    @Post("/usuarios/:nombre/:contrasenia")
-    def loguearUsuario() {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //ingresar
+    @Post("/usuarios")
+    def signIn(@Body String body) {
     	response.contentType = "application/json"
-    	try {        	
-            var usuario = this.usuarioAppModel.loguear(nombre, contrasenia)
+    	try {
+    		var DatosUsuario datosUsuario = body.fromJson(typeof(DatosUsuario))        	
+            var usuario = this.usuarioAppModel.loguear(datosUsuario)
             if (usuario == null) {
             	notFound('{ "error": "Usuario no encontrado" }')
             } else {
@@ -57,20 +64,15 @@ class UsuarioController {
         }
     }
     
-    ////////////////////////////////////////////////////////////////////    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
     @Get("/evaluados")
     def getEvaluados() {
         response.contentType = "application/json"        	  
        	ok(this.todosLosEvaluadosDisponibles.toJson)      
     }
     
-    
-    def List<PublicacionMinificada> todosLosEvaluadosDisponibles() {
-    	var ArrayList<PublicacionMinificada> list = new ArrayList<PublicacionMinificada>
-    	list.add(new PublicacionMinificada(new Publicacion(1, "SERVICIO", "Speedy")))
-    	list.add(new PublicacionMinificada(new Publicacion(2, "LUGAR", "Coto")))
-    	return list
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // devuelve los lugares y servicios con nombre, de tipo, con igual o mayor cantidad de calificaciones y ranking
     @Get("/ranking") 
@@ -83,6 +85,19 @@ class UsuarioController {
         	badRequest('{ "error": "El id debe ser un numero entero" }')
         } 	
  	}
+ 	//http://localhost:9000/ranking?nombre=n&tipo=r&calificaciones=3&ranking=7
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	def List<PublicacionMinificada> todosLosEvaluadosDisponibles() {
+    	var ArrayList<PublicacionMinificada> list = new ArrayList<PublicacionMinificada>
+    	list.add(new PublicacionMinificada(new Publicacion(1, "SERVICIO", "Speedy")))
+    	list.add(new PublicacionMinificada(new Publicacion(2, "LUGAR", "Coto")))
+    	return list
+    }
  	
  	def List<RankingMinificada> todosLosEvaluadosDisponibles(String nombre, String tipo, int calificaciones, int ranking) {
     	var ArrayList<RankingMinificada> list = new ArrayList<RankingMinificada>
@@ -116,5 +131,11 @@ class UsuarioController {
    				this.calificaciones = calificaciones	
    			}
 		}
-           	
+					 
+    		@Accessors
+			static class DatosUsuario {
+    			String nombre
+    			String contrasenia	
+    		}	     	
+    		
 }

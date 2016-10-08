@@ -8,10 +8,10 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
-
 import static org.uqbar.commons.model.ObservableUtils.*
 import org.joda.time.format.DateTimeFormat
 import org.uqbar.commons.model.UserException
+import ar.edu.unq.uis.rankIt.controller.UsuarioController.DatosUsuario
 
 @Accessors
 @Observable
@@ -46,15 +46,14 @@ class UsuariosAppModel {
 		this.actualizarResumen()
 	}
 	
-	def void crearUsuario(String nombre, String contrasenia) {}
-	
-	def boolean existeUsuario(String nombre, String contrasenia) {
-		return true
+	def void registrarse(DatosUsuario datos) {
+		
 	}
 	
-	def Usuario loguear(String nombre, String contrasenia) {
-		if(1==1) throw new Exception
+	def Usuario loguear(DatosUsuario datos) {
+		//if(1==1) throw new Exception
 		 new Usuario
+		 
 	}
 	
 	def eliminarUsuarioSeleccionado() {
