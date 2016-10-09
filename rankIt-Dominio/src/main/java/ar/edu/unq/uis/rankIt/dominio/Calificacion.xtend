@@ -13,6 +13,8 @@ class Calificacion {
 	String detalle
 	Usuario evaluador
 	Publicacion evaluado
+	// Agregado por necesidad del segundo TP
+	Integer idCalificacion
 	
 	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle){
 		this.puntaje = puntaje
@@ -21,12 +23,35 @@ class Calificacion {
 		this.detalle = detalle
 	}
 	
+	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle, Integer idN){
+		this.puntaje = puntaje
+		this.evaluador = evaluador
+		this.evaluado = publicacion
+		this.detalle = detalle
+		idCalificacion = idN
+	}
+	
+	
+	// Agregado por el segundo TP
+	new (Integer p, String d, String e, Integer idN){
+		puntaje = p
+		detalle = d
+		idCalificacion = idN
+		var Publicacion pp = new Publicacion
+		pp.setNombre(e)
+		evaluado = pp
+	}
+	
 	def String getNombrePublicacion(){
 		evaluado.nombre
 	}
 	
 	def String getNombreUsuario(){
 		evaluador.nombre
+	}
+	
+	def Integer getIdCalificacion(){
+		return idCalificacion
 	}
 	
 	def void setEvaluado(Publicacion publicacion) {
