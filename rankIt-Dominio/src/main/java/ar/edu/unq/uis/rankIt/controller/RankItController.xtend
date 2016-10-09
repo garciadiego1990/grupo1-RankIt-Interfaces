@@ -52,7 +52,8 @@ class RankItController {
 			ok()
 		}
 	}
-
+	
+	// Creo que funciona pero no se como probarlo 
 	@Post("/calificaciones")
 	def createCalificacion(@Body String body) {
 		response.contentType = "application/json"
@@ -66,31 +67,4 @@ class RankItController {
 
 	}
 
-// Esta como el orto hacer 4 metodos para el post, pero todavia no se
-// como aplicar lo del body
-//	@Post("/calificaciones/:puntaje/:motivo/:evaluado")
-//	def createCalificacion() {
-//		response.contentType = "application/json"
-//		var Usuario carlitox = new Usuario(evaluado, "123")
-//		var Publicacion p1 = new Publicacion(evaluado)
-//		adminGeneral.adminCalificaciones.calificaciones.add(new Calificacion(p1, carlitox, Integer.valueOf(puntaje), motivo, 1))
-//		ok()
-//	}
-//	@Post("/calificaciones/:puntaje/:motivo")
-//	def createCalificacion() {
-//		badRequest('{ "error": "No ingresaste el nombre del evaluado" }')
-//
-//	}
-//
-//	@Post("/calificaciones/:puntaje")
-//	def createCalificacion() {
-//		badRequest('{ "error": "No ingresaste el nombre del evaluado, ni el motivo" }')
-//
-//	}
-//
-//	@Post("/calificaciones")
-//	def createCalificacion() {
-//		badRequest('{ "error": "No ingresaste el nombre del evaluado, ni el motivo, ni el puntaje" }')
-//
-//	}
 }
