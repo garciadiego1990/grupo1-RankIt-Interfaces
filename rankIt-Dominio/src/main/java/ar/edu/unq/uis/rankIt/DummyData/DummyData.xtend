@@ -30,6 +30,10 @@ class DummyData {
 		var usuarioPepe = new Usuario("pepe", Usuario.contraseniaDefault)
 		var usuarioLuis = new Usuario("Luis", Usuario.contraseniaDefault)
 		var usuarioMarcos = new Usuario("Marcos", Usuario.contraseniaDefault)
+		
+		adminGral.adminUsuarios.agregarUsuario(usuarioPepe)
+		adminGral.adminUsuarios.agregarUsuario(usuarioMarcos)
+		adminGral.adminUsuarios.agregarUsuario(usuarioLuis)
 
 		var calificacion1 = new Calificacion(Quilmes, usuarioPepe, 5, "Prueba1",1)
 		var calificacion2 = new Calificacion(Ezpeleta, usuarioLuis, 6, "Prueba2",2)

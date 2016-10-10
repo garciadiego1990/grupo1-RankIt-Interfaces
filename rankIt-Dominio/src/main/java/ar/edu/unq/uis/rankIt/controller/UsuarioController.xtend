@@ -13,8 +13,11 @@ import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import org.uqbar.xtrest.api.annotation.Post
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.xtrest.api.annotation.Body
+import ar.edu.unq.uis.rankIt.exceptions.ContraseniaDeUsuarioIncorrectaException
+import ar.edu.unq.uis.rankIt.exceptions.UsuarioNoEncontradoException
 
 @Controller
+@Deprecated
 class UsuarioController {
 	extension JSONUtils = new JSONUtils
 	UsuariosAppModel usuarioAppModel
@@ -59,8 +62,11 @@ class UsuarioController {
             	ok(usuario.id.toJson)
             }
         }
-        catch (Exception ex) {
-        	badRequest('{ "error": "Password incorrecto" }')
+        catch(UsuarioNoEncontradoException ex){
+        	badRequest('{ "error": "Usuario no encontrado." }')
+        }
+        catch(ContraseniaDeUsuarioIncorrectaException ex) {
+        	badRequest('{ "error": "Password incorrecto." }')
         }
     }
     
