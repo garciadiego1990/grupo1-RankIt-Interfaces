@@ -31,17 +31,6 @@ class Calificacion {
 		idCalificacion = idN
 	}
 	
-	
-	// Agregado por el segundo TP
-	new (Integer p, String d, String e, Integer idN){
-		puntaje = p
-		detalle = d
-		idCalificacion = idN
-		var Publicacion pp = new Publicacion
-		pp.setNombre(e)
-		evaluado = pp
-	}
-	
 	def String getNombrePublicacion(){
 		evaluado.nombre
 	}
