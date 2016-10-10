@@ -135,7 +135,7 @@ class AdministradorDeCalificaciones {
 		agregarCalificacion(calificacion)
 	}
 
-	// No es la forma correcta de hacerlo, pero por ahora sirve
+	//TODO No es la forma correcta de hacerlo, pero por ahora sirve
 	def void eliminarCalificacionPorID(Integer id) {
 		calificaciones = calificaciones.filter[calificacion|!calificacion.idCalificacion.equals(id)].toList
 	// eliminarCalificacion(getCalificacionConID(id))
@@ -151,4 +151,5 @@ class AdministradorDeCalificaciones {
 		//evaluado.agregarCalificacion(calificacion)
 		calificaciones.add(calificacion)
 	}
+		
 }

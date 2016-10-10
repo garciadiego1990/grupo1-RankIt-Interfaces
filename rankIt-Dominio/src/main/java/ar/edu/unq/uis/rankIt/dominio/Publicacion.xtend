@@ -16,25 +16,24 @@ class Publicacion {
 	List<Calificacion> calificaciones
 	Integer id
 	String tipo
+	
 
 	new() {
 		fechaDeRegistro = new DateTime
 		calificaciones = new ArrayList<Calificacion>
+		estaHabilitado = false
 		nombre = "--"
-	}
-	
-	new(Integer id, String tipo, String nombre) {
-		this.id = id
-		this.tipo = tipo
-		this.nombre = nombre
-	}
-	
+	}	
 
 	new(String nombre) {
-		estaHabilitado = false
-		fechaDeRegistro = new DateTime
-		calificaciones = new ArrayList<Calificacion>
+		this()
 		this.nombre = nombre
+	}
+	
+	new(Integer id, String nombre, String tipo) {
+		this(nombre)
+		this.id = id
+		this.tipo = tipo
 	}
 
 	def getCalificaciones() {
