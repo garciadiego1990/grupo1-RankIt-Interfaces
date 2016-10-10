@@ -14,6 +14,9 @@ import ar.edu.unq.uis.rankit.dominio.signup.SignUp
 import ar.edu.unq.uis.rankIt.exceptions.NombreDeUsuarioInvalidoException
 import org.uqbar.xtrest.api.annotation.Get
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
+import java.util.List
+import java.util.ArrayList
+import org.uqbar.commons.utils.ApplicationContext
 
 @Controller
 class ControllerManager {
@@ -23,8 +26,8 @@ class ControllerManager {
 	var LogIn loguer
 	var SignUp signer
 	
-	new(AdministradorGeneral admin) {
-		this.admin = admin
+	new() {
+		this.admin = this.getAdminGeneral()
 		this.loguer = new LogIn(this.admin.adminUsuarios)
 		this.signer = new SignUp(this.admin.adminUsuarios)
 	}
@@ -41,10 +44,10 @@ class ControllerManager {
             ok(usuario.id.toJson)
         }
         catch(UsuarioNoEncontradoException ex){
-        	notFound('{ "error": "Usuario no encontrado." }')
+        	notFound('{}')
         }
         catch(ContraseniaDeUsuarioIncorrectaException ex) {
-        	badRequest('{ "error": "Password incorrecto." }')
+        	badRequest('{}')
         }
     }
     
@@ -61,7 +64,7 @@ class ControllerManager {
             ok() 
         }
         catch (NombreDeUsuarioInvalidoException ex) {
-        	badRequest('{ "error": "Nombre de usuario inválido" }')
+        	badRequest('{}')
         }
     }
      
@@ -69,12 +72,21 @@ class ControllerManager {
         
     @Get("/evaluados")
     def getEvaluados() {
-        response.contentType = "application/json"        	  
-       	ok(this..toJson)      
+        response.contentType = "application/json"  
+        var miniPublicaciones = PublicacionMinificada.todasLasPublicaciones(this.admin)
+       	ok(miniPublicaciones.toJson)
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+	
+//CARGO EL APPLICATION CONTEXT
+
+	def AdministradorGeneral getAdminGeneral() {
+		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
+		return adminGral
+	}
+	
 	
 	@Accessors
 	static class DatosUsuario {
@@ -88,10 +100,23 @@ class ControllerManager {
    		String tipo
    		String nombre
    	
-   		new(Publicacion publicacion) {
+   		new(Publicacion publicacion, String tipo) {
    			this.id = publicacion.id
-   			this.tipo = publicacion.tipo
+   			this.tipo = tipo
    			this.nombre = publicacion.nombre	
+   		}
+   		
+   		def static todasLasPublicaciones(AdministradorGeneral admin) {
+   			var List<PublicacionMinificada> miniPublicaciones = new ArrayList<PublicacionMinificada>
+   			miniPublicaciones.addAll = publicaciones(admin.adminServicios.publicaciones, "SERVICIO")
+   			miniPublicaciones.addAll = publicaciones(admin.adminLugares.publicaciones, "LUGAR")
+   			return miniPublicaciones
+   		}
+   		
+   		def static publicaciones(List<Publicacion> publicaciones, String tipo) {
+   			val List<PublicacionMinificada> miniPublicaciones = new ArrayList<PublicacionMinificada>
+   			publicaciones.forEach[each | miniPublicaciones.add = new PublicacionMinificada(each, tipo)]
+   			return miniPublicaciones
    		}
 	}
 	
