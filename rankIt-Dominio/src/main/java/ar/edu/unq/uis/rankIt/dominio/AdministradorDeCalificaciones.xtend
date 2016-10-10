@@ -111,11 +111,11 @@ class AdministradorDeCalificaciones {
 	 *  ////////////////////////////////////////////////////////////////////////////////
 	 * *********************************************************************************
 	 */
-	// No lo use todavia
-	def List<Calificacion> getCalificacionesDeUsuario(String nombreUsuario) {
+
+	def List<Calificacion> getCalificacionesDeUsuario(String name) {
 		var List<Calificacion> ret = new ArrayList<Calificacion>
 
-		return ret = calificaciones.filter[c|c.evaluador.nombre.equals(nombreUsuario)].toList
+		return ret = calificaciones.filter[c|c.evaluador.nombre.equals(name)].toList
 	}
 
 	// Tendria que tirar una excepcion si no la encuentra
@@ -151,6 +151,4 @@ class AdministradorDeCalificaciones {
 		//evaluado.agregarCalificacion(calificacion)
 		calificaciones.add(calificacion)
 	}
-
-
 }
