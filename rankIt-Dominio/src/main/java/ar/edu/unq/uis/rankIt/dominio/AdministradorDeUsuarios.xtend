@@ -37,5 +37,9 @@ class AdministradorDeUsuarios {
 	def int usuariosBaneados() {
 		usuarios.filter[it.estaBaneado].size
 	}
+	
+	def Usuario buscarUsuarioPorNombre(String nombreDeUsuario) {
+		return this.usuarios.findFirst[ each | each.nombre == nombreDeUsuario ]
+	}
 		
 }

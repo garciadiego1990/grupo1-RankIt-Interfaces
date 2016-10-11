@@ -13,8 +13,7 @@ class Calificacion {
 	String detalle
 	Usuario evaluador
 	Publicacion evaluado
-	// Agregado por necesidad del segundo TP
-	Integer idCalificacion
+	Integer id
 	
 	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle){
 		this.puntaje = puntaje
@@ -23,12 +22,10 @@ class Calificacion {
 		this.detalle = detalle
 	}
 	
-	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle, Integer idN){
-		this.puntaje = puntaje
-		this.evaluador = evaluador
-		this.evaluado = publicacion
-		this.detalle = detalle
-		idCalificacion = idN
+	//TODO: Creo que este constructor no se usa
+	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle, Integer id){
+		this(publicacion, evaluador, puntaje, detalle)
+		this.id = id
 	}
 	
 	def String getNombrePublicacion(){
@@ -39,10 +36,8 @@ class Calificacion {
 		evaluador.nombre
 	}
 	
-	def Integer getIdCalificacion(){
-		return idCalificacion
-	}
-	
+	/** Dada una publicacion se modifica en esta calificación la publicación que esta siendo evaluada.
+	 * @author ae */
 	def void setEvaluado(Publicacion publicacion) {
 		var viejoEvaluado = this.evaluado
 		this.evaluado = publicacion

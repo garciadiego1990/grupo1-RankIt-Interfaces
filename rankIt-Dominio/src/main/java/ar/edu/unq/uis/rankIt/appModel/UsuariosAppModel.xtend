@@ -10,8 +10,6 @@ import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
 import static org.uqbar.commons.model.ObservableUtils.*
 import org.joda.time.format.DateTimeFormat
-import org.uqbar.commons.model.UserException
-import ar.edu.unq.uis.rankIt.controller.UsuarioController.DatosUsuario
 
 @Accessors
 @Observable
@@ -46,15 +44,6 @@ class UsuariosAppModel {
 		this.actualizarResumen()
 	}
 	
-	def void registrarse(DatosUsuario datos) {
-		
-	}
-	
-	def Usuario loguear(DatosUsuario datos) {
-		//if(1==1) throw new Exception
-		 new Usuario
-		 
-	}
 	
 	def eliminarUsuarioSeleccionado() {
 		this.admin.eliminarUsuario(this.usuarioSeleccionado)

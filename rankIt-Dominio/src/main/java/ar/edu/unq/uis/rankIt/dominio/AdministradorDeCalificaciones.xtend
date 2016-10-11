@@ -4,22 +4,26 @@ import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import ar.edu.unq.uis.rankIt.exceptions.CalificacionSinCompletarCorrectamente
+import ar.edu.unq.uis.rankIt.exceptions.IdDeCalificacionInexistenteException
+import ar.edu.unq.uis.rankIt.exceptions.CalificacionCompletadaIncorrectamenteException
 
 @Observable
 @Accessors
 class AdministradorDeCalificaciones {
 
 	var List<Calificacion> calificaciones
+	var int registroId
 	// Cargados en el bootsTrap
 	var List<Publicacion> servicios
 	var List<Publicacion> lugares
+	
 
 	new() {
 		this.calificaciones = new ArrayList<Calificacion>
 		this.servicios = new ArrayList<Publicacion>
 		this.lugares = new ArrayList<Publicacion>
 		this.actualizarListaDeCalificaciones() // TODO
+		this.registroId = 0
 	}
 
 	def int totalCalificaciones() {
@@ -44,7 +48,13 @@ class AdministradorDeCalificaciones {
 	def void agregarCalificacion(Calificacion calificacion) {
 		var evaluado = calificacion.evaluado
 		evaluado.agregarCalificacion(calificacion)
+		calificacion.id = this.generarNuevoId
 		this.actualizarListaDeCalificaciones()
+	}
+	
+	private def generarNuevoId() {
+		this.registroId++
+		return this.registroId
 	}
 
 	def void eliminarCalificacion(Calificacion calificacion) {
@@ -114,31 +124,27 @@ class AdministradorDeCalificaciones {
 
 	def List<Calificacion> getCalificacionesDeUsuario(String name) {
 		var List<Calificacion> ret = new ArrayList<Calificacion>
-
-		return ret = calificaciones.filter[c|c.evaluador.nombre.equals(name)].toList
+		ret = this.calificaciones.filter[c|c.evaluador.nombre.equals(name)].toList
+		return ret
 	}
 
-	// Tendria que tirar una excepcion si no la encuentra
-	def Calificacion getCalificacionConID(Integer id) {
-		for (Calificacion c : calificaciones) {
-			if (c.idCalificacion.equals(id)) {
+	def Calificacion getCalificacionConId(Integer id) {
+		for (Calificacion c : calificaciones)
+			if (c.id.equals(id))
 				return c
-			}
-		}
+		throw new IdDeCalificacionInexistenteException(id.toString)
 	}
 
 	def void agregarNuevaCalificacionConValidacion(Calificacion calificacion) {
 		if (calificacion.puntaje.equals(null) || calificacion.detalle.equals(null) || calificacion.evaluado == null) {
-			throw new CalificacionSinCompletarCorrectamente("La Calificacion se encuentra incompleta")
-
+			throw new CalificacionCompletadaIncorrectamenteException("La Calificacion se encuentra incompleta")
 		}
 		agregarCalificacion(calificacion)
 	}
 
-	//TODO No es la forma correcta de hacerlo, pero por ahora sirve
 	def void eliminarCalificacionPorID(Integer id) {
-		calificaciones = calificaciones.filter[calificacion|!calificacion.idCalificacion.equals(id)].toList
-	// eliminarCalificacion(getCalificacionConID(id))
+		var Calificacion calificacionEncontrada = this.getCalificacionConId(id)
+		this.eliminarCalificacion(calificacionEncontrada)
 	}
 	
 	/*  Si le saco lo que esta comentado, cuando pruebo me tira esta error:

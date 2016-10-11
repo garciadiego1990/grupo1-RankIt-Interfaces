@@ -2,19 +2,44 @@ package ar.edu.unq.uis.rankIt.clasesMinificadas
 
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.dominio.Publicacion
+import java.util.List
+import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class CalificacionMinificada {
-	// No se informa el puntaje, el motivo de la puntuación, el evaluado o el id de calificación modificada
+	
 	Integer puntaje
 	String detalle
-	String nombreDelEvaluado
-	Integer idCalificacionMinificada
+	String evaluado
+	String evaluador
+	Integer id
 	
+	new(){
+		super()
+	}
+	
+	new(Integer id, String nombreEvaluador, String nombreEvaluado, Integer puntaje, String detalle) {
+		this.id = id
+		this.evaluador = nombreEvaluador
+		this.evaluado = nombreEvaluado
+		this.puntaje = puntaje
+		this.detalle = detalle
+	}
+	
+	
+	def static List<CalificacionMinificada> generarCalificacionesMinificadas(List<Calificacion> calificaciones) {
+		val calificacionesMini = new ArrayList<CalificacionMinificada>()
+		for(Calificacion c: calificaciones) {
+			calificacionesMini.add = new CalificacionMinificada(c.id, c.evaluador.nombre, c.evaluado.nombre, c.puntaje, c.detalle)
+		}
+		return calificacionesMini
+	}
 	
 	def Calificacion convertir(){
 		var Publicacion pp = new Publicacion
-		pp.setNombre(nombreDelEvaluado)
-		var Calificacion c = new Calificacion(pp,null, puntaje, detalle,idCalificacionMinificada)
+		pp.setNombre(this.evaluado)
+		var Calificacion c = new Calificacion(pp,null, puntaje, detalle,id)
 		return c
 	}
 
