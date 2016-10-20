@@ -1,0 +1,45 @@
+.margenes{
+	   margin-top: 20px;
+	   margin-bottom: 10px;
+}
+
+
+.margenIzquierdo{
+	margin-left: 20px;
+}
+
+
+.margenInferior{
+	margin-bottom: 20px;
+}
+
+
+.texto{
+	text-align: center;
+}
+
+
+.borde{
+    border: solid black;
+    margin-top: 20px;
+}
+
+
+.botonComun {
+
+     border-radius: 0;
+     width: 80px;
+     font-size: 40px;
+}
+
+
+.cuadroCalificacion{
+	background-color:lightcyan; 
+	margin-top:30px;
+}
+
+
+.texboxCalificacion{
+	width: 34px;
+	height: 20px;
+}
