@@ -1,0 +1,9 @@
+
+input.ng-invalid {
+	background-color: #CC4444;
+	color: white;
+}
+.logo {
+	width: 170px;
+	height: 99px;
+}

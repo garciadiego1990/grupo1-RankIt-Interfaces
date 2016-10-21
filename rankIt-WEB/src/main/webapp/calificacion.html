@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="rankitApp">
+<head>
+   <meta charset="utf-8">
+   <title>Calificaciones</title>
+   <link rel="stylesheet" href="css/calificacion.css" media="screen"/>
+
+     <!-- JQUERY -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+     <!-- ANGULAR  -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="node_modules/angular-touch/angular-touch.min.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <!-- UNDERSCORE -->
+    <script src="node_modules/underscore/underscore-min.js"></script>
+
+
+</head>
+<body ​ ng-controller="">
+
+	
+	<div class="borde">
+    <h1 class="texto">RankIT</h1>
+  </div>
+	<div class="borde">
+    <h1 class="texto">Mis Calificaciones</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6 " >
+    <table class="table">
+    <tr data-ng-repeat="">
+      <td>
+           <div class="row borde" id="{{}}">
+              <div class="col-md-6 margenes">
+                 <strong> <h3>{{}}</h3></strong>
+                  <strong><h6>{{}}</h6></strong>
+                  
+              </div>
+              <div class="col-md-4 circulo margenes">
+                <h3>{{}}</h3>
+              </div>
+              <div class="col-md-2">
+                 <div class="margenes">
+                  <button type="button" class="btn btn-default botonComun" ng-click="">Borrar</button>
+                 </div>
+                <div class="margenes">
+                   <button type="button" class="btn btn-default botonComun" ng-click="">Modificar</button>
+                
+                </div>
+              </div>
+           </div>
+      </td> 
+    </tr>
+  </table>
+         
+   </div>
+
+    <div class="col-md-6">
+         <div class="borde">
+             <h2 class="texto">Nueva Calificación</h2>
+         </div>
+         <div class="cuadroCalificacion">
+           <div class="row">
+              <div class="col-md-6 margenes margenIzquierdo">
+                <p>Calificado</p>
+                <input type="text" ng-model="" uib-typeahead="" class="form-control">
+
+
+                </div>
+              <div class="col-md-3 margenes">
+                  <p>Puntaje</p>
+                    <input type="number" name="puntos" class="form-control"
+                    ng-model="" required="true">
+                
+              </div>
+            </div>
+               <div class="row">
+                   <div class="col-md-9 margenes margenIzquierdo">
+                        <p>Motivo</p>
+                        <textarea ng-model="" type="text" class="form-control" rows="3"></textarea>
+                     
+                   </div>
+               </div>
+
+               <div class="row">
+                   <div class="col-md-9 margenes margenIzquierdo margenInferior">
+                     <button type="button" class="btn btn-default btn-lg btn-block" ng-click="">Calificar</button>
+                                             
+                   </div>
+               </div>
+        
+       </div>
+       </div>
+  </div>
+</body>
+</html>
