@@ -1,0 +1,38 @@
+<div class="container">
+				<div class="row">
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="row">
+								<div class="col-sm-5">
+									Nombre <input ng-model="busqueda.nombre" type="text"
+										class="form-control" />
+								</div>
+								<div class="col-sm-5">
+									Tipo
+									<div>
+										<select name="repeatSelect" id="repeatSelect"
+											ng-model="busqueda.tipo">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-5">
+									Calificaciones <input ng-model="busqueda.calificaciones"
+										type="text" class="form-control" />
+								</div>
+								<div class="col-sm-5">
+									Ranking <input ng-model="busqueda.ranking" type="text"
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-5">
+							<button type="submit" class="btn btn-default" ng-click="">Buscar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h1>0 Resultados para su busqueda</h1>
+			</div>

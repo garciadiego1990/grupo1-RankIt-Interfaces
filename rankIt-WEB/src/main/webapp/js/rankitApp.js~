@@ -1,0 +1,61 @@
+angular.module('rankitApp', [])
+
+.service("loginService", ["$http", function ($http) {
+	
+	this.registrar = function(loginCtrl, callback, errorCallback){
+		$http.put("http://localhost:9000/usuarios", loginCtrl).success(function(){
+			callback();
+		}).error(function(){
+			errorCallback()
+		})
+	}
+
+	this.loguear = function(loginCtrl, callback, errorCallback){
+		$http.post("http://localhost:9000/usuarios", loginCtrl).success(function(response){
+			callback(response);
+		}).error(function(){
+			errorCallback()
+		})
+	}
+
+}])
+
+.controller('loginController', function ($http,$scope,loginService) 
+{		
+				$scope.usuarioLogueado=false;
+				                
+				$scope.loginCtrl = {};
+    	        $scope.loginCtrl.usuario ="";
+				$scope.loginCtrl.password = "";
+                
+				$scope.registrar = function (){
+		
+					var callback = function(){
+						console.log("Usuario Registrado")
+					}
+					
+					var errorCallback=function(){
+						console.log("Error al Registrar")
+					}					
+
+					loginService.registrar($scope.loginCtrl, callback, errorCallback);
+
+				}
+				
+				$scope.loguear = function (){
+		
+					var callback = function(response){
+						console.log("Usuario Logueado "+response.id)
+					}
+
+					var errorCallback=function(){
+						console.log("Error al loguear")
+					}	
+					
+					loginService.loguear($scope.loginCtrl, callback, errorCallback);
+
+
+		        }	
+});
+  
+

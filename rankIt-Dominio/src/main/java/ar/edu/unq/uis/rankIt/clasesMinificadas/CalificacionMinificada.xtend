@@ -14,6 +14,7 @@ class CalificacionMinificada {
 	String evaluado
 	String evaluador
 	Integer id
+	//String tipo
 	
 	new(){
 		super()

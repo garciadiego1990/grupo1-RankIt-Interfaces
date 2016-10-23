@@ -45,11 +45,12 @@ class AdministradorDeCalificaciones {
 	}
 
 //ALTA BAJA MODIFICACION CALIFICACIONES
-	def void agregarCalificacion(Calificacion calificacion) {
+	def Integer agregarCalificacion(Calificacion calificacion) {
 		var evaluado = calificacion.evaluado
 		evaluado.agregarCalificacion(calificacion)
 		calificacion.id = this.generarNuevoId
 		this.actualizarListaDeCalificaciones()
+		return calificacion.id
 	}
 	
 	private def generarNuevoId() {
@@ -127,7 +128,13 @@ class AdministradorDeCalificaciones {
 		ret = this.calificaciones.filter[c|c.evaluador.nombre.equals(name)].toList
 		return ret
 	}
-
+	
+	def List<Calificacion> getCalificacionesDeUsuario(Integer id) {
+		var List<Calificacion> ret = new ArrayList<Calificacion>
+		ret = this.calificaciones.filter[c|c.evaluador.id.equals(id)].toList
+		return ret
+	}
+	
 	def Calificacion getCalificacionConId(Integer id) {
 		for (Calificacion c : calificaciones)
 			if (c.id.equals(id))

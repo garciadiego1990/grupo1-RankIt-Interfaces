@@ -48,10 +48,11 @@ class ControllerManager {
 		try {
 			var DatosUsuario datos = body.fromJson(typeof(DatosUsuario))
 			var usuario = this.loguer.logearUsuario(datos.usuario, datos.password)
-			ok(usuario.id.toJson)
+			ok('{"id":'+usuario.id.toJson+'}')
 		} catch (UsuarioNoEncontradoException ex) {
 			notFound('{}')
 		} catch (ContraseniaDeUsuarioIncorrectaException ex) {
+			// tendria que ser un unauthorized (error 401) no lo implementaron ellos
 			badRequest('{}')
 		}
 	}
@@ -98,10 +99,11 @@ class ControllerManager {
 	// /////////////////////////////////////////////////////////////////////
 	// ///////////////// CALIFICACIONES ///////////////////////////////////
 	// ///////////////////////////////////////////////////////////////////
+	// Tiene que ser por ID
 	@Get("/calificaciones")
-	def getCalificacionesDelUsuario(String nombre) {
+	def getCalificacionesDelUsuario(String id) {
 		response.contentType = "application/json"
-		var calificacionesDelUsuario = adminGeneral.adminCalificaciones.getCalificacionesDeUsuario(nombre)
+		var calificacionesDelUsuario = adminGeneral.adminCalificaciones.getCalificacionesDeUsuario(Integer.valueOf(id))
 		var calificacionesMini = CalificacionMinificada.generarCalificacionesMinificadas(calificacionesDelUsuario)
 		ok(calificacionesMini.toJson)
 	}
@@ -125,10 +127,11 @@ class ControllerManager {
 		try {
 			var CalificacionMinificada c = body.fromJson(typeof(CalificacionMinificada))
 			var evaluador = this.adminGeneral.adminUsuarios.buscarUsuarioPorNombre(c.evaluador)
-			var evaluado = new Publicacion // TODO: Hay que buscar la publicacion por el nombre entre las publicaciones de servicios y lugares
+			var evaluado = this.adminGeneral.adminServicios.buscarPublicacionPorNombre(c.evaluado)
+			if(evaluado==null) evaluado= this.adminGeneral.adminLugares.buscarPublicacionPorNombre(c.evaluado)
 			var nuevaCalificacion = new Calificacion(evaluado, evaluador, c.puntaje, c.detalle)
-			this.adminGeneral.adminCalificaciones.agregarCalificacion(nuevaCalificacion)
-			ok()
+			var idRet = this.adminGeneral.adminCalificaciones.agregarCalificacion(nuevaCalificacion)
+			ok('{"id":'+idRet.toJson+'}')
 		} catch (CalificacionCompletadaIncorrectamenteException e) {
 			badRequest('{}')
 		}

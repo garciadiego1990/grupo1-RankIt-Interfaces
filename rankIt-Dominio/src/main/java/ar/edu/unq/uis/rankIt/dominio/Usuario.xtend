@@ -14,6 +14,7 @@ class Usuario {
 	boolean estaBaneado = false
 	Integer publicacionesOfensivas = 0
 	Integer id
+	static Integer lastID = 0
 	
 	public val static String nombreDefault = "NN"
 	public val static String contraseniaDefault = "123" 
@@ -29,6 +30,8 @@ class Usuario {
 		this.estaBaneado = false
 		this.contrasenia = contrasenia
 		this.fechaDeRegistro = new DateTime
+		lastID++
+		this.id = lastID
 	}
 	
 	

@@ -48,5 +48,15 @@ class AdministradorDePublicaciones {
 	private def int generarNuevoId() {
 		this.registroId++
 		return this.registroId
-	} 
+	}
+		
+	def Publicacion buscarPublicacionPorNombre(String unNombre) {
+		for(Publicacion p: publicaciones){
+			if(p.nombre.equals(unNombre))
+				return p
+			
+		} 
+		return null
+	}
+	
 }
