@@ -156,39 +156,45 @@ angular.module('rankitApp', [])
 	}
 
 
-	$scope.validacionCalificacion={};
+	$scope.validacionNuevaCalificacion={};
 
-	$scope.validacionCalificacion.evaluado=false;
-	$scope.validacionCalificacion.puntaje=false;
-	$scope.validacionCalificacion.detalle=false;
+	$scope.validacionNuevaCalificacion.evaluado=false;
+	$scope.validacionNuevaCalificacion.puntaje=false;
+	$scope.validacionNuevaCalificacion.detalle=false;
+	
+	$scope.validacionCalificacionEditable={};
 
-	validacion=function(){
+	$scope.validacionCalificacionEditable.evaluado=false;
+	$scope.validacionCalificacionEditable.puntaje=false;
+	$scope.validacionCalificacionEditable.detalle=false;
+
+	validacion = function(calificacion,validacionCalificacion){
 		var res = true
 
-		if(angular.isUndefined($scope.nuevaCalificacion.evaluado) || $scope.nuevaCalificacion.evaluado==null || $scope.nuevaCalificacion.evaluado.trim()==""){
-			$scope.validacionCalificacion.evaluado = true; 
+		if(angular.isUndefined(calificacion.evaluado) || calificacion.evaluado==null || calificacion.evaluado.trim()==""){
+			validacionCalificacion.evaluado = true; 
 			res = false;
 		}
-		else{ $scope.validacionCalificacion.evaluado = false; }
+		else{ $scope.validacionNuevaCalificacion.evaluado = false; }
 
-		if(angular.isUndefined($scope.nuevaCalificacion.puntaje) || $scope.nuevaCalificacion.puntaje==null){
-			$scope.validacionCalificacion.puntaje = true; 
+		if(angular.isUndefined(calificacion.puntaje) || calificacion.puntaje==null){
+			validacionCalificacion.puntaje = true; 
 			res = false;
 		}
-		else{$scope.validacionCalificacion.puntaje = false; }
+		else{validacionCalificacion.puntaje = false; }
 		
 
-		if((angular.isUndefined($scope.nuevaCalificacion.detalle) || $scope.nuevaCalificacion.detalle==null || $scope.nuevaCalificacion.detalle.trim()=="")){
-			$scope.validacionCalificacion.detalle = true; 
+		if((angular.isUndefined(calificacion.detalle) || calificacion.detalle==null || calificacion.detalle.trim()=="")){
+			validacionCalificacion.detalle = true; 
 			res = false;
 		}
-		else {$scope.validacionCalificacion.detalle = false;}
+		else {validacionCalificacion.detalle = false;}
 	return res;
 };
 
 $scope.nuevaCalificacion = {};
 $scope.addCalificacion = function(){
-	if(validacion()){
+	if(validacion($scope.nuevaCalificacion,$scope.validacionNuevaCalificacion)){
 		
 
 
@@ -215,14 +221,18 @@ $scope.addCalificacion = function(){
 
 $scope.calificacionEditable = {};
 $scope.editCalificacion = function(index){
-	var calificacionAEditar = {};
-	angular.copy($scope.calificacionEditable, calificacionAEditar);
-	var callback = function(){
-		$scope.calificaciones[index] = calificacionAEditar;
-		$scope.calificacionEditable = {};
+	if(validacion($scope.calificacionEditable,$scope.validacionCalificacionEditable)){
+		var calificacionAEditar = {};
+		angular.copy($scope.calificacionEditable, calificacionAEditar);
+		var callback = function(){
+			$scope.calificaciones[index] = calificacionAEditar;
+			$scope.calificacionEditable = {};
+			$("#modal_edicion").modal("hide");
+		}
+		rankitService.editCalificacion(calificacionAEditar, callback);
 	}
-	rankitService.editCalificacion(calificacionAEditar, callback);
 }
+
 
 $scope.prepararModal = function(index){
 	angular.copy($scope.calificaciones[index], $scope.calificacionEditable);

@@ -129,7 +129,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 ">
-						<table class="table">
+						<table class="table borde">
 							<tr ng-repeat="calificacion in calificaciones">
 								<td>
 									<div class="row borde" id="{{}}">
@@ -161,7 +161,7 @@
 
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6 cuadroCalificacion">
 						<div class="borde">
 							<h2 class="texto">Nueva Calificacion</h2>
 						</div>
@@ -170,7 +170,7 @@
 								<div class="col-md-6 margenes margenIzquierdo">
 									<p>Calificado</p>
 									<input type="text" name="calificado" ng-model="nuevaCalificacion.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
-									<div ng-show="validacionCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
+									<div ng-show="validacionNuevaCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
 									
 								
 										
@@ -181,7 +181,7 @@
 								<div class="col-md-3 margenes">
 									<p>Puntaje</p>
 									<input type="number" name="puntos" class="form-control" required="true" ng-model="nuevaCalificacion.puntaje">
-									<div ng-show="validacionCalificacion.puntaje"><p>Este campo es obligatorio!</p></div>
+									<div ng-show="validacionNuevaCalificacion.puntaje"><p>Este campo es obligatorio!</p></div>
 								</div>
 							</div>
 							<div class="row">
@@ -189,7 +189,7 @@
 									<p>Motivo</p>
 									<textarea type="text" class="form-control" rows="3"
 										ng-model="nuevaCalificacion.detalle"></textarea>
-										<div ng-show="validacionCalificacion.detalle"><p>Este campo es obligatorio!</p></div>
+										<div ng-show="validacionNuevaCalificacion.detalle"><p>Este campo es obligatorio!</p></div>
 
 								</div>
 							</div>
@@ -223,7 +223,8 @@
 							<div class="row">
 								<div class="col-md-6 margenes margenIzquierdo">
 									<p>Calificado</p>
-									<input type="text" name="calificado" ng-model="nuevaCalificacion.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
+									<input type="text" name="calificado" ng-model="calificacionEditable.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
+									<div ng-show="validacionCalificacionEditable.evaluado"><p>Este campo es obligatorio!</p></div>
 									
 
 
@@ -231,14 +232,14 @@
 								<div class="col-md-3 margenes">
 									<p>Puntaje</p>
 									<input type="number" name="puntos" class="form-control" required="true" ng-model="calificacionEditable.puntaje">
-									
+									<div ng-show="validacionCalificacionEditable.puntaje"><p>Este campo es obligatorio!</p></div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-9 margenes margenIzquierdo">
 									<p>Motivo</p>
 									<textarea type="text" class="form-control" rows="3" ng-model="calificacionEditable.detalle"></textarea>
-									
+									<div ng-show="validacionCalificacionEditable.detalle"><p>Este campo es obligatorio!</p></div>
 								</div>
 							</div>
 
@@ -248,7 +249,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" data-ng-click="editCalificacion(indiceDeCalificacionEditable)"  data-dismiss="modal">Editar</button>
+                <button type="button" class="btn btn-primary" data-ng-click="editCalificacion(indiceDeCalificacionEditable)">Editar</button>
         </div>
     </div>
   </div>
