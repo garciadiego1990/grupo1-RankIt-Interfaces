@@ -99,7 +99,7 @@ class ControllerManager {
 	// /////////////////////////////////////////////////////////////////////
 	// ///////////////// CALIFICACIONES ///////////////////////////////////
 	// ///////////////////////////////////////////////////////////////////
-	// Tiene que ser por ID
+	
 	@Get("/calificaciones")
 	def getCalificacionesDelUsuario(String id) {
 		response.contentType = "application/json"
@@ -131,7 +131,8 @@ class ControllerManager {
 			if(evaluado==null) evaluado= this.adminGeneral.adminLugares.buscarPublicacionPorNombre(c.evaluado)
 			var nuevaCalificacion = new Calificacion(evaluado, evaluador, c.puntaje, c.detalle)
 			var idRet = this.adminGeneral.adminCalificaciones.agregarCalificacion(nuevaCalificacion)
-			ok('{"id":'+idRet.toJson+',"tipo":'+nuevaCalificacion.tipo.toJson+'}')
+			//ok('{"id":'+idRet.toJson+',"tipo":'+nuevaCalificacion.tipo.toJson+'}')
+			ok('{"id":'+idRet.toJson+',"tipo":'+nuevaCalificacion.tipo.toJson+',"ratingPromedio":'+c.ratingPromedio+'}')
 		} catch (CalificacionCompletadaIncorrectamenteException e) {
 			badRequest('{}')
 		}

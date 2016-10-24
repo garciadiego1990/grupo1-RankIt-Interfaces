@@ -16,26 +16,27 @@ class CalificacionMinificada {
 	String evaluador
 	Integer id
 	String tipo
-	Publicacion publicacion
+	double ratingPromedio
 	
 	new(){
 		super()
 	}
 	
-	new(Integer id, String nombreEvaluador, String nombreEvaluado, Integer puntaje, String detalle, String unTipo) {
+	new(Integer id, String nombreEvaluador, String nombreEvaluado, Integer puntaje, String detalle, String unTipo, double rating) {
 		this.id = id
 		this.evaluador = nombreEvaluador
 		this.evaluado = nombreEvaluado
 		this.puntaje = puntaje
 		this.detalle = detalle
 		this.tipo = unTipo
+		this.ratingPromedio = rating
 	}
 	
 	
 	def static List<CalificacionMinificada> generarCalificacionesMinificadas(List<Calificacion> calificaciones) {
 		val calificacionesMini = new ArrayList<CalificacionMinificada>()
 		for(Calificacion c: calificaciones) {
-			calificacionesMini.add = new CalificacionMinificada(c.id, c.evaluador.nombre, c.evaluado.nombre, c.puntaje, c.detalle, c.evaluado.tipo)
+			calificacionesMini.add = new CalificacionMinificada(c.id, c.evaluador.nombre, c.evaluado.nombre, c.puntaje, c.detalle, c.evaluado.tipo, c.evaluado.ratingPromedio())
 		}
 		return calificacionesMini
 	}

@@ -2,6 +2,9 @@ angular.module('rankitApp', [])
 
 .service("rankitService", ["$http", function ($http) {
 
+	///// .SERVICE /////
+
+	// REGISTRAR
 	this.registrar = function(loginCtrl, callback, errorCallback){
 		$http.put("http://localhost:9000/usuarios", loginCtrl).success(function(){
 			callback();
@@ -10,6 +13,7 @@ angular.module('rankitApp', [])
 		})
 	}
 
+	// LOGUEAR
 	this.loguear = function(loginCtrl, callback, errorCallback){
 		$http.post("http://localhost:9000/usuarios", loginCtrl).success(function(response){
 			callback(response);
@@ -17,7 +21,9 @@ angular.module('rankitApp', [])
 			errorCallback()
 		})
 	}
-	
+
+	////////// CALIFICACIONES
+
 	this.getCalificaciones = function(idUsuario, callback, errorCallback){
 		$http.get("http://localhost:9000/calificaciones?id="+ idUsuario).success(function(response){
 			callback(response);
@@ -25,39 +31,43 @@ angular.module('rankitApp', [])
 			errorCallback()
 		})
 	}
-	
+
 	this.deleteCalificacion = function(idCalificacion, callback){
 		$http.delete("http://localhost:9000/calificaciones?id="+ idCalificacion).success(function(){
 			callback();
 		})
 	}
-	
+
 	this.addCalificacion = function(calificacion, callback, errorCallback){
 		$http.post("http://localhost:9000/calificaciones", calificacion).success(function(response){
 			callback(response);
 		}).error(function(){
 			errorCallback()
 		})
-		
+
 	}
-	
+
 	this.editCalificacion = function(calificacion, callback){
 		$http.put("http://localhost:9000/calificaciones", calificacion).success(function(){
 			callback();
 		})
-		
+
 	}
-	// agregar errorCallback
+
+	// EVALUADOS
 	this.getEvaluados= function(callback){
 		$http.get("http://localhost:9000/evaluados").success(function(response){
 			callback(response);
+		}).error(function(){
+			errorCallback()
 		})
 	}
-	
 }])
 
+//////////////.CONTROLLER /////////////////////
+
 .controller('rankitController', function ($http,$scope,rankitService) {		
-	
+
 	$scope.principal = true;
 	$scope.usuarioLogueado=false;
 
@@ -65,10 +75,12 @@ angular.module('rankitApp', [])
 	$scope.loginCtrl.usuario ="";
 	$scope.loginCtrl.password = "";
 
+	// Registrar
 	$scope.registrar = function (){
 
 		var callback = function(){
 			console.log("Usuario Registrado")
+			$scope.loguear();
 		}
 
 		var errorCallback=function(){
@@ -79,6 +91,7 @@ angular.module('rankitApp', [])
 
 	}
 
+	// Loguear
 	$scope.loguear = function (){
 
 		var callback = function(response){
@@ -86,7 +99,7 @@ angular.module('rankitApp', [])
 			$scope.idUsuario = response.id
 			$scope.usuarioLogueado=true;
 		}
-	
+
 
 		var errorCallback=function(){
 			console.log("Error al loguear: Error al ingresar el usuario o la contrasenia")
@@ -96,36 +109,40 @@ angular.module('rankitApp', [])
 
 
 	}
+	////////////////  CALIFICACIONES ////////////////
+
+
+	// Funcionabilidad boton calificar
 	$scope.calificaciones = [];
-	
+
 	$scope.calificar = function(){
 		$scope.principal = false;
 		$scope.getCalificaciones();
 		$scope.getEvaluados();
 	}
-	
-	// hay q hacer un callback de error
+
+
 	$scope.getCalificaciones=function(){
 		var callback = function(response){
 			$scope.calificaciones = response;
 		}
-		
+
 		var errorCallback=function(){
-			console.log("El usuario logueado no posee calificaciones hasta el momento")
+			console.log("Error al hacer el pedido de calificaciones")
 		}	
-		
+
 		rankitService.getCalificaciones($scope.idUsuario, callback, errorCallback)
-		
+
 	}	
-/*	
+	/*	
 	$scope.deleteCalificacion = function(idCalificacion, index){
 		var callback = function(){
 			$scope.calificaciones.splice(index, 1);		
 		}
 		rankitService.deleteCalificacion(idCalificacion, callback);
-	
+
 	}
-*/
+	 */
 	$scope.deleteCalificacion = function(idCalificacion, index){
 		bootbox.confirm("Estas seguro que queres eliminar esta calificacion?", function(confirma) {
 			if (confirma) {
@@ -133,67 +150,112 @@ angular.module('rankitApp', [])
 					$scope.calificaciones.splice(index, 1);		
 				}
 				rankitService.deleteCalificacion(idCalificacion, callback);
-				
-				}
-			})
-		}
 
-	$scope.nuevaCalificacion = {};
-	$scope.addCalificacion = function(){
+			}
+		})
+	}
+
+
+	$scope.validacionCalificacion={};
+
+	$scope.validacionCalificacion.evaluado=false;
+	$scope.validacionCalificacion.puntaje=false;
+	$scope.validacionCalificacion.detalle=false;
+
+	validacion=function(){
+		var res = true
+
+		if(angular.isUndefined($scope.nuevaCalificacion.evaluado) || $scope.nuevaCalificacion.evaluado==null || $scope.nuevaCalificacion.evaluado.trim()==""){
+			$scope.validacionCalificacion.evaluado = true; 
+			res = false;
+		}
+		else{ $scope.validacionCalificacion.evaluado = false; }
+
+		if(angular.isUndefined($scope.nuevaCalificacion.puntaje) || $scope.nuevaCalificacion.puntaje==null){
+			$scope.validacionCalificacion.puntaje = true; 
+			res = false;
+		}
+		else{$scope.validacionCalificacion.puntaje = false; }
+		
+
+		if((angular.isUndefined($scope.nuevaCalificacion.detalle) || $scope.nuevaCalificacion.detalle==null || $scope.nuevaCalificacion.detalle.trim()=="")){
+			$scope.validacionCalificacion.detalle = true; 
+			res = false;
+		}
+		else {$scope.validacionCalificacion.detalle = false;}
+	return res;
+};
+
+$scope.nuevaCalificacion = {};
+$scope.addCalificacion = function(){
+	if(validacion()){
+		
+
+
 		$scope.nuevaCalificacion.evaluador=$scope.loginCtrl.usuario;
 		var calificacionAAgregar = {};
 		angular.copy($scope.nuevaCalificacion, calificacionAAgregar);
-		
+
 		var callback = function(response){
 			calificacionAAgregar.id = response.id;
 			calificacionAAgregar.tipo = response.tipo;
 			$scope.calificaciones.push(calificacionAAgregar);
 			$scope.nuevaCalificacion = {};
 		}
-		
+
 		var errorCallback=function(){
-			console.log("Error al Calificar: No existe la publicacion")
+			console.log("Error al Calificar: No existe la publicacion");
 		}	
-		rankitService.addCalificacion(calificacionAAgregar, callback, errorCallback)
-		
+		rankitService.addCalificacion(calificacionAAgregar, callback, errorCallback);
+
 	}
-	
-	$scope.calificacionEditable = {};
-	$scope.editCalificacion = function(index){
-		var calificacionAEditar = {};
-		angular.copy($scope.calificacionEditable, calificacionAEditar);
-		var callback = function(){
-			$scope.calificaciones[index] = calificacionAEditar;
-			$scope.calificacionEditable = {};
-		}
-		rankitService.editCalificacion(calificacionAEditar, callback);
-	}
-	
-	$scope.prepararModal = function(index){
-		angular.copy($scope.calificaciones[index], $scope.calificacionEditable);
-		$scope.indiceDeCalificacionEditable = index;
-	}
-	
-	
-	$scope.salir = function(){
-		$scope.principal = true;
-		$scope.usuarioLogueado = false;
-		$scope.calificaciones = [];
-		$scope.loginCtrl.usuario ="";
-		$scope.loginCtrl.password = "";
-		$scope.nuevaCalificacion = {};
+}
+
+
+
+$scope.calificacionEditable = {};
+$scope.editCalificacion = function(index){
+	var calificacionAEditar = {};
+	angular.copy($scope.calificacionEditable, calificacionAEditar);
+	var callback = function(){
+		$scope.calificaciones[index] = calificacionAEditar;
 		$scope.calificacionEditable = {};
-		$scope.evaluados = [];
 	}
-	
+	rankitService.editCalificacion(calificacionAEditar, callback);
+}
+
+$scope.prepararModal = function(index){
+	angular.copy($scope.calificaciones[index], $scope.calificacionEditable);
+	$scope.indiceDeCalificacionEditable = index;
+}
+
+//Funcionabilidad del BOTON SALIR
+$scope.salir = function(){
+	$scope.principal = true;
+	$scope.usuarioLogueado = false;
+	$scope.calificaciones = [];
+	$scope.loginCtrl.usuario ="";
+	$scope.loginCtrl.password = "";
+	$scope.nuevaCalificacion = {};
+	$scope.calificacionEditable = {};
 	$scope.evaluados = [];
-	$scope.getEvaluados = function(){
-		var callback = function(response){
-			$scope.evaluados = response
-		}
-		rankitService.getEvaluados(callback);
+}
+
+//Evaluados
+$scope.evaluados = [];
+$scope.getEvaluados = function(){
+	var callback = function(response){
+		$scope.evaluados = response
 	}
-	
-		});
+
+	var errorCallback=function(){
+		console.log("Error al traer los evaluados")
+	}
+	rankitService.getEvaluados(callback);
+}
+
+this.evaluados=[];	  
+
+});
 
 

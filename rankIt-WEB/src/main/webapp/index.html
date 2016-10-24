@@ -140,7 +140,7 @@
 
 										</div>
 										<div class="col-md-4 circulo margenes">
-											<h3>{{calificacion.publicacion.ratingPromedio()}}</h3>
+											<h3>{{calificacion.puntaje}}</h3>
 										</div>
 										<div class="col-md-2">
 											<div class="margenes">
@@ -170,17 +170,18 @@
 								<div class="col-md-6 margenes margenIzquierdo">
 									<p>Calificado</p>
 									<input type="text" name="calificado" ng-model="nuevaCalificacion.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
+									<div ng-show="validacionCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
 									
-									<input type="text" uib-typeahead="" class="form-control"
-										ng-model="nuevaCalificacion.evaluado">
+								
+										
+										
 
 
 								</div>
 								<div class="col-md-3 margenes">
 									<p>Puntaje</p>
-									<input type="number" name="puntos" class="form-control"
-										required="true" ng-model="nuevaCalificacion.puntaje">
-
+									<input type="number" name="puntos" class="form-control" required="true" ng-model="nuevaCalificacion.puntaje">
+									<div ng-show="validacionCalificacion.puntaje"><p>Este campo es obligatorio!</p></div>
 								</div>
 							</div>
 							<div class="row">
@@ -188,6 +189,7 @@
 									<p>Motivo</p>
 									<textarea type="text" class="form-control" rows="3"
 										ng-model="nuevaCalificacion.detalle"></textarea>
+										<div ng-show="validacionCalificacion.detalle"><p>Este campo es obligatorio!</p></div>
 
 								</div>
 							</div>
@@ -223,24 +225,20 @@
 									<p>Calificado</p>
 									<input type="text" name="calificado" ng-model="nuevaCalificacion.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
 									
-									<input type="text" uib-typeahead="" class="form-control"
-										ng-model="calificacionEditable.evaluado">
 
 
 								</div>
 								<div class="col-md-3 margenes">
 									<p>Puntaje</p>
-									<input type="number" name="puntos" class="form-control"
-										required="true" ng-model="calificacionEditable.puntaje">
-
+									<input type="number" name="puntos" class="form-control" required="true" ng-model="calificacionEditable.puntaje">
+									
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-9 margenes margenIzquierdo">
 									<p>Motivo</p>
-									<textarea type="text" class="form-control" rows="3"
-										ng-model="calificacionEditable.detalle"></textarea>
-
+									<textarea type="text" class="form-control" rows="3" ng-model="calificacionEditable.detalle"></textarea>
+									
 								</div>
 							</div>
 
