@@ -90,17 +90,18 @@ class BootstrapRankit  extends CollectionBasedBootstrap {
 			agregarUsuario(usuarioMarcos) 
 		]	
 	}
+	// new(Integer id, String nombre, String tipo)
 	
-	var servicioFibertel = new Publicacion("Fibertel")
-	var servicioSpeedy = new Publicacion("Speedy")
-	var servicioMulticanal = new Publicacion("Multicanal")
-	var servicioTelefonica = new Publicacion("Telefonica")
+	var servicioFibertel = new Publicacion("Fibertel", "Servicio")
+	var servicioSpeedy = new Publicacion("Speedy", "Servicio")
+	var servicioMulticanal = new Publicacion("Multicanal", "Servicio")
+	var servicioTelefonica = new Publicacion("Telefonica", "Servicio")
 	
-	var Quilmes = new Publicacion("Quilmes")
+	var Quilmes = new Publicacion("Quilmes", "Lugar")
 
-	var Berazategui = new Publicacion("Berazategui")
+	var Berazategui = new Publicacion("Berazategui", "Lugar")
 	
-	var Ezpeleta = new Publicacion("Ezpeleta")
+	var Ezpeleta = new Publicacion("Ezpeleta", "Lugar")
 	
 	var usuarioPepe = new Usuario("pepe", Usuario.contraseniaDefault)
 	var usuarioLuis = new Usuario("Luis", Usuario.contraseniaDefault)

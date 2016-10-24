@@ -13,6 +13,9 @@
 	href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
 <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
+<!-- BOOTBOX (dialogos de confirmacion) http://bootboxjs.com/ -->
+<script src="node_modules/bootbox/bootbox.min.js"></script>
+
 <!-- ANGULAR  -->
 <script src="node_modules/angular/angular.min.js"></script>
 <script src="node_modules/angular-animate/angular-animate.min.js"></script>
@@ -66,10 +69,10 @@
 						<p>Hola</p>
 					</div>
 					<div class="col-sm-1">
-						<p>{{loginCtrl.usuario}}</p>
+						<button class="btn btn-default" ng-click="calificar()">{{loginCtrl.usuario}}</button>
 					</div>
 					<div class="col-sm-1">
-						<button>Salir</button>
+						<a href=# ng-click = "salir()">Salir</a>
 					</div>
 				</div>
 				<div class="row">
@@ -133,11 +136,11 @@
 										<div class="col-md-6 margenes">
 											<strong>
 												<h3>{{calificacion.evaluado}}</h3>
-											</strong> <strong><h6>{{}}</h6></strong>
+											</strong> <strong><h6>{{calificacion.tipo}}</h6></strong>
 
 										</div>
 										<div class="col-md-4 circulo margenes">
-											<h3>{{calificacion.puntaje}}</h3>
+											<h3>{{calificacion.publicacion.ratingPromedio()}}</h3>
 										</div>
 										<div class="col-md-2">
 											<div class="margenes">
@@ -166,6 +169,8 @@
 							<div class="row">
 								<div class="col-md-6 margenes margenIzquierdo">
 									<p>Calificado</p>
+									<input type="text" name="calificado" ng-model="nuevaCalificacion.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
+									
 									<input type="text" uib-typeahead="" class="form-control"
 										ng-model="nuevaCalificacion.evaluado">
 
@@ -200,21 +205,55 @@
 				</div>
 
 			</div>
-			<div class="modal" id="modal_edicion">
-				<div class="modal-header">
-					<h3 class="modal-title" id="modal-title">Editar Calificacion</h3>
-				</div>
-				<div class="modal-dialog modal-sm">
-					<div id="containerModal" class="modal-content"></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						ng-click="editCalificacion(indiceDeCalificacionEditable)">OK</button>
-
-
-				</div>
-			</div>
 
 		</div>
+
+
+<div id="modal_edicion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            	<h4 class="modal-title" id="myModalLabel">Editar Calificacion</h4>
+            </div>
+            <div class="modal-body">
+            						<div class="cuadroCalificacion">
+							<div class="row">
+								<div class="col-md-6 margenes margenIzquierdo">
+									<p>Calificado</p>
+									<input type="text" name="calificado" ng-model="nuevaCalificacion.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
+									
+									<input type="text" uib-typeahead="" class="form-control"
+										ng-model="calificacionEditable.evaluado">
+
+
+								</div>
+								<div class="col-md-3 margenes">
+									<p>Puntaje</p>
+									<input type="number" name="puntos" class="form-control"
+										required="true" ng-model="calificacionEditable.puntaje">
+
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-9 margenes margenIzquierdo">
+									<p>Motivo</p>
+									<textarea type="text" class="form-control" rows="3"
+										ng-model="calificacionEditable.detalle"></textarea>
+
+								</div>
+							</div>
+
+						</div>
+						
+						
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-ng-click="editCalificacion(indiceDeCalificacionEditable)"  data-dismiss="modal">Editar</button>
+        </div>
+    </div>
+  </div>
+</div>
 </BODY>
 </HTML>

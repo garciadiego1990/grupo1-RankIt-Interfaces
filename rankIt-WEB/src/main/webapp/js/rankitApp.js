@@ -18,9 +18,11 @@ angular.module('rankitApp', [])
 		})
 	}
 	
-	this.getCalificaciones = function(idUsuario, callback){
+	this.getCalificaciones = function(idUsuario, callback, errorCallback){
 		$http.get("http://localhost:9000/calificaciones?id="+ idUsuario).success(function(response){
 			callback(response);
+		}).error(function(){
+			errorCallback()
 		})
 	}
 	
@@ -30,9 +32,11 @@ angular.module('rankitApp', [])
 		})
 	}
 	
-	this.addCalificacion = function(calificacion, callback){
+	this.addCalificacion = function(calificacion, callback, errorCallback){
 		$http.post("http://localhost:9000/calificaciones", calificacion).success(function(response){
 			callback(response);
+		}).error(function(){
+			errorCallback()
 		})
 		
 	}
@@ -43,6 +47,13 @@ angular.module('rankitApp', [])
 		})
 		
 	}
+	// agregar errorCallback
+	this.getEvaluados= function(callback){
+		$http.get("http://localhost:9000/evaluados").success(function(response){
+			callback(response);
+		})
+	}
+	
 }])
 
 .controller('rankitController', function ($http,$scope,rankitService) {		
@@ -78,7 +89,7 @@ angular.module('rankitApp', [])
 	
 
 		var errorCallback=function(){
-			console.log("Error al loguear")
+			console.log("Error al loguear: Error al ingresar el usuario o la contrasenia")
 		}	
 
 		rankitService.loguear($scope.loginCtrl, callback, errorCallback);
@@ -90,6 +101,7 @@ angular.module('rankitApp', [])
 	$scope.calificar = function(){
 		$scope.principal = false;
 		$scope.getCalificaciones();
+		$scope.getEvaluados();
 	}
 	
 	// hay q hacer un callback de error
@@ -97,31 +109,53 @@ angular.module('rankitApp', [])
 		var callback = function(response){
 			$scope.calificaciones = response;
 		}
-		rankitService.getCalificaciones($scope.idUsuario, callback)
 		
-	}
-	
+		var errorCallback=function(){
+			console.log("El usuario logueado no posee calificaciones hasta el momento")
+		}	
+		
+		rankitService.getCalificaciones($scope.idUsuario, callback, errorCallback)
+		
+	}	
+/*	
 	$scope.deleteCalificacion = function(idCalificacion, index){
 		var callback = function(){
 			$scope.calificaciones.splice(index, 1);		
 		}
-		// hay q hacer un callback de error
 		rankitService.deleteCalificacion(idCalificacion, callback);
 	
 	}
-	
+*/
+	$scope.deleteCalificacion = function(idCalificacion, index){
+		bootbox.confirm("Estas seguro que queres eliminar esta calificacion?", function(confirma) {
+			if (confirma) {
+				var callback = function(){
+					$scope.calificaciones.splice(index, 1);		
+				}
+				rankitService.deleteCalificacion(idCalificacion, callback);
+				
+				}
+			})
+		}
+
 	$scope.nuevaCalificacion = {};
 	$scope.addCalificacion = function(){
 		$scope.nuevaCalificacion.evaluador=$scope.loginCtrl.usuario;
 		var calificacionAAgregar = {};
 		angular.copy($scope.nuevaCalificacion, calificacionAAgregar);
+		
 		var callback = function(response){
 			calificacionAAgregar.id = response.id;
+			calificacionAAgregar.tipo = response.tipo;
 			$scope.calificaciones.push(calificacionAAgregar);
 			$scope.nuevaCalificacion = {};
 		}
-		rankitService.addCalificacion(calificacionAAgregar, callback)
-		//hay que hacer el callback de error
+		
+		var errorCallback=function(){
+			console.log("Error al Calificar: No existe la publicacion")
+		}	
+		rankitService.addCalificacion(calificacionAAgregar, callback, errorCallback)
+		
 	}
 	
 	$scope.calificacionEditable = {};
@@ -140,7 +174,25 @@ angular.module('rankitApp', [])
 		$scope.indiceDeCalificacionEditable = index;
 	}
 	
-	// falta los callbacks de error
+	
+	$scope.salir = function(){
+		$scope.principal = true;
+		$scope.usuarioLogueado = false;
+		$scope.calificaciones = [];
+		$scope.loginCtrl.usuario ="";
+		$scope.loginCtrl.password = "";
+		$scope.nuevaCalificacion = {};
+		$scope.calificacionEditable = {};
+		$scope.evaluados = [];
+	}
+	
+	$scope.evaluados = [];
+	$scope.getEvaluados = function(){
+		var callback = function(response){
+			$scope.evaluados = response
+		}
+		rankitService.getEvaluados(callback);
+	}
 	
 		});
 

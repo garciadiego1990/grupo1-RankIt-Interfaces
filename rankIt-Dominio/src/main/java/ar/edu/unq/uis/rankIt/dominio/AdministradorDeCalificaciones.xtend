@@ -153,16 +153,5 @@ class AdministradorDeCalificaciones {
 		var Calificacion calificacionEncontrada = this.getCalificacionConId(id)
 		this.eliminarCalificacion(calificacionEncontrada)
 	}
-	
-	/*  Si le saco lo que esta comentado, cuando pruebo me tira esta error:
-	  HTTP ERROR: 500
-      Problem accessing /calificaciones. Reason: Infinite recursion (StackOverflowError) .....
-	*/
-	// Si uso el agregarCalificacion, tambien sucede lo mismo
-	def void agregarCalificacionBis(Calificacion calificacion) {
-		//var evaluado = calificacion.evaluado
-		//evaluado.agregarCalificacion(calificacion)
-		calificaciones.add(calificacion)
-	}
 		
 }

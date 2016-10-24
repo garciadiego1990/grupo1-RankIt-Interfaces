@@ -14,18 +14,14 @@ class Calificacion {
 	Usuario evaluador
 	Publicacion evaluado
 	Integer id
+	String tipo
 	
 	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle){
 		this.puntaje = puntaje
 		this.evaluador = evaluador
 		this.evaluado = publicacion
 		this.detalle = detalle
-	}
-	
-	//TODO: Creo que este constructor no se usa
-	new(Publicacion publicacion, Usuario evaluador, Integer puntaje, String detalle, Integer id){
-		this(publicacion, evaluador, puntaje, detalle)
-		this.id = id
+		this.tipo = publicacion.tipo
 	}
 	
 	def String getNombrePublicacion(){

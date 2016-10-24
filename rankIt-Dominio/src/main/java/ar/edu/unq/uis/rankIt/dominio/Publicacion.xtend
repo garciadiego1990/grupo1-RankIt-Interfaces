@@ -30,6 +30,14 @@ class Publicacion {
 		this.nombre = nombre
 	}
 	
+	new(String nombre, String unTipo) {
+		this(nombre)
+		this.id = id
+		this.tipo = unTipo
+	}
+	
+	
+	
 	new(Integer id, String nombre, String tipo) {
 		this(nombre)
 		this.id = id

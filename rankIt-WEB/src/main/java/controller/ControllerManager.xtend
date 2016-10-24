@@ -131,7 +131,7 @@ class ControllerManager {
 			if(evaluado==null) evaluado= this.adminGeneral.adminLugares.buscarPublicacionPorNombre(c.evaluado)
 			var nuevaCalificacion = new Calificacion(evaluado, evaluador, c.puntaje, c.detalle)
 			var idRet = this.adminGeneral.adminCalificaciones.agregarCalificacion(nuevaCalificacion)
-			ok('{"id":'+idRet.toJson+'}')
+			ok('{"id":'+idRet.toJson+',"tipo":'+nuevaCalificacion.tipo.toJson+'}')
 		} catch (CalificacionCompletadaIncorrectamenteException e) {
 			badRequest('{}')
 		}
