@@ -4,6 +4,16 @@ angular.module('rankitApp', [])
 
 	///// .SERVICE /////
 
+    
+    // BUSQUEDA RANKING
+	this.getRanking = function(b, callback, errorCallback){
+		$http.get("http://localhost:9000/ranking?nombre="+b.nombre+"&tipo="+b.tipo+"&calificaciones="+b.calificaciones+"&ranking="+b.ranking).success(function(response){
+			callback(response);
+		}).error(function(){
+			errorCallback()
+		})
+	}
+    
 	// REGISTRAR
 	this.registrar = function(loginCtrl, callback, errorCallback){
 		$http.put("http://localhost:9000/usuarios", loginCtrl).success(function(){
@@ -133,7 +143,21 @@ angular.module('rankitApp', [])
 
 		rankitService.getCalificaciones($scope.idUsuario, callback, errorCallback)
 
-	}	
+	}
+    
+    $scope.busqueda = {nombre: "", tipo: "", calificaciones: "", ranking: ""};
+    $scope.getRanking = function(){
+		var callback = function(response){
+			$scope.resultadosBusqueda = response;
+		}
+		var errorCallback=function(){
+			console.log("Error al hacer el pedido del ranking")
+		}
+		rankitService.getRanking($scope.busqueda, callback, errorCallback)
+	}
+    
+    $scope.getRanking();
+    
 	/*	
 	$scope.deleteCalificacion = function(idCalificacion, index){
 		var callback = function(){
@@ -262,9 +286,9 @@ $scope.getEvaluados = function(){
 		console.log("Error al traer los evaluados")
 	}
 	rankitService.getEvaluados(callback);
-}
-
-this.evaluados=[];	  
+};
+    
+$scope.getEvaluados();
 
 });
 
