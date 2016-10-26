@@ -28,8 +28,18 @@
 
 <script src="js/rankitApp.js"></script>
 
-
-
+<style type="text/css">
+       .circulo-puntaje {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            color: black;
+            line-height: 50px;
+            text-align: center;
+            background: gray;
+        }
+</style>
 
 
 </HEAD>
@@ -93,8 +103,10 @@
 									<div class="col-sm-5">
 										Tipo
 										<div>
-											<select name="repeatSelect" id="repeatSelect"
-												ng-model="busqueda.tipo">
+											<select name="repeatSelect" id="repeatSelect" ng-model="busqueda.tipo">
+                                                <option value="">Todos</option>
+                                                <option value="LUGAR">Lugar</option>
+                                                <option value="SERVICIO">Servicios</option>
 											</select>
 										</div>
 									</div>
@@ -111,14 +123,39 @@
 								</div>
 							</div>
 							<div class="col-sm-5">
-								<button type="submit" class="btn btn-default" ng-click="">Buscar</button>
+								<button type="submit" class="btn btn-default" ng-click="getRanking()">Buscar</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div>
-					<h1>0 Resultados para su busqueda</h1>
+					<h1>{{resultadosBusqueda.length}} Resultados para su busqueda</h1>
 				</div>
+                
+                <!-- RESULTADOS DE BUSQUEDA --> 
+                <div class="row">
+					<div class="col-md-6 ">
+                		<table class="table borde">
+							<tr ng-repeat="ranking in resultadosBusqueda">
+								<td>
+									<div class="row borde">
+                                        <div class="col-xm-1 margenes" data-ng-bind="ranking.ranking"></div>
+										<div class="col-md-6 margenes">
+											<strong><h3 data-ng-bind="ranking.evaluado.nombre"></h3></strong>
+                                            <strong><h6 data-ng-bind="ranking.evaluado.tipo"></h6></strong>
+										</div>
+										<div class="col-md-4 circulo margenes">
+											<h3 class="circulo-puntaje" data-ng-bind="ranking.evaluado.promedio"></h3>
+                                            <small data-ng-bind="ranking.calificaciones"></small>
+                                            <small> OPINIONES</small>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+                    </div>
+                </div>
+                <!-- FIN RESULTADOS DE BUSQUEDA -->
 
 			</div>
 			<div ng-hide="principal">
@@ -165,17 +202,20 @@
 						</div>
 						<div class="cuadroCalificacion">
 							<div class="row">
-								<div class="col-md-6 margenes margenIzquierdo">
-									<p>Calificado</p>
-									<input type="text" name="calificado" ng-model="nuevaCalificacion.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
-									<div ng-show="validacionNuevaCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
-									
 								
-										
-										
+                                <div class="col-md-6 margenes margenIzquierdo">
+									<p>Calificado</p>
+									<div ng-show="validacionNuevaCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
+								    <form>
+                                        <input list="publicaciones" type="text" name="publicacion" ng-model="nuevaCalificacion.evaluado" class="form-control">
 
-
+                                        <datalist id="publicaciones" >
+                                            <option data-ng-repeat="e in evaluados" value="{{e.nombre}}">
+                                        </datalist>
+                                    </form>
+								
 								</div>
+                                
 								<div class="col-md-3 margenes">
 									<p>Puntaje</p>
 									<input type="number" name="puntos" class="form-control" required="true" ng-model="nuevaCalificacion.puntaje">
