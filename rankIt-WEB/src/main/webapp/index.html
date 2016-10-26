@@ -29,16 +29,16 @@
 <script src="js/rankitApp.js"></script>
 
 <style type="text/css">
-       .circulo-puntaje {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 20px;
-            color: black;
-            line-height: 50px;
-            text-align: center;
-            background: gray;
-        }
+.circulo-puntaje {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	font-size: 20px;
+	color: white;
+	line-height: 50px;
+	text-align: center;
+	background: gray;
+}
 </style>
 
 
@@ -80,7 +80,7 @@
 						<button class="btn btn-default" ng-click="calificar()">{{loginCtrl.usuario}}</button>
 					</div>
 					<div class="col-sm-1">
-						<a href=# ng-click = "salir()">Salir</a>
+						<a href=# ng-click="salir()">Salir</a>
 					</div>
 				</div>
 				<div class="row">
@@ -103,10 +103,11 @@
 									<div class="col-sm-5">
 										Tipo
 										<div>
-											<select name="repeatSelect" id="repeatSelect" ng-model="busqueda.tipo">
-                                                <option value="">Todos</option>
-                                                <option value="LUGAR">Lugar</option>
-                                                <option value="SERVICIO">Servicios</option>
+											<select name="repeatSelect" id="repeatSelect"
+												ng-model="busqueda.tipo">
+												<option value="">Todos</option>
+												<option value="LUGAR">Lugar</option>
+												<option value="SERVICIO">Servicios</option>
 											</select>
 										</div>
 									</div>
@@ -123,7 +124,8 @@
 								</div>
 							</div>
 							<div class="col-sm-5">
-								<button type="submit" class="btn btn-default" ng-click="getRanking()">Buscar</button>
+								<button type="submit" class="btn btn-default"
+									ng-click="getRanking()">Buscar</button>
 							</div>
 						</div>
 					</div>
@@ -131,166 +133,203 @@
 				<div>
 					<h1>{{resultadosBusqueda.length}} Resultados para su busqueda</h1>
 				</div>
-                
-                <!-- RESULTADOS DE BUSQUEDA --> 
-                <div class="row">
-					<div class="col-md-6 ">
-                		<table class="table borde">
-							<tr ng-repeat="ranking in resultadosBusqueda">
-								<td>
-									<div class="row borde">
-                                        <div class="col-xm-1 margenes" data-ng-bind="ranking.ranking"></div>
-										<div class="col-md-6 margenes">
-											<strong><h3 data-ng-bind="ranking.evaluado.nombre"></h3></strong>
-                                            <strong><h6 data-ng-bind="ranking.evaluado.tipo"></h6></strong>
-										</div>
-										<div class="col-md-4 circulo margenes">
-											<h3 class="circulo-puntaje" data-ng-bind="ranking.evaluado.promedio"></h3>
-                                            <small data-ng-bind="ranking.calificaciones"></small>
-                                            <small> OPINIONES</small>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-                    </div>
-                </div>
-                <!-- FIN RESULTADOS DE BUSQUEDA -->
 
-			</div>
-			<div ng-hide="principal">
-				<div class="borde">
-					<h1 class="texto">Mis Calificaciones</h1>
-				</div>
+				<!-- RESULTADOS DE BUSQUEDA -->
 				<div class="row">
 					<div class="col-md-6 ">
 						<table class="table borde">
-							<tr ng-repeat="calificacion in calificaciones">
+							<tr ng-repeat="ranking in resultadosBusqueda">
 								<td>
-									<div class="row borde" id="{{}}">
+									<div class="row borde">
+										<div class="col-xm-1 margenes" data-ng-bind="ranking.ranking"></div>
 										<div class="col-md-6 margenes">
-											<strong>
-												<h3>{{calificacion.evaluado}}</h3>
-											</strong> <strong><h6>{{calificacion.tipo}}</h6></strong>
-
+											<strong><h3 data-ng-bind="ranking.evaluado.nombre"></h3></strong>
+											<strong><h6 data-ng-bind="ranking.evaluado.tipo"></h6></strong>
 										</div>
 										<div class="col-md-4 circulo margenes">
-											<h3>{{calificacion.puntaje}}</h3>
-										</div>
-										<div class="col-md-2">
-											<div class="margenes">
-												<button type="button" class="btn btn-default botonComun"
-													ng-click="deleteCalificacion(calificacion.id, $index)">Borrar</button>
-											</div>
-											<div class="margenes">
-												<button type="button" class="btn btn-default botonComun"
-													ng-click="prepararModal($index)"
-													data-toggle="modal" data-target="#modal_edicion">Modificar</button>
-
-											</div>
+											<h3 class="circulo-puntaje"
+												data-ng-bind="ranking.evaluado.promedio"></h3>
+											<small data-ng-bind="ranking.calificaciones"></small> <small>
+												OPINIONES</small>
 										</div>
 									</div>
 								</td>
 							</tr>
 						</table>
+					</div>
+				</div>
+				<!-- FIN RESULTADOS DE BUSQUEDA -->
+
+			</div>
+			<div ng-hide="principal">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h1 class="texto">Mis Calificaciones</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 ">
+						<div class="panel panel-default"
+							ng-repeat="calificacion in calificaciones">
+							<div class="panel-body">
+								<div class="row margenIzquierdo">
+									<div class="col-md-4 margenes">
+										<h2>{{calificacion.evaluado}}</h2>
+										<strong><h6>{{calificacion.tipo}}</h6></strong>
+									</div>
+
+					<div class="col-md-3">
+						<div class="circle">
+							<div class="circle__inner">
+								<div class="circle__wrapper">
+									<div class="circulo-puntaje">{{calificacion.puntaje}}</div>
+								</div>
+							</div>
+						</div>
 
 					</div>
+									<div class="col-md-4 margenIzquierdo margenes">
+										<div>
+											<button type="button"
+												class="btn btn-default botonComun margenIzquierdo"
+												ng-click="deleteCalificacion(calificacion.id, $index)">Borrar</button>
+										</div>
 
-					<div class="col-md-6 cuadroCalificacion">
-						<div class="borde">
-							<h2 class="texto">Nueva Calificacion</h2>
-						</div>
-						<div class="cuadroCalificacion">
-							<div class="row">
-								
-                                <div class="col-md-6 margenes margenIzquierdo">
-									<p>Calificado</p>
-									<div ng-show="validacionNuevaCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
-								    <form>
-                                        <input list="publicaciones" type="text" name="publicacion" ng-model="nuevaCalificacion.evaluado" class="form-control">
+										<div>
+											<button type="button"
+												class="btn btn-default botonComun margenIzquierdo margenes"
+												ng-click="prepararModal($index)" data-toggle="modal"
+												data-target="#modal_edicion">Modificar</button>
 
-                                        <datalist id="publicaciones" >
-                                            <option data-ng-repeat="e in evaluados" value="{{e.nombre}}">
-                                        </datalist>
-                                    </form>
-								
-								</div>
-                                
-								<div class="col-md-3 margenes">
-									<p>Puntaje</p>
-									<input type="number" name="puntos" class="form-control" required="true" ng-model="nuevaCalificacion.puntaje">
-									<div ng-show="validacionNuevaCalificacion.puntaje"><p>Este campo es obligatorio!</p></div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-9 margenes margenIzquierdo">
-									<p>Motivo</p>
-									<textarea type="text" class="form-control" rows="3"
-										ng-model="nuevaCalificacion.detalle"></textarea>
-										<div ng-show="validacionNuevaCalificacion.detalle"><p>Este campo es obligatorio!</p></div>
-
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-9 margenes margenIzquierdo margenInferior">
-									<button type="button" class="btn btn-default btn-lg btn-block"
-										ng-click="addCalificacion()">Calificar</button>
-
-								</div>
-							</div>
-
 						</div>
 					</div>
+
+
+
+					<!--hasta aca esta bien copiado	-->
+
+
+
+
+
+					<div class="col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<h2 class="texto">Nueva Calificaci&oacuten</h2>
+							</div>
+							<div class="cuadroCalificacion">
+								<div class="row">
+									<div class="col-md-6 margenes margenIzquierdo">
+                                        <p>Calificado</p>
+                                        <div ng-show="validacionNuevaCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
+                                        <form>
+                                            <input list="publicaciones" type="text" name="publicacion" ng-model="nuevaCalificacion.evaluado" class="form-control">
+
+                                            <datalist id="publicaciones" >
+                                                <option data-ng-repeat="e in evaluados" value="{{e.nombre}}">
+                                            </datalist>
+                                        </form>
+								    </div>
+									<div class="col-md-3 margenes">
+										<p>Puntaje</p>
+										<input type="number" name="puntos" class="form-control"
+											required="true" ng-model="nuevaCalificacion.puntaje">
+										<div ng-show="validacionNuevaCalificacion.puntaje">
+											<p>Este campo es obligatorio!</p>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-9 margenes margenIzquierdo">
+										<p>Motivo</p>
+										<textarea type="text" class="form-control" rows="3"
+											ng-model="nuevaCalificacion.detalle"></textarea>
+										<div ng-show="validacionNuevaCalificacion.detalle">
+											<p>Este campo es obligatorio!</p>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-9 margenes margenIzquierdo margenInferior">
+										<button type="button" class="btn btn-default btn-lg btn-block"
+											ng-click="addCalificacion()">Calificar</button>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
 				</div>
 
 			</div>
 
-		</div>
+
+			<div id="modal_edicion" class="modal fade" tabindex="-1"
+				role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Editar
+								Calificacion</h4>
+						</div>
+						<div class="modal-body">
+							<div class="cuadroCalificacion">
+								<div class="row">
+									<div class="col-md-6 margenes margenIzquierdo">
+										<p>Calificado</p>
+										<input type="text" name="calificado"
+											ng-model="calificacionEditable.evaluado"
+											uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue "
+											class="form-control">
+										<div ng-show="validacionCalificacionEditable.evaluado">
+											<p>Este campo es obligatorio!</p>
+										</div>
 
 
-<div id="modal_edicion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            	<h4 class="modal-title" id="myModalLabel">Editar Calificacion</h4>
-            </div>
-            <div class="modal-body">
-            						<div class="cuadroCalificacion">
-							<div class="row">
-								<div class="col-md-6 margenes margenIzquierdo">
-									<p>Calificado</p>
-									<input type="text" name="calificado" ng-model="calificacionEditable.evaluado" uib-typeahead="evaluado.nombre for evaluado in evaluados | filter:$viewValue " class="form-control">
-									<div ng-show="validacionCalificacionEditable.evaluado"><p>Este campo es obligatorio!</p></div>
-									
 
-
+									</div>
+									<div class="col-md-3 margenes">
+										<p>Puntaje</p>
+										<input type="number" name="puntos" class="form-control"
+											required="true" ng-model="calificacionEditable.puntaje">
+										<div ng-show="validacionCalificacionEditable.puntaje">
+											<p>Este campo es obligatorio!</p>
+										</div>
+									</div>
 								</div>
-								<div class="col-md-3 margenes">
-									<p>Puntaje</p>
-									<input type="number" name="puntos" class="form-control" required="true" ng-model="calificacionEditable.puntaje">
-									<div ng-show="validacionCalificacionEditable.puntaje"><p>Este campo es obligatorio!</p></div>
+								<div class="row">
+									<div class="col-md-9 margenes margenIzquierdo">
+										<p>Motivo</p>
+										<textarea type="text" class="form-control" rows="3"
+											ng-model="calificacionEditable.detalle"></textarea>
+										<div ng-show="validacionCalificacionEditable.detalle">
+											<p>Este campo es obligatorio!</p>
+										</div>
+									</div>
 								</div>
+
 							</div>
-							<div class="row">
-								<div class="col-md-9 margenes margenIzquierdo">
-									<p>Motivo</p>
-									<textarea type="text" class="form-control" rows="3" ng-model="calificacionEditable.detalle"></textarea>
-									<div ng-show="validacionCalificacionEditable.detalle"><p>Este campo es obligatorio!</p></div>
-								</div>
-							</div>
+
 
 						</div>
-						
-						
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" data-ng-click="editCalificacion(indiceDeCalificacionEditable)">Editar</button>
-        </div>
-    </div>
-  </div>
-</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary"
+								data-ng-click="editCalificacion(indiceDeCalificacionEditable)">Editar</button>
+						</div>
+					</div>
+				</div>
+			</div>
 </BODY>
 </HTML>

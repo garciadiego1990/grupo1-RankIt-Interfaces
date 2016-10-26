@@ -273,6 +273,7 @@ $scope.salir = function(){
 	$scope.nuevaCalificacion = {};
 	$scope.calificacionEditable = {};
 	$scope.evaluados = [];
+    $scope.getRanking();
 }
 
 //Evaluados
