@@ -1,4 +1,4 @@
-package ar.edu.unq.uis.rankIt.clasesMinificadas
+package clasesMinificadas
 
 import org.eclipse.xtend.lib.annotations.Accessors
 

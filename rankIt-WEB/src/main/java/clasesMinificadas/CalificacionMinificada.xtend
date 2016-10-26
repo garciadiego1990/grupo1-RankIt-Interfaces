@@ -1,4 +1,4 @@
-package ar.edu.unq.uis.rankIt.clasesMinificadas
+package clasesMinificadas
 
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import java.util.List

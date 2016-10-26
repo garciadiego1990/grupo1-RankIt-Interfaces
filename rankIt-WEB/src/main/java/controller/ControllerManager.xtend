@@ -16,12 +16,12 @@ import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.xtrest.api.annotation.Delete
 import ar.edu.unq.uis.rankIt.exceptions.IdDeCalificacionInvalidoException
 import ar.edu.unq.uis.rankIt.exceptions.IdDeCalificacionInexistenteException
-import ar.edu.unq.uis.rankIt.clasesMinificadas.CalificacionMinificada
+import clasesMinificadas.CalificacionMinificada
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.exceptions.CalificacionCompletadaIncorrectamenteException
-import ar.edu.unq.uis.rankIt.clasesMinificadas.PublicacionMinificada
-import ar.edu.unq.uis.rankIt.clasesMinificadas.RankingMinificada
-import ar.edu.unq.uis.rankIt.clasesMinificadas.DatosUsuario
+import clasesMinificadas.PublicacionMinificada
+import clasesMinificadas.RankingMinificada
+import clasesMinificadas.DatosUsuario
 
 @Controller
 class ControllerManager {
