@@ -5,7 +5,6 @@ import org.uqbar.xtrest.json.JSONUtils
 import ar.edu.unq.uis.rankIt.dominio.AdministradorGeneral
 import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.api.annotation.Body
-import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.uis.rankIt.exceptions.UsuarioNoEncontradoException
 import ar.edu.unq.uis.rankIt.exceptions.ContraseniaDeUsuarioIncorrectaException
 import ar.edu.unq.uis.rankit.dominio.login.LogIn
@@ -13,9 +12,6 @@ import org.uqbar.xtrest.api.annotation.Put
 import ar.edu.unq.uis.rankit.dominio.signup.SignUp
 import ar.edu.unq.uis.rankIt.exceptions.NombreDeUsuarioInvalidoException
 import org.uqbar.xtrest.api.annotation.Get
-import ar.edu.unq.uis.rankIt.dominio.Publicacion
-import java.util.List
-import java.util.ArrayList
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.xtrest.api.annotation.Delete
 import ar.edu.unq.uis.rankIt.exceptions.IdDeCalificacionInvalidoException
@@ -23,6 +19,9 @@ import ar.edu.unq.uis.rankIt.exceptions.IdDeCalificacionInexistenteException
 import ar.edu.unq.uis.rankIt.clasesMinificadas.CalificacionMinificada
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
 import ar.edu.unq.uis.rankIt.exceptions.CalificacionCompletadaIncorrectamenteException
+import ar.edu.unq.uis.rankIt.clasesMinificadas.PublicacionMinificada
+import ar.edu.unq.uis.rankIt.clasesMinificadas.RankingMinificada
+import ar.edu.unq.uis.rankIt.clasesMinificadas.DatosUsuario
 
 @Controller
 class ControllerManager {
@@ -38,17 +37,17 @@ class ControllerManager {
 		this.signer = new SignUp(this.admin.adminUsuarios)
 	}
 
-	// /////////////////////////////////////////////////////////////////////
-	// ///////////////// USUARIOS /////////////////////////////////////////
-	// ///////////////////////////////////////////////////////////////////
-	// ingresar
+	/////////////////////////////////////////////////////////////////////
+	////////////////////////// USUARIOS ////////////////////////////////
+	///////////////////////////////////////////////////////////////////
+	
 	@Post("/usuarios")
 	def signIn(@Body String body) {
 		response.contentType = "application/json"
 		try {
 			var DatosUsuario datos = body.fromJson(typeof(DatosUsuario))
 			var usuario = this.loguer.logearUsuario(datos.usuario, datos.password)
-			ok('{"id":'+usuario.id.toJson+'}')
+			ok('{"id":' + usuario.id.toJson + '}')
 		} catch (UsuarioNoEncontradoException ex) {
 			notFound('{}')
 		} catch (ContraseniaDeUsuarioIncorrectaException ex) {
@@ -57,8 +56,6 @@ class ControllerManager {
 		}
 	}
 
-	// ////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// registrarse 
 	@Put("/usuarios")
 	def signUp(@Body String body) {
 		response.contentType = "application/json"
@@ -73,7 +70,7 @@ class ControllerManager {
 	}
 
 	// /////////////////////////////////////////////////////////////////////
-	// ///////////////// EVALUADOS ////////////////////////////////////////
+	// ///////////////////////// EVALUADOS ////////////////////////////////
 	// ///////////////////////////////////////////////////////////////////
 	@Get("/evaluados")
 	def getEvaluados() {
@@ -83,9 +80,10 @@ class ControllerManager {
 	}
 
 	// /////////////////////////////////////////////////////////////////////
-	// ///////////////// RANKING //////////////////////////////////////////
+	// /////////////////////////// RANKING ////////////////////////////////
 	// ///////////////////////////////////////////////////////////////////
-	// devuelve los lugares y servicios con nombre, de tipo, con igual o mayor cantidad de calificaciones y ranking
+	
+	// Devuelve los lugares y servicios con nombre, de tipo, con igual o mayor cantidad de calificaciones y ranking
 	@Get("/ranking")
 	def getEvaluados(String nombre, String tipo, String calificaciones, String ranking) {
 		response.contentType = "application/json"
@@ -96,9 +94,9 @@ class ControllerManager {
 		}
 	}
 
-	// /////////////////////////////////////////////////////////////////////
-	// ///////////////// CALIFICACIONES ///////////////////////////////////
-	// ///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	/////////////////////////// CALIFICACIONES ///////////////////////////
+	/////////////////////////////////////////////////////////////////////
 	
 	@Get("/calificaciones")
 	def getCalificacionesDelUsuario(String id) {
@@ -128,11 +126,13 @@ class ControllerManager {
 			var CalificacionMinificada c = body.fromJson(typeof(CalificacionMinificada))
 			var evaluador = this.adminGeneral.adminUsuarios.buscarUsuarioPorNombre(c.evaluador)
 			var evaluado = this.adminGeneral.adminServicios.buscarPublicacionPorNombre(c.evaluado)
-			if(evaluado==null) evaluado= this.adminGeneral.adminLugares.buscarPublicacionPorNombre(c.evaluado)
+			if(evaluado == null) evaluado = this.adminGeneral.adminLugares.buscarPublicacionPorNombre(c.evaluado)
 			var nuevaCalificacion = new Calificacion(evaluado, evaluador, c.puntaje, c.detalle)
 			var idRet = this.adminGeneral.adminCalificaciones.agregarCalificacion(nuevaCalificacion)
-			//ok('{"id":'+idRet.toJson+',"tipo":'+nuevaCalificacion.tipo.toJson+'}')
-			ok('{"id":'+idRet.toJson+',"tipo":'+nuevaCalificacion.tipo.toJson+',"ratingPromedio":'+c.ratingPromedio+'}')
+			// ok('{"id":'+idRet.toJson+',"tipo":'+nuevaCalificacion.tipo.toJson+'}')
+			ok(
+				'{"id":' + idRet.toJson + ',"tipo":' + nuevaCalificacion.tipo.toJson + ',"ratingPromedio":' +
+					c.ratingPromedio + '}')
 		} catch (CalificacionCompletadaIncorrectamenteException e) {
 			badRequest('{}')
 		}
@@ -161,78 +161,5 @@ class ControllerManager {
 	def AdministradorGeneral getAdminGeneral() {
 		var AdministradorGeneral adminGral = ApplicationContext.instance.getSingleton(typeof(AdministradorGeneral))
 		return adminGral
-	}
-}
-
-//CLASES MINI
-@Accessors
-class DatosUsuario {
-	String usuario
-	String password
-}
-
-@Accessors
-class PublicacionMinificada {
-	Integer id
-	String tipo
-	String nombre
-
-	new(Publicacion publicacion) {
-		this.id = publicacion.id
-		this.tipo = publicacion.tipo
-		this.nombre = publicacion.nombre
-	}
-
-	/** Dado un administrador general se retorna un lista de mini-publicaciones de todas las publicaciones registradas en
-	 * la aplicación.
-	 * @author ae */
-	def static todasLasPublicaciones(AdministradorGeneral admin) {
-		var List<PublicacionMinificada> miniPublicaciones = new ArrayList<PublicacionMinificada>
-		miniPublicaciones.addAll = publicaciones(admin.adminServicios.publicaciones)
-		miniPublicaciones.addAll = publicaciones(admin.adminLugares.publicaciones)
-		return miniPublicaciones
-	}
-
-	/** Dada una lista de publicaciones se retorna una nueva lista que contiene todas las publicaciones dadas convertidas
-	 * en formato mini-publicación.
-	 * @author ae */
-	def static publicaciones(List<Publicacion> publicaciones) {
-		val List<PublicacionMinificada> miniPublicaciones = new ArrayList<PublicacionMinificada>
-		publicaciones.forEach[each|miniPublicaciones.add = new PublicacionMinificada(each)]
-		return miniPublicaciones
-	}
-}
-
-@Accessors
-class RankingMinificada {
-	PublicacionMinificada evaluado
-	Integer ranking
-	Integer calificaciones
-
-	new(PublicacionMinificada evaluado, Integer ranking, Integer calificaciones) {
-		this.evaluado = evaluado
-		this.ranking = ranking
-		this.calificaciones = calificaciones
-	}
-
-	def static rankingDePublicacionesMinificadas(AdministradorGeneral admin) {
-		var List<Publicacion> publicacionesOrdenadas = publicacionesOrdenadasPorPromedioDeCalificaciones(admin)
-		val List<RankingMinificada> ranking = new ArrayList<RankingMinificada>
-
-		for (Publicacion each : publicacionesOrdenadas) {
-			var int rank = publicacionesOrdenadas.indexOf(each) + 1
-			var PublicacionMinificada miniPublicacion = new PublicacionMinificada(each)
-
-			ranking.add = new RankingMinificada(miniPublicacion, rank, each.cantidadDeEvaluaciones)
-		}
-
-		return ranking
-	}
-
-	def static publicacionesOrdenadasPorPromedioDeCalificaciones(AdministradorGeneral admin) {
-		var List<Publicacion> publicaciones = new ArrayList<Publicacion>()
-		publicaciones.addAll = admin.adminServicios.publicaciones
-		publicaciones.addAll = admin.adminLugares.publicaciones
-		return publicaciones.sortBy[each|each.ratingPromedio].reverse
 	}
 }

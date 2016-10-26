@@ -5,7 +5,7 @@ import java.util.ArrayList
 import org.joda.time.DateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+
 
 @Accessors
 @Observable

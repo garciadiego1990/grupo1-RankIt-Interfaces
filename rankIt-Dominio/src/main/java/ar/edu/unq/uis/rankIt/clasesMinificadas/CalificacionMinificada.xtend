@@ -1,7 +1,6 @@
 package ar.edu.unq.uis.rankIt.clasesMinificadas
 
 import ar.edu.unq.uis.rankIt.dominio.Calificacion
-import ar.edu.unq.uis.rankIt.dominio.Publicacion
 import java.util.List
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
