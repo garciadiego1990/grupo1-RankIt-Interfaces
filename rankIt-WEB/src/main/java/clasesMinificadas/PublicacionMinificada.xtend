@@ -11,11 +11,13 @@ class PublicacionMinificada {
 	Integer id
 	String tipo
 	String nombre
+	Double promedio
 
 	new(Publicacion publicacion) {
 		this.id = publicacion.id
 		this.tipo = publicacion.tipo
 		this.nombre = publicacion.nombre
+		this.promedio = publicacion.ratingPromedio
 	}
 
 	/** Dado un administrador general se retorna un lista de mini-publicaciones de todas las publicaciones registradas en

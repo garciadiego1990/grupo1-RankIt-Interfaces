@@ -30,8 +30,10 @@ class ControllerManager {
 	val AdministradorGeneral admin
 	var LogIn loguer
 	var SignUp signer
+	var WebDataManager dataManager
 
 	new() {
+		this.dataManager = new WebDataManager()
 		this.admin = this.getAdminGeneral()
 		this.loguer = new LogIn(this.admin.adminUsuarios)
 		this.signer = new SignUp(this.admin.adminUsuarios)
@@ -83,15 +85,12 @@ class ControllerManager {
 	// /////////////////////////// RANKING ////////////////////////////////
 	// ///////////////////////////////////////////////////////////////////
 	
-	// Devuelve los lugares y servicios con nombre, de tipo, con igual o mayor cantidad de calificaciones y ranking
+	// devuelve los lugares y servicios con nombre, de tipo, con igual o mayor cantidad de calificaciones y ranking
 	@Get("/ranking")
-	def getEvaluados(String nombre, String tipo, String calificaciones, String ranking) {
+	def getRanking(String nombre, String tipo, String calificaciones, String ranking) {
 		response.contentType = "application/json"
-		try {
-			ok(RankingMinificada.rankingDePublicacionesMinificadas(this.admin).toJson)
-		} catch (NumberFormatException ex) {
-			badRequest('{ "error": "El id debe ser un numero entero" }')
-		}
+		var rankingFiltrado = dataManager.getRankingFilteredBy(nombre,tipo,calificaciones,ranking)
+		ok(rankingFiltrado.toJson)
 	}
 
 	///////////////////////////////////////////////////////////////////////
