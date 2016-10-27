@@ -25,22 +25,7 @@
 <!-- UNDERSCORE -->
 <script src="node_modules/underscore/underscore-min.js"></script>
 
-
 <script src="js/rankitApp.js"></script>
-
-<style type="text/css">
-.circulo-puntaje {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	font-size: 20px;
-	color: white;
-	line-height: 50px;
-	text-align: center;
-	background: gray;
-}
-</style>
-
 
 </HEAD>
 <BODY ng-app="rankitApp" ng-controller="rankitController">
@@ -158,9 +143,10 @@
 						</table>
 					</div>
 				</div>
-				<!-- FIN RESULTADOS DE BUSQUEDA -->
-
 			</div>
+
+			<!-- FIN RESULTADOS DE BUSQUEDA -->
+
 			<div ng-hide="principal">
 				<div class="panel panel-default">
 					<div class="panel-body">
@@ -177,17 +163,9 @@
 										<h2>{{calificacion.evaluado}}</h2>
 										<strong><h6>{{calificacion.tipo}}</h6></strong>
 									</div>
-
-					<div class="col-md-3">
-						<div class="circle">
-							<div class="circle__inner">
-								<div class="circle__wrapper">
-									<div class="circulo-puntaje">{{calificacion.puntaje}}</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
+									<div class="col-md-3">
+										<div class="circulo-puntaje">{{calificacion.puntaje}}</div>
+									</div>
 									<div class="col-md-4 margenIzquierdo margenes">
 										<div>
 											<button type="button"
@@ -207,15 +185,6 @@
 							</div>
 						</div>
 					</div>
-
-
-
-					<!--hasta aca esta bien copiado	-->
-
-
-
-
-
 					<div class="col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-body">
@@ -224,16 +193,19 @@
 							<div class="cuadroCalificacion">
 								<div class="row">
 									<div class="col-md-6 margenes margenIzquierdo">
-                                        <p>Calificado</p>
-                                        <div ng-show="validacionNuevaCalificacion.evaluado"><p> Este campo es obligatorio!</p></div>
-                                        <form>
-                                            <input list="publicaciones" type="text" name="publicacion" ng-model="nuevaCalificacion.evaluado" class="form-control">
+										<p>Calificado</p>
+										<div ng-show="validacionNuevaCalificacion.evaluado">
+											<p>Este campo es obligatorio!</p>
+										</div>
+										<form>
+											<input list="publicaciones" type="text" name="publicacion"
+												ng-model="nuevaCalificacion.evaluado" class="form-control">
 
-                                            <datalist id="publicaciones" >
-                                                <option data-ng-repeat="e in evaluados" value="{{e.nombre}}">
-                                            </datalist>
-                                        </form>
-								    </div>
+											<datalist id="publicaciones">
+												<option data-ng-repeat="e in evaluados" value="{{e.nombre}}">
+											</datalist>
+										</form>
+									</div>
 									<div class="col-md-3 margenes">
 										<p>Puntaje</p>
 										<input type="number" name="puntos" class="form-control"
