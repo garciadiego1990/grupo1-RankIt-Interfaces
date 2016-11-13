@@ -5,7 +5,7 @@ package ar.edu.unq.uis.rankit_android.model;
  */
 public class Calificacion {
 
-    private String nombre;
+    private String evaluado;
     private Integer id;
     private Integer puntaje;
     private String motivo;
@@ -14,19 +14,19 @@ public class Calificacion {
         super();
     }
 
-    public Calificacion(String nombre, Integer id, Integer puntaje, String motivo){
-        this.setNombre(nombre);
+    public Calificacion(String evaluadoNombre, Integer id, Integer puntaje, String motivo){
+        this.setEvaluado(evaluadoNombre);
         this.setId(id);
         this.setPuntaje(puntaje);
         this.setMotivo(motivo);
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getEvaluado() {
+        return this.evaluado;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setEvaluado(String nombre) {
+        this.evaluado = nombre;
     }
 
     public Integer getId() {
