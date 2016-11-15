@@ -32,9 +32,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view){
 
                 String usuario = usuarioET.getText().toString();
-                String contraseña = passwordET.getText().toString();
+                String contrasenia = passwordET.getText().toString();
 
-                errorMsgET.setText(usuario+" "+contraseña);
+                errorMsgET.setText(usuario+" "+contrasenia);
                 errorMsgET.setVisibility(View.VISIBLE);
 
                 startCalificacionesListActivity();

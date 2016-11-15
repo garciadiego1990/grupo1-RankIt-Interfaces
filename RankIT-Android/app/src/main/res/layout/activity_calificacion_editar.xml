@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_calificacion_detalle"
+    android:id="@+id/activity_calificacion_editar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,7 +11,7 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    tools:context="ar.edu.unq.uis.rankit_android.CalificacionDetalleActivity">
+    tools:context="ar.edu.unq.uis.rankit_android.CalificacionEditarActivity">
 
     <!--
     <android.support.design.widget.AppBarLayout android:id="@+id/app_bar"
@@ -37,7 +37,7 @@
     </android.support.design.widget.AppBarLayout> -->
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/detalle_toolbar"
+        android:id="@+id/editar_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
@@ -45,10 +45,11 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
         <Button
-            android:id="@+id/editar_boton"
+            android:id="@+id/guardar_edicion_boton"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:text="Editar" />
+            android:text="Guardar" />
+
     </android.support.v7.widget.Toolbar>
 
 
@@ -57,38 +58,41 @@
         android:id="@+id/puntaje_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detalle_toolbar"
+        android:layout_below="@id/editar_toolbar"
         android:layout_margin="30dp"
         android:text="Puntaje"
         android:textSize="30dp"/>
 
-    <TextView
-        android:id="@+id/puntos_label"
+    <EditText
+        android:id="@+id/puntos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/puntaje_label"
         android:layout_toEndOf="@id/puntaje_label"
-        android:text="..."
+        android:hint="..."
         android:textSize="30dp" />
 
     <TextView
-        android:id="@+id/detalle_label"
+        android:id="@+id/editar_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/puntaje_label"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="10dp"
-        android:text="Detalle"
+        android:text="Motivo"
         android:textSize="30dp"/>
 
-    <TextView
-        android:id="@+id/detalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detalle_label"
-        android:layout_alignStart="@id/detalle_label"
+    <EditText
+        android:id="@+id/editar_motivo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inputType="textMultiLine"
+        android:gravity="top|left"
+        android:layout_below="@id/editar_label"
+        android:layout_alignStart="@id/editar_label"
         android:layout_margin="10dp"
-        android:text="..."
+
+        android:hint="Ingrese el motivo de su calificacion aquí..."
         android:textSize="20dp" />
 
 

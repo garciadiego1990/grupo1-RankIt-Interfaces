@@ -23,7 +23,7 @@ public class CalificacionesListActivity extends AppCompatActivity implements Cal
     public void onItemSelected(Calificacion calificacion) {
         Intent detalleIntent = new Intent(this, CalificacionDetalleActivity.class);
         Log.w("Calificacion", calificacion.getEvaluado());
-        detalleIntent.putExtra("CalificacionSeleccionada", calificacion);//TODO: La clave no debe ser un string
+        detalleIntent.putExtra(CalificacionDetalleActivity.ARG_ITEM_ID, calificacion);
         startActivity(detalleIntent);
     }
 }

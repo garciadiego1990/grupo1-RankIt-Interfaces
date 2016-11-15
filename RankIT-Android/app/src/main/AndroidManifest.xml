@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".CalificacionesListActivity" />
         <activity android:name=".CalificacionDetalleActivity"></activity>
+        <activity android:name=".CalificacionEditarActivity"></activity>
     </application>
 
 </manifest>

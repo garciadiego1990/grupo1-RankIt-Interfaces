@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,6 +17,11 @@ public class CalificacionDetalleActivity extends AppCompatActivity {
 
     private TextView puntosLabel;
     private TextView detalleLabel;
+    private Calificacion calificacion;
+
+    private Button editarBoton;
+
+    public static final String ARG_ITEM_ID = "item_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +37,22 @@ public class CalificacionDetalleActivity extends AppCompatActivity {
         this.puntosLabel    = (TextView) this.findViewById(R.id.puntos_label);
         this.detalleLabel   = (TextView) this.findViewById(R.id.detalle);
 
-        Calificacion calificacion = (Calificacion) this.getIntent().getExtras().getSerializable("CalificacionSeleccionada");//TODO
+        this.editarBoton = (Button) this.findViewById(R.id.editar_boton);
+
+        this.editarBoton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+            editarCalificacion();
+            }
+        });
+
+        this.calificacion = (Calificacion) this.getIntent().getExtras().getSerializable(ARG_ITEM_ID);
 
         this.detalleLabel.setText(calificacion.getMotivo());
-        this.puntosLabel.setText(calificacion.getPuntaje().toString());//TODO
+        this.puntosLabel.setText(calificacion.getPuntaje().toString());
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -49,5 +68,12 @@ public class CalificacionDetalleActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void editarCalificacion(){
+        Intent editarIntent = new Intent(this, CalificacionEditarActivity.class);
+        editarIntent.putExtra(CalificacionEditarActivity.ARG_ITEM, this.calificacion);
+        Log.w("Calificacion", this.calificacion.getEvaluado());
+        this.startActivity(editarIntent);
     }
 }

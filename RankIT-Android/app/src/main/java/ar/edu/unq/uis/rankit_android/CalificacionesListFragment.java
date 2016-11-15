@@ -28,11 +28,9 @@ public class CalificacionesListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.adapter = new CalificacionAdapter(this.getActivity(),
-                DataDummy.getInstance().getCalificaciones(null, 10));
+        this.adapter = new CalificacionAdapter(this.getActivity(), DataDummy.getInstance().getCalificaciones(null, 10));
 
         this.setListAdapter(this.adapter);
-
     }
 
     public interface Callbacks {
@@ -66,7 +64,12 @@ public class CalificacionesListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        Calificacion calificacion = DataDummy.getInstance().getCalificacion(id); //TODO
+
+        Calificacion calificacion = (Calificacion) this.getListAdapter().getItem(position);
+
+        //Calificacion calificacion = DataDummy.getInstance().getCalificacion(id); //TODO
+        //La calificacion ya se encuentra en el adapter, quizá no hace falta llamar de nuevo al repo.
+
         Callbacks callbacks = (Callbacks) this.getActivity();
         callbacks.onItemSelected(calificacion);
     }
