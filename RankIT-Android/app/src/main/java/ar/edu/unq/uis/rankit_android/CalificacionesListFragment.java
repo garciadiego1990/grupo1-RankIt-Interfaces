@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import ar.edu.unq.uis.rankit_android.dummy.DataDummy;
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
@@ -57,5 +58,16 @@ public class CalificacionesListFragment extends ListFragment {
                 adapter.getFilter().filter(text);
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        super.onListItemClick(listView, view, position, id);
+
+        // Notify the active callbacks interface (the activity, if the
+        // fragment is attached to one) that an item has been selected.
+        Calificacion calificacion = DataDummy.getInstance().getCalificacion(id); //TODO
+        Callbacks callbacks = (Callbacks) this.getActivity();
+        callbacks.onItemSelected(calificacion);
     }
 }

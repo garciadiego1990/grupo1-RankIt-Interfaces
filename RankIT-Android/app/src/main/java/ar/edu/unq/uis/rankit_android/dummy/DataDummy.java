@@ -35,4 +35,13 @@ public class DataDummy {
         }
         return listaFiltrada;
     }
+
+    public Calificacion getCalificacion(long id) {
+        for(Calificacion c: this.calificaciones) {
+            if(c.getId().equals((int)id)) { //c.getNombre().matches(nombreCalificacion)
+                return c;
+            }
+        }
+        return null;
+    }
 }

@@ -1,9 +1,11 @@
 package ar.edu.unq.uis.rankit_android.model;
 
+import java.io.Serializable;
+
 /**
  * Created by aee on 11/11/16.
  */
-public class Calificacion {
+public class Calificacion implements Serializable {
 
     private String evaluado;
     private Integer id;
