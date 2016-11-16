@@ -1,6 +1,8 @@
 package ar.edu.unq.uis.rankit_android.model.myApy;
 
-import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.Minificadas;
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.CalificacionMinificada;
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.DatosUsuario;
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.LogUsuario;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,15 +20,15 @@ import java.util.List;
 public interface MyApiEndpointInterface {
 
     @POST("usuarios")
-    Call<Minificadas.LogUsuario> logInUsuario(@Body Minificadas.DatosUsuario datos);
+    Call<LogUsuario> logInUsuario(@Body DatosUsuario datos);
     @GET("calificaciones")
-    Call<List<Minificadas.CalificacionMinificada>> calificaciones(String idUsuario);
+    Call<List<CalificacionMinificada>> calificaciones(String idUsuario);
     @DELETE("calificaciones")
     Call<ResponseBody> delete(String id);
     @PUT("calificaciones")
-    Call<ResponseBody> editar(@Body Minificadas.CalificacionMinificada miniCalificacion);
+    Call<ResponseBody> editar(@Body CalificacionMinificada miniCalificacion);
     @POST("calificaciones")
-    Call<ResponseBody> nuevaCalificacion(@Body Minificadas.CalificacionMinificada miniCalificacion);
+    Call<ResponseBody> nuevaCalificacion(@Body CalificacionMinificada miniCalificacion);
 
 
 }

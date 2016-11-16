@@ -9,8 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.DatosUsuario;
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.LogUsuario;
+import ar.edu.unq.uis.rankit_android.model.myApy.MyApiEndpointInterface;
+import ar.edu.unq.uis.rankit_android.model.myService.ServiceGenerator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -79,9 +87,35 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
         //Start the new activity
-        Intent intent = new Intent(getApplicationContext(), CalificacionesListActivity.class);
-        startActivityForResult(intent, REQUEST_SIGNUP);
-        finish();
+        // Create a very simple REST adapter which points the GitHub API endpoint.
+        MyApiEndpointInterface client = ServiceGenerator.createService(MyApiEndpointInterface.class);
+
+        // le paso el datosUsuario que necesita para realizar la consulta la api
+        DatosUsuario datosUsuario = new DatosUsuario();
+        String email = _emailText.getText().toString();
+        String password = _passwordText.getText().toString();
+        // no va email
+        datosUsuario.setUsuario(email);
+        datosUsuario.setPassword(password);
+
+        Call<LogUsuario> call =
+                client.logInUsuario(datosUsuario);
+
+        call.enqueue(new Callback<LogUsuario>() {
+            @Override
+            public void onResponse(Call<LogUsuario> call, Response<LogUsuario> response) {
+
+                LogUsuario logUsuario = response.body();
+                //logUsuario.id SE LO PASO A INTENT PARA QUE VAYA A LA NUEVA VISTA
+                Intent intent = new Intent(getApplicationContext(), CalificacionesListActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<LogUsuario> call, Throwable t) {}
+        });
+
     }
 
     public void onLoginFailed() {
