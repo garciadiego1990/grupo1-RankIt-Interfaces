@@ -76,8 +76,11 @@ public class CalificacionAdapter extends BaseAdapter implements Filterable {
         View rowView = inflater.inflate(R.layout.calificacion_row, parent, false);
         final Calificacion calificacion = this.getItem(position);
 
-        TextView tvCalificacion = (TextView) rowView.findViewById(R.id.nombreCalificacion);
-        tvCalificacion.setText(calificacion.getEvaluado());
+        TextView tvNombreCalificacion = (TextView) rowView.findViewById(R.id.nombreCalificacion);
+        tvNombreCalificacion.setText(calificacion.getEvaluado());
+
+        TextView tvMotivoCalificacion = (TextView) rowView.findViewById(R.id.detallePreview);
+        tvMotivoCalificacion.setText(calificacion.getMotivo());
 
         return rowView;
     }

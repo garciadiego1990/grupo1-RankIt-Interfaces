@@ -11,7 +11,7 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    tools:context="ar.edu.unq.uis.rankit_android.CalificacionEditarActivity">
+    tools:context="ar.edu.unq.uis.rankit_android.CalificacionEditarActivity" >
 
     <!--
     <android.support.design.widget.AppBarLayout android:id="@+id/app_bar"
@@ -70,6 +70,7 @@
         android:layout_alignBottom="@id/puntaje_label"
         android:layout_toEndOf="@id/puntaje_label"
         android:hint="..."
+        android:inputType="number"
         android:textSize="30dp" />
 
     <TextView
@@ -92,7 +93,7 @@
         android:layout_alignStart="@id/editar_label"
         android:layout_margin="10dp"
 
-        android:hint="Ingrese el motivo de su calificacion aquí..."
+        android:hint="Ingrese un motivo..."
         android:textSize="20dp" />
 
 

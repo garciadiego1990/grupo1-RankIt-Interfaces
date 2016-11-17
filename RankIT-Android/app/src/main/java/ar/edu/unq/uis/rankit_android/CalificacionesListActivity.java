@@ -22,8 +22,7 @@ public class CalificacionesListActivity extends AppCompatActivity implements Cal
     @Override
     public void onItemSelected(Calificacion calificacion) {
         Intent detalleIntent = new Intent(this, CalificacionDetalleActivity.class);
-        Log.w("Calificacion", calificacion.getEvaluado());
-        detalleIntent.putExtra(CalificacionDetalleActivity.ARG_ITEM_ID, calificacion);
+        detalleIntent.putExtra(CalificacionDetalleActivity.ARG_ITEM_ID, calificacion.getId());
         startActivity(detalleIntent);
     }
 }
