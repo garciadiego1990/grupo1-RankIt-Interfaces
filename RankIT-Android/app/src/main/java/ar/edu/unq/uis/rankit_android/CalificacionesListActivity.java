@@ -12,17 +12,22 @@ import ar.edu.unq.uis.rankit_android.model.Calificacion;
 
 public class CalificacionesListActivity extends AppCompatActivity implements CalificacionesListFragment.Callbacks {
 
+    private Integer idUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calificaciones_list);
 
+        this.idUsuario = this.getIntent().getExtras().getInt(LoginActivity.ID_USER);
     }
 
     @Override
     public void onItemSelected(Calificacion calificacion) {
         Intent detalleIntent = new Intent(this, CalificacionDetalleActivity.class);
         detalleIntent.putExtra(CalificacionDetalleActivity.ARG_ITEM_ID, calificacion.getId());
-        startActivity(detalleIntent);
+        detalleIntent.putExtra(LoginActivity.ID_USER, this.idUsuario);
+
+        this.startActivity(detalleIntent);
     }
 }

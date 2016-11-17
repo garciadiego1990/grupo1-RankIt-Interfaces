@@ -29,15 +29,6 @@
         android:background="@color/colorAccent"
          />
 
-    <EditText android:id="@+id/error_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/usuario"
-        android:padding="15dp"
-        android:text="hola"
-        android:textColor="@color/colorAccent"
-        />
-
     <EditText android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/textBoxHeigth"

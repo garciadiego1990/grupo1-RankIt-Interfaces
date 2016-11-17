@@ -1,14 +1,13 @@
 package ar.edu.unq.uis.rankit_android;
 
 import android.os.Bundle;
-import android.preference.EditTextPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import ar.edu.unq.uis.rankit_android.dummy.DataDummy;
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
+import ar.edu.unq.uis.rankit_android.repo.DataProvider;
 
 /**
  * Created by aee on 15/11/16.
@@ -18,10 +17,17 @@ public class CalificacionEditarActivity extends AppCompatActivity {
     private EditText puntajeET;
     private EditText motivoET;
     private Button guardarBTN;
+    private DataProvider data;
 
     private Integer idCalificacion;
+    private Integer idUsuario;
 
     public static final String ARG_ITEM_ID = "item_id";
+
+    public CalificacionEditarActivity() {
+        super();
+        this.data = DataProvider.getInstance();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class CalificacionEditarActivity extends AppCompatActivity {
         });
 
         this.idCalificacion = (Integer) this.getIntent().getExtras().getSerializable(ARG_ITEM_ID);
+        this.idUsuario = (Integer) this.getIntent().getExtras().getInt(LoginActivity.ID_USER);
     }
 
 
@@ -52,7 +59,7 @@ public class CalificacionEditarActivity extends AppCompatActivity {
 
 
     private void mostrarCalificacion(Integer id) {
-        Calificacion calificacionAEditar = DataDummy.getInstance().getCalificacion(id);
+        Calificacion calificacionAEditar = this.data.getCalificacion(id);
 
         this.motivoET.setText(calificacionAEditar.getMotivo());
         this.puntajeET.setText(calificacionAEditar.getPuntaje().toString());
@@ -63,9 +70,7 @@ public class CalificacionEditarActivity extends AppCompatActivity {
         Integer puntaje = Integer.valueOf(this.puntajeET.getText().toString());
         String motivo = this.motivoET.getText().toString();
 
-        DataDummy.getInstance().updateCalificacion( this.idCalificacion,
-                                                    motivo,
-                                                    puntaje);
+        this.data.updateCalificacion(this.idUsuario, this.idCalificacion, motivo, puntaje);
         this.finish();
     }
 

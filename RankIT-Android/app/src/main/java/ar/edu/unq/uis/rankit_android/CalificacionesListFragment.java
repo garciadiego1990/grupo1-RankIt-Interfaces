@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import ar.edu.unq.uis.rankit_android.dummy.DataDummy;
+import java.util.List;
+
+import ar.edu.unq.uis.rankit_android.repo.DataDummy;
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
+import ar.edu.unq.uis.rankit_android.repo.DataProvider;
 
 /**
  * Created by aee on 11/11/16.
@@ -20,18 +23,26 @@ public class CalificacionesListFragment extends ListFragment {
     private EditText searchET;
     private Button searchBTN;
     private CalificacionAdapter adapter;
+    //Proveedor de datos:
+    private DataProvider data;
+    private Integer idUsuario;
 
     public CalificacionesListFragment() {
         super();
+        this.data = DataProvider.getInstance();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.adapter = new CalificacionAdapter(this.getActivity(), DataDummy.getInstance().getCalificaciones(null, 10));
 
+        this.idUsuario = savedInstanceState.getInt(LoginActivity.ID_USER);
+
+        List<Calificacion> calificacionesDelUsuario = this.data.getCalificaciones(this.idUsuario);
+        this.adapter = new CalificacionAdapter(this.getActivity(), calificacionesDelUsuario);
         this.setListAdapter(this.adapter);
     }
+
 
     public interface Callbacks {
         void onItemSelected(Calificacion calificacion);

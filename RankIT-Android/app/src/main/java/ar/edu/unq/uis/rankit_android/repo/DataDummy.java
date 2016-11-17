@@ -1,6 +1,4 @@
-package ar.edu.unq.uis.rankit_android.dummy;
-
-import android.provider.ContactsContract;
+package ar.edu.unq.uis.rankit_android.repo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,14 +43,10 @@ public class DataDummy {
         return INSTANCE;
     }
 
-    public List<Calificacion> getCalificaciones(String nombreCalificacion, Integer cantidad) {
-        List<Calificacion> listaFiltrada = new ArrayList<Calificacion>();
-        for(Calificacion c: this.calificaciones) {
-            if(true) { //c.getNombre().matches(nombreCalificacion)
-                listaFiltrada.add(c);
-            }
-        }
-        return listaFiltrada;
+    /**@param idUsuario - Represenata el id de un usuario (en este método nunca se usa este parámetro).
+     * @return todas las calificaciones, sin importar a qué usuario le pertenece*/
+    public List<Calificacion> getCalificacionesDeUsuario(Integer idUsuario) {
+        return this.calificaciones;
     }
 
     public Calificacion getCalificacion(long id) {
@@ -64,9 +58,22 @@ public class DataDummy {
         return null;
     }
 
-    public void updateCalificacion(Integer id, String motivo, Integer puntaje) {
-        Calificacion c = this.getCalificacion(id);
+    /**idUsuario no se usa en ningún momento.*/
+    public void updateCalificacion(Integer idUsuario, Integer idCalificacion, String motivo, Integer puntaje) {
+        Calificacion c = this.getCalificacion(idCalificacion);
         c.setMotivo(motivo);
         c.setPuntaje(puntaje);
+    }
+
+    /** Login hardcodeado:
+     * Con usaurio=root, contrasenia=root:
+     * - return 1
+     * Con cualquier otro par de parámetros:
+     * - return null */
+    public Integer loginUsuario(String usuario, String contrasenia) {
+        if(usuario.equals("root") && contrasenia.equals("root"))
+            return 1;
+        else
+            return null;
     }
 }

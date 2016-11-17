@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
+import ar.edu.unq.uis.rankit_android.repo.DataProvider;
 
 /**
  * Created by aee on 11/11/16.
@@ -38,16 +39,6 @@ public class CalificacionAdapter extends BaseAdapter implements Filterable {
         this.mCalificaciones = calificaciones;
         this.mCalificacionesFiltered = new ArrayList<Calificacion>(this.mCalificaciones);
     }
-
-    /*
-    TODO:IMPLEMENTAR CUANDO ESTEN LOS SERVICIOS.
-    public void add(Calificacion c) {
-        this.mCalificaciones.add(c);
-    }
-
-    public void remove(Calificacion c) {
-        this.mCalificaciones.remove(c);
-    }*/
 
     @Override
     public int getCount() {
@@ -84,6 +75,7 @@ public class CalificacionAdapter extends BaseAdapter implements Filterable {
 
         return rowView;
     }
+
 
     @Override
     public Filter getFilter(){

@@ -1,12 +1,15 @@
 package ar.edu.unq.uis.rankit_android;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import ar.edu.unq.uis.rankit_android.model.exceptions.UsuarioNoEncontradoException;
+import ar.edu.unq.uis.rankit_android.repo.DataProvider;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -15,14 +18,20 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordET;
     private EditText errorMsgET;
     private Button ingresarBtn;
+    //Proveedor de datos;
+    private DataProvider data;
+
+    public static final String ID_USER = "id_usuario_logueado";
+
+    public LoginActivity() {
+        this.data = DataProvider.getInstance();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_rankit_login);
 
-        this.errorMsgET = (EditText) this.findViewById(R.id.error_message);
-        this.errorMsgET.setVisibility(View.GONE);
         this.usuarioET = (EditText) this.findViewById(R.id.usuario);
         this.passwordET = (EditText) this.findViewById(R.id.password);
         this.ingresarBtn = (Button) this.findViewById(R.id.ingresar);
@@ -34,16 +43,22 @@ public class LoginActivity extends AppCompatActivity {
                 String usuario = usuarioET.getText().toString();
                 String contrasenia = passwordET.getText().toString();
 
-                errorMsgET.setText(usuario+" "+contrasenia);
-                errorMsgET.setVisibility(View.VISIBLE);
-
-                startCalificacionesListActivity();
+                iniciarSesion(view, usuario, contrasenia);
             }
         });
     }
 
-    public void startCalificacionesListActivity(){
-        Intent detailIntent = new Intent(this, CalificacionesListActivity.class);
-        startActivity(detailIntent);
+    private void iniciarSesion(View view, String usuario, String contrasenia) {
+        try {
+            int id = this.data.login(usuario, contrasenia);
+
+            Intent intent = new Intent(this, CalificacionesListActivity.class);
+            intent.putExtra(ID_USER, id);
+            this.startActivity(intent);
+        }
+        catch(UsuarioNoEncontradoException e){
+            Snackbar.make(view, "'usuario' o 'contraseña' ingresados incorrectamente", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 }
