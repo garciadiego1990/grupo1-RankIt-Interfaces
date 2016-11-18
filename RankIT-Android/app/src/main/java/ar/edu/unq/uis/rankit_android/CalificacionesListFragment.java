@@ -2,16 +2,18 @@ package ar.edu.unq.uis.rankit_android;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
-import ar.edu.unq.uis.rankit_android.repo.DataDummy;
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
 import ar.edu.unq.uis.rankit_android.repo.DataProvider;
 
@@ -36,7 +38,7 @@ public class CalificacionesListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.idUsuario = savedInstanceState.getInt(LoginActivity.ID_USER);
+        this.idUsuario = this.getActivity().getIntent().getExtras().getInt(LoginActivity.ID_USER);
 
         List<Calificacion> calificacionesDelUsuario = this.data.getCalificaciones(this.idUsuario);
         this.adapter = new CalificacionAdapter(this.getActivity(), calificacionesDelUsuario);
@@ -58,21 +60,39 @@ public class CalificacionesListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         this.searchET = (EditText) this.getView().findViewById(R.id.busqueda_edittext);
-        this.searchBTN = (Button) this.getView().findViewById(R.id.busqueda_boton);
+        this.searchET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            /**En caso de apretar el botón DONE del teclado dispara la busqueda.*/
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE && event == null) {
+                    buscar();
+                    return true;
+                }
+                return false;
+            }
+        });
 
+        this.searchBTN = (Button) this.getView().findViewById(R.id.busqueda_boton);
         this.searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = searchET.getText().toString();
-                adapter.getFilter().filter(text);
+                buscar();
             }
         });
+    }
+
+    /** Se dispara la búsqueda buscando calificaciones cuyo nombre contenga el patrón de text extraido del
+     * campo de búsqueda de la vista.*/
+    public void buscar() {
+        String text = searchET.getText().toString();
+        adapter.getFilter().filter(text);
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
+        //Actualiza la lista cada vez que el activity esta por estar visible.
         adapter.notifyDataSetChanged();
     }
 

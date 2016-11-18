@@ -14,9 +14,10 @@ import ar.edu.unq.uis.rankit_android.repo.DataProvider;
 
 public class CalificacionDetalleActivity extends AppCompatActivity {
 
+    private TextView nombreCalificacionTV;
     private TextView puntajeTV;
     private TextView motivoTV;
-    private Button editarBoton;
+    private Button editarBTN;
 
     private Integer idCalificacion;
     private Integer idUsuario;
@@ -41,11 +42,12 @@ public class CalificacionDetalleActivity extends AppCompatActivity {
         // Show the Up button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        this.nombreCalificacionTV = (TextView) this.findViewById(R.id.nombre_calificacion);
         this.puntajeTV = (TextView) this.findViewById(R.id.puntos_label);
         this.motivoTV = (TextView) this.findViewById(R.id.detalle);
-        this.editarBoton = (Button) this.findViewById(R.id.editar_boton);
+        this.editarBTN = (Button) this.findViewById(R.id.editar_boton);
 
-        this.editarBoton.setOnClickListener(new View.OnClickListener() {
+        this.editarBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 irAEditarCalificacion();
@@ -66,6 +68,7 @@ public class CalificacionDetalleActivity extends AppCompatActivity {
 
     private void mostrarCalificacion() {
         Calificacion c = this.data.getCalificacion(this.idCalificacion);
+        this.nombreCalificacionTV.setText(c.getEvaluado());
         this.motivoTV.setText(c.getMotivo());
         this.puntajeTV.setText(c.getPuntaje().toString());
     }
@@ -73,7 +76,8 @@ public class CalificacionDetalleActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();onActivityResult(1,1,null);
+        int id = item.getItemId();
+        onActivityResult(1,1,null);
         if (id == android.R.id.home) {
             // This ID represents the Home or Up button. In the case of this
             // activity, the Up button is shown. For

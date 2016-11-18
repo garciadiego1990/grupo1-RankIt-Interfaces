@@ -18,6 +18,7 @@
         <activity android:name=".CalificacionesListActivity" />
         <activity android:name=".CalificacionDetalleActivity"></activity>
         <activity android:name=".CalificacionEditarActivity"></activity>
+        <activity android:name=".CalificacionNuevaActivity"></activity>
     </application>
 
 </manifest>

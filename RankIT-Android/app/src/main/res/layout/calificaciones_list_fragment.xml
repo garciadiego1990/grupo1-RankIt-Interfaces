@@ -6,7 +6,6 @@
     android:background="@color/colorAccent"
     android:orientation="vertical">
 
-    <!--TODO:Moví esta toolbar del activity al fragment para poder hacer la búsqueda. Consultar si está bien.-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:minHeight="?attr/actionBarSize"
@@ -16,6 +15,7 @@
         <EditText
             android:id="@+id/busqueda_edittext"
             android:maxLines="1"
+            android:inputType="text"
             android:layout_width="150dp"
             android:background="#FFF"
             android:layout_height="match_parent"
