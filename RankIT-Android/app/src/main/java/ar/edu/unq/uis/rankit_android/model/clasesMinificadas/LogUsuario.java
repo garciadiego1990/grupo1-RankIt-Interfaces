@@ -5,19 +5,19 @@ package ar.edu.unq.uis.rankit_android.model.clasesMinificadas;
  */
 
 public class LogUsuario {
-    private Integer id;
+    private String id;
 
     public LogUsuario() {}
 
-    public LogUsuario(Integer id) {
+    public LogUsuario(String id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

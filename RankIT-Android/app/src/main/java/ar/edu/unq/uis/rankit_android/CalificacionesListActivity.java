@@ -14,7 +14,6 @@ public class CalificacionesListActivity extends AppCompatActivity implements Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calificaciones_list);
-
     }
 
     @Override
