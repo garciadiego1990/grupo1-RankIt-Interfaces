@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
-import ar.edu.unq.uis.rankit_android.repo.DataProvider;
+import ar.edu.unq.uis.rankit_android.repo.DataService;
 
 /**
  * Created by aee on 11/11/16.
@@ -26,12 +26,12 @@ public class CalificacionesListFragment extends ListFragment {
     private Button searchBTN;
     private CalificacionAdapter adapter;
     //Proveedor de datos:
-    private DataProvider data;
+    private DataService data;
     private Integer idUsuario;
 
     public CalificacionesListFragment() {
         super();
-        this.data = DataProvider.getInstance();
+        this.data = DataService.getInstance();
     }
 
     @Override

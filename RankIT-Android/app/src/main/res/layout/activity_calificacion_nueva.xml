@@ -1,11 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_calificacion_nueva"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ar.edu.unq.uis.rankit_android.CalificacionNuevaActivity"
+    >
 
-    <TextView
+    <!--
+    <android.support.design.widget.AppBarLayout android:id="@+id/app_bar"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout> -->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/editar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#5450BB"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <Button
+            android:id="@+id/guardar_edicion_boton"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="Guardar" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CALIFICACION NUEVA"
-        android:textSize="30dp"/>
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccione un evaluado:"
+            android:textSize="20dp"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/evaluados_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+
+        <TextView
+            android:id="@+id/puntaje_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccione un puntaje"
+            android:textSize="20dp"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/puntaje_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+
+        <TextView
+            android:id="@+id/editar_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Motivo"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/editar_motivo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:hint="Ingrese un motivo..."
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
 </LinearLayout>

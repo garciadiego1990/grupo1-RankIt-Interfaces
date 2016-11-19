@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
-import ar.edu.unq.uis.rankit_android.repo.DataProvider;
+import ar.edu.unq.uis.rankit_android.repo.DataService;
 
 public class CalificacionDetalleActivity extends AppCompatActivity {
 
@@ -22,13 +22,13 @@ public class CalificacionDetalleActivity extends AppCompatActivity {
     private Integer idCalificacion;
     private Integer idUsuario;
 
-    private DataProvider data;
+    private DataService data;
 
     public static final String ARG_ITEM_ID = "item_id";
 
     public CalificacionDetalleActivity() {
         super();
-        this.data = DataProvider.getInstance();
+        this.data = DataService.getInstance();
     }
 
     @Override

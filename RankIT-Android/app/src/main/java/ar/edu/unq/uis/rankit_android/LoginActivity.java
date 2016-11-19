@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import ar.edu.unq.uis.rankit_android.model.exceptions.UsuarioNoEncontradoException;
-import ar.edu.unq.uis.rankit_android.repo.DataProvider;
+import ar.edu.unq.uis.rankit_android.repo.DataService;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -19,12 +19,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText errorMsgET;
     private Button ingresarBtn;
     //Proveedor de datos;
-    private DataProvider data;
+    private DataService data;
 
     public static final String ID_USER = "id_usuario_logueado";
 
     public LoginActivity() {
-        this.data = DataProvider.getInstance();
+        this.data = DataService.getInstance();
     }
 
     @Override

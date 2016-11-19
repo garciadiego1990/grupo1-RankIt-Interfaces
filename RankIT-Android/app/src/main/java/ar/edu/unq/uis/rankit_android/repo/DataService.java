@@ -4,27 +4,28 @@ package ar.edu.unq.uis.rankit_android.repo;
 import java.util.List;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
+import ar.edu.unq.uis.rankit_android.model.Evaluado;
 import ar.edu.unq.uis.rankit_android.model.exceptions.UsuarioNoEncontradoException;
 
 /** Singleton que tiene como función proveer de datos a la aplicación.
  * Esta clase es el único punto de entrada a los datos que manejará la aplicación. */
-public class DataProvider {
+public class DataService {
 
     //Fuente de donde esta clase obtendrá los datos necesarios para la aplicación.
     private DataDummy repo; //TODO: cambiar DataDummy por la interfaz del servicio rest que se va a utilizar.
 
     //Singleton
-    public static DataProvider INSTANCE;
+    public static DataService INSTANCE;
 
 
 
-    private DataProvider() {
+    private DataService() {
         this.repo = new DataDummy();
     }
 
-    public static DataProvider getInstance() {
+    public static DataService getInstance() {
         if(INSTANCE == null)
-            INSTANCE = new DataProvider();
+            INSTANCE = new DataService();
         return INSTANCE;
     }
 
@@ -61,5 +62,13 @@ public class DataProvider {
 
     public void updateCalificacion(Integer idUsuario, Integer idCalificacion, String motivo, Integer puntaje) {
         this.repo.updateCalificacion(idUsuario, idCalificacion, motivo, puntaje);
+    }
+
+    public List<Evaluado> getEvaluados() {
+        return this.repo.getEvaluados();
+    }
+
+    public void saveCalificacion(String nombre, int puntaje, String motivo) {
+        this.repo.saveCalificacion(nombre, puntaje, motivo);
     }
 }

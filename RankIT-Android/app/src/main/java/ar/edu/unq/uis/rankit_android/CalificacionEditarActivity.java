@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
-import ar.edu.unq.uis.rankit_android.repo.DataProvider;
+import ar.edu.unq.uis.rankit_android.repo.DataService;
 
 /**
  * Created by aee on 15/11/16.
@@ -17,7 +17,7 @@ public class CalificacionEditarActivity extends AppCompatActivity {
     private EditText puntajeET;
     private EditText motivoET;
     private Button guardarBTN;
-    private DataProvider data;
+    private DataService data;
 
     private Integer idCalificacion;
     private Integer idUsuario;
@@ -26,7 +26,7 @@ public class CalificacionEditarActivity extends AppCompatActivity {
 
     public CalificacionEditarActivity() {
         super();
-        this.data = DataProvider.getInstance();
+        this.data = DataService.getInstance();
     }
 
     @Override
