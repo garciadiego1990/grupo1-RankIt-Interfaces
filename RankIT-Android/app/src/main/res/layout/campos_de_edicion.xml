@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/puntaje_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/puntaje"
+        android:textSize="@dimen/label_edicion"/>
+
+    <EditText
+        android:id="@+id/puntaje_edit"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@color/campo_de_edicion"
+        android:hint="@string/ingrese_un_puntaje"
+        android:inputType="number"
+        android:textSize="@dimen/label_edicion"
+        android:textAlignment="center"/>
+
+
+
+
+    <TextView
+        android:id="@+id/editar_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/motivo_de_la_calificacion"
+        android:textSize="@dimen/label_edicion"/>
+
+    <EditText
+        android:id="@+id/editar_motivo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:minLines="5"
+        android:background="@color/campo_de_edicion"
+        android:inputType="textMultiLine"
+        android:gravity="top|start"
+        android:hint="@string/hint_motivo"
+        android:textSize="@dimen/label_edicion" />
+
+
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ import ar.edu.unq.uis.rankit_android.repo.DataService;
 public class CalificacionesListFragment extends ListFragment {
 
     private EditText searchET;
-    private Button searchBTN;
+    private ImageButton searchBTN;
     private CalificacionAdapter adapter;
     //Proveedor de datos:
     private DataService data;
@@ -72,7 +73,7 @@ public class CalificacionesListFragment extends ListFragment {
             }
         });
 
-        this.searchBTN = (Button) this.getView().findViewById(R.id.busqueda_boton);
+        this.searchBTN = (ImageButton) this.getView().findViewById(R.id.busqueda_boton);
         this.searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +94,7 @@ public class CalificacionesListFragment extends ListFragment {
     public void onStart() {
         super.onStart();
         //Actualiza la lista cada vez que el activity esta por estar visible.
+        this.buscar();
         adapter.notifyDataSetChanged();
     }
 

@@ -18,7 +18,7 @@ public class CalificacionesListActivity extends AppCompatActivity implements Cal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calificaciones_list);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.nueva_calificacion);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

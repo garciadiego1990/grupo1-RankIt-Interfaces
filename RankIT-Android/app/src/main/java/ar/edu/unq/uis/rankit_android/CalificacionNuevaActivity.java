@@ -1,8 +1,10 @@
 package ar.edu.unq.uis.rankit_android;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,8 +23,8 @@ public class CalificacionNuevaActivity extends AppCompatActivity {
 
     private DataService data;
 
-    private Button guardarBoton;
-    private Spinner puntosSPR;
+    private FloatingActionButton guardarBoton;
+    private EditText puntosET;
     private Spinner evaluadosSPR;
     private EditText motivoET;
 
@@ -36,7 +38,8 @@ public class CalificacionNuevaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_calificacion_nueva);
 
-        this.guardarBoton = (Button) this.findViewById(R.id.guardar_edicion_boton);
+
+        this.guardarBoton = (FloatingActionButton) this.findViewById(R.id.guardar_edicion_boton);
         this.guardarBoton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,10 +47,10 @@ public class CalificacionNuevaActivity extends AppCompatActivity {
             }
         });
 
+        this.puntosET = (EditText) this.findViewById(R.id.puntaje_edit);
         this.motivoET = (EditText) this.findViewById(R.id.editar_motivo);
 
         this.bindEvaluadosSpinner();
-        this.bindPuntajeSpinner();
     }
 
     private void bindEvaluadosSpinner() {
@@ -59,20 +62,9 @@ public class CalificacionNuevaActivity extends AppCompatActivity {
         this.evaluadosSPR.setAdapter(adapter);
     }
 
-    private void bindPuntajeSpinner() {
-        this.puntosSPR = (Spinner) this.findViewById(R.id.puntaje_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.puntos_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        this.puntosSPR.setAdapter(adapter);
-    }
-
     public void guardarCalificacion(){
         Evaluado e = (Evaluado) this.evaluadosSPR.getSelectedItem();
-        int puntaje = Integer.valueOf(this.puntosSPR.getSelectedItem().toString());
+        int puntaje = Integer.valueOf(this.puntosET.getText().toString());
         String motivo = this.motivoET.getText().toString();
         this.data.saveCalificacion(e.getNombre(), puntaje, motivo);
 

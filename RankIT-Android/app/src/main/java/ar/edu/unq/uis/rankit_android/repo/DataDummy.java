@@ -117,4 +117,9 @@ public class DataDummy {
         Calificacion c = new Calificacion(nombre, i, puntaje, motivo);
         this.calificaciones.add(c);
     }
+
+    public void deleteCalificacion(Integer idCalificacion) {
+        Object o = this.getCalificacion(idCalificacion);
+        this.calificaciones.remove(o);
+    }
 }

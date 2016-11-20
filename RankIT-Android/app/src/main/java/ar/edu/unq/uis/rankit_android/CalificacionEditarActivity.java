@@ -1,10 +1,13 @@
 package ar.edu.unq.uis.rankit_android;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
 import ar.edu.unq.uis.rankit_android.repo.DataService;
@@ -15,8 +18,9 @@ import ar.edu.unq.uis.rankit_android.repo.DataService;
 public class CalificacionEditarActivity extends AppCompatActivity {
 
     private EditText puntajeET;
+    private TextView tituloTV;
     private EditText motivoET;
-    private Button guardarBTN;
+    private FloatingActionButton guardarFAB;
     private DataService data;
 
     private Integer idCalificacion;
@@ -34,12 +38,13 @@ public class CalificacionEditarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_calificacion_editar);
 
-        this.puntajeET = (EditText) this.findViewById(R.id.puntos);
+        this.tituloTV = (TextView) this.findViewById(R.id.toolbar_title);
+        this.puntajeET = (EditText) this.findViewById(R.id.puntaje_edit);
         this.motivoET = (EditText) this.findViewById(R.id.editar_motivo);
 
-        this.guardarBTN = (Button) this.findViewById(R.id.guardar_edicion_boton);
+        this.guardarFAB = (FloatingActionButton) this.findViewById(R.id.guardar_edicion_boton);
 
-        this.guardarBTN.setOnClickListener(new View.OnClickListener() {
+        this.guardarFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 guardarEdicionCalificacion();
@@ -60,7 +65,7 @@ public class CalificacionEditarActivity extends AppCompatActivity {
 
     private void mostrarCalificacion(Integer id) {
         Calificacion calificacionAEditar = this.data.getCalificacion(id);
-
+        this.tituloTV.setText(calificacionAEditar.getEvaluado());
         this.motivoET.setText(calificacionAEditar.getMotivo());
         this.puntajeET.setText(calificacionAEditar.getPuntaje().toString());
     }

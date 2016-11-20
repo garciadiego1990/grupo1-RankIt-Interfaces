@@ -2,6 +2,17 @@
     <string name="app_name">RankIT-Android</string>
     <string name="login_title">RankIt</string>
 
+<!--EDICION DE CALIFICACION-->
+    <string name="seleccionar_puntaje">Seleccione un puntaje:</string>
+    <string name="seleccionar_evaluado">Publicacion evaluada:</string>
+    <string name="motivo_de_la_calificacion">Motivo:</string>
+
+    <string name="hint_motivo">Detalle su calificación...</string>
+    <string name="nueva_calificacion">Nueva calificación</string>
+    <string name="ingrese_el_puntaje">Ingrese el puntaje:</string>
+    <string name="ingrese_un_puntaje">Ingrese un puntaje...</string>
+    <string name="puntaje">Puntaje:</string>
+
     <string-array name="puntos_array">
         <item>10</item>
         <item>9</item>
@@ -15,5 +26,5 @@
         <item>1</item>
         <item>0</item>
     </string-array>
-
+<!--FIN EDICION DE CALIFICACION-->
 </resources>

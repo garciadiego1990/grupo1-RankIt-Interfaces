@@ -71,4 +71,8 @@ public class DataService {
     public void saveCalificacion(String nombre, int puntaje, String motivo) {
         this.repo.saveCalificacion(nombre, puntaje, motivo);
     }
+
+    public void borrarCalificacion(Integer idCalificacion) {
+        this.repo.deleteCalificacion(idCalificacion);
+    }
 }

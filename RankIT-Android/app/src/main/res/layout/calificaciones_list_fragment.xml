@@ -3,29 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:background="#2196F3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/Toolbar">
+
+        <TextView
+            style="@style/ToolbarTitle"
+            android:text="Mis calificaciones"
+            android:id="@+id/toolbar_title" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/busqueda_toolbar"
+        style="@style/Toolbar"
+        android:background="#E3E3E3">
+
         <EditText
             android:id="@+id/busqueda_edittext"
+            android:layout_width="320dp"
+            android:layout_height="30dp"
+            android:hint="busqueda..."
+            android:paddingStart="10dp"
             android:maxLines="1"
             android:inputType="text"
-            android:layout_width="150dp"
-            android:background="#FFF"
-            android:layout_height="match_parent"
+            android:background="@drawable/rounded_edittext"
             />
-        <Button
+
+        <ImageButton
             android:id="@+id/busqueda_boton"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:text="BUSCAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#E3E3E3"
+            android:src="@android:drawable/ic_menu_search"
+            android:layout_gravity="right"
             />
+
     </android.support.v7.widget.Toolbar>
 
     <ListView
@@ -37,7 +53,7 @@
     <TextView
         android:id="@android:id/empty"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         >
 
     </TextView>

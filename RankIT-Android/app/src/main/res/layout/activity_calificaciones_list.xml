@@ -6,7 +6,7 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context=".CalificacionesListActivity" tools:ignore="MergeRootFrame">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,16 +15,15 @@
             android:layout_height="match_parent"
             android:name="ar.edu.unq.uis.rankit_android.CalificacionesListFragment"/>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:src="@android:drawable/ic_input_add"
 
-            android:layout_margin="20dp"/>
+    </LinearLayout>
 
-    </RelativeLayout>
-    
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/nueva_calificacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_margin="20dp"/>
+
 </android.support.design.widget.CoordinatorLayout>

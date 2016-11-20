@@ -25,6 +25,9 @@
         android:layout_marginLeft="30dp"
         android:textSize="@dimen/textBoxLetters"
         android:hint="Usuario"
+
+        android:text="root"
+
         android:paddingLeft="10dp"
         android:background="@color/colorAccent"
         android:inputType="text"
@@ -38,6 +41,9 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textSize="@dimen/textBoxLetters"
+
+        android:text="root"
+
         android:hint="Contraseña"
         android:paddingLeft="10dp"
         android:background="@color/colorAccent"
