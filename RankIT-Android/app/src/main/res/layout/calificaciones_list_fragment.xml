@@ -22,25 +22,33 @@
         style="@style/Toolbar"
         android:background="#E3E3E3">
 
-        <EditText
-            android:id="@+id/busqueda_edittext"
-            android:layout_width="320dp"
-            android:layout_height="30dp"
-            android:hint="busqueda..."
-            android:paddingStart="10dp"
-            android:maxLines="1"
-            android:inputType="text"
-            android:background="@drawable/rounded_edittext"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <ImageButton
-            android:id="@+id/busqueda_boton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#E3E3E3"
-            android:src="@android:drawable/ic_menu_search"
-            android:layout_gravity="right"
-            />
+            <EditText
+                android:id="@+id/busqueda_edittext"
+                android:layout_width="0px"
+                android:layout_height="30dp"
+                android:layout_weight=".85"
+                android:hint="buscar..."
+                android:paddingStart="10dp"
+                android:maxLines="1"
+                android:inputType="text"
+                android:background="@drawable/rounded_edittext"
+                />
+
+            <ImageButton
+                android:id="@+id/busqueda_boton"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight=".15"
+                android:background="#E3E3E3"
+                android:src="@android:drawable/ic_menu_search"
+                android:layout_gravity="right"
+                />
+
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 

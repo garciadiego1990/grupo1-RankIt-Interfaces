@@ -1,13 +1,16 @@
 package ar.edu.unq.uis.rankit_android;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
 import ar.edu.unq.uis.rankit_android.repo.DataService;
@@ -47,7 +50,7 @@ public class CalificacionEditarActivity extends AppCompatActivity {
         this.guardarFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                guardarEdicionCalificacion();
+                dialogoEditarCalificacion();
             }
         });
 
@@ -71,12 +74,43 @@ public class CalificacionEditarActivity extends AppCompatActivity {
     }
 
 
-    public void guardarEdicionCalificacion() {
+    public void guardarEdicionCalificacionYSalir() {
         Integer puntaje = Integer.valueOf(this.puntajeET.getText().toString());
         String motivo = this.motivoET.getText().toString();
 
         this.data.updateCalificacion(this.idUsuario, this.idCalificacion, motivo, puntaje);
+        Toast.makeText(this,"La calificacíon a sido editada",Toast.LENGTH_LONG).show();
         this.finish();
+    }
+
+
+    /**Al llamar a este método se muestra un diálogo en pantalla consultando al usuario si desea guardar los cambios
+     * a la calificación que está siendo mostrada por este activity.
+     * En caso de aceptar, la calificación se guarda y se regresa al activity padre de detalle de calificacion;
+     * En caso de cancelar la edición, se cierra este diálogo y no se hace nada.*/
+    public void dialogoEditarCalificacion(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("¿Desea confirmar la edición de la calificación actual?");
+
+        alertDialogBuilder.setPositiveButton("Aceptar",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        guardarEdicionCalificacionYSalir();
+                    }
+                });
+
+
+        alertDialogBuilder.setNegativeButton("Cancelar",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //No hacer nada.
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 }
