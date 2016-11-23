@@ -16,7 +16,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.CalificacionMinificada;
+import ar.edu.unq.uis.rankit_android.model.myApy.MyApiEndpointInterface;
+import ar.edu.unq.uis.rankit_android.model.myService.ServiceGenerator;
 import ar.edu.unq.uis.rankit_android.repo.DataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by aee on 11/11/16.
@@ -41,8 +47,35 @@ public class CalificacionesListFragment extends ListFragment {
 
         this.idUsuario = this.getActivity().getIntent().getExtras().getInt(LoginActivity.ID_USER);
 
-        List<Calificacion> calificacionesDelUsuario = this.data.getCalificaciones(this.idUsuario);
-        this.adapter = new CalificacionAdapter(this.getActivity(), calificacionesDelUsuario);
+        //List<Calificacion> calificacionesDelUsuario = this.data.getCalificaciones(this.idUsuario);
+        buscarCalificacionesDeUsuario(this.idUsuario);
+
+    }
+
+    private void buscarCalificacionesDeUsuario(Integer idUsuario) {
+
+        MyApiEndpointInterface client = ServiceGenerator.createService(MyApiEndpointInterface.class);
+
+        Call<List<CalificacionMinificada>> call =
+                client.calificaciones(idUsuario.toString());
+
+        call.enqueue(new Callback<List<CalificacionMinificada>>() {
+            @Override
+            public void onResponse(Call<List<CalificacionMinificada>> call, Response<List<CalificacionMinificada>> response) {
+
+                mostrarCalificaciones(response.body());
+                //calificacionesDelUsuario = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<CalificacionMinificada>> call, Throwable t) {
+            }
+        });
+    }
+
+    private void mostrarCalificaciones(List<CalificacionMinificada> calificaciones) {
+        this.adapter = new CalificacionAdapter(this.getActivity(), calificaciones);
         this.setListAdapter(this.adapter);
     }
 

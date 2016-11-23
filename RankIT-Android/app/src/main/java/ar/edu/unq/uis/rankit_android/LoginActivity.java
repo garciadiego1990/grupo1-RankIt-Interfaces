@@ -8,8 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.DatosUsuario;
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.LogUsuario;
 import ar.edu.unq.uis.rankit_android.model.exceptions.UsuarioNoEncontradoException;
+import ar.edu.unq.uis.rankit_android.model.myApy.MyApiEndpointInterface;
+import ar.edu.unq.uis.rankit_android.model.myService.ServiceGenerator;
 import ar.edu.unq.uis.rankit_android.repo.DataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -43,11 +50,74 @@ public class LoginActivity extends AppCompatActivity {
                 String usuario = usuarioET.getText().toString();
                 String contrasenia = passwordET.getText().toString();
 
-                iniciarSesion(view, usuario, contrasenia);
+                //iniciarSesion(view, usuario, contrasenia);
+                ingresar(view);
             }
         });
     }
 
+    public void ingresar(View view) {
+        EditText usuarioText = (EditText) findViewById(R.id.usuario);
+        EditText passText = (EditText) findViewById(R.id.password);
+
+        DatosUsuario usuario = new DatosUsuario();
+        usuario.setUsuario(usuarioText.getText().toString());
+
+        EditText passwordText = (EditText) findViewById(R.id.password);
+        usuario.setPassword(passwordText.getText().toString());
+
+        validarUsuario(usuario, view);
+
+    }
+
+    private void validarUsuario(DatosUsuario miUsuario, View view) {
+
+
+        try {
+
+            MyApiEndpointInterface client = ServiceGenerator.createService(MyApiEndpointInterface.class);
+
+
+            Call<LogUsuario> call =
+                    client.logInUsuario(miUsuario);
+
+            call.enqueue(new Callback<LogUsuario>() {
+                @Override
+                public void onResponse(Call<LogUsuario> call, Response<LogUsuario> response) {
+
+                    pantallaCalificacionDelUsuario(response.body());
+
+                }
+
+
+                @Override
+                public void onFailure(Call<LogUsuario> call, Throwable t) {
+
+                    throw new UsuarioNoEncontradoException();
+                }
+            });
+
+            //int id = this.data.login(usuario, contrasenia);
+
+            //Intent intent = new Intent(this, CalificacionesListActivity.class);
+            //intent.putExtra(ID_USER, id);
+            //this.startActivity(intent);
+        }
+        catch(UsuarioNoEncontradoException e){
+            Snackbar.make(view, "'usuario' o 'contraseña' ingresados incorrectamente", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+
+
+    }
+
+    private void pantallaCalificacionDelUsuario(LogUsuario usuarioLogueado) {
+        Intent intent = new Intent(this, CalificacionesListActivity.class);
+        intent.putExtra(ID_USER, usuarioLogueado.getId());
+        startActivity(intent);
+    }
+
+    /*
     private void iniciarSesion(View view, String usuario, String contrasenia) {
         try {
             int id = this.data.login(usuario, contrasenia);
@@ -61,4 +131,5 @@ public class LoginActivity extends AppCompatActivity {
                     .setAction("Action", null).show();
         }
     }
+    */
 }

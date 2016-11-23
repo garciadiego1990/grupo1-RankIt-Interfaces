@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unq.uis.rankit_android.model.Calificacion;
+import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.CalificacionMinificada;
 
 /**
  * Created by aee on 11/11/16.
@@ -20,21 +21,21 @@ import ar.edu.unq.uis.rankit_android.model.Calificacion;
 public class CalificacionAdapter extends BaseAdapter implements Filterable {
 
     /*Lista que guarda todas las calificaciones.*/
-    private List<Calificacion> mCalificaciones;
+    private List<CalificacionMinificada> mCalificaciones;
 
     /*Lista que guarda todas las calificaciones filtradas por algún parámetro de búsqueda.
     * Es esta lista la que se adaptará a la vista de calificaciones.*/
-    private List<Calificacion> mCalificacionesFiltered;
+    private List<CalificacionMinificada> mCalificacionesFiltered;
 
     private Context mContext;
     private CalificacionListFilter filter;
 
 
-    public CalificacionAdapter(Context context, List<Calificacion> calificaciones) {
+    public CalificacionAdapter(Context context, List<CalificacionMinificada> calificaciones) {
         this.filter = new CalificacionListFilter();
         this.mContext = context;
         this.mCalificaciones = calificaciones;
-        this.mCalificacionesFiltered = new ArrayList<Calificacion>(this.mCalificaciones);
+        this.mCalificacionesFiltered = new ArrayList<CalificacionMinificada>(this.mCalificaciones);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class CalificacionAdapter extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public Calificacion getItem(int position) {
+    public CalificacionMinificada getItem(int position) {
         return this.mCalificacionesFiltered.get(position);
     }
 
@@ -62,13 +63,13 @@ public class CalificacionAdapter extends BaseAdapter implements Filterable {
                 (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(R.layout.calificacion_row, parent, false);
-        final Calificacion calificacion = this.getItem(position);
+        final CalificacionMinificada calificacion = this.getItem(position);
 
         TextView tvNombreCalificacion = (TextView) rowView.findViewById(R.id.nombreCalificacion);
         tvNombreCalificacion.setText(calificacion.getEvaluado());
 
         TextView tvMotivoCalificacion = (TextView) rowView.findViewById(R.id.detallePreview);
-        tvMotivoCalificacion.setText(calificacion.getMotivo());
+        tvMotivoCalificacion.setText(calificacion.getDetalle());
 
         return rowView;
     }
@@ -87,14 +88,14 @@ public class CalificacionAdapter extends BaseAdapter implements Filterable {
             FilterResults results = new FilterResults();
 
             if(constraint == null || constraint.length() == 0) {
-                results.values = new ArrayList<Calificacion>(mCalificaciones);
+                results.values = new ArrayList<CalificacionMinificada>(mCalificaciones);
                 results.count = mCalificaciones.size();
             }
             else {
-                ArrayList<Calificacion> filteredList = new ArrayList<Calificacion>();
+                ArrayList<CalificacionMinificada> filteredList = new ArrayList<CalificacionMinificada>();
                 String aFilter = constraint.toString().toLowerCase();
 
-                for(Calificacion c: mCalificaciones) {
+                for(CalificacionMinificada c: mCalificaciones) {
                     if(c.getEvaluado().toLowerCase().contains(aFilter)) {
                         filteredList.add(c);
                     }
@@ -108,7 +109,7 @@ public class CalificacionAdapter extends BaseAdapter implements Filterable {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            mCalificacionesFiltered = (List<Calificacion>) results.values;
+            mCalificacionesFiltered = (List<CalificacionMinificada>) results.values;
             if(results.count < 0)
                 notifyDataSetInvalidated();
             else
