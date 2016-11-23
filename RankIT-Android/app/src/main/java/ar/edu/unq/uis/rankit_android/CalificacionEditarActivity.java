@@ -18,63 +18,27 @@ import ar.edu.unq.uis.rankit_android.repo.DataService;
 /**
  * Created by aee on 15/11/16.
  */
-public class CalificacionEditarActivity extends AppCompatActivity {
-
-    private EditText puntajeET;
-    private TextView tituloTV;
-    private EditText motivoET;
-    private FloatingActionButton guardarFAB;
-    private DataService data;
+public class CalificacionEditarActivity extends AbstractEdicionCalificacionActivity {
 
     private Integer idCalificacion;
-    private Integer idUsuario;
 
     public static final String ARG_ITEM_ID = "item_id";
 
+
     public CalificacionEditarActivity() {
         super();
-        this.data = DataService.getInstance();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_calificacion_editar);
-
-        this.tituloTV = (TextView) this.findViewById(R.id.toolbar_title);
-        this.puntajeET = (EditText) this.findViewById(R.id.puntaje_edit);
-        this.motivoET = (EditText) this.findViewById(R.id.editar_motivo);
-
-        this.guardarFAB = (FloatingActionButton) this.findViewById(R.id.guardar_edicion_boton);
-
-        this.guardarFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                dialogoEditarCalificacion();
-            }
-        });
 
         this.idCalificacion = (Integer) this.getIntent().getExtras().getSerializable(ARG_ITEM_ID);
-        this.idUsuario = (Integer) this.getIntent().getExtras().getInt(LoginActivity.ID_USER);
     }
-
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        this.mostrarCalificacion(this.idCalificacion);
-    }
-
-
-    private void mostrarCalificacion(Integer id) {
-        Calificacion calificacionAEditar = this.data.getCalificacion(id);
-        this.tituloTV.setText(calificacionAEditar.getEvaluado());
-        this.motivoET.setText(calificacionAEditar.getMotivo());
-        this.puntajeET.setText(calificacionAEditar.getPuntaje().toString());
-    }
-
-
-    public void guardarEdicionCalificacionYSalir() {
+    protected void guardarEdicion() {
         Integer puntaje = Integer.valueOf(this.puntajeET.getText().toString());
         String motivo = this.motivoET.getText().toString();
 
@@ -83,34 +47,30 @@ public class CalificacionEditarActivity extends AppCompatActivity {
         this.finish();
     }
 
+    @Override
+    protected int getLayoutVista() {
+        return R.layout.activity_calificacion_editar;
+    }
 
-    /**Al llamar a este método se muestra un diálogo en pantalla consultando al usuario si desea guardar los cambios
-     * a la calificación que está siendo mostrada por este activity.
-     * En caso de aceptar, la calificación se guarda y se regresa al activity padre de detalle de calificacion;
-     * En caso de cancelar la edición, se cierra este diálogo y no se hace nada.*/
-    public void dialogoEditarCalificacion(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("¿Desea confirmar la edición de la calificación actual?");
-
-        alertDialogBuilder.setPositiveButton("Aceptar",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        guardarEdicionCalificacionYSalir();
-                    }
-                });
+    @Override
+    protected String getMSGConfirmacion() {
+        return "¿Desea confirmar la edición de la calificación actual?";
+    }
 
 
-        alertDialogBuilder.setNegativeButton("Cancelar",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //No hacer nada.
-                    }
-                });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        this.cargarCamposDeEdicion(this.idCalificacion);
+    }
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+
+    /** Dado el id de la calificación a editar, se cargan los campos editables de la calificación en la vista.*/
+    private void cargarCamposDeEdicion(Integer id) {
+        Calificacion calificacionAEditar = this.data.getCalificacion(id);
+        this.tituloTV.setText(calificacionAEditar.getEvaluado());
+        this.motivoET.setText(calificacionAEditar.getMotivo());
+        this.puntajeET.setText(calificacionAEditar.getPuntaje().toString());
     }
 
 }

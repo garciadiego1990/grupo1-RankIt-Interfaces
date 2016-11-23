@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="campo_de_edicion">#EEEEEC</color>
+    <color name="campo_de_edicion">#D3D7CF</color>
     <color name="app_color">#73AAD9</color>
 </resources>
