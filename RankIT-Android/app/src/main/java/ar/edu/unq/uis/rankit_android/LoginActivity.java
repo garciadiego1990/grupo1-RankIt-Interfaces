@@ -46,11 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         this.ingresarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-
-                String usuario = usuarioET.getText().toString();
-                String contrasenia = passwordET.getText().toString();
-
-                //iniciarSesion(view, usuario, contrasenia);
                 ingresar(view);
             }
         });
@@ -97,11 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            //int id = this.data.login(usuario, contrasenia);
 
-            //Intent intent = new Intent(this, CalificacionesListActivity.class);
-            //intent.putExtra(ID_USER, id);
-            //this.startActivity(intent);
         }
         catch(UsuarioNoEncontradoException e){
             Snackbar.make(view, "'usuario' o 'contraseña' ingresados incorrectamente", Snackbar.LENGTH_LONG)
@@ -117,19 +108,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*
-    private void iniciarSesion(View view, String usuario, String contrasenia) {
-        try {
-            int id = this.data.login(usuario, contrasenia);
 
-            Intent intent = new Intent(this, CalificacionesListActivity.class);
-            intent.putExtra(ID_USER, id);
-            this.startActivity(intent);
-        }
-        catch(UsuarioNoEncontradoException e){
-            Snackbar.make(view, "'usuario' o 'contraseña' ingresados incorrectamente", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    }
-    */
 }

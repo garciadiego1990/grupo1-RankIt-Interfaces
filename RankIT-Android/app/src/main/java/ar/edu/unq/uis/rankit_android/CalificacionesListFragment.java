@@ -47,7 +47,6 @@ public class CalificacionesListFragment extends ListFragment {
 
         this.idUsuario = this.getActivity().getIntent().getExtras().getInt(LoginActivity.ID_USER);
 
-        //List<Calificacion> calificacionesDelUsuario = this.data.getCalificaciones(this.idUsuario);
         buscarCalificacionesDeUsuario(this.idUsuario);
 
     }
@@ -64,7 +63,6 @@ public class CalificacionesListFragment extends ListFragment {
             public void onResponse(Call<List<CalificacionMinificada>> call, Response<List<CalificacionMinificada>> response) {
 
                 mostrarCalificaciones(response.body());
-                //calificacionesDelUsuario = response.body();
 
             }
 
