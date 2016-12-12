@@ -10,6 +10,8 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Query;
+
 import java.util.List;
 
 
@@ -22,7 +24,7 @@ public interface MyApiEndpointInterface {
     @POST("usuarios")
     Call<LogUsuario> logInUsuario(@Body DatosUsuario datos);
     @GET("calificaciones")
-    Call<List<CalificacionMinificada>> calificaciones(String idUsuario);
+    Call<List<CalificacionMinificada>> calificaciones(@Query("id") String idUsuario);
     @DELETE("calificaciones")
     Call<ResponseBody> delete(String id);
     @PUT("calificaciones")

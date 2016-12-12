@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.DatosUsuario;
 import ar.edu.unq.uis.rankit_android.model.clasesMinificadas.LogUsuario;
@@ -61,20 +62,13 @@ public class LoginActivity extends AppCompatActivity {
         EditText passwordText = (EditText) findViewById(R.id.password);
         usuario.setPassword(passwordText.getText().toString());
 
-        validarUsuario(usuario, view);
-
-    }
-
-    private void validarUsuario(DatosUsuario miUsuario, View view) {
-
-
         try {
 
             MyApiEndpointInterface client = ServiceGenerator.createService(MyApiEndpointInterface.class);
 
 
             Call<LogUsuario> call =
-                    client.logInUsuario(miUsuario);
+                    client.logInUsuario(usuario);
 
             call.enqueue(new Callback<LogUsuario>() {
                 @Override
@@ -87,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<LogUsuario> call, Throwable t) {
-
-                    throw new UsuarioNoEncontradoException();
+                    onFailed();
+                    t.printStackTrace();
                 }
             });
 
@@ -100,6 +94,10 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void onFailed() {
+        Toast.makeText(this, "Pobre usuario que no le funciona la app", Toast.LENGTH_LONG).show();
     }
 
     private void pantallaCalificacionDelUsuario(LogUsuario usuarioLogueado) {

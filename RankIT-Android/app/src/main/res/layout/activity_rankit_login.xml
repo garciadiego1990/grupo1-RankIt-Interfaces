@@ -26,7 +26,7 @@
         android:textSize="@dimen/textBoxLetters"
         android:hint="Usuario"
 
-        android:text="root"
+        android:text="pepe"
 
         android:paddingLeft="10dp"
         android:background="@color/colorAccent"
@@ -42,7 +42,7 @@
         android:layout_marginLeft="30dp"
         android:textSize="@dimen/textBoxLetters"
 
-        android:text="root"
+        android:text="123"
 
         android:hint="Contraseña"
         android:paddingLeft="10dp"

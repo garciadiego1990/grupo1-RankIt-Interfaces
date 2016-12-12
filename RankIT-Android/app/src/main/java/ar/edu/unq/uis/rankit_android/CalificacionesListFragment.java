@@ -1,17 +1,18 @@
 package ar.edu.unq.uis.rankit_android;
 
-import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ import retrofit2.Response;
  */
 public class CalificacionesListFragment extends ListFragment {
 
+    public static String ARG_ITEM_ID;
     private EditText searchET;
     private ImageButton searchBTN;
     private CalificacionAdapter adapter;
@@ -45,10 +47,7 @@ public class CalificacionesListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.idUsuario = this.getActivity().getIntent().getExtras().getInt(LoginActivity.ID_USER);
-
-        buscarCalificacionesDeUsuario(this.idUsuario);
-
+        this.idUsuario = getArguments().getInt(CalificacionesListFragment.ARG_ITEM_ID);
     }
 
     private void buscarCalificacionesDeUsuario(Integer idUsuario) {
@@ -68,6 +67,8 @@ public class CalificacionesListFragment extends ListFragment {
 
             @Override
             public void onFailure(Call<List<CalificacionMinificada>> call, Throwable t) {
+                t.printStackTrace();
+                onFailed();
             }
         });
     }
@@ -79,7 +80,7 @@ public class CalificacionesListFragment extends ListFragment {
 
 
     public interface Callbacks {
-        void onItemSelected(Calificacion calificacion);
+        void onItemSelected(CalificacionMinificada calificacion);
     }
 
     @Override
@@ -125,16 +126,20 @@ public class CalificacionesListFragment extends ListFragment {
     public void onStart() {
         super.onStart();
         //Actualiza la lista cada vez que el activity esta por estar visible.
-        this.buscar();
-        adapter.notifyDataSetChanged();
+        //this.buscar();
+        //adapter.notifyDataSetChanged();
+        buscarCalificacionesDeUsuario(this.idUsuario);
     }
 
+    private void onFailed() {
+        Toast.makeText(this.getActivity(), "Falló la conexión", Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        Calificacion calificacion = (Calificacion) this.getListAdapter().getItem(position);
+        CalificacionMinificada calificacion = (CalificacionMinificada) this.getListAdapter().getItem(position);
         Callbacks callbacks = (Callbacks) this.getActivity();
         callbacks.onItemSelected(calificacion);
     }

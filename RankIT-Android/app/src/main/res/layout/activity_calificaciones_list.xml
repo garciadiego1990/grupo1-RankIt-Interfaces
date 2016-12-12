@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment android:id="@+id/calificaciones_fragment"
+        <FrameLayout android:id="@+id/calificaciones_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="ar.edu.unq.uis.rankit_android.CalificacionesListFragment"/>
+            android:layout_height="match_parent"/>
 
 
     </LinearLayout>
